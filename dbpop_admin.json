@@ -1,0 +1,5 @@
+[
+    { "name":"Filippo" , "surname":"Intrieri", "email":"f.intrieri@unisa.it" ,"password":"filip123" },
+    { "name" :"Andrea" , "surname":"Marino", "email":"a.marino@unisa.it" ,"password":"andrea123" }
+  
+  ]
