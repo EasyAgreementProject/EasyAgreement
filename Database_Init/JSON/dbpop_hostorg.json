@@ -1,0 +1,7 @@
+[
+    { "ErasmusCode":"appl2020" , "Faculty":"Informatica", "Address":"Via Kennedy" ,"Size":"34532" ,"Country":"USA","Contacts":"help@apple.com","Name":"Apple"},
+    { "ErasmusCode":"sams9797" , "Faculty":"Informatica", "Address":"Via Chon" ,"Size":"7643" ,"Country":"CHINA","Contacts":"help@samsung.com","Name":"Samsung"},
+    { "ErasmusCode":"noki8080" , "Faculty":"Informatica", "Address":"Via Corrado Alvaro" ,"Size":"8766" ,"Country":"Europe","Contacts":"help@nokia.com","Name":"Nokia"},
+    { "ErasmusCode":"aman2019" , "Faculty":"Economia", "Address":"Via Khon" ,"Size":"4567" ,"Country":"Europe","Contacts":"help@amazon.com","Name":"Amazon"}
+  
+  ]

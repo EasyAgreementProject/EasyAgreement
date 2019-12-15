@@ -1,0 +1,7 @@
+[
+    { "E_mail":"s.cotto@gmail.com" , "Password":"sara123",  "Surname":"Cotto" ,"Name":"Sara","Organization":"Apple"},
+    { "E_mail":"s.brignolo@gmail.com" , "Password":"silvia345", "Surname":"Brignolo" ,"Name":"Silvia","Organization":"Amazon"},
+    { "E_mail":"a.lombardo@libero.it" , "Password":"alberto987", "Surname":"Lombardo" ,"Name":"Alberto","Organization":"Samsung"},
+    { "E_mail":"f.costa@gmail.com" , "Password":"fede456",      "Surname":"Costa" ,"Name":"Federico","Organization":"Apple"},
+    { "E_mail":"a.gentile@yahoo.it" , "Password":"angelo678", "Surname":"Gentile" ,"Name":"Angelo","Organization":"Nokia"}
+]
