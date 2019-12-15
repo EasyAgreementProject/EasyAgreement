@@ -5,6 +5,6 @@ app.get('/', function (req, res) {
     res.send("Hello World");
 });
 
-app.listen(8080, function () {
+app.listen(8180, function () {
   console.log('EasyAgreement Platform listening on port 3000!');
 });
