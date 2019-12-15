@@ -14,11 +14,11 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
 
     
     const fs = require('fs');
-        let studentData = fs.readFileSync('dbpop_student.json');
-        let adminData = fs.readFileSync('dbpop_admin.json');
-        let actutorData = fs.readFileSync('dbpop_actutor.json');
-        let extTutorData = fs.readFileSync('dbpop_exttutor.json');
-        let hostOrgData = fs.readFileSync('dbpop_hostorg.json');
+        let studentData = fs.readFileSync('Database_Init/JSON/dbpop_student.json');
+        let adminData = fs.readFileSync('Database_Init/JSON/dbpop_admin.json');
+        let actutorData = fs.readFileSync('Database_Init/JSON/dbpop_actutor.json');
+        let extTutorData = fs.readFileSync('Database_Init/JSON/dbpop_exttutor.json');
+        let hostOrgData = fs.readFileSync('Database_Init/JSON/dbpop_hostorg.json');
 
 
 
