@@ -1,14 +1,18 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var learningAgreementControl = require('./app/controllers/learningAgreementControl');
-var learningAgreement = require('./app/models/learningAgreement');
+
+//Loading static files from CSS and Bootstrap module
+app.use('/public', express.static(__dirname + '/public'));
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 app.get('/', function (req, res) {
-    res.send("Hello World");
+    res.sendFile(path.join(__dirname + "/app/views/index.html"))
 });
 
 app.get('/compileStudent', function (req, res) {
-  //TO DO send parameters from rquest to control
+  //TO DO send parameters from rquest to controller
   var compileStudent = learningAgreementControl.compileLaStudent();
   compileStudent.then(function(la) {
     var document = la.document;

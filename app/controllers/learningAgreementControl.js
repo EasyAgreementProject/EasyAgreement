@@ -50,10 +50,11 @@ exports.compileLaStudent = function() {
                 //send Filled PDF to Client side
                 var file = fs.createReadStream('pdf/Filled_LA.pdf');
                 var la = {
+                    "filling": data,
                     "document": file,
                     "studentID": data["E-mail"],
-                    "state":0,
-                    "date":data["The trainee date"]
+                    "state": 0,
+                    "date": data["The trainee date"]
                 }
                 var insertLearningAgreement = learningAgreement.insertLearningAgreement(la);
                 insertLearningAgreement.then(function() {
