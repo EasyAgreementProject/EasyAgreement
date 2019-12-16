@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "chai": "^4.2.0",
     "express": "^4.17.1",
+    "jquery": "^3.4.1",
     "mocha": "^6.2.2",
     "mongodb": "^3.4.0",
     "pdffiller": "0.0.11",
