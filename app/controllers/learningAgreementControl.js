@@ -1,24 +1,24 @@
-var express = require('express');
-var app = express();
 var pdfFiller = require('pdffiller');
 var fs = require('fs');
-app.get('/learningAgreementControl', function (req, res) {
+var learningAgreement = require('../models/learningAgreement.js');
+
+exports.compileLaStudent = function() {
     var sourcePDF = "pdf/Template_LA.pdf";
     var destinationPDF =  "pdf/Filled_LA.pdf";
     var data = {
         "Header name" : "Veronica Volpicelli",
         "Last name (s)" : "Volpicelli",
         "First name (s)": "Veronica",
-        "Date of Birth" : "22/04/1996",
+        "Date of birth" : "22/04/1996",
         "Nationality":"Italiana",
-        "Sex" : "F",
+        "Sex [M/F]" : "F",
         "Academic year1":"19",
         "Academic year2":"20",
-        "Study Cycle" : "1st cycle",
+        "Study cycle" : "1st cycle",
         "Subject area, Code":"Informatica, 05121",
         "Phone" : "0123456789",
         "E-mail" : "v.volpicelli4@studenti.unisa.it",
-        "Sending Department":"Informatica",
+        "Sending Departement":"Informatica",
         "Contact person name / position":"Filomena Ferrucci",
         "Contact person Email / Phone":"f.ferrucci@unisa.it",
         "Name Sector":"Non lo so",
@@ -40,15 +40,27 @@ app.get('/learningAgreementControl', function (req, res) {
         "The trainee signature": "Veronica Volpicelli",
         "The trainee date":"08/12/2019"
     };
-
-    pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
-        if (err) throw err;
-        console.log("In callback (we're done).");
-        //send Filled PDF to Client side
-        var file = fs.createReadStream('pdf/Filled_LA.pdf');
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=LA.pdf');
-        file.pipe(res);
-    });
-
-});
+  
+    return new Promise(function (fulfill, reject) {          
+        pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
+            if (err)
+                throw err;
+            else {
+                console.log("PDF create successfully!");
+                //send Filled PDF to Client side
+                var file = fs.createReadStream('pdf/Filled_LA.pdf');
+                var la = {
+                    "document": file,
+                    "studentID": data["E-mail"],
+                    "state":0,
+                    "date":data["The trainee date"]
+                }
+                var insertLearningAgreement = learningAgreement.insertLearningAgreement(la);
+                insertLearningAgreement.then(function() {
+                    fulfill(la);
+                });
+                
+            }
+        });
+    })
+}
