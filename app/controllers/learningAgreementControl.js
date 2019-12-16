@@ -53,7 +53,7 @@ exports.compileLaStudent = function() {
                     "filling": data,
                     "document": file,
                     "studentID": data["E-mail"],
-                    "state": 0,
+                    "state": "submitted",
                     "date": data["The trainee date"]
                 }
                 var insertLearningAgreement = learningAgreement.insertLearningAgreement(la);
