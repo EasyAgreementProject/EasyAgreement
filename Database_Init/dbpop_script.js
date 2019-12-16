@@ -14,59 +14,57 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
 
     
     const fs = require('fs');
-        let studentData = fs.readFileSync('Database_Init/JSON/dbpop_student.json');
-        let adminData = fs.readFileSync('Database_Init/JSON/dbpop_admin.json');
-        let actutorData = fs.readFileSync('Database_Init/JSON/dbpop_actutor.json');
-        let extTutorData = fs.readFileSync('Database_Init/JSON/dbpop_exttutor.json');
-        let hostOrgData = fs.readFileSync('Database_Init/JSON/dbpop_hostorg.json');
+    let studentData = fs.readFileSync('Database_Init/JSON/dbpop_student.json');
+    let adminData = fs.readFileSync('Database_Init/JSON/dbpop_admin.json');
+    let actutorData = fs.readFileSync('Database_Init/JSON/dbpop_actutor.json');
+    let extTutorData = fs.readFileSync('Database_Init/JSON/dbpop_exttutor.json');
+    let hostOrgData = fs.readFileSync('Database_Init/JSON/dbpop_hostorg.json');
 
 
 
-        let students = JSON.parse(studentData);
-        let admin = JSON.parse(adminData);
-        let actutor = JSON.parse(actutorData);
-        let exttutor = JSON.parse(extTutorData);
-        let hostorg = JSON.parse(hostOrgData);
-        dbo.collection("Student").insertMany(students,function(err, result) {
+    let students = JSON.parse(studentData);
+    let admin = JSON.parse(adminData);
+    let actutor = JSON.parse(actutorData);
+    let exttutor = JSON.parse(extTutorData);
+    let hostorg = JSON.parse(hostOrgData);
+    dbo.collection("Student").insertMany(students,function(err, result) {
 
-            if(err) throw err;
-            console.log("Succesfully inserted into database "+result.insertedCount+" students");
+        if(err) throw err;
+        console.log("Succesfully inserted into database "+result.insertedCount+" students");
 
-        });
+    });
 
-        dbo.collection("Administrator").insertMany(admin,function(err, result) {
+    dbo.collection("Administrator").insertMany(admin,function(err, result) {
 
-            if(err) throw err;
-            console.log("Succesfully inserted into database "+result.insertedCount+" admins");
+        if(err) throw err;
+        console.log("Succesfully inserted into database "+result.insertedCount+" admins");
 
-        });
+    });
 
-        dbo.collection("AcademicTutor").insertMany(actutor,function(err, result) {
+    dbo.collection("AcademicTutor").insertMany(actutor,function(err, result) {
 
-            if(err) throw err;
-            console.log("Succesfully inserted into database "+result.insertedCount+" academic tutors");
+        if(err) throw err;
+        console.log("Succesfully inserted into database "+result.insertedCount+" academic tutors");
 
-        });
+    });
 
-        dbo.collection("ExternalTutor").insertMany(exttutor,function(err, result) {
+    dbo.collection("ExternalTutor").insertMany(exttutor,function(err, result) {
 
-            if(err) throw err;
-            console.log("Succesfully inserted into database "+result.insertedCount+" external tutors");
+        if(err) throw err;
+        console.log("Succesfully inserted into database "+result.insertedCount+" external tutors");
 
-        });
+    });
 
-        dbo.collection("HostOrganization").insertMany(hostorg,function(err, result) {
+    dbo.collection("HostOrganization").insertMany(hostorg,function(err, result) {
 
-            if(err) throw err;
-            console.log("Succesfully inserted into database "+result.insertedCount+" host organizations");
+        if(err) throw err;
+        console.log("Succesfully inserted into database "+result.insertedCount+" host organizations");
 
-        });
+    });
 
-
-
-    
-
-
-
+    dbo.createCollection("LearningAgreement", function(err) {
+        if (err) throw err;
+        console.log("Succesfully created the collection LearningAgrrement.")
+    })
 
 });
