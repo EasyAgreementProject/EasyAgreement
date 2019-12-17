@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 
 //Database URL
 const url="mongodb://localhost:27017/easyagreement";
@@ -57,7 +58,6 @@ class LearningAgreement {
     }
 
     insertLearningAgreement(learningAgreement) {
-        //Doesn't work, never goes in the if body because result is always null
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
                 if(err) throw err;
@@ -67,6 +67,8 @@ class LearningAgreement {
                 get.then(function(result){
                     console.log("Learning Agreeement per lo StudentID: "+learningAgreement.getStudentID()+" = "+result)
                     if(result) {
+                        result._id = new ObjectID();
+                        learningAgreement.version = result.version+1;
                         var del = learningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
                         del.then(function() {
                             dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
@@ -82,6 +84,7 @@ class LearningAgreement {
                         })
                     }
                     else {
+                        learningAgreement.version = 1;
                         dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                             if(err) throw err;
                             console.log("Learning Agreement inserted correctly! (No other versions were found)");
@@ -94,15 +97,14 @@ class LearningAgreement {
     }
 
     getLearningAgreement(studentID) {
-        //Doesn't work as expected, always returns null
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
                 if(err) throw err;
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
-                dbo.collection("current_LearningAgreement").findOne({"StudentID":studentID}, function(err, result) {
+                dbo.collection("current_LearningAgreement").findOne({"studentID":studentID}, function(err, result) {
                     if(err) throw err;
-                    console.log("Learning Agreement search completed! "+result);
+                    console.log("Learning Agreement search completed! "+result+" StudentID = "+studentID);
                     db.close();
                     fulfill(result);
                 });
@@ -111,13 +113,12 @@ class LearningAgreement {
     }
 
     deleteLearningAgreement(studentID) {
-        //Doesn't seemt to work either
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
                 if(err) throw err;
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
-                dbo.collection("current_LearningAgreement").deleteOne({"StudentID":studentID}, function(err) {
+                dbo.collection("current_LearningAgreement").deleteOne({"studentID":studentID}, function(err) {
                     if(err) throw err;
                     console.log("Learning Agreement deleted correctly!");
                     db.close();
