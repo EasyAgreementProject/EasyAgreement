@@ -1,6 +1,7 @@
 var pdfFiller = require('pdffiller');
 var fs = require('fs');
-var learningAgreement = require('../models/learningAgreement.js');
+var LearningAgreement = require('../models/learningAgreement.js');
+var learningAgreement = new LearningAgreement();
 
 exports.compileLaStudent = function() {
     var sourcePDF = "pdf/Template_LA.pdf";
@@ -49,16 +50,15 @@ exports.compileLaStudent = function() {
                 console.log("PDF create successfully!");
                 //send Filled PDF to Client side
                 var file = fs.createReadStream('pdf/Filled_LA.pdf');
-                var la = {
-                    "filling": data,
-                    "document": file,
-                    "studentID": data["E-mail"],
-                    "state": "submitted",
-                    "date": data["The trainee date"]
-                }
-                var insertLearningAgreement = learningAgreement.insertLearningAgreement(la);
+                learningAgreement.setFilling(data);
+                learningAgreement.setDocument(file);
+                learningAgreement.setStudentID(data["E-mail"]);
+                learningAgreement.setState("sumbitted");
+                learningAgreement.setDate(data["The trainee date"]);
+              
+                var insertLearningAgreement = learningAgreement.insertLearningAgreement(learningAgreement);
                 insertLearningAgreement.then(function() {
-                    fulfill(la);
+                    fulfill(learningAgreement);
                 });
                 
             }

@@ -16,59 +16,62 @@ class LearningAgreement {
         this.date = null;
     }
 
-    set filling(filling) {
+    setFilling(filling) {
         this.filling = filling;
     }
 
-    get filling() {
+    getFilling() {
         return this.filling;
     }
 
-    set document(document) {
+    setDocument(document) {
         this.document = document;
     }
     
-    get document() {
+    getDocument() {
         return this.document;
     }
 
-    set studentID(state) {
+    setStudentID(studentID) {
         this.studentID = studentID;
     }
     
-    get studentID() {
+    getStudentID() {
         return this.studentID;
     }
 
-    set state(state) {
+    setState(state) {
         this.state = state;
     }
     
-    get state() {
+    getState() {
         return this.state;
     }
 
-    set date(date) {
+    setDate(date) {
         this.date = date;
     }
 
-    get date() {
+    getDate() {
         return this.date;
     }
-}
 
-exports.insertLearningAgreement = function(learningAgreement) {
-    return new Promise(function (fulfill, reject) {
-        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
-            if(err) throw err;
-            console.log("Connected successfully to server!");
-            var dbo = db.db(dbName);
-            dbo.collection("LearningAgreement").insertOne(learningAgreement, function(err) {
+    insertLearningAgreement(learningAgreement) {
+        return new Promise(function (fulfill, reject) {
+            MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
                 if(err) throw err;
-                console.log("Learing Agreement inserted correctly!");
-                fulfill();
-                db.close();
+                console.log("Connected successfully to server!");
+                var dbo = db.db(dbName);
+                dbo.collection("LearningAgreement").insertOne(learningAgreement, function(err) {
+                    if(err) throw err;
+                    console.log("Learning Agreement inserted correctly!");
+                    fulfill();
+                    db.close();
+                });
             });
         });
-    });
+    }
+
 }
+
+module.exports = LearningAgreement
