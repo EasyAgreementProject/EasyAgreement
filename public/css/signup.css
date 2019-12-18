@@ -1,0 +1,219 @@
+:root {
+  --input-padding-x: 1.5rem;
+  --input-padding-y: .75rem;
+}
+
+body {
+  background: #eee !important;
+}
+
+.card-signin {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-signin .card-title {
+  margin-bottom: 2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.card-signin .card-img-left {
+  width: 45%;
+  /* Link to your background image using in the property below! */
+  background: scroll center url('../img/EasyAgreement_Logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.card-signin .card-body {
+  padding: 2rem;
+}
+
+.form-signin {
+  width: 100%;
+}
+
+.form-signin .btn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 0.2s;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group input {
+  height: auto;
+  border-radius: 2rem;
+}
+
+.form-label-group>input,
+.form-label-group>label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown)~label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
+
+.radioButtons ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+	overflow: auto;
+}
+
+.radioButtons li{
+  color: #222;
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 50px;
+}
+
+.radioButtons li input[type="radio"]{
+  position: absolute;
+  visibility: hidden;
+}
+
+.radioButtons li label{
+  display: block;
+  position: relative;
+  font-weight: 10;
+  font-size: 1em;
+  padding: 0% 0% 0% 20%;
+  height: 20px;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+.radioButtons li:hover label{
+  color: #999;
+}
+
+.radioButtons li .radios{
+  display: block;
+  position: absolute;
+  border: 5px solid #AAAAAA;
+  border-radius: 100%;
+  height: 25px;
+  width: 25px;
+  top: 0%;
+  left: 20px;
+	z-index: 5;
+	transition: border .25s linear;
+	-webkit-transition: border .25s linear;
+}
+
+.radioButtons li:hover .radios{
+  border: 5px solid #FFFFFF;
+}
+
+.radioButtons li .radios::before{
+  display: block;
+  position: absolute;
+	content: '';
+  border-radius: 100%;
+  height: 15px;
+  width: 15px;
+  top: 5px;
+	left: 5px;
+  margin: auto;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+}
+
+input[type="radio"]:checked ~ .radios{
+  border: 5px orange;
+}
+
+input[type="radio"]:checked ~ .radios::before{
+  background: orange;
+}
+
+input[type="radio"]:checked ~ label{
+  color: orange;
+}
+
+.btn{
+  background-color: orange !important;
+  border-color: orange !important;
+}
+
+.mt-2{
+  color: orange;
+}
+
+.form-control:focus {
+  border-color: orange !important;
+}
+
+#errNameT, #errSurnameT, #errEmailT, #errDepartmentT, #errName, #errSurname, #errEmail, #errMatricola, #errCity, #errAddress, #errCourse, #errPassword, #errConfirmPassword{
+  color:red;
+  display: none;
+  margin-top: -5px;
+  font-size: 14px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.errClass{
+  border-color: red !important;
+}
+
+.errClass:focus{
+  border-color: red !important;
+}
