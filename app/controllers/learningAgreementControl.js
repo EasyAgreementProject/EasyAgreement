@@ -1,7 +1,7 @@
 var pdfFiller = require('pdffiller');
 var fs = require('fs');
-var LearningAgreement = require('../models/learningAgreement.js');
-var learningAgreement = new LearningAgreement();
+var LA = require('../models/learningAgreement.js');
+var learningAgreement = new LA();
 
 exports.compileLaStudent = function() {
     var sourcePDF = "pdf/Template_LA.pdf";
@@ -56,8 +56,8 @@ exports.compileLaStudent = function() {
                 learningAgreement.setState("sumbitted");
                 learningAgreement.setDate(data["The trainee date"]);
               
-                var insertLearningAgreement = learningAgreement.insertLearningAgreement(learningAgreement);
-                insertLearningAgreement.then(function() {
+                var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                insertLearningAgreementPr.then(function() {
                     fulfill(learningAgreement);
                 });
                 

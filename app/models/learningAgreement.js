@@ -57,19 +57,19 @@ class LearningAgreement {
         return this.date;
     }
 
-    insertLearningAgreement(learningAgreement) {
+    static insertLearningAgreement(learningAgreement) {
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
                 if(err) throw err;
                 console.log("Connected successfully to server!");  
                 var dbo = db.db(dbName);
-                var get = learningAgreement.getLearningAgreement(learningAgreement.getStudentID());
+                var get = LearningAgreement.getLearningAgreement(learningAgreement.getStudentID());
                 get.then(function(result){
                     console.log("Learning Agreeement per lo StudentID: "+learningAgreement.getStudentID()+" = "+result)
                     if(result) {
                         result._id = new ObjectID();
                         learningAgreement.version = result.version+1;
-                        var del = learningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
+                        var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
                         del.then(function() {
                             dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                                 if(err) throw err;
@@ -96,7 +96,7 @@ class LearningAgreement {
         });
     }
 
-    getLearningAgreement(studentID) {
+    static getLearningAgreement(studentID) {
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
                 if(err) throw err;
@@ -112,7 +112,7 @@ class LearningAgreement {
         });
     }
 
-    deleteLearningAgreement(studentID) {
+    static deleteLearningAgreement(studentID) {
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
                 if(err) throw err;
