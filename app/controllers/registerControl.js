@@ -68,8 +68,10 @@ exports.signup= function(req, res){
             res.sendFile(path.resolve('app/views/signup.html'));
         }
 
+        //hashing e salt della password
         var passwordHashed=hash.hashPassword(password);
 
+        //creazione oggetto studente
         var studente={
             Name : name,
             Surname: surname,
@@ -83,6 +85,7 @@ exports.signup= function(req, res){
 
     }
     else if(req.body.radioAccount=="tutorAccademico"){
+        //prelevo variabili da form
         var name= req.body.inputNameT;
         var surname= req.body.inputSurnameT;
         var email= req.body.inputEmailT;
@@ -90,6 +93,7 @@ exports.signup= function(req, res){
         var password= req.body.inputPassword;
         var passwordConfirm= req.body.inputConfirmPassword;
 
+        //validazione form
         if((name==null) || (name.length<=1) || (!new RegExp("^[A-Za-z]+$").test(name))){
             res.cookie('errTutorName','1');
             var path = require('path');
@@ -126,8 +130,10 @@ exports.signup= function(req, res){
             res.sendFile(path.resolve('app/views/signup.html'));
         }
 
+        //hashing e salt della password
         var passwordHashed=hash.hashPassword(password);
 
+        //oggetto tutor accademico
         var tutorAccademico={
             Name: name,
             Surname: surname,
