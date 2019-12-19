@@ -172,7 +172,7 @@ function testMatricola(){
 function testCitta(){
     var citta= $('#inputCity').val();
     if(citta.length>=3){
-        var exp= new RegExp("^[A-Za-z]+$");
+        var exp= new RegExp("^[A-Za-z\s]*");
         if(exp.test(citta))     return true;
     }
     return false;
@@ -181,7 +181,7 @@ function testCitta(){
 function testIndirizzo(){
     var indirizzo = $('#inputAddress').val();
     if(indirizzo.length>=3){
-        var exp= new RegExp("^[A-Za-z0-9,\s]+$");
+        var exp= new RegExp("^[A-Za-z0-9,\s]*");
         if(exp.test(indirizzo))     return true;
     }
     return false;
@@ -190,7 +190,7 @@ function testIndirizzo(){
 function testCorso(){
     var corso= $('#inputCourse').val();
     if(corso.length>=2){
-        var exp= new RegExp("^[A-Za-z]+$");
+        var exp= new RegExp("^[A-Za-z\s]*");
         if(exp.test(corso))     return true;
     }
     return false;
@@ -199,7 +199,7 @@ function testCorso(){
 function testDepartment(){
     var department= $('#inputDepartmentT').val();
     if(department.length>=2){
-        var exp=new RegExp("^[A-Za-z0-9\s]+");
+        var exp=new RegExp("^[A-Za-z0-9\s]*");
         if(exp.test(department))    return true;
     }
     return false;

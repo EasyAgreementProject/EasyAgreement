@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="/css/signup.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/js/signupValidate.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="js/cookie.js"></script>
     <script language="Javascript">
       function formStudent(){
           document.getElementsByClassName("forTutor")[0].style.display='none';
@@ -33,7 +35,6 @@
         <div class="col-lg-10 col-xl-9 mx-auto">
           <div class="card card-signin flex-row my-5">
             <div class="card-img-left d-none d-md-flex">
-               <!-- Background image for card set in CSS! -->
             </div>
             <div class="card-body">
               <h5 class="card-title text-center">Registrazione</h5>
@@ -41,12 +42,12 @@
                 <div class="radioButtons">
                   <ul>
                     <li>
-                      <input type="radio" id="studentRadio" name="radioAccount" onclick="formStudent()" checked>
+                      <input type="radio" id="studentRadio" name="radioAccount" value="studente" onclick="formStudent()" checked>
                       <label for="studentRadio" >Studente</label>
                       <div class="radios"></div>
                     </li>
                     <li>
-                      <input type="radio" id="tutorAccRadio" name="radioAccount" onclick="formTutor()">
+                      <input type="radio" id="tutorAccRadio" name="radioAccount" value="tutorAccademico" onclick="formTutor()">
                       <label for="tutorAccRadio" >Tutor Accademico</label>
                       <div class="radios"><div class="insideRadio"></div></div>
                     </li>
@@ -54,25 +55,25 @@
                 </div>   
                 <div class="forTutor" style="display: none;">
                   <div class="form-label-group">
-                    <input type="text" id="inputNameT" class="form-control tutor" placeholder="Nome" autofocus>
+                    <input type="text" id="inputNameT" class="form-control tutor" name="inputNameT" placeholder="Nome" autofocus>
                     <label for="inputNameT">Nome</label>
                     <span id="errNameT">Nome non valido</span>
                   </div>
 
                   <div class="form-label-group">
-                    <input type="text" id="inputSurnameT" class="form-control tutor" placeholder="Cognome">
+                    <input type="text" id="inputSurnameT" class="form-control tutor" name="inputSurnameT" placeholder="Cognome">
                     <label for="inputSurnameT">Cognome</label>
                     <span id="errSurnameT">Cognome non valido</span>
                   </div>
 
                   <div class="form-label-group">
-                    <input type="email" id="inputEmailT" class="form-control tutor" placeholder="E-mail">
+                    <input type="email" id="inputEmailT" class="form-control tutor" name="inputEmailT" placeholder="E-mail">
                     <label for="inputEmailT">E-mail</label>
                     <span id="errEmailT">E-mail non valida</span>
                   </div>
 
                   <div class="form-label-group">
-                    <input type="text" id="inputDepartmentT" class="form-control tutor" placeholder="Dipartimento">
+                    <input type="text" id="inputDepartmentT" class="form-control tutor" name="inputDepartmentT" placeholder="Dipartimento">
                     <label for="inputDepartmentT">Dipartimento</label>
                     <span id="errDepartmentT">Dipartimento non valido</span>
                   </div>
@@ -80,43 +81,43 @@
 
                 <div class="forStudent" style="display: initial;">       
                   <div class="form-label-group">
-                    <input type="text" id="inputName" class="form-control student" placeholder="Nome" autofocus required>
+                    <input type="text" id="inputName" class="form-control student" name="inputName" placeholder="Nome" autofocus>
                     <label for="inputName">Nome</label>
                     <span id="errName">Nome non valido</span>
                   </div>
     
                   <div class="form-label-group">
-                    <input type="text" id="inputSurname" class="form-control student" placeholder="Cognome" required>
+                    <input type="text" id="inputSurname" class="form-control student" name="inputSurname" placeholder="Cognome" required>
                     <label for="inputSurname">Cognome</label>
                     <span id="errSurname">Cognome non valido</span>
                   </div>
 
                   <div class="form-label-group">
-                    <input type="email" id="inputEmail" class="form-control student" placeholder="E-mail" required>
+                    <input type="email" id="inputEmail" class="form-control student" name="inputEmail" placeholder="E-mail" required>
                     <label for="inputEmail">E-mail</label>
                     <span id="errEmail">E-mail non valida</span>
                   </div>
                   
                   <div class="form-label-group">
-                    <input type="text" id="inputMatricola" class="form-control student" placeholder="Matricola" required>
+                    <input type="text" id="inputMatricola" class="form-control student" name="inputMatricola" placeholder="Matricola" required>
                     <label for="inputMatricola">Matricola</label>
                     <span id="errMatricola">Matricola non valida</span>
                   </div>
 
                   <div class="form-label-group">
-                    <input type="text" id="inputCity" class="form-control student" placeholder="Citt&agrave" required>
+                    <input type="text" id="inputCity" class="form-control student" name="inputCity" placeholder="Citt&agrave" required>
                     <label for="inputCity">Citt&agrave</label>
                     <span id="errCity">Citt&agrave non valida</span>
                   </div>
 
                   <div class="form-label-group">
-                    <input type="text" id="inputAddress" class="form-control student" placeholder="Indirizzo" required>
+                    <input type="text" id="inputAddress" class="form-control student" name="inputAddress" placeholder="Indirizzo" required>
                     <label for="inputAddress">Indirizzo</label>
                     <span id="errAddress">Indirizzo non valido</span>
                   </div>
 
                   <div class="form-label-group">
-                    <input type="text" id="inputCourse" class="form-control student" placeholder="Corso di laurea" required>
+                    <input type="text" id="inputCourse" class="form-control student" name="inputCourse" placeholder="Corso di laurea" required>
                     <label for="inputCourse">Corso di laurea</label>
                     <span id="errCourse">Corso di laurea non valido</span>
                   </div>
@@ -125,13 +126,13 @@
                 <hr>
   
                 <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                  <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Password" required>
                   <label for="inputPassword">Password</label>
                   <span id="errPassword">Password non valida</span>
                 </div>
                 
                 <div class="form-label-group">
-                  <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Conferma password" required>
+                  <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Conferma password" required>
                   <label for="inputConfirmPassword">Conferma password</label>
                   <span id="errConfirmPassword">La password non corrisponde</span>
                 </div>

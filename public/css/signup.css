@@ -137,7 +137,6 @@ body {
   height: 20px;
   z-index: 9;
   cursor: pointer;
-  -webkit-transition: all 0.25s linear;
 }
 
 .radioButtons li:hover label{
