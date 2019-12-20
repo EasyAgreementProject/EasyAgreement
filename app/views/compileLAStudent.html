@@ -72,22 +72,22 @@
                 <hr>
                 <img class="logoEA" src="/img/EasyAgreement_Logo.png" style="width: 50px; height: 50px; float: left;" alt="logo Easy Agreement">
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
-                <h5 style="text-align: justify; font-style: italic; color: darkblue;"> Compilazione Studente</h5>
+                <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Studente</h5>
                 <form id="formCompile" method="POST" action="compileLAStudent.html"><br>
                     <div class="form-label-group">
-                        <input type="text" id="inputName" class="form-control" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required><br>
+                        <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
                         <label for="inputName">Nome<label>
                             </div>
                             <div class="form-label-group">
-                                <input type="text" id="inputSurname" class="form-control" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required><br>
+                                <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
                                 <label for="inputSurname">Cognome</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="date" id="inputDate" class="form-control" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" required><br>
+                        <input type="date" id="inputDate" class="form-control" name="inputDate" placeholder="Data Di Nascita" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" required>
                         <label for="inputDate">Data Di Nascita</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="tel" id="inputTelephone" class="form-control" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" required><br>
+                        <input type="tel" id="inputTelephone" class="form-control" name="inputTelephone" placeholder="Telefono" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" required>
                         <label for="inputTelephone">Telefono</label>
                     </div>
                     <div class="row">
@@ -101,8 +101,8 @@
                                     </label>
                         </div>
                         <div class="col-auto-my-1">
-                            <label class="mr-sm-2" for="inlineFormCustomSelect">Nazionalità:</label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="Nazionalità">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect"><sup>1</sup>Nazionalità:</label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="nationality">
                                             <option selected="selected" value="">--Seleziona--</option>
                                             <option value="afghanistan">Afghanistan</option>
                                             <option value="albania">Albania</option>
@@ -210,7 +210,7 @@
                                             <option value="marshall islands">Isole Marshall</option>
                                             <option value="solomon islands">Isole Salomone</option>
                                             <option value="israel">Israele</option>
-                                            <option value="italy" selected="selected">Italia</option>
+                                            <option value="italy">Italia</option>
                                             <option value="kazakhstan">Kazakistan</option>
                                             <option value="kenya">Kenya</option>
                                             <option value="kyrgyzstan">Kirghizistan</option>
@@ -354,20 +354,168 @@
                         </div>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputStudyCicle" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
-                        <label for="inputStudyCicle">Ciclo Di Studi</label><br>
+                        <input type="text" class="form-control" id="inputStudyCicle" name="inputStudyCycle" placeholder="Ciclo Di Studi" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputStudyCicle"><sup>2</sup>Ciclo Di Studi</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="date" class="form-control" id="inputAcademicYear" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
-                        <label for="inputAcademicYear">Anno Accademico</label><br>
+                        <input type="date" class="form-control" id="inputAcademicYear1" name="inputAcademicYear1" placeholder="Anno Accademico 1" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
+                        <label for="inputAcademicYear">Anno Accademico1</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputCode" pattern="[0-9]\d{4}" required>
-                        <label for="inputCode">Codice Identificativo Facoltà </label><br>
+                        <input type="date" class="form-control" id="inputAcademicYear2" name="inputAcademicYear2" placeholder="Anno Accademico 2" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
+                        <label for="inputAcademicYear">Anno Accademico2</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="email" class="form-control" id="inputEmail" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" autofocus required>
-                        <label for="inputEmail">E-mail</label><br>
+                        <input type="text" class="form-control" id="inputSubjectCode" name="inputSubjectCode" placeholder="Facoltà e Codice Identificativo" pattern="^[a-z][A-Z][0-9]\d{4}" required>
+                        <label for="inputCode"><sup>3</sup>Codice Identificativo Facoltà </label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="E-mail" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" autofocus required>
+                        <label for="inputEmail">E-mail</label>
+                    </div>
+                    <hr>
+                    <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Istituto Di Provenienza</h5><br>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputDepartmentSending" name="inputDepartmentSending" placeholder="Dipartimento Di Provenienza" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputDepartmentSending">Dipartimento Di Provenienza</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="email" class="form-control" id="inputContactSending1" name="inputContactSending1" placeholder="Contatto Docente: E-mail" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+                            required>
+                        <label for="inputContactSending">Contatto Docente: E-mail</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="tel" class="form-control" id="inputContactSending2" name="inputContactSending2" placeholder="Contatto Docente: Telefono" pattern="^[0-9]" required>
+                        <label for="inputContactSending">Contatto Docente: Telefono</label>
+                    </div>
+                    <hr>
+                    <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzazione/Impresa Ricevente</h5><br>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputNameSector" name="inputNameSector" placeholder="Nome Settore" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputNameSector"><sup>4</sup>Nome Settore</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputDepartmentReciving" name="inputDepartmentReciving" placeholder="Dipartimento Ricevente" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputDepartmentReciving"> Dipartimento Ricevente</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="url" class="form-control" id="inputWebSite" name="inputWebSite" placeholder="Indirizzo Sito Web" pattern="^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$" required>
+                        <label for="inputWebSite">Indrizzo Sito Web</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputCountry" name="inputCountry" placeholder="Paese" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputCountry">Paese</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="number" class="form-control" id="inputSizeEnterprise" name="inputSizeEnterprise" placeholder="Dimensioni Organizzazione" pattern="^[0-9]*$" required>
+                        <label for="inputSizeEnterprise"><sup>5</sup>Dimensioni Organizzazione</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputContactReciving" name="inputContactReciving" placeholder="Contatto Ricevente: Name, Position" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputContactReciving"><sup>6</sup>Contatto Del Ricevente: Nome, Posizione</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputMentor" name="inputMentor" placeholder="Mentore: Nome, Posizione" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputMentor"><sup>7</sup>Mentore: Nome, Posizione</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputMentorEmail" name="inputMentorEmail" placeholder="Mentore: E-mail" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+\s{1}\/?\s?\d{9,10}$/" required>
+                        <label for="inputMentorEmail">Mentore: E-mail</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputMentorTel" name="inputMentorTel" placeholder="Mentore: Telefono" pattern="^[0-9]\" required>
+                        <label for="inputMentorTel">Mentore: Telefono</label>
+                    </div>
+                    <hr>
+                    <h5 style="text-align: justify; font-style: italic; color: darkblue;">Programma Di Mobilità Proposto</h5><br>
+                    <p style="font-weight: bold;">Periodo di mobilità pianificato da:</p>
+                    <div class="form-label-group">
+                        <input type="month" class="form-control" id="inputDateFrom" name="inputDateFrom" placeholder="mm/aaaa" pattern="(\d{2})/(\d{4})" required>
+                        <label for="inputDateFrom">mm/aaaa</label>
+                    </div>
+                    <p style="font-weight: bold;">al:</p>
+                    <div class="form-label-group">
+                        <input type="month" class="form-control" id="inputDateTo" name="inputDateTo" placeholder="mm/aaaa" pattern="(\d{2})/(\d{4})" required>
+                        <label for="inputDateTo">mm/aaaa</label>
+                    </div>
+                    <div class="inputHour">
+                        <p style="font-weight: bold;">Numero di ore lavorative settimanali:</p>
+                        <label for="inputHourWork">
+                    <input type="number" id="inputHourWork" name="inputHourWork" min="0">
+                    </label>
+                    </div>
+                    <div class="form-group">
+                        <p style="font-weight: bold;">Titolo Tirocinio:</p>
+                        <label for="comment"> </label>
+                        <textarea class="form-control" rows="1" id="inputTitle" name="inputTitle"></textarea>
+                    </div>
+                    <br>
+                    <p style="font-weight: bold;">Programma dettagliato del periodo di tirocinio:</p>
+                    <div class="form-group">
+                        <label for="comment"> </label>
+                        <textarea class="form-control" rows="3" id="inputDetailed" name="inputDetailed"></textarea>
+                    </div><br>
+                    <p style="font-weight: bold;">Conoscenze, abilità e competenze che il tirocinante deve acquisire al termine del tirocinio:</p>
+                    <div class="form-group">
+                        <label for="comment"> </label>
+                        <textarea class="form-control" rows="3" id="inputKnoledge" name="inputKnowledge"></textarea>
+                    </div><br>
+                    <p style="font-weight: bold;">Piano di monitoraggio:</p>
+                    <div class="form-group">
+                        <label for="comment"> </label>
+                        <textarea class="form-control" rows="2" id="inputMonitoring" name="inputMonitoring"></textarea>
+                    </div><br>
+                    <p style="font-weight: bold;">Piano di valutazione:</p>
+                    <div class="form-group">
+                        <label for="comment"> </label>
+                        <textarea class="form-control" rows="2" id="inputEvaluation" name="inputEvaluation"></textarea>
+                    </div><br>
+                    <div class="form-label-group">
+                        <p style="font-weight: bold;">Competenza linguistica del tirocinante:</p>
+                        <p>Il livello di competenza linguistica in<sup>8</sup>
+                            <input type="text" class="form-control" id="inputLenguage" name="inputLenguage" placeholder="Lingua" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                            <label for="inputLenguage">Lingua</label> [lingua principale sul luogo di lavoro] che il tirocinante ha già o accetta di acquisire all'inizio del periodo di mobilità è:</p>
+                    </div>
+                    <div class="row">
+                        <div class="form-check">
+                            <label for="inputRadio">A1</label>
+                            <input type="radio" name="inputRadio" value="A1">
+                            <br>
+                            <label for="inputRadio">A2</label>
+                            <input type="radio" name="inputRadio" value="A2">
+                            <br>
+                            <label for="inputRadio">B1</label>
+                            <input type="radio" name="inputRadio" value="B1">
+                            <br>
+                            <label for="inputRadio">B2</label>
+                            <input type="radio" name="inputRadio" value="B2">
+                            <br>
+                            <label for="inputRadio">C1</label>
+                            <input type="radio" name="inputRadio" value="C1">
+                            <br>
+                            <label for="inputRadio">C2</label>
+                            <input type="radio" name="inputRadio" value="C2">
+                            <br>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-label-group">
+                        <input type="date" id="inputDateCompilation" class="form-control" name="inputDateCompilation" placeholder="Data Di Compilazione" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" required>
+                        <label for="inputDateCompilation">Data Di Compilazione</label>
+                    </div><br>
+                    <h5 style="text-align: justify; font-style: italic; color: darkblue;">Note</h5><br>
+                    <div class="notes">
+                        <p>1) Nazionalità: Paese di appartenenza amministrativa della persona e che rilascia la carta d'identità e / o il passaporto.<br>
+                            <hr> 2) Ciclo di studio: ciclo breve (livello 5 EQF) / laurea triennale o equivalente (livello 6 EQF) / secondo ciclo master o equivalente (livello EQF 7) / dottorato o terzo ciclo equivalente (EQF livello 8) - per i neolaureati,
+                            specificare l'ultimo ciclo di studio.<br>
+                            <hr> 3) Lo strumento di ricerca ISCED-F 2013 disponibile su http://ec.europa.eu/education/tools/isced-f_en.htm dovrebbe essere utilizzato per trovare il settore dettagliato dell'istruzione e formazione ISCED 2013 più vicino all'argomento
+                            del titolo che deve essere assegnato al tirocinante dall'istituto di invio.<br>
+                            <hr> 4) L'elenco dei codici settoriali di alto livello della NACE è disponibile all'indirizzo: http://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2&StrLanguageCode=EN.<br>
+                            <hr> 5) Le dimensioni dell'impresa potrebbero essere, ad esempio, 1-50 / 51-500 / più di 500 dipendenti.<br>
+                            <hr> 6) Persona di contatto: una persona che può fornire informazioni nell'ambito di Erasmus tirocinanti.<br>
+                            <hr> 7) Mentore: il ruolo del mentore è di fornire supporto, incoraggiamento e informazione al tirocinante sulla vita e sull'esperienza relative all'impresa (cultura dell'impresa, codici e comportamenti informali, ecc.). Normalmente,
+                            il mentore dovrebbe essere una persona diversa rispetto al supervisore.<br>
+                            <hr> 8) Per il quadro comune europeo di riferimento per le lingue (QCER), consultare <br>https://europass.cedefop.europa.eu/resources/european-language-levels-cefr</p>
                     </div>
                     <hr>
                     <div class="btn-block">
