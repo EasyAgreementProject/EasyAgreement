@@ -64,9 +64,19 @@ class LearningAgreement {
                 console.log("Connected successfully to server!");  
                 var dbo = db.db(dbName);
                 var get = LearningAgreement.getLearningAgreement(learningAgreement.getStudentID());
-                get.then(function(result){
+                get.then(function(result){                    
                     console.log("Learning Agreeement per lo StudentID: "+learningAgreement.getStudentID()+" = "+result)
-                    if(result) {
+                    if(result && !result.document) {
+                        learningAgreement._id = new ObjectID();
+                        var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
+                        del.then(function() {
+                            dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
+                                if(err) throw err;
+                                console.log("Learning Agreement inserted correctly! (Other versions were found)");                            
+                            });
+                        })
+                    }
+                    else if(result && result.document) {
                         result._id = new ObjectID();
                         learningAgreement.version = result.version+1;
                         var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
