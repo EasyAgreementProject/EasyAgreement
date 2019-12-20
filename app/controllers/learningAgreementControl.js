@@ -7,30 +7,30 @@ exports.sendLaStudent = function() {
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF =  "pdf/Filled_LA.pdf";
     let data = {
-        //"Header name" : input[0]+input[1],
-        //"Last name (s)" : input[1],
-        //"First name (s)": input[0],
-        //"Date of birth" : input[2],
-        //"Nationality":input[5],
-        //"Sex [M/F]" : input[4],
+        "Header name" : "Veronica Volpicelli",
+        "Last name (s)" : "Volpicelli",
+        "First name (s)": "Veronica",
+        "Date of birth" : "22/04/96",
+        "Nationality":"Italiana",
+        "Sex [M/F]" : "F",
         "Academic year1":"19",
         "Academic year2":"20",
-        //"Study cycle" : input[6],
+        "Study cycle" : "1st cycle",
         "Subject area, Code":"Informatica, 05121",
-        //"Phone" : input[3],
+        "Phone" : "123456789",
         "E-mail" : "v.volpicelli4@studenti.unisa.it",
         "Sending Departement":"Informatica",
-        "Contact person name":"Filomena Ferrucci",
-        "Contact person E-mail / phone": "958304953",
-        "Contact person name / position":"Filomena Ferrucci",
-        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it",
+        "Contact person name":"Filomena Ferrucci, Responsabile",
+        "Contact person E-mail / phone": "f.ferrucci@unisa.it 1234456789",
+        "Contact person name / position":"Filomena Ferrucci, Responsabile",
+        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789",
         "Name Sector":"Non lo so",
         "Receiving Department":"Boh",
         "Address, website":"www.nonoloso.it",
         "Country":"Nessuna",
         "Size of enterprise":"Ma che è",
         "Mentor name / position":"Michela Bertolotto",
-        "Mentor e-mail / phone":"9876543210",
+        "Mentor e-mail / phone":"m.berto@gmail.com 9876543210",
         "from":"12/2019",
         "till":"06/2020",
         "Number of working hours for week":"8",
@@ -40,31 +40,40 @@ exports.sendLaStudent = function() {
         "Monitoring plan":"Non so cosa dovrebbe essere",
         "Evaluation plan":"Come per il monitoring plan",
         "language competence":"english",
-        //"The trainee signature": input[0]+input[1],
+        "The trainee signature": "Veronica Volpicelli",
         "The trainee date":"08/12/2019"
     };
   
-    return new Promise(function (fulfill, reject) {          
-        pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
-            if (err)
-                throw err;
+    return new Promise(function (fulfill, reject) {   
+        let validatePr = exports.validateData(data);
+        validatePr.then(function(result){
+            if(result) {
+                pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
+                    if (err)
+                        throw err;
+                    else {
+                        console.log("PDF create successfully!");
+                        //send Filled PDF to Client side
+                        var file = fs.createReadStream('pdf/Filled_LA.pdf');
+                        learningAgreement.setFilling(data);
+                        learningAgreement.setDocument(file);
+                        learningAgreement.setStudentID(data["E-mail"]);
+                        learningAgreement.setState("sumbitted");
+                        learningAgreement.setDate(data["The trainee date"]);
+                    
+                        var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                        insertLearningAgreementPr.then(function() {
+                            fulfill(learningAgreement);
+                        });
+                        
+                    }
+                })
+            }
             else {
-                console.log("PDF create successfully!");
-                //send Filled PDF to Client side
-                var file = fs.createReadStream('pdf/Filled_LA.pdf');
-                learningAgreement.setFilling(data);
-                learningAgreement.setDocument(file);
-                learningAgreement.setStudentID(data["E-mail"]);
-                learningAgreement.setState("sumbitted");
-                learningAgreement.setDate(data["The trainee date"]);
-              
-                var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                insertLearningAgreementPr.then(function() {
-                    fulfill(learningAgreement);
-                });
-                
+                reject();
             }
         });
+        
     })
 }
 
@@ -72,7 +81,7 @@ exports.saveLaStudent = function() {
     var sourcePDF = "pdf/Template_LA.pdf";
     var destinationPDF =  "pdf/Filled_LA.pdf";
     var data = {
-        //"Header name" : input[0]+input[1],
+        "Header name" : "input[0]+input[1]",
         //"Last name (s)" : input[1],
         //"First name (s)": input[0],
         //"Date of birth" : input[2],
@@ -109,27 +118,32 @@ exports.saveLaStudent = function() {
         "The trainee date":"08/12/2019"
     };
   
-    return new Promise(function (fulfill, reject) {          
-        pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
-            if (err)
-                throw err;
-            else {
-                console.log("PDF create successfully!");
-                //send Filled PDF to Client side
-                let file = fs.createReadStream('pdf/Filled_LA.pdf');
-                learningAgreement.setFilling(data);
-                learningAgreement.setDocument(null);
-                learningAgreement.setStudentID(data["E-mail"]);
-                learningAgreement.setState(null);
-                learningAgreement.setDate(data["The trainee date"]);
-              
-                let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                insertLearningAgreementPr.then(function() {
-                    fulfill(file);
+    return new Promise(function (fulfill, reject) {      
+        let validatePr = exports.validateData(data);
+        validatePr.then(function(result){  
+            if(result) {
+                pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
+                    if (err)
+                        throw err;
+                    else {
+                        console.log("PDF create successfully!");
+                        //send Filled PDF to Client side
+                        let file = fs.createReadStream('pdf/Filled_LA.pdf');
+                        learningAgreement.setFilling(data);
+                        learningAgreement.setDocument(null);
+                        learningAgreement.setStudentID(data["E-mail"]);
+                        learningAgreement.setState(null);
+                        learningAgreement.setDate(data["The trainee date"]);
+                    
+                        let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                        insertLearningAgreementPr.then(function() {
+                            fulfill(file);
+                        });
+                        
+                    }
                 });
-                
             }
-        });
+        })
     })
 }
 
@@ -146,42 +160,47 @@ exports.getData = function(student) {
 
 exports.validateData = function(data) {
     return new Promise(function (fulfill, reject) {
-        if (data["Header name"].test("/^[A-Z|a-z]+\s{1}[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/") &&
-            data["Last name (s)"].test("/^[A-Z|a-z]+$/") &&
-            data["First name (s)"].test("/^[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/") &&
-            data["Date of birth"].test("/^([0-2][0-9]|(3)[0-1]){1}\/{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/") &&
-            data["Nationality"].test("/^[A-Z|a-z]+$/") &&
-            data["Sex [M/F]"].test("/^(M|F)/") &&
-            data["Academic year1"].test("/^\d{2}$/") &&
-            data["Academic year2"].test("/^\d{2}$/") &&
-            data["Study cycle"].test("/^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/") &&
-            data["Subject area, Code"].test("/?[A-Z|a-z]+,{1}\s?\d+$/") &&
-            data["Phone"].test("/^\d{1,10}$/") &&
-            data["E-mail"].test("/^[a-z]{1}\.{1}[a-z]{3,}\d{1,2}@{1}(studenti.unisa.it){1}$/") &&
-            data["Sending Departement"].test("/^[A-Z|a-z]+$/") &&
-            data["Contact person name"].test("/^[A-Z|a-z]+\s{1}[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/") &&
-            data["Contcat person E-mail / phone"].test("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+\s{1}\/?\s?\d{9,10}$/") &&
-            data["Contact person name / position"].test() &&
-            data["Receiving contact person e-mail phone"].test("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+\s{1}\/?\s?\d{9,10}$/") &&
-            data["Name Sector"].test("/^[A-Z|a-z]+$/") &&
-            data["Receiving Department"].test("/^[A-Z|a-z]+$/") &&
-            data["Address, website"].test("/^\w$/") &&
-            data["Country"].test("/^[A-Z|a-z]+$/") &&
-            data["Size of enterprise"].test("/^\d$/") &&
-            data["Mentor name / position"].test("/^\w$/") &&
-            data["Mentor e-mail / phone"].test("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+\s{1}\/?\s?\d{9,10}$/") &&
-            data["from"].test("/^{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/") &&
-            data["till"].test("/^{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/") &&
-            data["Number of working hours for week"].test("/^\d{2}$/") &&
-            data["Traineeship title"].test("/^\w$/") &&
-            data["Detailed programme of the traineeship period"].test("/^\w$/") &&
-            data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"].test("/^\w$/") &&
-            data["Monitoring plan"].test("/^\w$/") &&
-            data["Evaluation plan"].test("/^\w$/") &&
-            data["language competence"].test("/^[A-Z|a-z]+$/") &&
-            data["The trainee signature"].test("/^[A-Z|a-z]+\s{1}[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/") &&
-            data["The trainee date"].test("/^([0-2][0-9]|(3)[0-1]){1}\/{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/")) {
-                
+        console.log("Begin...");
+        if ((/^[A-Z|a-z]+\s{1}[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/.test(data["Header name"])) &&
+            /^[A-Z|a-z]+$/.test(data["Last name (s)"]) &&
+            /^[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/.test(data["First name (s)"]) &&
+            /^[A-Z|a-z]+$/.test(data["Nationality"]) &&
+            /^(M|F)/.test(data["Sex [M/F]"]) &&
+            /^\d{2}$/.test(data["Academic year1"]) &&
+            /^\d{2}$/.test(data["Academic year2"]) &&
+            /^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/.test(data["Study cycle"]) &&
+            /^[A-Z|a-z]+\,{1}\s?\d+$/.test(data["Subject area, Code"]) &&
+            /^\d{1,10}$/.test(data["Phone"]) &&
+            /^[a-z]{1}\.{1}[a-z]{3,}\d{1,2}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]) &&
+            /^\w+$/.test(data["Sending Departement"]) &&
+            /^[A-Z|a-z]+\s{1}[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/.test(data["Contact person name"]) &&
+            /^\w+/.test(data["Contact person E-mail / phone"]) &&
+            /^\w+$/.test(data["Contact person name / position"]) &&
+            /^\w+$/.test(data["Receiving contact person e-mail phone"]) &&
+            /^[A-Z|a-z]+$/.test(data["Name Sector"]) &&
+            /^[A-Z|a-z]+$/.test(data["Receiving Department"]) &&
+            /^\w+$/.test(data["Address, website"]) &&
+            /^[A-Z|a-z]+$/.test(data["Country"]) &&
+            /^\d+$/.test(data["Size of enterprise"]) &&
+            /^\w+$/.test(data["Mentor name / position"]) &&
+            /^\w+/.test(data["Mentor e-mail / phone"]) &&
+            /^{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["from"]) &&
+            /^{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["till"]) &&
+            /^\d{2}$/.test(data["Number of working hours for week"]) &&
+            /^\w+$/.test(data["Traineeship title"]) &&
+            /^\w$/.test(data["Detailed programme of the traineeship period"]) &&
+            /^\w+$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]) &&
+            /^\w+$/.test(data["Monitoring plan"]) &&
+            /^\w+$/.test(data["Evaluation plan"]) &&
+            /^[A-Z|a-z]+$/.test(data["language competence"]) &&
+            /^[A-Z|a-z]+\s{1}[A-Z|a-z]+(\s{1}[A-Z|a-z]+)?$/.test(data["The trainee signature"]) &&
+            /^([0-2][0-9]|(3)[0-1]){1}\/{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["The trainee date"])) {
+                console.log("All okay!");
+                fulfill(true);
             }
+        else{
+            console.log("Something's wrong!");
+            fulfill(false);
+        }
     });
 }

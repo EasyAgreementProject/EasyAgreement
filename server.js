@@ -32,6 +32,9 @@ app.get('/compileStudent', function(req, res) {
         res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
         document.pipe(res)
     });
+    sendStudent.catch(function(){
+        res.send('error');
+    })
 });
 
 app.get('/saveCompilation', function (req, res) {
@@ -43,6 +46,6 @@ app.get('/saveCompilation', function (req, res) {
     });
 });
 
-app.listen(8080, function() {
+app.listen(8380, function() {
     console.log('EasyAgreement Platform listening on port 3000!');
 });
