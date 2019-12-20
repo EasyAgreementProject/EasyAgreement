@@ -7,7 +7,10 @@ const url="mongodb://localhost:27017/easyagreement";
 const dbName="easyagreement";
 
 class Student {
-    //Constructor
+    /**
+     * Constructor of Student
+     * @constructor
+     */
     constructor() {
        this.studentID        = null;
        this.name             = null;
@@ -20,84 +23,165 @@ class Student {
        this.curriculum_vitae = null;
        this.address          = null;
     }
-    //Getter Methods
+
+    /**
+     * Get StudentID
+     * @returns {String}- return StudentID
+     */
     getStudentId(){
         return this.studentID;
     }
 
+    /**
+     * Get Name
+     * @returns {String}- return name
+     */
     getName(){
         return this.name;
     }
 
+    /**
+     * Get surname
+     * @returns {String} - return surname
+     */
     getSurname(){
         return this.surname;
     }
 
+    /**
+     * Get password
+     * @returns {Object}- return password
+     */
     getPassword(){
         return this.password;
     }
 
+    /**
+     * Get email
+     * @returns {String} - return email
+     */
     getEmail(){
         return this.email;
     }
 
+    /**
+     * Get city
+     * @returns {String}-  return city
+     */
     getCity(){
         return this.city;
     }
 
+    /**
+     * Get Degree Course
+     * @returns {string} - return degree course
+     */
     getDegreeCourse(){
         return this.degree_course;
     }
     
+    /**
+     * Get Identity cart
+     * @returns {File} - return identity cart
+     */
     getIdentityCard(){
         return this.identity_card;
     }
 
+    /**
+     * Get Curriculum Vitae
+     * @returns {File} - return Curriculum vitae
+     */
     getCurriculumVitae(){
         return this.curriculum_vitae;
     }
 
+    /**
+     * Get address
+     * @returns {String} - return address
+     */
     getAddress(){
         return this.address;
     }
 
-    //Setter Methods
+    /**
+     * Set name
+     * @param {String} name - name
+     */
     setName(name){
         this.name = name;
     }
 
+    /**
+     * Set surname
+     * @param {String} surname - surname
+     */
     setSurname(surname){
         this.surname = surname;
     }
 
+    /**
+     * Set password
+     * @param {Object} password - password
+     */
     setPassword(password){
         this.password = password;
     }
 
+    /**
+     * Set email
+     * @param {String} email - email
+     */
     setEmail(email){
         this.email = email;
     }
 
+    /**
+     * Set city
+     * @param {String} city - city
+     */
     setCity(city){
         this.city = city;
     }
 
+    /**
+     * Set degree course
+     * @param {String} degree_course - degree course
+     */
     setDegreeCourse(degree_course){
         this.degree_course = degree_course;
     }
 
+    /**
+     * Set identity card
+     * @param {File} identity_card - identity card
+     */
     setIdentityCard(identity_card){
         this.identity_card = identity_card;
     }
 
+    /**
+     * Set curriculum vitae
+     * @param {File} curriculum_vitae - curriculum vitae
+     */
     setCurriculumVitae(curriculum_vitae){
         this.curriculum_vitae = curriculum_vitae;
     }
 
+    /**
+     * Set address
+     * @param {String} address - address
+     */
     setAddress(address){
         this.address = address;
     }
 }
+
+/**
+ * Insert student in database
+ * @param {Object} student - student object
+ * @returns {Promise} - return promise
+ */
 exports.insertStudent = function(student) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
@@ -114,6 +198,11 @@ exports.insertStudent = function(student) {
     });
 }
 
+/**
+ * Find student by StudentID
+ * @param {String} studentID- studentID
+ * @returns {boolean} - return true if the object does not exist in database, else false
+ */
 exports.findByMatricola= function(studentID){
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){

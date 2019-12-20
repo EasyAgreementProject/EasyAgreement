@@ -6,7 +6,12 @@ const url="mongodb://localhost:27017/easyagreement";
 //Database name
 const dbName="easyagreement";
 
+
 class AcademicTutor {
+    /**
+     * Academic Tutor Class Model
+     * @constructor
+     */
     constructor(){
         this.email=null;
         this.password=null;
@@ -14,49 +19,93 @@ class AcademicTutor {
         this.name=null;
         this.department=null;
     }
-    //getter methods
+    
+    /**
+     * Get email
+     * @returns {string}- return email
+     */
     getEmail() {
         return this.email;
     }
 
+    /**
+     * Get password
+     * @returns {Object}- return password
+     */
     getPassword() {
         return this.password;
     }
 
+    /**
+     * Get surname
+     * @returns {String}- return surname
+     */
     getSurname() {
         return this.surname;
     }
 
+    /**
+     * Get Name
+     * @returns {String}- return name
+     */
     getName(){
         return this.name;
     }
 
+    /**
+     * Get Department
+     * @returns {String}- return department
+     */
     getDepartment() {
         return this.department;
     }
     
-    //setter methods
+    /**
+     * Set email
+     * @param {String} email- email
+     */
     setEmail(email) {
         this.email=email;
     }
 
+    /**
+     * Set password
+     * @param {Object} password- password
+     */
     setPassword(password) {
         this.password=password;
     }
 
+    /**
+     * Set surname
+     * @param {String} surname - surname
+     */
     setSurname(surname) {
         this.surname=surname;
     }
     
+    /**
+     * Set name
+     * @param {String} name - name
+     */
     setName(name) {
         this.name=name;
     }
     
+    /**
+     * Set department
+     * @param {String} department - department
+     */
     setDepartment(department){
         this.department=department;
     }
 }
     
+/**
+ * Insert academic tutor
+ * @param {Object} AcademicTutor- object of academic tutor
+ * @returns {Promise} - return a promise
+ */
 exports.insertAcademicTutor = function(AcademicTutor) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
@@ -73,6 +122,11 @@ exports.insertAcademicTutor = function(AcademicTutor) {
     });
 }
 
+/**
+ * Find academic tutor by email
+ * @param {String} email- email of tutor
+ * @returns {boolean} - return true if the object does not exist in database, else false
+ */
 exports.findByEmail= function(email){
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){

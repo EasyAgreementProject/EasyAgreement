@@ -3,6 +3,12 @@ var hash=require('./hash.js');
 var studentModel= require('../models/student.js');
 var academicTutorModel= require('../models/academicTutor.js');
 
+/**
+ * Function for sign up
+ * 
+ * @param {Http} req - request
+ * @param {Http} res - response
+ */
 exports.signup= function(req, res){
     if(req.body.radioAccount=="studente"){
         //Get parameter from form

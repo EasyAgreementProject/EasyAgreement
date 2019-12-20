@@ -11,6 +11,7 @@
     "cookie-parser": "^1.4.4",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
+    "jsdoc": "^3.6.3",
     "mocha": "^6.2.2",
     "mongodb": "^3.4.0",
     "nodemon": "^2.0.2",
