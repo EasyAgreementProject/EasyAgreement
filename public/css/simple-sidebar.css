@@ -38,6 +38,16 @@
                     }
                     
                     @media (min-width: 180px) {
+                        .mt-4 {
+                            text-align: center;
+                            color: darkblue;
+                        }
+                        .logoEA {
+                            width: 100px;
+                            height: 100px;
+                            float: left;
+                            margin-top: 1rem;
+                        }
                         #sidebar-wrapper {
                             margin-left: 0;
                         }
