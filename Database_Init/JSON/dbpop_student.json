@@ -1,9 +1,9 @@
 [{
-    
 
-    
 
-     "StudentID" : "00001",
+
+
+     "StudentID" : "0512103456",
      "DegreeCourse" : "Computer Science",
      "Address" : "Via delle Vie 121",
      "City" : "Porto Sant'Elpidio",
@@ -14,9 +14,9 @@
      "IDCard" : ""
     },
 
-    
+
     {
-     "StudentID" : "00002",
+     "StudentID" : "0512156789",
     "DegreeCourse" : "Computer Science",
     "Address" : "Via delle Vie 122",
     "City" : "Salerno",
@@ -27,9 +27,9 @@
     "IDCard" : ""
    },
 
-   
 
-   { "StudentID" : "00003",
+
+   { "StudentID" : "0512123451",
    "DegreeCourse" : "Computer Science",
    "Address" : "Via delle Vie 123",
    "City" : "Bagnoli Irpino",
@@ -40,9 +40,9 @@
    "IDCard" : ""
   },
 
-  
 
-  { "StudentID" : "00004",
+
+  { "StudentID" : "0512127897",
   "DegreeCourse" : "Computer Science",
   "Address" : "Via delle Vie 124",
   "City" : "Battipaglia",
@@ -53,9 +53,9 @@
   "IDCard" : ""
  },
 
- 
 
- { "StudentID" : "00005",
+
+ { "StudentID" : "05121898076",
  "DegreeCourse" : "Computer Science",
  "Address" : "Via delle Vie 125",
  "City" : "Erchie",
@@ -66,9 +66,9 @@
  "IDCard" : ""
 },
 
-   
 
-{ "StudentID" : "00006",
+
+{ "StudentID" : "0512109876",
     "DegreeCourse" : "Computer Science",
     "Address" : "Via delle Vie 126",
     "City" : "Portogruaro",
@@ -78,10 +78,10 @@
     "CV"   : "",
     "IDCard" : ""
    },
-    
-   
 
-{ "StudentID" : "00007",
+
+
+{ "StudentID" : "0512178654",
     "DegreeCourse" : "Computer Science",
     "Address" : "Via delle Vie 127",
     "City" : "San Cipriano Picentino",
@@ -92,9 +92,9 @@
     "IDCard" : ""
    },
 
-   
 
-   { "StudentID" : "00008",
+
+   { "StudentID" : "0512156432",
        "DegreeCourse" : "Computer Science",
        "Address" : "Via delle Vie 128",
        "City" : "Civitanova Marche",
@@ -105,9 +105,9 @@
        "IDCard" : ""
       },
 
-      
 
-      { "StudentID" : "00009",
+
+      { "StudentID" : "0512190876",
           "DegreeCourse" : "Computer Science",
           "Address" : "Via delle Vie 129",
           "City" : "Ancona",
@@ -118,9 +118,9 @@
           "IDCard" : ""
          },
 
-         
 
-         { "StudentID" : "00010",
+
+         { "StudentID" : "0512134231",
              "DegreeCourse" : "Computer Science",
              "Address" : "Via delle Vie 130",
              "City" : "Ardea",
@@ -129,9 +129,7 @@
              "Name" : "Mikhail",
              "CV"   : "",
              "IDCard" : ""
-            
+
 
 
 }]
-
-        
