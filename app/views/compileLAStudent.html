@@ -358,11 +358,15 @@
                         <label for="inputStudyCicle"><sup>2</sup>Ciclo Di Studi</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="date" class="form-control" id="inputAcademicYear" name="inputAcademicYear" placeholder="Anno Accademico" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
-                        <label for="inputAcademicYear">Anno Accademico</label>
+                        <input type="date" class="form-control" id="inputAcademicYear1" name="inputAcademicYear1" placeholder="Anno Accademico 1" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
+                        <label for="inputAcademicYear">Anno Accademico1</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputCode" name="inputCode" placeholder="Codice Identificativo Facoltà" pattern="[0-9]\d{4}" required>
+                        <input type="date" class="form-control" id="inputAcademicYear2" name="inputAcademicYear2" placeholder="Anno Accademico 2" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
+                        <label for="inputAcademicYear">Anno Accademico2</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputSubjectCode" name="inputSubjectCode" placeholder="Facoltà e Codice Identificativo" pattern="^[a-z][A-Z][0-9]\d{4}" required>
                         <label for="inputCode"><sup>3</sup>Codice Identificativo Facoltà </label>
                     </div>
                     <div class="form-label-group">
@@ -376,8 +380,13 @@
                         <label for="inputDepartmentSending">Dipartimento Di Provenienza</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputContactSending" name="inputContactSending" placeholder="Contatto Docente: E-mail, Telefono" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$[0-9]" required>
-                        <label for="inputContactSending">Contatto Docente: E-mail, Telefono</label>
+                        <input type="email" class="form-control" id="inputContactSending1" name="inputContactSending1" placeholder="Contatto Docente: E-mail" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+                            required>
+                        <label for="inputContactSending">Contatto Docente: E-mail</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="tel" class="form-control" id="inputContactSending2" name="inputContactSending2" placeholder="Contatto Docente: Telefono" pattern="^[0-9]" required>
+                        <label for="inputContactSending">Contatto Docente: Telefono</label>
                     </div>
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzazione/Impresa Ricevente</h5><br>
@@ -406,8 +415,16 @@
                         <label for="inputContactReciving"><sup>6</sup>Contatto Del Ricevente: Nome, Posizione</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputMentor" name="inputMentor" placeholder="Nome Mentore: Nome, Posizione" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
-                        <label for="inputMentor"><sup>7</sup>Nome Mentore: Nome, Posizione</label>
+                        <input type="text" class="form-control" id="inputMentor" name="inputMentor" placeholder="Mentore: Nome, Posizione" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <label for="inputMentor"><sup>7</sup>Mentore: Nome, Posizione</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputMentorEmail" name="inputMentorEmail" placeholder="Mentore: E-mail" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+\s{1}\/?\s?\d{9,10}$/" required>
+                        <label for="inputMentorEmail">Mentore: E-mail</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputMentorTel" name="inputMentorTel" placeholder="Mentore: Telefono" pattern="^[0-9]\" required>
+                        <label for="inputMentorTel">Mentore: Telefono</label>
                     </div>
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Programma Di Mobilità Proposto</h5><br>
@@ -426,30 +443,32 @@
                         <label for="inputHourWork">
                     <input type="number" id="inputHourWork" name="inputHourWork" min="0">
                     </label>
-                    </div><br>
+                    </div>
+                    <div class="form-group">
+                        <p style="font-weight: bold;">Titolo Tirocinio:</p>
+                        <label for="comment"> </label>
+                        <textarea class="form-control" rows="1" id="inputTitle" name="inputTitle"></textarea>
+                    </div>
+                    <br>
                     <p style="font-weight: bold;">Programma dettagliato del periodo di tirocinio:</p>
                     <div class="form-group">
                         <label for="comment"> </label>
-                        <textarea class="form-control" rows="3" id="inputDetailed" name="inputDetailed">
-                        </textarea>
+                        <textarea class="form-control" rows="3" id="inputDetailed" name="inputDetailed"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Conoscenze, abilità e competenze che il tirocinante deve acquisire al termine del tirocinio:</p>
                     <div class="form-group">
                         <label for="comment"> </label>
-                        <textarea class="form-control" rows="3" id="inputKnoledge" name="inputKnowledge">
-                        </textarea>
+                        <textarea class="form-control" rows="3" id="inputKnoledge" name="inputKnowledge"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Monitoring Plan:</p>
                     <div class="form-group">
                         <label for="comment"> </label>
-                        <textarea class="form-control" rows="2" id="inputMonitoring" name="inputMonitoring">
-                        </textarea>
+                        <textarea class="form-control" rows="2" id="inputMonitoring" name="inputMonitoring"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Piano di valutazione:</p>
                     <div class="form-group">
                         <label for="comment"> </label>
-                        <textarea class="form-control" rows="2" id="inputEvaluation" name="inputEvaluation">
-                        </textarea>
+                        <textarea class="form-control" rows="2" id="inputEvaluation" name="inputEvaluation"></textarea>
                     </div><br>
                     <div class="form-label-group">
                         <p style="font-weight: bold;">Competenza linguistica del tirocinante:</p>
