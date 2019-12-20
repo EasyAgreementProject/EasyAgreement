@@ -24,6 +24,7 @@ body {
   width: 45%;
   /* Link to your background image using in the property below! */
   background: scroll center url('../img/EasyAgreement_Logo.png');
+  opacity: 90%;
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -193,6 +194,10 @@ input[type="radio"]:checked ~ label{
 }
 
 .mt-2{
+  color: orange;
+}
+
+.mt-2:hover{
   color: orange;
 }
 

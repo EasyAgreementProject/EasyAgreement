@@ -29,6 +29,8 @@ $(document).ready(function(){
     var errSurnameT=getCookie("errTutorSurname");
     var errEmailT=getCookie("errTutorEmail");
     var errDepartment=getCookie("errTutorDepartment");
+    var regEff= getCookie("regEff");
+    var alreadyReg= getCookie("errAlreadyReg");
 
     if(errName=="1"){
         $('#errName').css('display','block');
@@ -94,5 +96,13 @@ $(document).ready(function(){
         $('#errDepartmentT').css('display','block');
         $('#inputDepartmentT').addClass("errClass");
         document.cookie="errTutorDepartment=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(regEff=="1"){
+        swal('Registrazione effettuata', 'Prosegui con l\'accesso','success');
+        document.cookie="regEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(alreadyReg=="1"){
+        swal('Utente già registrato', 'Prosegui con l\'accesso','info');
+        document.cookie="errAlreadyReg=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });
