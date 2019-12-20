@@ -8,14 +8,19 @@ var learningAgreementControl = require('./app/controllers/learningAgreementContr
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 
-// to support JSON-encoded bodies and URL-encoded bodies
-app.use(bodyParser.json());       
-app.use(bodyParser.urlencoded({extended: true})); 
-app.use(express.json());
-app.use(express.urlencoded()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
+});
+
+app.get('/fillForm', function(req, res) {
+    var getData = learningAgreementControl.getData(req.query.student);
+    getData.then(function(data){
+        if(data) {
+            res.send(data);
+        }
+    })
 });
 
 app.get('/compileStudent', function(req, res) {
