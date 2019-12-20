@@ -5,7 +5,7 @@ var academicTutorModel= require('../models/academicTutor.js');
 
 exports.signup= function(req, res){
     if(req.body.radioAccount=="studente"){
-        //prelevo variabili da form
+        //Get parameter from form
         var name= req.body.inputName;
         var surname= req.body.inputSurname;
         var email= req.body.inputEmail;
@@ -16,7 +16,7 @@ exports.signup= function(req, res){
         var password= req.body.inputPassword;
         var passwordConfirm= req.body.inputConfirmPassword;
 
-        //Validazione dei form
+        //Form validation
         var isRight=true;
 
         if((name==null) || (name.length<=1) || (!new RegExp("^[A-Za-z]+$").test(name))){
@@ -70,10 +70,10 @@ exports.signup= function(req, res){
             return;
         }
 
-        //hashing e salt della password
+        //hashing e salt of password
         var passwordHashed=hash.hashPassword(password);
 
-        //creazione oggetto studente
+        //Create student object
         var studente={
             StudentID: matricola,
             DegreeCourse: corso,
@@ -87,7 +87,7 @@ exports.signup= function(req, res){
             Password: passwordHashed
         };
 
-        //controllo se già registrato
+        //Check if already exist
         var check=studentModel.findByMatricola(matricola);
 
         check.then(function(result){
@@ -98,7 +98,7 @@ exports.signup= function(req, res){
                 return;
             }
             if(result){
-                //salvataggio studente nel database
+                //Save student in database
                 studentModel.insertStudent(studente);
 
                 //redirect
@@ -111,7 +111,7 @@ exports.signup= function(req, res){
 
     }
     else if(req.body.radioAccount=="tutorAccademico"){
-        //prelevo variabili da form
+        //Get parameter from form
         var name= req.body.inputNameT;
         var surname= req.body.inputSurnameT;
         var email= req.body.inputEmailT;
@@ -119,7 +119,7 @@ exports.signup= function(req, res){
         var password= req.body.inputPassword;
         var passwordConfirm= req.body.inputConfirmPassword;
 
-        //validazione form
+        //Form validation
         isRight=true;
         if((name==null) || (name.length<=1) || (!new RegExp("^[A-Za-z]+$").test(name))){
             res.cookie('errTutorName','1');
@@ -157,10 +157,10 @@ exports.signup= function(req, res){
             return;
         }
 
-        //hashing e salt della password
+        //hashing e salt of password
         var passwordHashed=hash.hashPassword(password);
 
-        //oggetto tutor accademico
+        //Create academic tutor object
         var tutorAccademico={
             E_mail: email,
             Password: passwordHashed,
@@ -169,7 +169,7 @@ exports.signup= function(req, res){
             Department: department
         };
 
-        //controllo se già registrato
+        //check if exist
         var check=academicTutorModel.findByEmail(email);
 
         check.then(function(result){
@@ -180,7 +180,7 @@ exports.signup= function(req, res){
                 return;
             }
             if(result){
-                //salvataggio tutor accademico nel database
+                //Save academic tutor in database
                 academicTutorModel.insertAcademicTutor(tutorAccademico);
 
                 //redirect
