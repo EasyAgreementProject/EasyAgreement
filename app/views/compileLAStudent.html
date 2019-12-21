@@ -75,19 +75,19 @@
                 <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Studente</h5>
                 <form id="formCompile" method="GET" action="compileLAStudent.html"><br>
                     <div class="form-label-group">
-                        <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome" required>
                         <label for="inputName">Nome<label>
                             </div>
                             <div class="form-label-group">
-                                <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                                <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome" required>
                                 <label for="inputSurname">Cognome</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="date" id="inputDate" class="form-control" name="inputDate" placeholder="Data Di Nascita" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" required>
+                        <input type="date" id="inputDate" class="form-control" name="inputDate" placeholder="Data Di Nascita" required>
                         <label for="inputDate">Data Di Nascita</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="tel" id="inputTelephone" class="form-control" name="inputTelephone" placeholder="Telefono" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" required>
+                        <input type="tel" id="inputTelephone" class="form-control" name="inputTelephone" placeholder="Telefono" required>
                         <label for="inputTelephone">Telefono</label>
                     </div>
                     <div class="row">
@@ -354,88 +354,80 @@
                         </div>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputStudyCicle" name="inputStudyCycle" placeholder="Ciclo Di Studi" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" class="form-control" id="inputStudyCicle" name="inputStudyCycle" placeholder="Ciclo Di Studi" required>
                         <label for="inputStudyCicle"><sup>2</sup>Ciclo Di Studi</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="date" class="form-control" id="inputAcademicYear1" name="inputAcademicYear1" placeholder="Anno Accademico 1" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
+                        <input type="date" class="form-control" id="inputAcademicYear1" name="inputAcademicYear1" placeholder="Anno Accademico 1" required>
                         <label for="inputAcademicYear">Anno Accademico1</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="date" class="form-control" id="inputAcademicYear2" name="inputAcademicYear2" placeholder="Anno Accademico 2" pattern="\b(20|[2-9][0-9])\d/(20|[2-9][0-9])\d" required>
+                        <input type="date" class="form-control" id="inputAcademicYear2" name="inputAcademicYear2" placeholder="Anno Accademico 2" required>
                         <label for="inputAcademicYear">Anno Accademico2</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputSubjectCode" name="inputSubjectCode" placeholder="Facoltà e Codice Identificativo" pattern="^[a-z][A-Z][0-9]\d{4}" required>
-                        <label for="inputCode"><sup>3</sup>Codice Identificativo Facoltà </label>
+                        <input type="text" class="form-control" id="inputSubjectCode" name="inputSubjectCode" placeholder="Facoltà e Codice Identificativo" required>
+                        <label for="inputCode"><sup>3</sup>Facoltà e Codice Identificativo</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="E-mail" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" autofocus required>
+                        <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="E-mail" autofocus required>
                         <label for="inputEmail">E-mail</label>
                     </div>
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Istituto Di Provenienza</h5><br>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputDepartmentSending" name="inputDepartmentSending" placeholder="Dipartimento Di Provenienza" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" class="form-control" id="inputDepartmentSending" name="inputDepartmentSending" placeholder="Dipartimento Di Provenienza" required>
                         <label for="inputDepartmentSending">Dipartimento Di Provenienza</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="email" class="form-control" id="inputContactSending1" name="inputContactSending1" placeholder="Contatto Docente: E-mail" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-                            required>
-                        <label for="inputContactSending">Contatto Docente: E-mail</label>
+                        <input type="text" class="form-control" id="inputContactSending" name="inputContactSending" placeholder="Contatto Docente: E-mail/Telefono" required>
+                        <label for="inputContactSending">Contatto Docente: E-mail/Telefono</label>
                     </div>
-                    <div class="form-label-group">
-                        <input type="tel" class="form-control" id="inputContactSending2" name="inputContactSending2" placeholder="Contatto Docente: Telefono" pattern="^[0-9]" required>
-                        <label for="inputContactSending">Contatto Docente: Telefono</label>
-                    </div>
+
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzazione/Impresa Ricevente</h5><br>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputNameSector" name="inputNameSector" placeholder="Nome Settore" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" class="form-control" id="inputNameSector" name="inputNameSector" placeholder="Nome Settore" required>
                         <label for="inputNameSector"><sup>4</sup>Nome Settore</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputDepartmentReciving" name="inputDepartmentReciving" placeholder="Dipartimento Ricevente" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" class="form-control" id="inputDepartmentReciving" name="inputDepartmentReciving" placeholder="Dipartimento Ricevente" required>
                         <label for="inputDepartmentReciving"> Dipartimento Ricevente</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="url" class="form-control" id="inputWebSite" name="inputWebSite" placeholder="Indirizzo Sito Web" pattern="^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$" required>
+                        <input type="url" class="form-control" id="inputWebSite" name="inputWebSite" placeholder="Indirizzo Sito Web" required>
                         <label for="inputWebSite">Indrizzo Sito Web</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputCountry" name="inputCountry" placeholder="Paese" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" class="form-control" id="inputCountry" name="inputCountry" placeholder="Paese" required>
                         <label for="inputCountry">Paese</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="number" class="form-control" id="inputSizeEnterprise" name="inputSizeEnterprise" placeholder="Dimensioni Organizzazione" pattern="^[0-9]*$" required>
+                        <input type="number" class="form-control" id="inputSizeEnterprise" name="inputSizeEnterprise" placeholder="Dimensioni Organizzazione" required>
                         <label for="inputSizeEnterprise"><sup>5</sup>Dimensioni Organizzazione</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputContactReciving" name="inputContactReciving" placeholder="Contatto Ricevente: Name, Position" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" class="form-control" id="inputContactReciving" name="inputContactReciving" placeholder="Contatto Ricevente: Name, Position" required>
                         <label for="inputContactReciving"><sup>6</sup>Contatto Del Ricevente: Nome, Posizione</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputMentor" name="inputMentor" placeholder="Mentore: Nome, Posizione" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                        <input type="text" class="form-control" id="inputMentor" name="inputMentor" placeholder="Mentore: Nome, Posizione" required>
                         <label for="inputMentor"><sup>7</sup>Mentore: Nome, Posizione</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputMentorEmail" name="inputMentorEmail" placeholder="Mentore: E-mail" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+\s{1}\/?\s?\d{9,10}$/" required>
-                        <label for="inputMentorEmail">Mentore: E-mail</label>
-                    </div>
-                    <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputMentorTel" name="inputMentorTel" placeholder="Mentore: Telefono" pattern="^[0-9]\" required>
-                        <label for="inputMentorTel">Mentore: Telefono</label>
+                        <input type="text" class="form-control" id="inputMentorInfo" name="inputMentorInfo" placeholder="Mentore: E-mail/Telefono" required>
+                        <label for="inputMentorInfo">Mentore: E-mail/Telefono</label>
                     </div>
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Programma Di Mobilità Proposto</h5><br>
                     <p style="font-weight: bold;">Periodo di mobilità pianificato da:</p>
                     <div class="form-label-group">
-                        <input type="month" class="form-control" id="inputDateFrom" name="inputDateFrom" placeholder="mm/aaaa" pattern="(\d{2})/(\d{4})" required>
+                        <input type="month" class="form-control" id="inputDateFrom" name="inputDateFrom" placeholder="mm/aaaa" required>
                         <label for="inputDateFrom">mm/aaaa</label>
                     </div>
                     <p style="font-weight: bold;">al:</p>
                     <div class="form-label-group">
-                        <input type="month" class="form-control" id="inputDateTo" name="inputDateTo" placeholder="mm/aaaa" pattern="(\d{2})/(\d{4})" required>
+                        <input type="month" class="form-control" id="inputDateTo" name="inputDateTo" placeholder="mm/aaaa" required>
                         <label for="inputDateTo">mm/aaaa</label>
                     </div>
                     <div class="inputHour">
@@ -473,7 +465,7 @@
                     <div class="form-label-group">
                         <p style="font-weight: bold;">Competenza linguistica del tirocinante:</p>
                         <p>Il livello di competenza linguistica in<sup>8</sup>
-                            <input type="text" class="form-control" id="inputLenguage" name="inputLenguage" placeholder="Lingua" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
+                            <input type="text" class="form-control" id="inputLenguage" name="inputLenguage" placeholder="Lingua" required>
                             <label for="inputLenguage">Lingua</label> [lingua principale sul luogo di lavoro] che il tirocinante ha già o accetta di acquisire all'inizio del periodo di mobilità è:</p>
                     </div>
                     <div class="row">
@@ -500,7 +492,7 @@
                     </div>
                     <hr>
                     <div class="form-label-group">
-                        <input type="date" id="inputDateCompilation" class="form-control" name="inputDateCompilation" placeholder="Data Di Compilazione" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" required>
+                        <input type="date" id="inputDateCompilation" class="form-control" name="inputDateCompilation" placeholder="Data Di Compilazione" required>
                         <label for="inputDateCompilation">Data Di Compilazione</label>
                     </div>
                     <hr>
@@ -542,13 +534,34 @@
             $("#wrapper ").toggleClass("toggled ");
         });
     </script>
-    <form name="hiddenForm" id="hiddenForm" action="/fillForm" method="GET">
-        <input type="hidden" name="inputHiddenEmail" id="inputHiddenEmail" value="m.ciano4@studenti.unisa.it" />
-    </form>
     <script>
         $(document).ready(function() {
-            $("#hiddenform").submit();
+            $.get("/fillForm?student=v.volpicelli4@studenti.unisa.it", function(data, status) {
+                document.getElementById("inputName").value = data["First name (s)"];
+                document.getElementById("inputSurname").value = data["Last name (s)"];
+                document.getElementById("inputName").value = data["First name (s)"];
+                document.getElementById("inputDate").value = data["Date of birth"]; // Something's wrong with date format probably
+                document.getElementById("inputTelephone").value = data["Phone"];
+                if (data["Sex [M/F]"] == "M") document.getElementById("M").checked = true;
+                if (data["Sex [M/F]"] == "F") document.getElementById("F").checked = true;
+                document.getElementById("inlineFormCustomSelect").value = data["Nationality"]; // There's a problem cause the value is in english
+                document.getElementById("inputStudyCycle").value = data["Study cycle"];
+                document.getElementById("inputAcademicYear1").value = data["Academic year1"];
+                document.getElementById("inputAcademicYear2").value = data["Academic year2"];
+                document.getElementById("inputSubjectCode").value = data["Subject area, Code"];
+            });
         });
+    </script>
+    <script>
+        function Valida() {
+            var name = document.getElementById("inputName").value;
+            if (!new RegExp("^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$").test(name)) {
+
+            } else {
+
+            }
+
+        }
     </script>
 </body>
 

@@ -16,15 +16,15 @@ app.get('/', function(req, res) {
 
 app.get('/fillForm', function(req, res) {
     var getData = learningAgreementControl.getData(req.query.student);
-    getData.then(function(data){
-        if(data) {
+    getData.then(function(data) {
+        if (data) {
             res.send(data);
         }
     })
 });
 
 app.get('/compileStudent', function(req, res) {
-   // var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCicle, req.body.inputAcademicYear, req.body.inputCode, req.body.inputEmail];
+    // var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCicle, req.body.inputAcademicYear, req.body.inputCode, req.body.inputEmail];
     var sendStudent = learningAgreementControl.sendLaStudent();
     sendStudent.then(function(la) {
         var document = la.document;
@@ -32,12 +32,12 @@ app.get('/compileStudent', function(req, res) {
         res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
         document.pipe(res)
     });
-    sendStudent.catch(function(){
+    sendStudent.catch(function() {
         res.send('error');
     })
 });
 
-app.get('/saveCompilation', function (req, res) {
+app.get('/saveCompilation', function(req, res) {
     var saveStudent = learningAgreementControl.saveLaStudent();
     saveStudent.then(function(file) {
         res.setHeader('Content-Type', 'application/pdf');
