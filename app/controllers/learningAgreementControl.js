@@ -10,8 +10,8 @@ exports.sendLaStudent = function() {
         "Header name" : "Veronica Volpicelli",
         "Last name (s)" : "Volpicelli",
         "First name (s)": "Veronica",
-        "Date of birth" : "22/04/96",
-        "Nationality":"Italiana",
+        "Date of birth" : "22/04/1996",
+        "Nationality":"Italia",
         "Sex [M/F]" : "F",
         "Academic year1":"19",
         "Academic year2":"20",
@@ -164,6 +164,7 @@ exports.validateData = function(data) {
         if ((/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"])) &&
             /^[A-za-zà-ù]+$/.test(data["Last name (s)"]) &&
             /^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]) &&
+            /^([0-2][0-9]|(3)[0-1]){1}\/{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["Date of birth"]) &&
             /^[A-za-zà-ù]+$/.test(data["Nationality"]) &&
             /^(M|F)/.test(data["Sex [M/F]"]) &&
             /^\d{2}$/.test(data["Academic year1"]) &&
