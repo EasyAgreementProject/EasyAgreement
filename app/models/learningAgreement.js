@@ -137,4 +137,4 @@ class LearningAgreement {
     }
 }
 
-module.exports = LearningAgreement
+module.exports = LearningAgreement;

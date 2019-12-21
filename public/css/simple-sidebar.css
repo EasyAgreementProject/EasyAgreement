@@ -168,4 +168,10 @@
                         .notes {
                             margin-left: 0.75rem;
                         }
+                        input:invalid {
+                            border: 1px solid red;
+                        }
+                        input:valid {
+                            border: 1px solid greenyellow;
+                        }
                     }
