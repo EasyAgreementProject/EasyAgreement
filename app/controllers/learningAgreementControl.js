@@ -117,7 +117,7 @@ exports.sendLaStudent = function(input) {
                 })
             }
             else {
-                reject();
+                fulfill(null);
             }
         });
         
