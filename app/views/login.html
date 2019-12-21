@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/login.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script type="text/javascript" src="js/cookie.js"></script>
+    
+  </head>
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <div class="card card-login flex-row my-5">
+            <div class="card-img-left d-none d-md-flex">
+               <!-- Background image for card set in CSS! -->
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center">Login</h5>
+              <form class="form-login" action="/login" method="post">       
+                
+                  <div class="form-label-group">
+                    <input type="email" id="inputUsername" class="form-control" placeholder="E-mail" name="username" autofocus required>
+                    <label for="inputUsername">E-mail</label>
+                    <span id="errUsername" name="errUsername">Username non valido</span>
+                  </div>
+                            
+                <div class="form-label-group">
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+                  <label for="inputPassword">Password</label>
+                  <span id="errPassword" name="errPass">Password non valida</span>
+
+                </div>
+  
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+                <a class="d-block text-center mt-2 small" href="signup.html">Registrati</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

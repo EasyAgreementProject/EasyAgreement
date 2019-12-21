@@ -205,6 +205,7 @@ static insertStudent(student) {
     });
 }
 
+
 /**
  * Find student by StudentID
  * @param {String} studentID- studentID
@@ -222,6 +223,42 @@ static findByMatricola(studentID){
                 }
                 else{
                     fulfill(true);
+                }
+                db.close;
+            
+            });
+        });
+    });
+}
+
+/** 
+ * Find student by email
+ * @param {String} email- email
+ * @returns {boolean} - return true if the object does not exist in database, else false
+ */
+static findByEmail(email){
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var student= new Student();
+                    student.setName(result.Name);
+                    student.setSurname(result.Surname);
+                    student.setDegreeCourse(result.DegreeCourse);
+                    student.setAddress(result.Address);
+                    student.setCity(result.City);
+                    student.setEmail(result.Email);
+                    student.setCurriculumVitae(result.CV);
+                    student.setIdentityCard(result.IDCard);
+                    student.setPassword(result.Password);
+                    student.setStudentID(result.StudentID);
+                    fulfill(student);
+                }
+                else{
+                    fulfill(null);
                 }
                 db.close();
             })

@@ -1,4 +1,10 @@
-function getCookie(cname) {
+/**
+ * Take the generate cookie
+ * @param {string} cname - The cookie name
+ * 
+ */
+
+ function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -31,6 +37,10 @@ $(document).ready(function(){
     var errDepartment=getCookie("errTutorDepartment");
     var regEff= getCookie("regEff");
     var alreadyReg= getCookie("errAlreadyReg");
+    var errUsername=getCookie("errUsername");
+    var errPassword=getCookie("errPassword");
+    var errLogin= getCookie("errLogin");
+    var logEff=getCookie("logEff");
 
     if(errName=="1"){
         $('#errName').css('display','block');
@@ -66,6 +76,11 @@ $(document).ready(function(){
         $('#errCourse').css('display','block');
         $('#inputCourse').addClass("errClass");
         document.cookie="errStudentCorso=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errUsername=="1"){
+        $('#errUsername').css('display','block');
+        $('#inputUsername').addClass("errClass");
+        document.cookie="errUsername=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if(errPassword=="1"){
         $('#errPassword').css('display','block');
@@ -105,4 +120,14 @@ $(document).ready(function(){
         swal('Utente già registrato', 'Prosegui con l\'accesso','info');
         document.cookie="errAlreadyReg=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+
+    if(errLogin=="1"){
+      swal('Utente non registrato', 'Effettua prima la registrazione', 'error');
+      document.cookie="errLogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }   
+
+    if(logEff=="1"){
+        swal('Benvenuto', 'Login effettuato', 'success');
+        document.cookie="logEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }   
 });
