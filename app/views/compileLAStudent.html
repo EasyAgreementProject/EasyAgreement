@@ -94,10 +94,10 @@
                         <div class="form-check">
                             Sesso:<br>
                             <label for="radio1">M
-                                    <input type="radio" name="radio1" value="M">
+                                    <input type="radio" id="M" name="radio1" value="M">
                                     </label>
                             <label for="radio1">F
-                                    <input type="radio" name="radio1" value="F">
+                                    <input type="radio" id="F" name="radio1" value="F">
                                     </label>
                         </div>
                         <div class="col-auto-my-1">
@@ -474,23 +474,23 @@
                     </div>
                     <div class="row">
                         <div class="form-check">
-                            <label for="inputLevelLenguage">A1</label>
-                            <input type="radio" name="inputLevelLenguage" value="A1">
+                            <label for="inputLenguageLevel">A1</label>
+                            <input type="radio" name="inputLenguageLevel" id="A1" value="A1">
                             <br>
-                            <label for="inputLevelLenguage">A2</label>
-                            <input type="radio" name="inputLevelLenguage" value="A2">
+                            <label for="inputLenguageLevel">A2</label>
+                            <input type="radio" name="inputLenguageLevel" id="A2" value="A2">
                             <br>
-                            <label for="inputLevelLenguage">B1</label>
-                            <input type="radio" name="inputLevelLenguage" value="B1">
+                            <label for="inputLenguageLevel">B1</label>
+                            <input type="radio" name="inputLenguageLevel" id="B1" value="B1">
                             <br>
-                            <label for="inputLevelLenguage">B2</label>
-                            <input type="radio" name="inputLevelLenguage" value="B2">
+                            <label for="inputLenguageLevel">B2</label>
+                            <input type="radio" name="inputLenguageLevel" id="B2" value="B2">
                             <br>
-                            <label for="inputLevelLenguage">C1</label>
-                            <input type="radio" name="inputLevelLenguage" value="C1">
+                            <label for="inputLenguageLevel">C1</label>
+                            <input type="radio" name="inputLenguageLevel" id="C1" value="C1">
                             <br>
-                            <label for="inputLevelLenguage">C2</label>
-                            <input type="radio" name="inputLevelLenguage" value="C2">
+                            <label for="inputLenguageLevel">C2</label>
+                            <input type="radio" name="inputLenguageLevel" id="C2" value="C2">
                             <br>
                         </div>
                     </div>
@@ -573,7 +573,14 @@
                 document.getElementById("inputKnowledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
                 document.getElementById("inputMonitoring").value = data["Monitoring plan"];
                 document.getElementById("inputEvaluation").value = data["Evaluation plan"];
-                document.getElementById("inputLenguage").value = data["language competence"]
+                document.getElementById("inputLenguage").value = data["language competence"];
+                if (data["lenguage level"] == "A1") document.getElementById("A1").checked = true;
+                if (data["lenguage level"] == "A2") document.getElementById("A2").checked = true;
+                if (data["lenguage level"] == "B1") document.getElementById("B1").checked = true;
+                if (data["lenguage level"] == "B2") document.getElementById("B2").checked = true;
+                if (data["lenguage level"] == "C1") document.getElementById("C1").checked = true;
+                if (data["lenguage level"] == "C2") document.getElementById("C2").checked = true;
+                document.getElementById("inputDateCompilation").value = data["The trainee date"];
             });
         });
     </script>
