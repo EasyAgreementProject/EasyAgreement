@@ -16,14 +16,8 @@ app.get('/', function(req, res) {
 
 app.get('/fillForm', function(req, res) {
     var getData = learningAgreementControl.getData(req.query.student);
-<<<<<<< HEAD
     getData.then(function(data) {
         if (data) {
-=======
-    getData.then(function(data){
-        if(data) {
-            console.log("Sex: "+data["Sex [M/F]"]+"    Birth: "+data["Date of birth"]);
->>>>>>> daedeaf4870062c0b192eee6b970c75f15aa0841
             res.send(data);
         }
     })
