@@ -94,10 +94,10 @@
                         <div class="form-check">
                             Sesso:<br>
                             <label for="radio1">M
-                                    <input type="radio" name="radio1" value="M">
+                                    <input type="radio" name="radio1" value="M" id = "M">
                                     </label>
                             <label for="radio1">F
-                                    <input type="radio" name="radio1" value="F">
+                                    <input type="radio" name="radio1" value="F" id = "F">
                                     </label>
                         </div>
                         <div class="col-auto-my-1">
@@ -542,12 +542,24 @@
             $("#wrapper ").toggleClass("toggled ");
         });
     </script>
-    <form name="hiddenForm" id="hiddenForm" action="/fillForm" method="GET">
-        <input type="hidden" name="inputHiddenEmail" id="inputHiddenEmail" value="m.ciano4@studenti.unisa.it" />
-    </form>
+    
     <script>
         $(document).ready(function() {
-            $("#hiddenform").submit();
+            $.get("/fillForm?student=v.volpicelli4@studenti.unisa.it", function(data, status){
+                document.getElementById("inputName").value = data["First name (s)"];
+                document.getElementById("inputSurname").value = data["Last name (s)"];
+                document.getElementById("inputName").value = data["First name (s)"];
+                document.getElementById("inputDate").value = data["Date of birth"]; // Something's wrong with date format probably
+                document.getElementById("inputTelephone").value = data["Phone"];
+                if(data["Sex [M/F]"] == "M") document.getElementById("M").checked = true;
+                if(data["Sex [M/F]"] == "F") document.getElementById("F").checked = true;
+                document.getElementById("inlineFormCustomSelect").value = data["Nationality"]; // There's a problem cause the value is in english
+                document.getElementById("inputStudyCycle").value = data["Study cycle"];
+                document.getElementById("inputAcademicYear1").value = data["Academic year1"];
+                document.getElementById("inputAcademicYear2").value = data["Academic year2"];
+                document.getElementById("inputSubjectCode").value = data["Subject area, Code"];
+
+            });
         });
     </script>
 </body>
