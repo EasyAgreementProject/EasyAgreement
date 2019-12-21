@@ -68,12 +68,12 @@
                 </div>
             </nav>
             <div class="container-fluid">
-                <h4 class="mt-4" style="text-align: center;">Compilazione Learning Agreement</h4>
-                <hr>
-                <img class="logoEA" src="/img/EasyAgreement_Logo.png" style="width: 50px; height: 50px; float: left;" alt="logo Easy Agreement">
+                <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+                <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
+                <hr>
                 <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Studente</h5>
-                <form id="formCompile" method="POST" action="compileLAStudent.html"><br>
+                <form id="formCompile" method="GET" action="compileLAStudent.html"><br>
                     <div class="form-label-group">
                         <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" required>
                         <label for="inputName">Nome<label>
@@ -502,7 +502,9 @@
                     <div class="form-label-group">
                         <input type="date" id="inputDateCompilation" class="form-control" name="inputDateCompilation" placeholder="Data Di Compilazione" pattern="^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$" required>
                         <label for="inputDateCompilation">Data Di Compilazione</label>
-                    </div><br>
+                    </div>
+                    <hr>
+                    <br>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Note</h5><br>
                     <div class="notes">
                         <p>1) Nazionalità: Paese di appartenenza amministrativa della persona e che rilascia la carta d'identità e / o il passaporto.<br>
@@ -538,6 +540,14 @@
         $("#menu-toggle ").click(function(e) {
             e.preventDefault();
             $("#wrapper ").toggleClass("toggled ");
+        });
+    </script>
+    <form name="hiddenForm" id="hiddenForm" action="/fillForm" method="GET">
+        <input type="hidden" name="inputHiddenEmail" id="inputHiddenEmail" value="m.ciano4@studenti.unisa.it" />
+    </form>
+    <script>
+        $(document).ready(function() {
+            $("#hiddenform").submit();
         });
     </script>
 </body>
