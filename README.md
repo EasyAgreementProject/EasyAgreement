@@ -65,9 +65,8 @@ A step by step series that tell you how to get a development env running
 
 
 ## Deployment
-1.	Clone github repository from here
-2.	Follow the installation instructions
-3.	Go to localhost:8080
+1.	Follow the installation instructions
+2.	Go to localhost:8080
 
 
 ## Authors
