@@ -47,7 +47,8 @@ app.get('/saveCompilation', function(req, res) {
         req.query.inputAcademicYear1, req.query.inputAcademicYear2, req.query.inputSubjectCode, req.query.inputEmail. req.query.inputDepartmentSending, req.query.inputContactSending, 
         req.query.inputNameSector, req.query.inputDepartmentReciving, req.query.inputWebSite, req.query.inputCountry, req.query.inputSizeEnterprise, req.query.inputContactReciving, 
         req.query.inputMentor, req.query.inputMentorInfo, req.query.inputDateFrom, req.query.inputDateTo, req.query.inputHourWork, req.query.inputTitle, req.query.inputDetailed, 
-        req.query.inputKnoledge, req.query.inputMonitoring, req.query.inputEvaluation, req.query.inputLenguage, req.query.inputLenguageLevel, req.query.inputDateCompilation];
+        req.query.inputKnoledge, req.query.inputMonitoring, req.query.inputEvaluation, req.query.inputLenguage, req.query.inputLenguageLevel, req.query.inputDateCompilation, 
+        req.query.inputContactName, req.query.inputContactReciving];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
     saveStudent.then(function(file) {
         res.setHeader('Content-Type', 'application/pdf');
