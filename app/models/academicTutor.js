@@ -13,11 +13,11 @@ class AcademicTutor {
      * @constructor
      */
     constructor(){
-        this.email=null;
-        this.password=null;
-        this.surname=null;
-        this.name=null;
-        this.department=null;
+        this.E_mail=null;
+        this.Password=null;
+        this.Surname=null;
+        this.Name=null;
+        this.Department=null;
     }
     
     /**
@@ -25,7 +25,7 @@ class AcademicTutor {
      * @returns {string}- return email
      */
     getEmail() {
-        return this.email;
+        return this.E_mail;
     }
 
     /**
@@ -33,7 +33,7 @@ class AcademicTutor {
      * @returns {Object}- return password
      */
     getPassword() {
-        return this.password;
+        return this.Password;
     }
 
     /**
@@ -41,7 +41,7 @@ class AcademicTutor {
      * @returns {String}- return surname
      */
     getSurname() {
-        return this.surname;
+        return this.Surname;
     }
 
     /**
@@ -49,7 +49,7 @@ class AcademicTutor {
      * @returns {String}- return name
      */
     getName(){
-        return this.name;
+        return this.Name;
     }
 
     /**
@@ -57,7 +57,7 @@ class AcademicTutor {
      * @returns {String}- return department
      */
     getDepartment() {
-        return this.department;
+        return this.Department;
     }
     
     /**
@@ -65,7 +65,7 @@ class AcademicTutor {
      * @param {String} email- email
      */
     setEmail(email) {
-        this.email=email;
+        this.E_mail=email;
     }
 
     /**
@@ -73,7 +73,7 @@ class AcademicTutor {
      * @param {Object} password- password
      */
     setPassword(password) {
-        this.password=password;
+        this.Password=password;
     }
 
     /**
@@ -81,7 +81,7 @@ class AcademicTutor {
      * @param {String} surname - surname
      */
     setSurname(surname) {
-        this.surname=surname;
+        this.Surname=surname;
     }
     
     /**
@@ -89,7 +89,7 @@ class AcademicTutor {
      * @param {String} name - name
      */
     setName(name) {
-        this.name=name;
+        this.Name=name;
     }
     
     /**
@@ -97,16 +97,15 @@ class AcademicTutor {
      * @param {String} department - department
      */
     setDepartment(department){
-        this.department=department;
+        this.Department=department;
     }
-}
     
 /**
  * Insert academic tutor
  * @param {Object} AcademicTutor- object of academic tutor
  * @returns {Promise} - return a promise
  */
-exports.insertAcademicTutor = function(AcademicTutor) {
+static insertAcademicTutor(AcademicTutor) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
             if(err) throw err;
@@ -127,7 +126,7 @@ exports.insertAcademicTutor = function(AcademicTutor) {
  * @param {String} email- email of tutor
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
-exports.findByEmail= function(email){
+static findByEmail(email){
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
@@ -145,3 +144,6 @@ exports.findByEmail= function(email){
         });
     });
 }
+}
+
+module.exports= AcademicTutor;

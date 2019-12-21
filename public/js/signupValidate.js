@@ -145,7 +145,7 @@ function testSurname(surname){
 function testEmailStudent(){
     var email= $('#inputEmail').val().toLowerCase();
     if(email.length>=21){
-        var exp= new RegExp("^[a-z]\.[a-z]+[1-9]*\@studenti.unisa.it");
+        var exp= new RegExp("^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it");
         if(exp.test(email))     return true;
     }
     return false;
@@ -154,7 +154,7 @@ function testEmailStudent(){
 function testEmailTutor(){
     var email= $('#inputEmailT').val().toLowerCase();
     if(email.length>=12){
-        var exp= new RegExp("^[a-z]\.[a-z]+[1-9]*\@unisa.it");
+        var exp= new RegExp("^[a-z]\.[a-z]+[0-9]*\@unisa.it");
         if(exp.test(email))     return true;
     }
     return false;

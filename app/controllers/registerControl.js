@@ -35,7 +35,7 @@ exports.signup= function(req, res){
             isRight=false;
         }
 
-        if((email==null) || (email.length<=20) || (!new RegExp("^[a-z]\.[a-z]+[1-9]*\@studenti.unisa.it").test(email))){
+        if((email==null) || (email.length<=20) || (!new RegExp("^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it").test(email))){
             res.cookie('errStudentEmail','1');
             isRight=false;
         }
@@ -80,18 +80,16 @@ exports.signup= function(req, res){
         var passwordHashed=hash.hashPassword(password);
 
         //Create student object
-        var studente={
-            StudentID: matricola,
-            DegreeCourse: corso,
-            Address: indirizzo,
-            City: citta,
-            Email: email,
-            Surname: surname,
-            Name : name,
-            CV: "",
-            IDCard:"",
-            Password: passwordHashed
-        };
+        
+        var studente=new studentModel();
+        studente.setCity(citta);
+        studente.setDegreeCourse(corso);
+        studente.setEmail(email);
+        studente.setName(name);
+        studente.setSurname(surname);
+        studente.setAddress(indirizzo);
+        studente.setPassword(passwordHashed);
+        studente.setStudentID(matricola);
 
         //Check if already exist
         var check=studentModel.findByMatricola(matricola);
@@ -137,7 +135,7 @@ exports.signup= function(req, res){
             isRight=false;
         }
 
-        if((email==null) || (email.length<=10) || (!new RegExp("^[a-z]\.[a-z]+[1-9]*\@unisa.it").test(email))){
+        if((email==null) || (email.length<=10) || (!new RegExp("^[a-z]\.[a-z]+[0-9]*\@unisa.it").test(email))){
             res.cookie('errTutorEmail','1');
             isRight=false;
         }
@@ -167,13 +165,12 @@ exports.signup= function(req, res){
         var passwordHashed=hash.hashPassword(password);
 
         //Create academic tutor object
-        var tutorAccademico={
-            E_mail: email,
-            Password: passwordHashed,
-            Surname: surname,
-            Name: name,
-            Department: department
-        };
+        var tutorAccademico= new academicTutorModel();
+        tutorAccademico.setSurname(surname);
+        tutorAccademico.setName(name);
+        tutorAccademico.setDepartment(department);
+        tutorAccademico.setEmail(email);
+        tutorAccademico.setPassword(passwordHashed);
 
         //check if exist
         var check=academicTutorModel.findByEmail(email);

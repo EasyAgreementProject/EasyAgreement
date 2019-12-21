@@ -12,16 +12,16 @@ class Student {
      * @constructor
      */
     constructor() {
-       this.studentID        = null;
-       this.name             = null;
-       this.surname          = null;
-       this.password         = null;
-       this.email            = null;
-       this.city             = null;
-       this.degree_course    = null;
-       this.identity_card    = null;
-       this.curriculum_vitae = null;
-       this.address          = null;
+       this.StudentID        = null;
+       this.DegreeCourse     = null;
+       this.Address          = null;
+       this.City             = null;
+       this.Email            = null;
+       this.Surname          = null;
+       this.Name             = null;
+       this.CV               = null;
+       this.IDCard           = null;
+       this.Password         = null;
     }
 
     /**
@@ -29,7 +29,7 @@ class Student {
      * @returns {String}- return StudentID
      */
     getStudentId(){
-        return this.studentID;
+        return this.StudentID;
     }
 
     /**
@@ -37,7 +37,7 @@ class Student {
      * @returns {String}- return name
      */
     getName(){
-        return this.name;
+        return this.Name;
     }
 
     /**
@@ -45,7 +45,7 @@ class Student {
      * @returns {String} - return surname
      */
     getSurname(){
-        return this.surname;
+        return this.Surname;
     }
 
     /**
@@ -53,7 +53,7 @@ class Student {
      * @returns {Object}- return password
      */
     getPassword(){
-        return this.password;
+        return this.Password;
     }
 
     /**
@@ -61,7 +61,7 @@ class Student {
      * @returns {String} - return email
      */
     getEmail(){
-        return this.email;
+        return this.Email;
     }
 
     /**
@@ -69,7 +69,7 @@ class Student {
      * @returns {String}-  return city
      */
     getCity(){
-        return this.city;
+        return this.City;
     }
 
     /**
@@ -77,7 +77,7 @@ class Student {
      * @returns {string} - return degree course
      */
     getDegreeCourse(){
-        return this.degree_course;
+        return this.DegreeCourse;
     }
     
     /**
@@ -85,7 +85,7 @@ class Student {
      * @returns {File} - return identity cart
      */
     getIdentityCard(){
-        return this.identity_card;
+        return this.IDCard;
     }
 
     /**
@@ -93,7 +93,7 @@ class Student {
      * @returns {File} - return Curriculum vitae
      */
     getCurriculumVitae(){
-        return this.curriculum_vitae;
+        return this.CV;
     }
 
     /**
@@ -101,7 +101,7 @@ class Student {
      * @returns {String} - return address
      */
     getAddress(){
-        return this.address;
+        return this.Address;
     }
 
     /**
@@ -109,7 +109,7 @@ class Student {
      * @param {String} name - name
      */
     setName(name){
-        this.name = name;
+        this.Name = name;
     }
 
     /**
@@ -117,7 +117,7 @@ class Student {
      * @param {String} surname - surname
      */
     setSurname(surname){
-        this.surname = surname;
+        this.Surname = surname;
     }
 
     /**
@@ -125,7 +125,7 @@ class Student {
      * @param {Object} password - password
      */
     setPassword(password){
-        this.password = password;
+        this.Password = password;
     }
 
     /**
@@ -133,7 +133,7 @@ class Student {
      * @param {String} email - email
      */
     setEmail(email){
-        this.email = email;
+        this.Email = email;
     }
 
     /**
@@ -141,7 +141,7 @@ class Student {
      * @param {String} city - city
      */
     setCity(city){
-        this.city = city;
+        this.City = city;
     }
 
     /**
@@ -149,7 +149,7 @@ class Student {
      * @param {String} degree_course - degree course
      */
     setDegreeCourse(degree_course){
-        this.degree_course = degree_course;
+        this.DegreeCourse = degree_course;
     }
 
     /**
@@ -157,7 +157,7 @@ class Student {
      * @param {File} identity_card - identity card
      */
     setIdentityCard(identity_card){
-        this.identity_card = identity_card;
+        this.IDCard = identity_card;
     }
 
     /**
@@ -165,7 +165,7 @@ class Student {
      * @param {File} curriculum_vitae - curriculum vitae
      */
     setCurriculumVitae(curriculum_vitae){
-        this.curriculum_vitae = curriculum_vitae;
+        this.CV = curriculum_vitae;
     }
 
     /**
@@ -173,16 +173,23 @@ class Student {
      * @param {String} address - address
      */
     setAddress(address){
-        this.address = address;
+        this.Address = address;
     }
-}
+
+    /**
+     * Set studentID
+     * @param {String} studentID - studentID
+     */
+    setStudentID(studentID){
+        this.StudentID= studentID;
+    }
 
 /**
  * Insert student in database
  * @param {Object} student - student object
  * @returns {Promise} - return promise
  */
-exports.insertStudent = function(student) {
+static insertStudent(student) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
             if(err) throw err;
@@ -203,7 +210,7 @@ exports.insertStudent = function(student) {
  * @param {String} studentID- studentID
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
-exports.findByMatricola= function(studentID){
+static findByMatricola(studentID){
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
@@ -221,3 +228,6 @@ exports.findByMatricola= function(studentID){
         });
     });
 }
+}
+
+module.exports= Student;
