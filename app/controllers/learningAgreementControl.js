@@ -181,17 +181,17 @@ exports.validateData = function(data) {
             /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Receiving Department"]) &&
             /^[\w ,\.']+,? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]) &&
             /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Country"]) &&
-            /^\d+$/.test(data["Size of enterprise"]) &&
+            /^\d+( ?[- \/] ?\d+)?$/.test(data["Size of enterprise"]) &&
             /^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(data["Mentor name / position"]) &&
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Mentor e-mail / phone"]) &&
             /^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["from"]) &&
             /^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["till"]) &&
             /^\d{1,2}$/.test(data["Number of working hours for week"]) &&
             /^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$/.test(data["Traineeship title"]) &&
-            /^[A-za-zà-ù\.,'à-ù0-9]+( [A-za-zà-ù\.,'à-ù0-9]+)*$/.test(data["Detailed programme of the traineeship period"]) &&
-            /^[A-za-zà-ù\.,'à-ù0-9]+( [A-za-zà-ù\.,'à-ù0-9]+)*$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]) &&
-            /^[A-za-zà-ù\.,'à-ù0-9]+( [A-za-zà-ù\.,'à-ù0-9]+)*$/.test(data["Monitoring plan"]) &&
-            /^[A-za-zà-ù\.,'à-ù0-9]+( [A-za-zà-ù\.,'à-ù0-9]+)*$/.test(data["Evaluation plan"]) &&
+            /^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Detailed programme of the traineeship period"]) &&
+            /^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]) &&
+            /^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Monitoring plan"]) &&
+            /^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Evaluation plan"]) &&
             /^[A-za-zà-ù]+$/.test(data["language competence"]) &&
             /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["The trainee signature"]) &&
             /^([0-2][0-9]|(3)[0-1]){1}\/{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["The trainee date"])) {
