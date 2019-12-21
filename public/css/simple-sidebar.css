@@ -175,7 +175,7 @@
                         #errStudyCicle,
                         #errAcademicYear1,
                         #errAcademicYear2,
-                        #errSubjectCode,
+                        #errNationality #errSubjectCode,
                         #errEmail,
                         #errDepartmentSending,
                         #errContactName,
@@ -204,5 +204,11 @@
                             font-size: 14px;
                             padding: 5px;
                             margin-bottom: 5px;
+                        }
+                        .errClass {
+                            border-color: red !important;
+                        }
+                        .errClass:focus {
+                            border-color: red !important;
                         }
                     }
