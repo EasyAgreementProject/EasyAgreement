@@ -73,26 +73,22 @@
                 <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
                 <hr>
                 <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Studente</h5>
-                <form id="formCompile" method="GET" action="compileLAStudent.html"><br>
+                <form id="formCompile" method="post" action="/compileStudent"><br>
                     <div class="form-label-group">
                         <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome" required>
                         <label for="inputName">Nome<label>
-                            <span id="errName">Nome non valido</span>
                             </div>
                             <div class="form-label-group">
                                 <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome" required>
                                 <label for="inputSurname">Cognome</label>
-                        <span id="errSurname">Cognome non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="date" id="inputDate" class="form-control" name="inputDate" placeholder="Data Di Nascita" required>
                         <label for="inputDate">Data Di Nascita</label>
-                        <span id="errDate">Data di nascita non valida</span>
                     </div>
                     <div class="form-label-group">
                         <input type="tel" id="inputTelephone" class="form-control" name="inputTelephone" placeholder="Telefono" required>
                         <label for="inputTelephone">Telefono</label>
-                        <span id="errTelephone">Telefono non valido</span>
                     </div>
                     <div class="row">
                         <div class="form-check">
@@ -103,7 +99,6 @@
                             <label for="radio1">F
                                     <input type="radio" id="F" name="radio1" value="F">
                                     </label>
-                            <span id="errRadio">Parametro non specificato</span>
                         </div>
                         <div class="col-auto-my-1">
                             <label class="mr-sm-2" for="inlineFormCustomSelect"><sup>1</sup>Nazionalità:</label>
@@ -356,50 +351,41 @@
                                             <option value="zimbabwe">Zimbabwe</option>
                                     </select>
                             <br>
-                            <span id="errSelect">Parametro non specificato</span>
                         </div>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputStudyCicle" name="inputStudyCycle" placeholder="Ciclo Di Studi" required>
                         <label for="inputStudyCicle"><sup>2</sup>Ciclo Di Studi</label>
-                        <span id="errStudyCicle">Ciclo di Studi non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="date" class="form-control" id="inputAcademicYear1" name="inputAcademicYear1" placeholder="Anno Accademico 1" required>
-                        <label for="inputAcademicYear1">Anno Accademico1</label>
-                        <span id="errAcademicYear1">Anno Accademico 1 non valido</span>
+                        <label for="inputAcademicYear">Anno Accademico1</label>
                     </div>
                     <div class="form-label-group">
                         <input type="date" class="form-control" id="inputAcademicYear2" name="inputAcademicYear2" placeholder="Anno Accademico 2" required>
-                        <label for="inputAcademicYear2">Anno Accademico2</label>
-                        <span id="errAcademicYear2">Anno Accademico 2 non valido</span>
+                        <label for="inputAcademicYear">Anno Accademico2</label>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputSubjectCode" name="inputSubjectCode" placeholder="Facoltà e Codice Identificativo" required>
-                        <label for="inputSubjectCode"><sup>3</sup>Facoltà e Codice Identificativo</label>
-                        <span id="errSubjectCode">Facoltà e Codice Identificativo non validi</span>
+                        <label for="inputCode"><sup>3</sup>Facoltà e Codice Identificativo</label>
                     </div>
                     <div class="form-label-group">
                         <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="E-mail" autofocus required>
                         <label for="inputEmail">E-mail</label>
-                        <span id="errEmail">E-mail non valida</span>
                     </div>
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Istituto Di Provenienza</h5><br>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputDepartmentSending" name="inputDepartmentSending" placeholder="Dipartimento Di Provenienza" required>
                         <label for="inputDepartmentSending">Dipartimento Di Provenienza</label>
-                        <span id="errDepartmentSending">Dipartimento Di Proveninza non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactName" name="inputContactName" placeholder="Nome Docente" required>
                         <label for="inputContactName">Nome Contatto</label>
-                        <span id="errContactName">Nome Contatto non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactSending" name="inputContactSending" placeholder="Contatto Docente: E-mail/Telefono" required>
                         <label for="inputContactSending">Info Contatto: E-mail/Telefono</label>
-                        <span id="errContactSending">Info Contatto non valide</span>
                     </div>
 
                     <hr>
@@ -407,42 +393,34 @@
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputNameSector" name="inputNameSector" placeholder="Nome Settore" required>
                         <label for="inputNameSector"><sup>4</sup>Nome Settore</label>
-                        <span id="errNameSector">Nome Settore non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputDepartmentReciving" name="inputDepartmentReciving" placeholder="Dipartimento Ricevente" required>
                         <label for="inputDepartmentReciving"> Dipartimento Ricevente</label>
-                        <span id="errDepartmentReciving">Dipartimento Ricevente non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputAddressWebSite" name="inputAddressWebSite" placeholder="Indirizzo/Sito Web" required>
-                        <label for="inputAddressWebSite">Indrizzo/Sito Web</label>
-                        <span id="errAddressWebSite">Indirizzo/Sito Web non validi</span>
+                        <label for="inputWebSite">Indrizzo/Sito Web</label>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputCountry" name="inputCountry" placeholder="Paese" required>
                         <label for="inputCountry">Paese</label>
-                        <span id="errCountry">Paese non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="number" class="form-control" id="inputSizeEnterprise" name="inputSizeEnterprise" placeholder="Dimensioni Organizzazione" required>
                         <label for="inputSizeEnterprise"><sup>5</sup>Dimensioni Organizzazione</label>
-                        <span id="errSizeEnterprise">Dimensione Organizzazione non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactReciving" name="inputContactReciving" placeholder="Contatto Ricevente: Name, Position" required>
                         <label for="inputContactReciving"><sup>6</sup>Contatto Del Ricevente: Nome, Posizione</label>
-                        <span id="errContactReciving">Contatto del Ricevente non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputMentor" name="inputMentor" placeholder="Mentore: Nome, Posizione" required>
                         <label for="inputMentor"><sup>7</sup>Mentore: Nome, Posizione</label>
-                        <span id="errMentor">Mentore non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputMentorInfo" name="inputMentorInfo" placeholder="Mentore: E-mail/Telefono" required>
                         <label for="inputMentorInfo">Mentore: E-mail/Telefono</label>
-                        <span id="errMentorInfo">Info Mentore non valide</span>
                     </div>
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Programma Di Mobilità Proposto</h5><br>
@@ -450,58 +428,49 @@
                     <div class="form-label-group">
                         <input type="month" class="form-control" id="inputDateFrom" name="inputDateFrom" placeholder="mm/aaaa" required>
                         <label for="inputDateFrom">mm/aaaa</label>
-                        <span id="errDateFrom">Data 1 non valida</span>
                     </div>
                     <p style="font-weight: bold;">al:</p>
                     <div class="form-label-group">
                         <input type="month" class="form-control" id="inputDateTo" name="inputDateTo" placeholder="mm/aaaa" required>
                         <label for="inputDateTo">mm/aaaa</label>
-                        <span id="errDateTo">Data 2 non valida</span>
                     </div>
                     <div class="inputHour">
                         <p style="font-weight: bold;">Numero di ore lavorative settimanali:</p>
                         <label for="inputHourWork">
                     <input type="number" id="inputHourWork" name="inputHourWork" min="0">
                     </label>
-                        <span id="errHourWork">Numero di ore lavorative settimanali non valide</span>
                     </div><br>
                     <p style="font-weight: bold;">Titolo Tirocinio:</p>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputTitle" name="inputTitle" placeholder="Titolo Tirocinio" required>
                         <label for="inputTitle">Titolo Tirocinio</label>
-                        <span id="errTitle">Titolo non valido</span>
                     </div>
                     <br>
                     <p style="font-weight: bold;">Programma dettagliato del periodo di tirocinio:</p>
                     <div class="form-group">
                         <label for="inputDetailed"> </label>
-                        <textarea class="form-control" rows="3" id="inputDetailed" name="inputDetailed" required></textarea>
-                        <span id="errDetailed">Dettagli non validi</span>
+                        <textarea class="form-control" rows="3" id="inputDetailed" name="inputDetailed"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Conoscenze, abilità e competenze che il tirocinante deve acquisire al termine del tirocinio:</p>
                     <div class="form-group">
                         <label for="inputKnoledge"> </label>
-                        <textarea class="form-control" rows="3" id="inputKnoledge" name="inputKnowledge" required></textarea>
-                        <span id="errKnowledge">Conoscenze, abilità e competenze non valide</span>
+                        <textarea class="form-control" rows="3" id="inputKnoledge" name="inputKnowledge"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Piano di monitoraggio:</p>
                     <div class="form-group">
                         <label for="inputMonitoring"> </label>
-                        <textarea class="form-control" rows="2" id="inputMonitoring" name="inputMonitoring" required></textarea>
-                        <span id="errMonitoring">Piano di monitoraggio non valido</span>
+                        <textarea class="form-control" rows="2" id="inputMonitoring" name="inputMonitoring"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Piano di valutazione:</p>
                     <div class="form-group">
                         <label for="inputEvaluation"> </label>
-                        <textarea class="form-control" rows="2" id="inputEvaluation" name="inputEvaluation" required></textarea>
-                        <span id="errEvaluation">Piano di valutazione non valido</span>
+                        <textarea class="form-control" rows="2" id="inputEvaluation" name="inputEvaluation"></textarea>
                     </div><br>
                     <div class="form-label-group">
                         <p style="font-weight: bold;">Competenza linguistica del tirocinante:</p>
                         <p>Il livello di competenza linguistica in<sup>8</sup>
                             <input type="text" class="form-control" id="inputLenguage" name="inputLenguage" placeholder="Lingua" required>
                             <label for="inputLenguage">Lingua</label> [lingua principale sul luogo di lavoro] che il tirocinante ha già o accetta di acquisire all'inizio del periodo di mobilità è:</p>
-                        <span id="errLenguage">Lingua non valida</span>
                     </div>
                     <div class="row">
                         <div class="form-check">
@@ -522,7 +491,6 @@
                             <br>
                             <label for="inputLenguageLevel">C2</label>
                             <input type="radio" name="inputLenguageLevel" id="C2" value="C2">
-                            <span id="errLenguageLevel">Parametro non valido</span>
                             <br>
                         </div>
                     </div>
@@ -530,7 +498,6 @@
                     <div class="form-label-group">
                         <input type="date" id="inputDateCompilation" class="form-control" name="inputDateCompilation" placeholder="Data Di Compilazione" required>
                         <label for="inputDateCompilation">Data Di Compilazione</label>
-                        <span id="errDateCompilation">Data di compilazione non valida</span>
                     </div>
                     <hr>
                     <br>
@@ -616,6 +583,17 @@
                 document.getElementById("inputDateCompilation").value = data["The trainee date"];
             });
         });
+    </script>
+    <script>
+        function Valida() {
+            var name = document.getElementById("inputName").value;
+            if (!new RegExp("^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$").test(name)) {
+
+            } else {
+
+            }
+
+        }
     </script>
 </body>
 

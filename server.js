@@ -10,6 +10,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 app.use(cookieParser());
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(req, res) {
@@ -25,12 +26,13 @@ app.get('/fillForm', function(req, res) {
     })
 });
 
-app.get('/compileStudent', function(req, res) {
-    var data = [req.query.inputName, req.query.inputSurname, req.query.inputDate, req.query.inputTelephone, req.query.radio1, req.query.nationality, req.query.inputStudyCicle,
-        req.query.inputAcademicYear1, req.query.inputAcademicYear2, req.query.inputSubjectCode, req.query.inputEmail.req.query.inputDepartmentSending, req.query.inputContactSending,
-        req.query.inputNameSector, req.query.inputDepartmentReciving, req.query.inputWebSite, req.query.inputCountry, req.query.inputSizeEnterprise, req.query.inputContactReciving,
-        req.query.inputMentor, req.query.inputMentorInfo, req.query.inputDateFrom, req.query.inputDateTo, req.query.inputHourWork, req.query.inputTitle, req.query.inputDetailed,
-        req.query.inputKnoledge, req.query.inputMonitoring, req.query.inputEvaluation, req.query.inputLenguage, req.query.inputLenguageLevel, req.query.inputDateCompilation
+app.post('/compileStudent', function(req, res) {
+    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCicle,
+        req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail.req.body.inputDepartmentSending, req.body.inputContactSending,
+        req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
+        req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
+        req.body.inputKnoledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
+        req.body.inputContactName, req.body.inputContactReciving
     ];
     var sendStudent = learningAgreementControl.sendLaStudent(data);
     sendStudent.then(function(la) {
@@ -45,11 +47,12 @@ app.get('/compileStudent', function(req, res) {
 });
 
 app.get('/saveCompilation', function(req, res) {
-    var data = [req.query.inputName, req.query.inputSurname, req.query.inputDate, req.query.inputTelephone, req.query.radio1, req.query.nationality, req.query.inputStudyCicle,
-        req.query.inputAcademicYear1, req.query.inputAcademicYear2, req.query.inputSubjectCode, req.query.inputEmail.req.query.inputDepartmentSending, req.query.inputContactSending,
-        req.query.inputNameSector, req.query.inputDepartmentReciving, req.query.inputWebSite, req.query.inputCountry, req.query.inputSizeEnterprise, req.query.inputContactReciving,
-        req.query.inputMentor, req.query.inputMentorInfo, req.query.inputDateFrom, req.query.inputDateTo, req.query.inputHourWork, req.query.inputTitle, req.query.inputDetailed,
-        req.query.inputKnoledge, req.query.inputMonitoring, req.query.inputEvaluation, req.query.inputLenguage, req.query.inputLenguageLevel, req.query.inputDateCompilation
+    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCicle,
+        req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail.req.body.inputDepartmentSending, req.body.inputContactSending,
+        req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
+        req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
+        req.body.inputKnoledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
+        req.body.inputContactName, req.body.inputContactReciving
     ];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
     saveStudent.then(function(file) {
