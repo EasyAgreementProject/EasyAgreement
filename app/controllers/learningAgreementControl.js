@@ -3,10 +3,10 @@ var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
 var learningAgreement = new LA();
 
-exports.sendLaStudent = function() {
+exports.sendLaStudent = function(input) {
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF =  "pdf/Filled_LA.pdf";
-    let data = {
+    var data = {
         "Header name" : input[0]+" "+input[1],
         "Last name (s)" : input[1],
         "First name (s)": input[0],
@@ -20,9 +20,9 @@ exports.sendLaStudent = function() {
         "Phone" : input[4],
         "E-mail" : input[11],
         "Sending Departement": input[12],
-        "Contact person name": "", // Missin form field
-        "Contact person E-mail / phone": input[13],
-        "Contact person name / position": "", // Missing form field
+        "Contact person name": input[32],
+        "Contact person Email / Phone": input[13],
+        "Contact person name / position": input[33],
         "Receiving contact person e-mail phone": input[13],
         "Name Sector":input[14],
         "Receiving Department":input[15],
@@ -40,10 +40,56 @@ exports.sendLaStudent = function() {
         "Monitoring plan":input[27],
         "Evaluation plan":input[28],
         "language competence":input[29],
-        "The trainee signature": input[input[0]+" "+input[1]],
-        // input[30] checkbox certificate
-        "The trainee date":input[31]
+        "The trainee signature": input[0]+" "+input[1],
+        "The trainee date": input[31]
     };
+    /*var data = {
+        "Header name" : "Veronica Volpicelli",
+        "Last name (s)" : "Volpicelli",
+        "First name (s)": "Veronica",
+        "Date of birth" : "22/04/96",
+        "Nationality":"Italiana",
+        "Sex [M/F]" : "F",
+        "Academic year1":"19",
+        "Academic year2":"20",
+        "Study cycle" : "1st cycle",
+        "Subject area, Code":"Informatica, 05121",
+        "Phone" : "123456789",
+        "E-mail" : "v.volpicelli4@studenti.unisa.it",
+        "Sending Departement":"Informatica",
+        "Contact person name":"Filomena Ferrucci",
+        "Contact person Email / Phone": "f.ferrucci@unisa.it 1234456789",
+        "Contact person name / position":"Filomena Ferrucci, Responsabile",
+        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789",
+        "Name Sector":"Non lo so",
+        "Receiving Department":"Boh",
+        "Address, website":"Via non lo so, 12 www.nonoloso.it",
+        "Country":"Nessuna",
+        "Size of enterprise":"250",
+        "Mentor name / position":"Michela Bertolotto Direttrice",
+        "Mentor e-mail / phone":"m.berto@gmail.com 9876543210",
+        "from":"12/2019",
+        "till":"06/2020",
+        "Number of working hours for week":"8",
+        "Traineeship title":"Non ho voglia di fare l'università",
+        "Detailed programme of the traineeship period": "Non ho fatto un c.... per tutto il periodo",
+        "Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship":"Imparare a fare la pizza",
+        "Monitoring plan":"Non so cosa dovrebbe essere",
+        "Evaluation plan":"Come per il monitoring plan",
+        "language competence":"english",
+        "B2":"X",
+        "The trainee signature": "Veronica Volpicelli",
+        "The trainee date":"08/12/2019"
+    };*/
+    switch(input[30]+"") {
+        case "A1": data["A1"] = "X"; break;
+        case "A2": data["A2"] = "X"; break;
+        case "B1": data["B1"] = "X"; break;
+        case "B2": data["B2"] = "X"; break;
+        case "C1": data["C1"] = "X"; break;
+        case "C2": data["C2"] = "X"; break;
+        default: break;
+    }
   
     return new Promise(function (fulfill, reject) {   
         let validatePr = exports.validateData(data);
@@ -95,9 +141,9 @@ exports.saveLaStudent = function(input) {
         "Phone" : input[4],
         "E-mail" : input[11],
         "Sending Departement": input[12],
-        "Contact person name": "",
-        "Contact person E-mail / phone": input[13],
-        "Contact person name / position": "",
+        "Contact person name": input[32],
+        "Contact person Email / Phone": input[13],
+        "Contact person name / position": input[33],
         "Receiving contact person e-mail phone": input[13],
         "Name Sector":input[14],
         "Receiving Department":input[15],
@@ -115,9 +161,56 @@ exports.saveLaStudent = function(input) {
         "Monitoring plan":input[27],
         "Evaluation plan":input[28],
         "language competence":input[29],
-        "The trainee signature": input[input[0]+" "+input[1]],
-        "The trainee date":input[30]
+        "The trainee signature": input[0]+" "+input[1],
+        "The trainee date": input[31]
     };
+    /*var data = {
+        "Header name" : "Veronica Volpicelli",
+        "Last name (s)" : "Volpicelli",
+        "First name (s)": "Veronica",
+        "Date of birth" : "22/04/96",
+        "Nationality":"Italiana",
+        "Sex [M/F]" : "F",
+        "Academic year1":"19",
+        "Academic year2":"20",
+        "Study cycle" : "1st cycle",
+        "Subject area, Code":"Informatica, 05121",
+        "Phone" : "123456789",
+        "E-mail" : "v.volpicelli4@studenti.unisa.it",
+        "Sending Departement":"Informatica",
+        "Contact person name":"Filomena Ferrucci",
+        "Contact person Email / Phone": "f.ferrucci@unisa.it 1234456789",
+        "Contact person name / position":"Filomena Ferrucci, Responsabile",
+        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789",
+        "Name Sector":"Non lo so",
+        "Receiving Department":"Boh",
+        "Address, website":"Via non lo so, 12 www.nonoloso.it",
+        "Country":"Nessuna",
+        "Size of enterprise":"250",
+        "Mentor name / position":"Michela Bertolotto Direttrice",
+        "Mentor e-mail / phone":"m.berto@gmail.com 9876543210",
+        "from":"12/2019",
+        "till":"06/2020",
+        "Number of working hours for week":"8",
+        "Traineeship title":"Non ho voglia di fare l'università",
+        "Detailed programme of the traineeship period": "Non ho fatto un c.... per tutto il periodo",
+        "Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship":"Imparare a fare la pizza",
+        "Monitoring plan":"Non so cosa dovrebbe essere",
+        "Evaluation plan":"Come per il monitoring plan",
+        "language competence":"english",
+        "B2":"X",
+        "The trainee signature": "Veronica Volpicelli",
+        "The trainee date":"08/12/2019"
+    };*/
+    switch(input[30]+"") {
+        case "A1": data["A1"] = "X"; break;
+        case "A2": data["A2"] = "X"; break;
+        case "B1": data["B1"] = "X"; break;
+        case "B2": data["B2"] = "X"; break;
+        case "C1": data["C1"] = "X"; break;
+        case "C2": data["C2"] = "X"; break;
+        default: break;
+    }
   
     return new Promise(function (fulfill, reject) {      
         let validatePr = exports.validateData(data);
@@ -165,7 +258,6 @@ exports.validateData = function(data) {
         if ((/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"])) &&
             /^[A-za-zà-ù]+$/.test(data["Last name (s)"]) &&
             /^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]) &&
-            /^([0-2][0-9]|(3)[0-1]){1}\/{1}((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["Date of birth"]) &&
             /^[A-za-zà-ù]+$/.test(data["Nationality"]) &&
             /^(M|F)/.test(data["Sex [M/F]"]) &&
             /^\d{2}$/.test(data["Academic year1"]) &&
@@ -176,7 +268,7 @@ exports.validateData = function(data) {
             /^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]) &&
             /^\w+$/.test(data["Sending Departement"]) &&
             /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Contact person name"]) &&
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person E-mail / phone"]) &&
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person Email / Phone"]) &&
             /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])?( ?\/|,)? {1}[A-za-zà-ù]+$/.test(data["Contact person name / position"]) &&
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]) &&
             /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Name Sector"]) &&
