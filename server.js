@@ -46,6 +46,6 @@ app.get('/saveCompilation', function (req, res) {
     });
 });
 
-app.listen(8380, function() {
+app.listen(8080, function() {
     console.log('EasyAgreement Platform listening on port 3000!');
 });
