@@ -168,10 +168,44 @@
                         .notes {
                             margin-left: 0.75rem;
                         }
-                        input:invalid {
-                            border: 1px solid red;
-                        }
-                        input:valid {
-                            border: 1px solid greenyellow;
+                        #errName,
+                        #errSurname,
+                        #errDate,
+                        #errTelephone,
+                        #errRadio,
+                        #errSelect,
+                        #errStudyCicle,
+                        #errAcademicYear1,
+                        #errAcademicYear2,
+                        #errSubjectCode,
+                        #errEmail,
+                        #errDepartmentSending,
+                        #errContactName,
+                        #errContactSending,
+                        #errNameSector,
+                        #errDepartmentReciving,
+                        #errAddressWebSite,
+                        #errCountry,
+                        #errSizeEnterprise,
+                        #errContactReciving,
+                        #errMentor,
+                        #errMentorInfo,
+                        #errDateFrom,
+                        #errDateTo,
+                        #errHourWork,
+                        #errTitle,
+                        #errDetailed,
+                        #errKnowledge,
+                        #errMonitoring,
+                        #errEvaluation,
+                        #errLenguage,
+                        #errLenguageLevel,
+                        #errDateCompilation {
+                            color: red;
+                            display: none;
+                            margin-top: -5px;
+                            font-size: 14px;
+                            padding: 5px;
+                            margin-bottom: 5px;
                         }
                     }
