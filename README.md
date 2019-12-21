@@ -59,7 +59,7 @@ A step by step series that tell you how to get a development env running
 
 
 ## Deployment
-1.	Clone github repository from here: [https://github.com/EasyAgreementProject/EasyAgreement]
+1.	Clone github repository from here: https://github.com/EasyAgreementProject/EasyAgreement
 2.	Follow the installation instructions
 3.	Go to localhost:8080
 
