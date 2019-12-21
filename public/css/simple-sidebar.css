@@ -172,8 +172,6 @@
                         #errSurname,
                         #errDate,
                         #errTelephone,
-                        #errRadio,
-                        #errSelect,
                         #errStudyCicle,
                         #errAcademicYear1,
                         #errAcademicYear2,
@@ -199,7 +197,6 @@
                         #errMonitoring,
                         #errEvaluation,
                         #errLenguage,
-                        #errLenguageLevel,
                         #errDateCompilation {
                             color: red;
                             display: none;
