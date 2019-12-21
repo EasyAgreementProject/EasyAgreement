@@ -26,13 +26,19 @@ What things you need to install the software and how to install them
 
 A step by step series that tell you how to get a development env running
 
+#### Clone EasyAgreement project ####
+
+1. Open your terminal
+
+2. If necessary, execute the following command: sudo apt install git.
+
+3. Execute the following command: git clone https://github.com/EasyAgreementProject/EasyAgreement.git
+
 #### Node.js server running: ####
 
 1.	Go to your project cloned directory 'EasyAgreement’.
 
-2.	Execute the following command: npm install
-
-3.	Execute the following command: node server.js
+2.	Execute the following command: node server.js
 
 #### MongoDB database creation: ####
 
@@ -40,7 +46,7 @@ A step by step series that tell you how to get a development env running
 
 2.	Go into directory ‘EasyAgreement’.
 
-3.	Execute the following command: ‘chmod -x installdb.sh’
+3.	Execute the following command: ‘soruce installdb.sh’
 
 
 #### Pdftk install: ####
@@ -59,7 +65,7 @@ A step by step series that tell you how to get a development env running
 
 
 ## Deployment
-1.	Clone github repository from here: https://github.com/EasyAgreementProject/EasyAgreement
+1.	Clone github repository from here
 2.	Follow the installation instructions
 3.	Go to localhost:8080
 
