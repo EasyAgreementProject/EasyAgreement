@@ -171,7 +171,7 @@ exports.validateData = function(data) {
             /^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/.test(data["Study cycle"]) &&
             /^[A-za-zà-ù]+\,{1} ?\d+$/.test(data["Subject area, Code"]) &&
             /^\d{1,10}$/.test(data["Phone"]) &&
-            /^[a-z]{1}\.{1}[a-z]{3,}\d{1,2}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]) &&
+            /^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]) &&
             /^\w+$/.test(data["Sending Departement"]) &&
             /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Contact person name"]) &&
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person E-mail / phone"]) &&
@@ -179,7 +179,7 @@ exports.validateData = function(data) {
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]) &&
             /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Name Sector"]) &&
             /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Receiving Department"]) &&
-            /^[\w ,\.']+,? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]) &&
+            /^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]) &&
             /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Country"]) &&
             /^\d+( ?[- \/] ?\d+)?$/.test(data["Size of enterprise"]) &&
             /^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(data["Mentor name / position"]) &&
