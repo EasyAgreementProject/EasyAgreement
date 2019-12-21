@@ -144,6 +144,36 @@ static findByEmail(email){
         });
     });
 }
+
+/**
+ * Retrieve academic tutor by email
+ * @param {String} email- email of tutor
+ * @returns {Object} - return academic tutor if exist, else null
+ */
+static RetrieveByEmail(email){
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("AcademicTutor").findOne({"E_mail": email}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var academicTutor= new AcademicTutor();
+                    academicTutor.setName(result.Name);
+                    academicTutor.setSurname(result.Surname);
+                    academicTutor.setEmail(result.E_mail);
+                    academicTutor.setDepartment(result.Department);
+                    academicTutor.setPassword(result.Password);
+                    fulfill(academicTutor);
+                }
+                else{
+                    fulfill(null);
+                }
+                db.close();
+            })
+        });
+    });
+}
 }
 
 module.exports= AcademicTutor;
