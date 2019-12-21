@@ -46,7 +46,7 @@ A step by step series that tell you how to get a development env running
 
 2.	Go into directory ‘EasyAgreement’.
 
-3.	Execute the following command: ‘soruce installdb.sh’
+3.	Execute the following command: ‘source installdb.sh’
 
 
 #### Pdftk install: ####
