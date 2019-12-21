@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/EasyAgreementProject/EasyAgreement.svg?branch=master)](https://travis-ci.com/EasyAgreementProject/EasyAgreement)
-[![codecov](https://codecov.io/gh/TechnionYP5777/project-name/branch/master/graph/badge.svg)](https://codecov.io/gh/TechnionYP5777/project-name)
+[![codecov](https://codecov.io/gh/EasyAgreementProject/EasyAgreement/branch/master/graph/badge.svg)](https://codecov.io/gh/EasyAgreementProject/EasyAgreement)
 # EasyAgreement
 This project is a meant as a platform for simplify the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of Learning Agreement document.
 
