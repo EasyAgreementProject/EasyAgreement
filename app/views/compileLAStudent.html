@@ -380,8 +380,12 @@
                         <label for="inputDepartmentSending">Dipartimento Di Provenienza</label>
                     </div>
                     <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputContactName" name="inputContactName" placeholder="Nome Docente" required>
+                        <label for="inputContactName">Nome Contatto</label>
+                    </div>
+                    <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactSending" name="inputContactSending" placeholder="Contatto Docente: E-mail/Telefono" required>
-                        <label for="inputContactSending">Contatto Docente: E-mail/Telefono</label>
+                        <label for="inputContactSending">Info Contatto: E-mail/Telefono</label>
                     </div>
 
                     <hr>
@@ -395,8 +399,8 @@
                         <label for="inputDepartmentReciving"> Dipartimento Ricevente</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="url" class="form-control" id="inputWebSite" name="inputWebSite" placeholder="Indirizzo Sito Web" required>
-                        <label for="inputWebSite">Indrizzo Sito Web</label>
+                        <input type="text" class="form-control" id="inputAddressWebSite" name="inputAddressWebSite" placeholder="Indirizzo/Sito Web" required>
+                        <label for="inputWebSite">Indrizzo/Sito Web</label>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputCountry" name="inputCountry" placeholder="Paese" required>
@@ -438,28 +442,28 @@
                     </div>
                     <div class="form-group">
                         <p style="font-weight: bold;">Titolo Tirocinio:</p>
-                        <label for="comment"> </label>
-                        <textarea class="form-control" rows="1" id="inputTitle" name="inputTitle"></textarea>
+                        <input type="text" id="inputTitle" name="inputTitle" placeholder="Titolo Tirocinio" required>
+                        <label for="inputTitle">Titolo Tirocinio</label>
                     </div>
                     <br>
                     <p style="font-weight: bold;">Programma dettagliato del periodo di tirocinio:</p>
                     <div class="form-group">
-                        <label for="comment"> </label>
+                        <label for="inputDetailed"> </label>
                         <textarea class="form-control" rows="3" id="inputDetailed" name="inputDetailed"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Conoscenze, abilità e competenze che il tirocinante deve acquisire al termine del tirocinio:</p>
                     <div class="form-group">
-                        <label for="comment"> </label>
+                        <label for="inputKnoledge"> </label>
                         <textarea class="form-control" rows="3" id="inputKnoledge" name="inputKnowledge"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Piano di monitoraggio:</p>
                     <div class="form-group">
-                        <label for="comment"> </label>
+                        <label for="inputMonitoring"> </label>
                         <textarea class="form-control" rows="2" id="inputMonitoring" name="inputMonitoring"></textarea>
                     </div><br>
                     <p style="font-weight: bold;">Piano di valutazione:</p>
                     <div class="form-group">
-                        <label for="comment"> </label>
+                        <label for="inputEvaluation"> </label>
                         <textarea class="form-control" rows="2" id="inputEvaluation" name="inputEvaluation"></textarea>
                     </div><br>
                     <div class="form-label-group">
@@ -470,23 +474,23 @@
                     </div>
                     <div class="row">
                         <div class="form-check">
-                            <label for="inputRadio">A1</label>
-                            <input type="radio" name="inputRadio" value="A1">
+                            <label for="inputLevelLenguage">A1</label>
+                            <input type="radio" name="inputLevelLenguage" value="A1">
                             <br>
-                            <label for="inputRadio">A2</label>
-                            <input type="radio" name="inputRadio" value="A2">
+                            <label for="inputLevelLenguage">A2</label>
+                            <input type="radio" name="inputLevelLenguage" value="A2">
                             <br>
-                            <label for="inputRadio">B1</label>
-                            <input type="radio" name="inputRadio" value="B1">
+                            <label for="inputLevelLenguage">B1</label>
+                            <input type="radio" name="inputLevelLenguage" value="B1">
                             <br>
-                            <label for="inputRadio">B2</label>
-                            <input type="radio" name="inputRadio" value="B2">
+                            <label for="inputLevelLenguage">B2</label>
+                            <input type="radio" name="inputLevelLenguage" value="B2">
                             <br>
-                            <label for="inputRadio">C1</label>
-                            <input type="radio" name="inputRadio" value="C1">
+                            <label for="inputLevelLenguage">C1</label>
+                            <input type="radio" name="inputLevelLenguage" value="C1">
                             <br>
-                            <label for="inputRadio">C2</label>
-                            <input type="radio" name="inputRadio" value="C2">
+                            <label for="inputLevelLenguage">C2</label>
+                            <input type="radio" name="inputLevelLenguage" value="C2">
                             <br>
                         </div>
                     </div>
@@ -549,6 +553,27 @@
                 document.getElementById("inputAcademicYear1").value = data["Academic year1"];
                 document.getElementById("inputAcademicYear2").value = data["Academic year2"];
                 document.getElementById("inputSubjectCode").value = data["Subject area, Code"];
+                document.getElementById("inputEmail").value = data["E-mail"];
+                document.getElementById("inputDepartmentSending").value = data["Sending Departement"];
+                document.getElementById("inputContactName").value = data["Contact person name"];
+                document.getElementById("inputContactSending").value = data["Contact person E-mail / phone"];
+                document.getElementById("inputNameSector").value = data["Name Sector"];
+                document.getElementById("inputDepartmentReciving").value = data["Department Reciving"];
+                document.getElementById("inputAddressWebSite").value = data["Address, website"];
+                document.getElementById("inputCountry").value = data["Country"];
+                document.getElementById("inputSizeEnterprise").value = data["Size of enterprise"];
+                document.getElementById("inputContactReciving").value = data["Contact person name / position"];
+                document.getElementById("inputMentor").value = data["Mentor name / position"];
+                document.getElementById("inputMentorInfo").value = data["Mentor e-mail / phone"];
+                document.getElementById("inputDateFrom").value = data["from"];
+                document.getElementById("inputDateTo").value = data["till"];
+                document.getElementById("inputHourWork").value = data["Number of working hours for week"];
+                document.getElementById("inputTitle").value = data["Traineeship title"];
+                document.getElementById("inputDetailed").value = data["Detailed programme of the traineeship period"];
+                document.getElementById("inputKnowledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
+                document.getElementById("inputMonitoring").value = data["Monitoring plan"];
+                document.getElementById("inputEvaluation").value = data["Evaluation plan"];
+                document.getElementById("inputLenguage").value = data["language competence"]
             });
         });
     </script>
