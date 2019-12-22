@@ -524,12 +524,6 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-label-group">
-                        <input type="date" id="inputDateCompilation" class="form-control" name="inputDateCompilation" placeholder="Data Di Compilazione" required>
-                        <label for="inputDateCompilation">Data Di Compilazione</label>
-                        <span id="errDateCompilation">Data di compilazione non valida</span>
-                    </div>
-                    <hr>
                     <br>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Note</h5><br>
                     <div class="notes">
@@ -610,7 +604,6 @@
                 if (data["B2"] != null) document.getElementById("B2").checked = true;
                 if (data["C1"] != null) document.getElementById("C1").checked = true;
                 if (data["C2"] != null) document.getElementById("C2").checked = true;
-                document.getElementById("inputDateCompilation").value = data["The trainee date"];
             });
         });
     </script>

@@ -6,6 +6,11 @@ var learningAgreement = new LA();
 exports.sendLaStudent = function(input) {
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF =  "pdf/Filled_LA.pdf";
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd+"/"+mm+"/"+yyyy;
     var data = {
         "Header name" : input[0]+" "+input[1],
         "Last name (s)" : input[1],
@@ -41,7 +46,7 @@ exports.sendLaStudent = function(input) {
         "Evaluation plan":input[28],
         "language competence":input[29],
         "The trainee signature": input[0]+" "+input[1],
-        "The trainee date": input[31]
+        "The trainee date": today
     };
     /*var data = {
         "Header name" : "Veronica Volpicelli",
@@ -128,6 +133,11 @@ exports.sendLaStudent = function(input) {
 exports.saveLaStudent = function(input) {
     var sourcePDF = "pdf/Template_LA.pdf";
     var destinationPDF =  "pdf/Filled_LA.pdf";
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd+"/"+mm+"/"+yyyy;
     var data = {
         "Header name" : input[0]+" "+input[1],
         "Last name (s)" : input[1],
@@ -142,7 +152,7 @@ exports.saveLaStudent = function(input) {
         "Phone" : input[3],
         "E-mail" : input[10],
         "Sending Departement": input[11],
-        "Contact person name": input[32],
+        "Contact person name": input[31],
         "Contact person Email / Phone": input[12],
         "Contact person name / position": input[18],
         "Receiving contact person e-mail phone": input[12],
@@ -163,7 +173,7 @@ exports.saveLaStudent = function(input) {
         "Evaluation plan":input[28],
         "language competence":input[29],
         "The trainee signature": input[0]+" "+input[1],
-        "The trainee date": input[31]
+        "The trainee date": today
     };
     /*var data = {
         "Header name" : "Veronica Volpicelli",

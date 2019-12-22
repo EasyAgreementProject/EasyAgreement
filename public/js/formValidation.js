@@ -227,14 +227,6 @@ $(document).ready(function() {
             $('#errLenguage').css('display', 'none');
             $('#inputLenguage').removeClass("errClass");
         }
-        if (!testDateCompilation()) {
-            res = false;
-            $('#errDateCompilation').css('display', 'block');
-            $('#inputDateCompilation').addClass("errClass");
-        } else {
-            $('#errDateCompilation').css('display', 'none');
-            $('#inputDateCompilation').removeClass("errClass");
-        }
 
     });
 
@@ -485,15 +477,6 @@ $(document).ready(function() {
         if (language.length >= 10) {
             var exp = new RegExp("^[A-za-zà-ù]+$");
             if (exp.test(language)) return true;
-        }
-        return false;
-    }
-
-    function testDateCompilation() {
-        var datecomp = $('#inputDateCompilation').val();
-        if (datecomp.length >= 10) {
-            var exp = new RegExp("^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$");
-            if (exp.test(datecomp)) return true;
         }
         return false;
     }
