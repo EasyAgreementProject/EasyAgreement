@@ -18,14 +18,6 @@ $(document).ready(function() {
             $('#errSurname').css('display', 'none');
             $('#inputSurname').removeClass("errClass");
         }
-        if (!testDate()) {
-            res = false;
-            $('#errDate').css('display', 'block');
-            $('#inputDate').addClass("errClass");
-        } else {
-            $('#errDate').css('display', 'none');
-            $('#inputDate').removeClass("errClass");
-        }
         if (!testTelephone()) {
             res = false;
             $('#errTelephone').css('display', 'block');
@@ -34,14 +26,7 @@ $(document).ready(function() {
             $('#errTelephone').css('display', 'none');
             $('#inputTelephone').removeClass("errClass");
         }
-        if (!testNationality()) {
-            res = false;
-            $('#errNationality').css('display', 'block');
-            $('#nationality').removeClass("errClass");
-        } else {
-            $('#errNationality').css('display', 'none');
-            $('#nationality').removeClass("errClass");
-        }
+
         if (!testStudyCicle()) {
             res = false;
             $('#errStudyCicle').css('display', 'block');
@@ -235,267 +220,249 @@ $(document).ready(function() {
             $('#inputLenguage').removeClass("errClass");
         }
 
+        return res;
+
     });
-
-
-    function testName(name) {
-        if (name.length >= 2) {
-            var exp = new RegExp("^[A-Za-z]+$");
-            if (exp.test(name)) return true;
-        }
-        return false;
-    }
-
-    function testSurname(surname) {
-        if (surname.length >= 2) {
-            var exp = new RegExp("^[A-Za-z]+$");
-            if (exp.test(surname)) return true;
-        }
-        return false;
-    }
-
-    function testDate() {
-        var date = $('#inputDate').val();
-        if (date.length == 9) {
-            var exp = new RegExp("^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$");
-            if (exp.test(date)) return true;
-        }
-        return false;
-    }
-
-    function testTelephone() {
-        var telephone = $('#inputTelephone').val();
-        if (telephone.length == 10) {
-            var exp = new RegExp("^\d{1,10}$");
-            if (exp.test(telephone)) return true;
-        }
-        return false;
-    }
-
-    function testNationality() {
-        var nationality = $('#nationality').val();
-        if (nationality.lenght >= 3) {
-            var exp = new RegExp("^[A-za-zà-ù]+$");
-            if (exp.test(nationality)) return true;
-        }
-        return false;
-    }
-
-    function testStudyCicle() {
-        var studyCicle = $('#inputStudyCicle').val();
-        if (studyCicle.length >= 6) {
-            var exp = new RegExp("^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$");
-            if (exp.test(studyCicle)) return true;
-        }
-        return false;
-    }
-
-    function testAcademicYear1() {
-        var academicYear1 = $('#inputAcademicYear1').val();
-        if (academicYear1.length == 2) {
-            var exp = new RegExp("^\d{2}$");
-            if (exp.test(academicYear1)) return true;
-        }
-        return false;
-    }
-
-    function testAcademicYear2() {
-        var academicYear2 = $('#inputAcademicYear2').val();
-        if (academicYear2.length == 2) {
-            var exp = new RegExp("^\d{2}$");
-            if (exp.test(academicYear2)) return true;
-        }
-        return false;
-    }
-
-    function testSubjectCode() {
-        var subjectCode = $('#inputSubjectCode').val();
-        if (subjectCode.length >= 5) {
-            var exp = new RegExp("^[A-za-zà-ù]+\,{1} ?\d+");
-            if (exp.test(subjectCode)) return true;
-        }
-        return false;
-    }
-
-    function testEmail() {
-        var email = $('#inputEmail').val().toLowerCase();
-        if (email.length >= 3) {
-            var exp = new RegExp("^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$*");
-            if (exp.test(email)) return true;
-        }
-        return false;
-    }
-
-    function testDepartmentSending() {
-        var departmentSending = $('#inputDepartmentSending').val();
-        if (departmentSending.length >= 4) {
-            var exp = new RegExp("^\w+$");
-            if (exp.test(departmentSending)) return true;
-        }
-        return false;
-    }
-
-    function testContactName() {
-        var contactName = $('#inputContactName').val();
-        if (contactName.length >= 4) {
-            var exp = new RegExp("^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$");
-            if (exp.test(contactName)) return true;
-        }
-        return false;
-    }
-
-    function testContactSending() {
-        var contactSending = $('#inputContactSending').val();
-        if (contactSending.length >= 10) {
-            var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
-            if (exp.test(contactSending)) return true;
-        }
-        return false;
-    }
-
-    function testNameSector() {
-        var nameSector = $('#inputNameSector').val();
-        if (nameSector.length >= 5) {
-            var exp = new RegExp("^[A-za-zà-ù]+( [A-za-zà-ù]+)*$");
-            if (exp.test(nameSector)) return true;
-        }
-        return false;
-    }
-
-    function testDepartmentReciving() {
-        var departmentReciving = $('#inputDepartmentReciving').val();
-        if (departmentReciving.length >= 5) {
-            var exp = new RegExp("^[A-za-zà-ù]+( [A-za-zà-ù]+)*$");
-            if (exp.test(departmentReciving)) return true;
-        }
-        return false;
-    }
-
-    function testAddressWebSite() {
-        var addressWebSite = $('#inputAddressWebSite').val();
-        if (addressWebSite.length >= 5) {
-            var exp = new RegExp("^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$");
-            if (exp.test(addressWebSite)) return true;
-        }
-        return false;
-    }
-
-    function testSizeEnterprise() {
-        var sizeEnterprise = $('#inputSizeEnterprise').val();
-        if (sizeEnterprise.length >= 3) {
-            var exp = new RegExp("^\d+( ?[- \/] ?\d+)?$");
-            if (exp.test(sizeEnterprise)) return true;
-        }
-        return false;
-    }
-
-    function testContactReciving() {
-        var contactReciving = $('#inputContactReciving').val();
-        if (contactReciving.length >= 3) {
-            var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
-            if (exp.test(contactReciving)) return true;
-        }
-        return false;
-    }
-
-    function testMentor() {
-        var mentor = $('#inputMentor').val();
-        if (mentor.length >= 4) {
-            var exp = new RegExp("^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$");
-            if (exp.test(mentor)) return true;
-        }
-        return false;
-    }
-
-    function testMentorInfo() {
-        var mentorInfo = $('#inputMentorInfo').val();
-        if (mentorInfo.length >= 10) {
-            var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
-            if (exp.test(mentorInfo)) return true;
-        }
-        return false;
-    }
-
-    function testDateFrom() {
-        var datefrom = $('#inputDateFrom').val();
-        if (datefrom.length >= 2) {
-            var exp = new RegExp("^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$");
-            if (exp.test(datefrom)) return true;
-        }
-        return false;
-    }
-
-    function testDateTo() {
-        var dateto = $('#inputDateTo').val();
-        if (dateto.length >= 2) {
-            var exp = new RegExp("^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$");
-            if (exp.test(dateto)) return true;
-        }
-        return false;
-    }
-
-    function testHourWork() {
-        var hw = $('#inputHourWork').val();
-        if (hw.length >= 2) {
-            var exp = new RegExp("^\d{1,2}$");
-            if (exp.test(hw)) return true;
-        }
-        return false;
-    }
-
-    function testTitle() {
-        var title = $('#inputTitle').val();
-        if (title.length >= 3) {
-            var exp = new RegExp("^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$");
-            if (exp.test(title)) return true;
-        }
-        return false;
-    }
-
-    function testDetailed() {
-        var detailed = $('#inputDetailed').val();
-        if (detailed.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
-            if (exp.test(detailed)) return true;
-        }
-        return false;
-    }
-
-    function testKnowledge() {
-        var knowledge = $('#inputKnowledge').val();
-        if (knowledge.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
-            if (exp.test(knowledge)) return true;
-        }
-        return false;
-    }
-
-    function testMonitoring() {
-        var monitoring = $('#inputMonitoring').val();
-        if (monitoring.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
-            if (exp.test(monitoring)) return true;
-        }
-        return false;
-    }
-
-    function testEvaluation() {
-        var evaluation = $('#inputEvaluation').val();
-        if (evaluation.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
-            if (exp.test(evaluation)) return true;
-        }
-        return false;
-    }
-
-    function testLanguage() {
-        var language = $('#inputLenguage').val();
-        if (language.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù]+$");
-            if (exp.test(language)) return true;
-        }
-        return false;
-    }
-
-
 });
+
+
+function testName(name) {
+    if (name.length >= 2) {
+        var exp = new RegExp("^[A-Za-z]+$");
+        if (exp.test(name)) return true;
+    }
+    return false;
+}
+
+function testSurname(surname) {
+    if (surname.length >= 2) {
+        var exp = new RegExp("^[A-Za-z]+$");
+        if (exp.test(surname)) return true;
+    }
+    return false;
+}
+
+function testTelephone() {
+    var telephone = $('#inputTelephone').val();
+    if (telephone.length == 10 || telephone.length == 9) {
+        var exp = new RegExp("^\d{9,10}$");
+        if (exp.test(telephone)) return true;
+    }
+    return false;
+}
+
+function testStudyCicle() {
+    var studyCicle = $('#inputStudyCicle').val();
+    if (studyCicle.length >= 6) {
+        var exp = new RegExp("^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$");
+        if (exp.test(studyCicle)) return true;
+    }
+    return false;
+}
+
+function testAcademicYear1() {
+    var academicYear1 = $('#inputAcademicYear1').val();
+    if (academicYear1.length == 2) {
+        var exp = new RegExp("^\d{2}$");
+        if (exp.test(academicYear1)) return true;
+    }
+    return false;
+}
+
+function testAcademicYear2() {
+    var academicYear2 = $('#inputAcademicYear2').val();
+    if (academicYear2.length == 2) {
+        var exp = new RegExp("^\d{2}$");
+        if (exp.test(academicYear2)) return true;
+    }
+    return false;
+}
+
+function testSubjectCode() {
+    var subjectCode = $('#inputSubjectCode').val();
+    if (subjectCode.length >= 5) {
+        var exp = new RegExp("^[A-za-zà-ù]+\,{1} ?\d+");
+        if (exp.test(subjectCode)) return true;
+    }
+    return false;
+}
+
+function testEmail() {
+    var email = $('#inputEmail').val().toLowerCase();
+    if (email.length >= 3) {
+        var exp = new RegExp("^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$");
+        if (exp.test(email)) return true;
+    }
+    return false;
+}
+
+function testDepartmentSending() {
+    var departmentSending = $('#inputDepartmentSending').val();
+    if (departmentSending.length >= 4) {
+        var exp = new RegExp("^\w+$");
+        if (exp.test(departmentSending)) return true;
+    }
+    return false;
+}
+
+function testContactName() {
+    var contactName = $('#inputContactName').val();
+    if (contactName.length >= 4) {
+        var exp = new RegExp("^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$");
+        if (exp.test(contactName)) return true;
+    }
+    return false;
+}
+
+function testContactSending() {
+    var contactSending = $('#inputContactSending').val();
+    if (contactSending.length >= 10) {
+        var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
+        if (exp.test(contactSending)) return true;
+    }
+    return false;
+}
+
+function testNameSector() {
+    var nameSector = $('#inputNameSector').val();
+    if (nameSector.length >= 5) {
+        var exp = new RegExp("^[A-za-zà-ù]+( [A-za-zà-ù]+)*$");
+        if (exp.test(nameSector)) return true;
+    }
+    return false;
+}
+
+function testDepartmentReciving() {
+    var departmentReciving = $('#inputDepartmentReciving').val();
+    if (departmentReciving.length >= 5) {
+        var exp = new RegExp("^[A-za-zà-ù]+( [A-za-zà-ù]+)*$");
+        if (exp.test(departmentReciving)) return true;
+    }
+    return false;
+}
+
+function testAddressWebSite() {
+    var addressWebSite = $('#inputAddressWebSite').val();
+    if (addressWebSite.length >= 5) {
+        var exp = new RegExp("^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$");
+        if (exp.test(addressWebSite)) return true;
+    }
+    return false;
+}
+
+function testSizeEnterprise() {
+    var sizeEnterprise = $('#inputSizeEnterprise').val();
+    if (sizeEnterprise.length >= 3) {
+        var exp = new RegExp("^\d+( ?[- \/] ?\d+)?$");
+        if (exp.test(sizeEnterprise)) return true;
+    }
+    return false;
+}
+
+function testContactReciving() {
+    var contactReciving = $('#inputContactReciving').val();
+    if (contactReciving.length >= 3) {
+        var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
+        if (exp.test(contactReciving)) return true;
+    }
+    return false;
+}
+
+function testMentor() {
+    var mentor = $('#inputMentor').val();
+    if (mentor.length >= 4) {
+        var exp = new RegExp("^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$");
+        if (exp.test(mentor)) return true;
+    }
+    return false;
+}
+
+function testMentorInfo() {
+    var mentorInfo = $('#inputMentorInfo').val();
+    if (mentorInfo.length >= 10) {
+        var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
+        if (exp.test(mentorInfo)) return true;
+    }
+    return false;
+}
+
+function testDateFrom() {
+    var datefrom = $('#inputDateFrom').val();
+    if (datefrom.length >= 2) {
+        var exp = new RegExp("^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$");
+        if (exp.test(datefrom)) return true;
+    }
+    return false;
+}
+
+function testDateTo() {
+    var dateto = $('#inputDateTo').val();
+    if (dateto.length >= 2) {
+        var exp = new RegExp("^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$");
+        if (exp.test(dateto)) return true;
+    }
+    return false;
+}
+
+function testHourWork() {
+    var hw = $('#inputHourWork').val();
+    if (hw.length >= 2) {
+        var exp = new RegExp("^\d{1,2}$");
+        if (exp.test(hw)) return true;
+    }
+    return false;
+}
+
+function testTitle() {
+    var title = $('#inputTitle').val();
+    if (title.length >= 3) {
+        var exp = new RegExp("^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$");
+        if (exp.test(title)) return true;
+    }
+    return false;
+}
+
+function testDetailed() {
+    var detailed = $('#inputDetailed').val();
+    if (detailed.length >= 10) {
+        var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
+        if (exp.test(detailed)) return true;
+    }
+    return false;
+}
+
+function testKnowledge() {
+    var knowledge = $('#inputKnowledge').val();
+    if (knowledge.length >= 10) {
+        var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
+        if (exp.test(knowledge)) return true;
+    }
+    return false;
+}
+
+function testMonitoring() {
+    var monitoring = $('#inputMonitoring').val();
+    if (monitoring.length >= 10) {
+        var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
+        if (exp.test(monitoring)) return true;
+    }
+    return false;
+}
+
+function testEvaluation() {
+    var evaluation = $('#inputEvaluation').val();
+    if (evaluation.length >= 10) {
+        var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
+        if (exp.test(evaluation)) return true;
+    }
+    return false;
+}
+
+function testLanguage() {
+    var language = $('#inputLenguage').val();
+    if (language.length >= 10) {
+        var exp = new RegExp("^[A-za-zà-ù]+$");
+        if (exp.test(language)) return true;
+    }
+    return false;
+}

@@ -15,7 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/./public/js/formValidation.js"></script>
 </head>
 
@@ -477,8 +477,8 @@
                     <br>
                     <p style="font-weight: bold;">Conoscenze, abilità e competenze che il tirocinante deve acquisire al termine del tirocinio:</p>
                     <div class="form-group">
-                        <label for="inputKnoledge"> </label>
-                        <textarea class="form-control" rows="3" id="inputKnoledge" name="inputKnowledge" required></textarea>
+                        <label for="inputKnowledge"> </label>
+                        <textarea class="form-control" rows="3" id="inputKnowledge" name="inputKnowledge" required></textarea>
                         <span id="errKnowledge">Conoscenze, abilità e competenze non valide</span>
                     </div><br>
                     <p style="font-weight: bold;">Piano di monitoraggio:</p>
@@ -593,7 +593,7 @@
                 if (data["Number of working hours for week"]) document.getElementById("inputHourWork").value = data["Number of working hours for week"];
                 if (data["Traineeship title"]) document.getElementById("inputTitle").value = data["Traineeship title"];
                 if (data["Detailed programme of the traineeship period"]) document.getElementById("inputDetailed").value = data["Detailed programme of the traineeship period"];
-                if (data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]) document.getElementById("inputKnoledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
+                if (data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]) document.getElementById("inputKnowledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
                 if (data["Monitoring plan"]) document.getElementById("inputMonitoring").value = data["Monitoring plan"];
                 if (data["Evaluation plan"]) document.getElementById("inputEvaluation").value = data["Evaluation plan"];
                 if (data["language competence"]) document.getElementById("inputLenguage").value = data["language competence"];
