@@ -4,6 +4,10 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var learningAgreementControl = require('./app/controllers/learningAgreementControl');
 var cookieParser = require('cookie-parser');
+var signupControl= require('./app/controllers/registerControl.js');
+var loginControl= require('./app/controllers/loginControl');
+var bodyParser= require('body-parser');
+var session = require('express-session');
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
@@ -13,7 +17,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function(req, res) {
+app.get('/compileStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
 });
 
@@ -61,6 +65,32 @@ app.get('/saveCompilation', function(req, res) {
     });
 });
 
-app.listen(8080, function() {
-    console.log('EasyAgreement Platform listening on port 3000!');
+app.use(session({  
+  secret: 'secret_session',  
+  resave: false,  
+  saveUninitialized: true    
+})); 
+app.use(function(req,res,next) {  
+  res.locals.session = req.session;  
+  next();   
+});  
+
+app.get('/', function (req, res) {
+  res.sendFile("/app/views/login.html",{root:__dirname});
+});
+
+app.get('/signup.html', function (req, res) {
+  res.sendFile("/app/views/signup.html",{root:__dirname});
+});
+
+app.post('/signup', function(req, res) {
+  var signupUser=signupControl.signup(req, res);
+});
+
+app.post('/login', function(request, response){
+  var UserLogin= loginControl.login(request,response);
+});
+
+app.listen(8080, function () {
+  console.log('EasyAgreement Platform listening on port 8080!');
 });
