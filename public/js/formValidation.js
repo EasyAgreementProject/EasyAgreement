@@ -37,7 +37,7 @@ $(document).ready(function() {
         if (!testNationality()) {
             res = false;
             $('#errNationality').css('display', 'block');
-            $('#nationality').removeClass("errClass");
+            $('#nationality').addClass("errClass");
         } else {
             $('#errNationality').css('display', 'none');
             $('#nationality').removeClass("errClass");
@@ -235,8 +235,10 @@ $(document).ready(function() {
             $('#inputLenguage').removeClass("errClass");
         }
 
-    });
+        return res;
 
+    });
+});
 
     function testName(name) {
         if (name.length >= 2) {
@@ -255,7 +257,7 @@ $(document).ready(function() {
 
     function testDate() {
         var date = $('#inputDate').val();
-        if (date.length == 9) {
+        if (date.length == 10) {
             if (/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(date)) return true;
         }
         return false;
@@ -263,15 +265,15 @@ $(document).ready(function() {
 
     function testTelephone() {
         var telephone = $('#inputTelephone').val();
-        if (telephone.length == 10) {
-            if (/^\d{1,10}$/.test(telephone)) return true;
+        if (telephone.length == 10 | telephone.length == 9) {
+            if (/^\d{9,10}$/.test(telephone)) return true;
         }
         return false;
     }
 
     function testNationality() {
         var nationality = $('#nationality').val();
-        if (nationality.lenght >= 3) {
+        if (nationality.length >= 3) {
             if (/^[A-za-zà-ù]+$/.test(nationality)) return true;
         }
         return false;
@@ -320,8 +322,7 @@ $(document).ready(function() {
     function testDepartmentSending() {
         var departmentSending = $('#inputDepartmentSending').val();
         if (departmentSending.length >= 4) {
-            var exp = new RegExp("^\w+$");
-            if (exp.test(departmentSending)) return true;
+            if (/^\w+$/.test(departmentSending)) return true;
         }
         return false;
     }
@@ -377,7 +378,7 @@ $(document).ready(function() {
     function testContactReciving() {
         var contactReciving = $('#inputContactReciving').val();
         if (contactReciving.length >= 3) {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(contactReciving)) return true;
+            if (/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(contactReciving)) return true;
         }
         return false;
     }
@@ -416,7 +417,7 @@ $(document).ready(function() {
 
     function testHourWork() {
         var hw = $('#inputHourWork').val();
-        if (hw.length >= 2) {
+        if (hw.length >= 1) {
             if (/^\d{1,2}$/.test(hw)) return true;
         }
         return false;
@@ -465,11 +466,8 @@ $(document).ready(function() {
 
     function testLanguage() {
         var language = $('#inputLenguage').val();
-        if (language.length >= 10) {
+        if (language.length >= 2) {
             if (/^[A-za-zà-ù]+$/.test(language)) return true;
         }
         return false;
     }
-
-
-});
