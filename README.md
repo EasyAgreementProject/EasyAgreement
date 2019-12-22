@@ -14,12 +14,15 @@ First of all, you will need a machine running Ubuntu.
 
 What things you need to install the software and how to install them
 
-*	Download and install ‘MongoDB’ database software from here: https://bit.ly/2MfJvPg
+*	Download and install ‘MongoDB’ database software from here: https://bit.ly/2sOVMn8
 
 *	Download and install ‘MongoDB Compass’ Mongo graphical interface from here: https://bit.ly/2PM0fzG
 
-*	Download and install ‘Node.js' javascript server from here: https://bit.ly/1Wdc3FQ
-
+*	Download and install ‘Node.js' with the following commands:
+```
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
 *	We suggest download of 'Visual Studio Code' IDE from here: https://bit.ly/34MfLQm
 
 
