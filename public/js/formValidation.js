@@ -240,8 +240,7 @@ $(document).ready(function() {
 
     function testName(name) {
         if (name.length >= 2) {
-            var exp = new RegExp("^[A-Za-z]+$");
-            if (exp.test(name)) return true;
+            if (/^[A-Za-z]+$/.test(name)) return true;
         }
         return false;
     }
@@ -249,7 +248,7 @@ $(document).ready(function() {
     function testSurname(surname) {
         if (surname.length >= 2) {
             var exp = new RegExp("^[A-Za-z]+$");
-            if (exp.test(surname)) return true;
+            if (/^[A-Za-z]+$/.test(surname)) return true;
         }
         return false;
     }
@@ -257,8 +256,7 @@ $(document).ready(function() {
     function testDate() {
         var date = $('#inputDate').val();
         if (date.length == 9) {
-            var exp = new RegExp("^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$");
-            if (exp.test(date)) return true;
+            if (/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(date)) return true;
         }
         return false;
     }
@@ -266,8 +264,7 @@ $(document).ready(function() {
     function testTelephone() {
         var telephone = $('#inputTelephone').val();
         if (telephone.length == 10) {
-            var exp = new RegExp("^\d{1,10}$");
-            if (exp.test(telephone)) return true;
+            if (/^\d{1,10}$/.test(telephone)) return true;
         }
         return false;
     }
@@ -275,8 +272,7 @@ $(document).ready(function() {
     function testNationality() {
         var nationality = $('#nationality').val();
         if (nationality.lenght >= 3) {
-            var exp = new RegExp("^[A-za-zà-ù]+$");
-            if (exp.test(nationality)) return true;
+            if (/^[A-za-zà-ù]+$/.test(nationality)) return true;
         }
         return false;
     }
@@ -284,8 +280,7 @@ $(document).ready(function() {
     function testStudyCicle() {
         var studyCicle = $('#inputStudyCicle').val();
         if (studyCicle.length >= 6) {
-            var exp = new RegExp("^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$");
-            if (exp.test(studyCicle)) return true;
+            if (/^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/.test(studyCicle)) return true;
         }
         return false;
     }
@@ -293,8 +288,7 @@ $(document).ready(function() {
     function testAcademicYear1() {
         var academicYear1 = $('#inputAcademicYear1').val();
         if (academicYear1.length == 2) {
-            var exp = new RegExp("^\d{2}$");
-            if (exp.test(academicYear1)) return true;
+            if (/^\d{2}$/.test(academicYear1)) return true;
         }
         return false;
     }
@@ -302,8 +296,7 @@ $(document).ready(function() {
     function testAcademicYear2() {
         var academicYear2 = $('#inputAcademicYear2').val();
         if (academicYear2.length == 2) {
-            var exp = new RegExp("^\d{2}$");
-            if (exp.test(academicYear2)) return true;
+            if (/^\d{2}$/.test(academicYear2)) return true;
         }
         return false;
     }
@@ -311,8 +304,7 @@ $(document).ready(function() {
     function testSubjectCode() {
         var subjectCode = $('#inputSubjectCode').val();
         if (subjectCode.length >= 5) {
-            var exp = new RegExp("^[A-za-zà-ù]+\,{1} ?\d+");
-            if (exp.test(subjectCode)) return true;
+            if (/^[A-za-zà-ù]+\,{1} ?\d+$/.test(subjectCode)) return true;
         }
         return false;
     }
@@ -320,8 +312,7 @@ $(document).ready(function() {
     function testEmail() {
         var email = $('#inputEmail').val().toLowerCase();
         if (email.length >= 3) {
-            var exp = new RegExp("^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$*");
-            if (exp.test(email)) return true;
+            if (/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(email)) return true;
         }
         return false;
     }
@@ -338,8 +329,7 @@ $(document).ready(function() {
     function testContactName() {
         var contactName = $('#inputContactName').val();
         if (contactName.length >= 4) {
-            var exp = new RegExp("^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$");
-            if (exp.test(contactName)) return true;
+            if (/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(contactName)) return true;
         }
         return false;
     }
@@ -347,8 +337,7 @@ $(document).ready(function() {
     function testContactSending() {
         var contactSending = $('#inputContactSending').val();
         if (contactSending.length >= 10) {
-            var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
-            if (exp.test(contactSending)) return true;
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(contactSending)) return true;
         }
         return false;
     }
@@ -356,8 +345,7 @@ $(document).ready(function() {
     function testNameSector() {
         var nameSector = $('#inputNameSector').val();
         if (nameSector.length >= 5) {
-            var exp = new RegExp("^[A-za-zà-ù]+( [A-za-zà-ù]+)*$");
-            if (exp.test(nameSector)) return true;
+            if (/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(nameSector)) return true;
         }
         return false;
     }
@@ -365,8 +353,7 @@ $(document).ready(function() {
     function testDepartmentReciving() {
         var departmentReciving = $('#inputDepartmentReciving').val();
         if (departmentReciving.length >= 5) {
-            var exp = new RegExp("^[A-za-zà-ù]+( [A-za-zà-ù]+)*$");
-            if (exp.test(departmentReciving)) return true;
+            if (/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(departmentReciving)) return true;
         }
         return false;
     }
@@ -374,8 +361,7 @@ $(document).ready(function() {
     function testAddressWebSite() {
         var addressWebSite = $('#inputAddressWebSite').val();
         if (addressWebSite.length >= 5) {
-            var exp = new RegExp("^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$");
-            if (exp.test(addressWebSite)) return true;
+            if (/^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(addressWebSite)) return true;
         }
         return false;
     }
@@ -383,8 +369,7 @@ $(document).ready(function() {
     function testSizeEnterprise() {
         var sizeEnterprise = $('#inputSizeEnterprise').val();
         if (sizeEnterprise.length >= 3) {
-            var exp = new RegExp("^\d+( ?[- \/] ?\d+)?$");
-            if (exp.test(sizeEnterprise)) return true;
+            if (/^\d+( ?[- \/] ?\d+)?$/.test(sizeEnterprise)) return true;
         }
         return false;
     }
@@ -392,8 +377,7 @@ $(document).ready(function() {
     function testContactReciving() {
         var contactReciving = $('#inputContactReciving').val();
         if (contactReciving.length >= 3) {
-            var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
-            if (exp.test(contactReciving)) return true;
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(contactReciving)) return true;
         }
         return false;
     }
@@ -401,8 +385,7 @@ $(document).ready(function() {
     function testMentor() {
         var mentor = $('#inputMentor').val();
         if (mentor.length >= 4) {
-            var exp = new RegExp("^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$");
-            if (exp.test(mentor)) return true;
+            if (/^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(mentor)) return true;
         }
         return false;
     }
@@ -410,8 +393,7 @@ $(document).ready(function() {
     function testMentorInfo() {
         var mentorInfo = $('#inputMentorInfo').val();
         if (mentorInfo.length >= 10) {
-            var exp = new RegExp("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$");
-            if (exp.test(mentorInfo)) return true;
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(mentorInfo)) return true;
         }
         return false;
     }
@@ -419,8 +401,7 @@ $(document).ready(function() {
     function testDateFrom() {
         var datefrom = $('#inputDateFrom').val();
         if (datefrom.length >= 2) {
-            var exp = new RegExp("^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$");
-            if (exp.test(datefrom)) return true;
+            if (/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(datefrom)) return true;
         }
         return false;
     }
@@ -428,8 +409,7 @@ $(document).ready(function() {
     function testDateTo() {
         var dateto = $('#inputDateTo').val();
         if (dateto.length >= 2) {
-            var exp = new RegExp("^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$");
-            if (exp.test(dateto)) return true;
+            if (/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(dateto)) return true;
         }
         return false;
     }
@@ -437,8 +417,7 @@ $(document).ready(function() {
     function testHourWork() {
         var hw = $('#inputHourWork').val();
         if (hw.length >= 2) {
-            var exp = new RegExp("^\d{1,2}$");
-            if (exp.test(hw)) return true;
+            if (/^\d{1,2}$/.test(hw)) return true;
         }
         return false;
     }
@@ -446,8 +425,7 @@ $(document).ready(function() {
     function testTitle() {
         var title = $('#inputTitle').val();
         if (title.length >= 3) {
-            var exp = new RegExp("^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$");
-            if (exp.test(title)) return true;
+            if (/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$/.test(title)) return true;
         }
         return false;
     }
@@ -455,8 +433,7 @@ $(document).ready(function() {
     function testDetailed() {
         var detailed = $('#inputDetailed').val();
         if (detailed.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
-            if (exp.test(detailed)) return true;
+            if (/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(detailed)) return true;
         }
         return false;
     }
@@ -473,8 +450,7 @@ $(document).ready(function() {
     function testMonitoring() {
         var monitoring = $('#inputMonitoring').val();
         if (monitoring.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
-            if (exp.test(monitoring)) return true;
+            if (/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(monitoring)) return true;
         }
         return false;
     }
@@ -482,8 +458,7 @@ $(document).ready(function() {
     function testEvaluation() {
         var evaluation = $('#inputEvaluation').val();
         if (evaluation.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$");
-            if (exp.test(evaluation)) return true;
+            if (/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(evaluation)) return true;
         }
         return false;
     }
@@ -491,8 +466,7 @@ $(document).ready(function() {
     function testLanguage() {
         var language = $('#inputLenguage').val();
         if (language.length >= 10) {
-            var exp = new RegExp("^[A-za-zà-ù]+$");
-            if (exp.test(language)) return true;
+            if (/^[A-za-zà-ù]+$/.test(language)) return true;
         }
         return false;
     }
