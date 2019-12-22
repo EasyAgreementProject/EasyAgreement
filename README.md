@@ -16,13 +16,16 @@ What things you need to install the software and how to install them
 
 *	Download and install ‘MongoDB’ database software from here: https://bit.ly/2sOVMn8
 
-*	Download and install ‘MongoDB Compass’ Mongo graphical interface from here: https://bit.ly/2PM0fzG
+*	Optional - Download and install ‘MongoDB Compass’ Mongo graphical interface from here: https://bit.ly/2PM0fzG
+
+* If necessary, install curl with the following command: `sudo apt install curl`
 
 *	Download and install ‘Node.js' with the following commands:
 ```
 curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
+
 *	We suggest download of 'Visual Studio Code' IDE from here: https://bit.ly/34MfLQm
 
 
@@ -64,9 +67,9 @@ A step by step series that tell you how to get a development env running
 
 #### Web addresses to launch the software and to control system: ####
 
-*	Mongo admin interface reachable through localhost:27017 address
+*	Mongo Compass admin interface reachable through localhost:27017 address
 
-* EasyAgreement start page reachable through localhost:8080 address
+* EasyAgreement start page reachable through web browser via localhost:8080 address
 
 
 ## Deployment
