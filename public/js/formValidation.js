@@ -258,7 +258,7 @@ $(document).ready(function() {
     function testDate() {
         var date = $('#inputDate').val();
         if (date.length == 9) {
-            var exp = new RegExp("^(\d{4}(-|\/)([0-2][0-9]|(3)[0-1]){1}(-|\/)((0)[0-9]|(1)[0-2]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})\d{4}$");
+            var exp = new RegExp("^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$");
             if (exp.test(date)) return true;
         }
         return false;
@@ -492,7 +492,7 @@ $(document).ready(function() {
     function testDateCompilation() {
         var datecomp = $('#inputDateCompilation').val();
         if (datecomp.length >= 10) {
-            var exp = new RegExp("^(\d{4}(-|\/)([0-2][0-9]|(3)[0-1]){1}(-|\/)((0)[0-9]|(1)[0-2]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})\d{4}$");
+            var exp = new RegExp("^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$");
             if (exp.test(datecomp)) return true;
         }
         return false;
