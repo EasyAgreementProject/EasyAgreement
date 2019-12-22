@@ -16,7 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/js/formValidate.js"></script>
+    <script type="text/javascript" src="/./public/js/formValidation.js"></script>
 </head>
 
 <body>
@@ -171,7 +171,7 @@
                     </div>
                     <div class="col-auto-my-1">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Paese:</label>
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="inputCountry">
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="inputCountry" required>
                                         <option selected="selected" value="">--Seleziona--</option>
                                         <option value="afghanistan">Afghanistan</option>
                                         <option value="albania">Albania</option>
@@ -574,23 +574,23 @@
                 document.getElementById("inputName").value = data["First name (s)"];
                 document.getElementById("inputSurname").value = data["Last name (s)"];
                 document.getElementById("inputName").value = data["First name (s)"];
-                document.getElementById("inputDate").value = data["Date of birth"]; // Something's wrong with date format probably
+                document.getElementById("inputDate").value = data["Date of birth"];
                 document.getElementById("inputTelephone").value = data["Phone"];
                 if (data["Sex [M/F]"] == "M") document.getElementById("M").checked = true;
                 if (data["Sex [M/F]"] == "F") document.getElementById("F").checked = true;
-                document.getElementById("inlineFormCustomSelect").value = data["Nationality"]; // There's a problem cause the value is in english
-                document.getElementById("inputStudyCycle").value = data["Study cycle"];
+                document.getElementById("nationality").value = data["Nationality"];
+                document.getElementById("inputStudyCicle").value = data["Study cycle"];
                 document.getElementById("inputAcademicYear1").value = data["Academic year1"];
                 document.getElementById("inputAcademicYear2").value = data["Academic year2"];
                 document.getElementById("inputSubjectCode").value = data["Subject area, Code"];
                 document.getElementById("inputEmail").value = data["E-mail"];
                 document.getElementById("inputDepartmentSending").value = data["Sending Departement"];
                 document.getElementById("inputContactName").value = data["Contact person name"];
-                document.getElementById("inputContactSending").value = data["Contact person E-mail / phone"];
+                document.getElementById("inputContactSending").value = data["Contact person Email / Phone"];
                 document.getElementById("inputNameSector").value = data["Name Sector"];
-                document.getElementById("inputDepartmentReciving").value = data["Department Reciving"];
+                document.getElementById("inputDepartmentReciving").value = data["Receiving Department"];
                 document.getElementById("inputAddressWebSite").value = data["Address, website"];
-                document.getElementById("inputCountry").value = data["Country"];
+                document.getElementById("inlineFormCustomSelect").value = data["Country"];
                 document.getElementById("inputSizeEnterprise").value = data["Size of enterprise"];
                 document.getElementById("inputContactReciving").value = data["Contact person name / position"];
                 document.getElementById("inputMentor").value = data["Mentor name / position"];
@@ -600,16 +600,16 @@
                 document.getElementById("inputHourWork").value = data["Number of working hours for week"];
                 document.getElementById("inputTitle").value = data["Traineeship title"];
                 document.getElementById("inputDetailed").value = data["Detailed programme of the traineeship period"];
-                document.getElementById("inputKnowledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
+                document.getElementById("inputKnoledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
                 document.getElementById("inputMonitoring").value = data["Monitoring plan"];
                 document.getElementById("inputEvaluation").value = data["Evaluation plan"];
                 document.getElementById("inputLenguage").value = data["language competence"];
-                if (data["lenguage level"] == "A1") document.getElementById("A1").checked = true;
-                if (data["lenguage level"] == "A2") document.getElementById("A2").checked = true;
-                if (data["lenguage level"] == "B1") document.getElementById("B1").checked = true;
-                if (data["lenguage level"] == "B2") document.getElementById("B2").checked = true;
-                if (data["lenguage level"] == "C1") document.getElementById("C1").checked = true;
-                if (data["lenguage level"] == "C2") document.getElementById("C2").checked = true;
+                if (data["A1"] != null) document.getElementById("A1").checked = true;
+                if (data["A2"] != null) document.getElementById("A2").checked = true;
+                if (data["B1"] != null) document.getElementById("B1").checked = true;
+                if (data["B2"] != null) document.getElementById("B2").checked = true;
+                if (data["C1"] != null) document.getElementById("C1").checked = true;
+                if (data["C2"] != null) document.getElementById("C2").checked = true;
                 document.getElementById("inputDateCompilation").value = data["The trainee date"];
             });
         });

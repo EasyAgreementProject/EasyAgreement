@@ -214,32 +214,27 @@ exports.saveLaStudent = function(input) {
         default: break;
     }
   
-    return new Promise(function (fulfill, reject) {      
-        let validatePr = exports.validateData(data);
-        validatePr.then(function(result){  
-            if(result) {
-                pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
-                    if (err)
-                        throw err;
-                    else {
-                        console.log("PDF create successfully!");
-                        //send Filled PDF to Client side
-                        let file = fs.createReadStream('pdf/Filled_LA.pdf');
-                        learningAgreement.setFilling(data);
-                        learningAgreement.setDocument(null);
-                        learningAgreement.setStudentID(data["E-mail"]);
-                        learningAgreement.setState(null);
-                        learningAgreement.setDate(data["The trainee date"]);
-                    
-                        let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                        insertLearningAgreementPr.then(function() {
-                            fulfill(file);
-                        });
-                        
-                    }
+    return new Promise(function (fulfill, reject) {             
+        pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
+            if (err)
+                throw err;
+            else {
+                console.log("PDF create successfully!");
+                //send Filled PDF to Client side
+                let file = fs.createReadStream('pdf/Filled_LA.pdf');
+                learningAgreement.setFilling(data);
+                learningAgreement.setDocument(null);
+                learningAgreement.setStudentID(data["E-mail"]);
+                learningAgreement.setState(null);
+                learningAgreement.setDate(data["The trainee date"]);
+            
+                let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                insertLearningAgreementPr.then(function() {
+                    fulfill(file);
                 });
+                
             }
-        })
+        });
     })
 }
 
