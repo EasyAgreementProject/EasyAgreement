@@ -303,7 +303,7 @@ exports.validateData = function(data, res) {
                 res.cookie("errSubjectCode", "1");
                 fulfill(false);
             }
-            if (!(/^\d{1,10}$/.test(data["Phone"]))) {
+            if (!(/^\d{9,10}$/.test(data["Phone"]))) {
                 res.cookie("errTelephone", "1");
                 fulfill(false);
             }
