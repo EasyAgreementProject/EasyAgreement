@@ -33,7 +33,7 @@ app.post('/compileStudent', function(req, res) {
         req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
         req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputContactName, req.body.inputContactRecivings
     ];
-    var sendStudent = learningAgreementControl.sendLaStudent(data);
+    var sendStudent = learningAgreementControl.sendLaStudent(data, res);
     sendStudent.then(function(la) {
         if (la) {
             var document = la.document;
@@ -41,17 +41,17 @@ app.post('/compileStudent', function(req, res) {
             res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
             document.pipe(res)
         } else {
-            res.send("Format error");
+            res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"));
         }
     })
 });
 
 app.get('/saveCompilation', function(req, res) {
-    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
+    data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
         req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactSending,
         req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
         req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
-        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputContactName, req.body.inputContactReciving
+        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputContactName, req.body.inputContactRecivings
     ];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
     saveStudent.then(function(file) {

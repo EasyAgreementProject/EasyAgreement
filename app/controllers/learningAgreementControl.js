@@ -3,7 +3,7 @@ var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
 var learningAgreement = new LA();
 
-exports.sendLaStudent = function(input) {
+exports.sendLaStudent = function(input, res) {
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF =  "pdf/Filled_LA.pdf";
     var today = new Date();
@@ -25,7 +25,7 @@ exports.sendLaStudent = function(input) {
         "Phone" : input[3],
         "E-mail" : input[10],
         "Sending Departement": input[11],
-        "Contact person name": input[32],
+        "Contact person name": input[31],
         "Contact person Email / Phone": input[12],
         "Contact person name / position": input[18],
         "Receiving contact person e-mail phone": input[12],
@@ -98,7 +98,7 @@ exports.sendLaStudent = function(input) {
     }
   
     return new Promise(function (fulfill, reject) {   
-        let validatePr = exports.validateData(data);
+        let validatePr = exports.validateData(data, res);
         validatePr.then(function(result){
             if(result) {
                 pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) { 
@@ -259,151 +259,152 @@ exports.getData = function(student) {
     });
 }
 
-exports.validateData = function(data) {
+exports.validateData = function(data, res) {
     return new Promise(function (fulfill, reject) {
         console.log("Begin...");
         if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"]))) {
-                console.log("Header name wrong!");
+                res.cookie("errName", "1");
+                res.cookie("errSurname", "1");
                 fulfill(false);
             }
         if (!(/^[A-za-zà-ù]+$/.test(data["Last name (s)"]))) {
-                console.log("Last name wrong!");
+                res.cookie("errSurname", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]))) {
-                console.log("First name wrong!");
+                res.cookie("errName", "1");
                 fulfill(false);
             }
         if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]))) {
-                console.log("Date of birth wrong!");
+                res.cookie("errDate", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+$/.test(data["Nationality"]))) {
-                console.log("Nationality wrong!");
+                res.cookie("errNationality", "1");
                 fulfill(false);
             }
             if (!(/^(M|F)/.test(data["Sex [M/F]"]))) {
-                console.log("Sex wrong!");
+                res.cookie("errSex", "1");
                 fulfill(false);
             }
             if (!(/^\d{2}$/.test(data["Academic year1"]))) {
-                console.log("Academic Year1 wrong!");
+                res.cookie("errAcademicYear1", "1");
                 fulfill(false);
             }
             if (!(/^\d{2}$/.test(data["Academic year2"]))) {
-                console.log("Academic Year1 wrong!");
+                res.cookie("errAcademicYear2", "1");
                 fulfill(false);
             }
             if (!(/^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/.test(data["Study cycle"]))) {
-                console.log("Study Cycle wrong!");
+                res.cookie("errStudyCicle", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+\,{1} ?\d+$/.test(data["Subject area, Code"]))) {
-                console.log("Subject Area, Code wrong!");
+                res.cookie("errSubjectCode", "1");
                 fulfill(false);
             }
             if (!(/^\d{1,10}$/.test(data["Phone"]))) {
-                console.log("Phone wrong!");
+                res.cookie("errTelephone", "1");
                 fulfill(false);
             }
             if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]))) {
-                console.log("E-mail wrong!");
+                res.cookie("errEmail", "1");
                 fulfill(false);
             }
             if (!(/^\w+$/.test(data["Sending Departement"]))) {
-                console.log("Sending Departement wrong!");
+                res.cookie("errDepartmentSending", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Contact person name"]))) {
-                console.log("Contact person name wrong!");
+                res.cookie("errContactName", "1");
                 fulfill(false);
             }
             if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person Email / Phone"]))) {
-                console.log("Contact persone email / phone wrong!");
+                res.cookie("errContactSending", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])?( ?\/|,)? {1}[A-za-zà-ù]+$/.test(data["Contact person name / position"]))) {
-                console.log("Contact persone name / position wrong!");
+                res.cookie("errContactReciving", "1");
                 fulfill(false);
             }
             if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]))) {
-                console.log("Receiving contact person e-mail phone wrong!");
+                res.cookie("errContactSending", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Name Sector"]))) {
-                console.log("Name sector wrong!");
+                res.cookie("errNameSector", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Receiving Department"]))) {
-                console.log("Receiving department wrong!");
+                res.cookie("errDepartmentReciving", "1");
                 fulfill(false);
             }
             if (!(/^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]))) {
-                console.log("Address, website wrong!");
+                res.cookie("errAddressWebSite", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Country"]))) {
-                console.log("Country wrong!");
+                res.cookie("Country wrong", "1");
                 fulfill(false);
             }
             if (!(/^\d+( ?[- \/] ?\d+)?$/.test(data["Size of enterprise"]))) {
-                console.log("Size of enterprise wrong!");
+                res.cookie("SerrSizeEnterprise", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(data["Mentor name / position"]))) {
-                console.log("Mentor name / position wrong!");
+                res.cookie("errMentor", "1");
                 fulfill(false);
             }
             if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Mentor e-mail / phone"]))) {
-                console.log("Mentor email / phone wrong!");
+                res.cookie("errMentorInfo", "1");
                 fulfill(false);
             }
             if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["from"]))) {
-                console.log("From wrong!");
+                res.cookie("errDateFrom", "1");
                 fulfill(false);
             }
             if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["till"]))) {
-                console.log("Till wrong!");
+                res.cookie("errDateTo", "1");
                 fulfill(false);
             }
             if (!(/^\d{1,2}$/.test(data["Number of working hours for week"]))) {
-                console.log("Number of working hours for week wrong!");
+                res.cookie("errHourWork", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$/.test(data["Traineeship title"]))) {
-                console.log("Traineeship title wrong!");
+                res.cookie("errTitle", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Detailed programme of the traineeship period"]))) {
-                console.log("Detailed program of traineesehip period wrong!");
+                res.cookie("errDetailed", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]))) {
-                console.log("Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship wrong!");
+                res.cookie("errKnowledge", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Monitoring plan"]))) {
-                console.log("Monitoring plan wrong!");
+                res.cookie("errMonitoring", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Evaluation plan"]))) {
-                console.log("Evaluation plan wrong!");
+                res.cookie("errEvaluation", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+$/.test(data["language competence"]))){
-                console.log("Language competence wrong!");
+                res.cookie("errLenguage", "1");
                 fulfill(false);
             }
             if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["The trainee signature"]))) {
-                console.log("Trainee signature wrong!");
+                res.cookie("errName", "1");
                 fulfill(false);
             }
             if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["The trainee date"]))) {
-                console.log("Trainee data wrong!");
+                res.cookie("errDate", "1");
                 fulfill(false);
             }
             else {
-                console.log("All okay!");
+                res.cookie("All okay", "1");
                 fulfill(true);
             }
     });
