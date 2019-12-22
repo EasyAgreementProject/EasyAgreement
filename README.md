@@ -34,9 +34,9 @@ A step by step series that tell you how to get a development env running
 
 1. Open your terminal
 
-2. If necessary, execute the following command: sudo apt install git.
+2. If necessary, execute the following command: `sudo apt install git`
 
-3. Execute the following command: git clone https://github.com/EasyAgreementProject/EasyAgreement.git
+3. Execute the following command: `git clone https://github.com/EasyAgreementProject/EasyAgreement.git`
 
 
 #### MongoDB database creation: ####
@@ -45,21 +45,21 @@ A step by step series that tell you how to get a development env running
 
 2.	Go into directory ‘EasyAgreement’.
 
-3.	Execute the following command: ‘source installdb.sh’
+3.	Execute the following command: `source installdb.sh`
 
 
 #### Pdftk install: ####
-1.	sudo add-apt-repository ppa:malteworld/ppa
+1.	`sudo add-apt-repository ppa:malteworld/ppa`
 
-2.	sudo apt update
+2.	`sudo apt update`
 
-3.	sudo apt install pdftk 
+3.	`sudo apt install pdftk` 
 
 #### Node.js server running: ####
 
 1.	Go to your project cloned directory 'EasyAgreement’.
 
-2.	Execute the following command: node server.js
+2.	Execute the following command: `node server.js`
 
 
 #### Web addresses to launch the software and to control system: ####
