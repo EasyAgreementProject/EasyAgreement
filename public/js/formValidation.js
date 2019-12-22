@@ -34,7 +34,14 @@ $(document).ready(function() {
             $('#errTelephone').css('display', 'none');
             $('#inputTelephone').removeClass("errClass");
         }
-
+        if (!testNationality()) {
+            res = false;
+            $('#errNationality').css('display', 'block');
+            $('#nationality').removeClass("errClass");
+        } else {
+            $('#errNationality').css('display', 'none');
+            $('#nationality').removeClass("errClass");
+        }
         if (!testStudyCicle()) {
             res = false;
             $('#errStudyCicle').css('display', 'block');
@@ -261,6 +268,15 @@ $(document).ready(function() {
         if (telephone.length == 10) {
             var exp = new RegExp("^\d{1,10}$");
             if (exp.test(telephone)) return true;
+        }
+        return false;
+    }
+
+    function testNationality() {
+        var nationality = $('#nationality').val();
+        if (nationality.lenght >= 3) {
+            var exp = new RegExp("^[A-za-zà-ù]+$");
+            if (exp.test(nationality)) return true;
         }
         return false;
     }
