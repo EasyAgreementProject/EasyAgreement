@@ -152,7 +152,7 @@ $(document).ready(function() {
         $('#inputDepartmentReciving').addClass("errClass");
         document.cookie = "errDepartmentReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
-    if (errDateFrom = "1") {
+    if (errDateFrom == "1") {
         $('#errDateFrom').css('display', 'block');
         $('#inputDateFrom').addClass("errClass");
         document.cookie = "errDateFrom=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";

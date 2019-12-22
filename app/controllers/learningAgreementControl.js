@@ -277,9 +277,11 @@ exports.getData = function(student) {
     return new Promise(function(fulfill, reject) {
         console.log("Getting data for student: " + student);
         getLearningAgreementPr = LA.getLearningAgreement(student);
-        getLearningAgreementPr.then(function(result) {
+        getLearningAgreementPr.then(function(result, err) {
+            if (err) throw err;
             console.log("Searching done!");
-            fulfill(result.filling);
+            if(result) 
+                fulfill(result.filling);
         });
     });
 }

@@ -212,3 +212,16 @@
                         }
                         
                     }
+                    .btn {
+                        font-size: 80%;
+                        border-radius: 5rem;
+                        letter-spacing: .1rem;
+                        font-weight: bold;
+                        padding: 1rem;
+                        transition: all 0.2s;
+                        background-color:orange;
+                        border:orange;
+                        margin-left: 25%;
+                        max-width: 50%;
+                        margin-bottom: 20px;
+                      }

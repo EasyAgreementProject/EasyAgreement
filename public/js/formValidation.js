@@ -378,7 +378,7 @@ $(document).ready(function() {
     function testContactReciving() {
         var contactReciving = $('#inputContactReciving').val();
         if (contactReciving.length >= 3) {
-            if (/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(contactReciving)) return true;
+            if (/^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(contactReciving)) return true;
         }
         return false;
     }
