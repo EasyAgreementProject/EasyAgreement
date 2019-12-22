@@ -31,8 +31,7 @@ app.post('/compileStudent', function(req, res) {
         req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactSending,
         req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
         req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
-        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
-        req.body.inputContactName, req.body.inputContactRecivings
+        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputContactName, req.body.inputContactRecivings
     ];
     var sendStudent = learningAgreementControl.sendLaStudent(data);
     sendStudent.then(function(la) {
@@ -52,8 +51,7 @@ app.get('/saveCompilation', function(req, res) {
         req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactSending,
         req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
         req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
-        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
-        req.body.inputContactName, req.body.inputContactReciving
+        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputContactName, req.body.inputContactReciving
     ];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
     saveStudent.then(function(file) {

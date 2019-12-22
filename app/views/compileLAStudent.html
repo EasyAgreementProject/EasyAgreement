@@ -533,7 +533,7 @@
                             <hr> 3) Lo strumento di ricerca ISCED-F 2013 disponibile su http://ec.europa.eu/education/tools/isced-f_en.htm dovrebbe essere utilizzato per trovare il settore dettagliato dell'istruzione e formazione ISCED 2013 più vicino all'argomento
                             del titolo che deve essere assegnato al tirocinante dall'istituto di invio.<br>
                             <hr> 4) L'elenco dei codici settoriali di alto livello della NACE è disponibile all'indirizzo: http://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2&StrLanguageCode=EN.<br>
-                            <hr> 5) Le dimensioni dell'impresa potrebbero essere, ad esempio, 1-50 / 51-500 / più di 500 dipendenti.<br>
+                            <hr> 5) Le dimensioni dell'impresa potrebbero essere, ad esempio, 1-50 / 51-500.<br>
                             <hr> 6) Persona di contatto: una persona che può fornire informazioni nell'ambito di Erasmus tirocinanti.<br>
                             <hr> 7) Mentore: il ruolo del mentore è di fornire supporto, incoraggiamento e informazione al tirocinante sulla vita e sull'esperienza relative all'impresa (cultura dell'impresa, codici e comportamenti informali, ecc.). Normalmente,
                             il mentore dovrebbe essere una persona diversa rispetto al supervisore.<br>
@@ -564,45 +564,45 @@
     <script>
         $(document).ready(function() {
             $.get("/fillForm?student=v.volpicelli4@studenti.unisa.it", function(data, status) {
-                document.getElementById("inputName").value = data["First name (s)"];
-                document.getElementById("inputSurname").value = data["Last name (s)"];
-                document.getElementById("inputName").value = data["First name (s)"];
-                document.getElementById("inputDate").value = data["Date of birth"];
-                document.getElementById("inputTelephone").value = data["Phone"];
+                if (data["First name (s)"]) document.getElementById("inputName").value = data["First name (s)"];
+                if (data["Last name (s)"]) document.getElementById("inputSurname").value = data["Last name (s)"];
+                if (data["First name (s)"]) document.getElementById("inputName").value = data["First name (s)"];
+                if (data["Date of birth"]) document.getElementById("inputDate").value = data["Date of birth"];
+                if (data["Phone"]) document.getElementById("inputTelephone").value = data["Phone"];
                 if (data["Sex [M/F]"] == "M") document.getElementById("M").checked = true;
                 if (data["Sex [M/F]"] == "F") document.getElementById("F").checked = true;
-                document.getElementById("nationality").value = data["Nationality"];
-                document.getElementById("inputStudyCicle").value = data["Study cycle"];
-                document.getElementById("inputAcademicYear1").value = data["Academic year1"];
-                document.getElementById("inputAcademicYear2").value = data["Academic year2"];
-                document.getElementById("inputSubjectCode").value = data["Subject area, Code"];
-                document.getElementById("inputEmail").value = data["E-mail"];
-                document.getElementById("inputDepartmentSending").value = data["Sending Departement"];
-                document.getElementById("inputContactName").value = data["Contact person name"];
-                document.getElementById("inputContactSending").value = data["Contact person Email / Phone"];
-                document.getElementById("inputNameSector").value = data["Name Sector"];
-                document.getElementById("inputDepartmentReciving").value = data["Receiving Department"];
-                document.getElementById("inputAddressWebSite").value = data["Address, website"];
-                document.getElementById("inlineFormCustomSelect").value = data["Country"];
-                document.getElementById("inputSizeEnterprise").value = data["Size of enterprise"];
-                document.getElementById("inputContactReciving").value = data["Contact person name / position"];
-                document.getElementById("inputMentor").value = data["Mentor name / position"];
-                document.getElementById("inputMentorInfo").value = data["Mentor e-mail / phone"];
-                document.getElementById("inputDateFrom").value = data["from"];
-                document.getElementById("inputDateTo").value = data["till"];
-                document.getElementById("inputHourWork").value = data["Number of working hours for week"];
-                document.getElementById("inputTitle").value = data["Traineeship title"];
-                document.getElementById("inputDetailed").value = data["Detailed programme of the traineeship period"];
-                document.getElementById("inputKnoledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
-                document.getElementById("inputMonitoring").value = data["Monitoring plan"];
-                document.getElementById("inputEvaluation").value = data["Evaluation plan"];
-                document.getElementById("inputLenguage").value = data["language competence"];
-                if (data["A1"] != null) document.getElementById("A1").checked = true;
-                if (data["A2"] != null) document.getElementById("A2").checked = true;
-                if (data["B1"] != null) document.getElementById("B1").checked = true;
-                if (data["B2"] != null) document.getElementById("B2").checked = true;
-                if (data["C1"] != null) document.getElementById("C1").checked = true;
-                if (data["C2"] != null) document.getElementById("C2").checked = true;
+                if (data["Nationality"]) document.getElementById("nationality").value = data["Nationality"];
+                if (data["Study cycle"]) document.getElementById("inputStudyCicle").value = data["Study cycle"];
+                if (data["Academic year1"]) document.getElementById("inputAcademicYear1").value = data["Academic year1"];
+                if (data["Academic year2"]) document.getElementById("inputAcademicYear2").value = data["Academic year2"];
+                if (data["Subject area, Code"]) document.getElementById("inputSubjectCode").value = data["Subject area, Code"];
+                if (data["E-mail"]) document.getElementById("inputEmail").value = data["E-mail"];
+                if (data["Sending Departement"]) document.getElementById("inputDepartmentSending").value = data["Sending Departement"];
+                if (data["Contact person name"]) document.getElementById("inputContactName").value = data["Contact person name"];
+                if (data["Contact person Email / Phone"]) document.getElementById("inputContactSending").value = data["Contact person Email / Phone"];
+                if (data["Name Sector"]) document.getElementById("inputNameSector").value = data["Name Sector"];
+                if (data["Receiving Department"]) document.getElementById("inputDepartmentReciving").value = data["Receiving Department"];
+                if (data["Address, website"]) document.getElementById("inputAddressWebSite").value = data["Address, website"];
+                if (data["Country"]) document.getElementById("inlineFormCustomSelect").value = data["Country"];
+                if (data["Size of enterprise"]) document.getElementById("inputSizeEnterprise").value = data["Size of enterprise"];
+                if (data["Contact person name / position"]) document.getElementById("inputContactReciving").value = data["Contact person name / position"];
+                if (data["Mentor name / position"]) document.getElementById("inputMentor").value = data["Mentor name / position"];
+                if (data["Mentor e-mail / phone"]) document.getElementById("inputMentorInfo").value = data["Mentor e-mail / phone"];
+                if (data["from"]) document.getElementById("inputDateFrom").value = data["from"];
+                if (data["till"]) document.getElementById("inputDateTo").value = data["till"];
+                if (data["Number of working hours for week"]) document.getElementById("inputHourWork").value = data["Number of working hours for week"];
+                if (data["Traineeship title"]) document.getElementById("inputTitle").value = data["Traineeship title"];
+                if (data["Detailed programme of the traineeship period"]) document.getElementById("inputDetailed").value = data["Detailed programme of the traineeship period"];
+                if (data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]) document.getElementById("inputKnoledge").value = data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"];
+                if (data["Monitoring plan"]) document.getElementById("inputMonitoring").value = data["Monitoring plan"];
+                if (data["Evaluation plan"]) document.getElementById("inputEvaluation").value = data["Evaluation plan"];
+                if (data["language competence"]) document.getElementById("inputLenguage").value = data["language competence"];
+                if (data["A1"]) document.getElementById("A1").checked = true;
+                if (data["A2"]) document.getElementById("A2").checked = true;
+                if (data["B1"]) document.getElementById("B1").checked = true;
+                if (data["B2"]) document.getElementById("B2").checked = true;
+                if (data["C1"]) document.getElementById("C1").checked = true;
+                if (data["C2"]) document.getElementById("C2").checked = true;
             });
         });
     </script>
