@@ -20,6 +20,7 @@ $(document).ready(function() {
     var errSurname = getCookie("errSurname");
     var errDate = getCookie("errDate");
     var errTelephone = getCookie("errTelephone");
+    var errNationality = getCookie("errNationality");
     var errStudyCicle = getCookie("errStudyCicle");
     var errAcademicYear1 = getCookie("errAcademicYear1");
     var errAcademicYear2 = getCookie("errAcademicYear2");
@@ -64,6 +65,11 @@ $(document).ready(function() {
         $('#errTelephone').css('display', 'block');
         $('#inputTelephone').addClass("errClass");
         document.cookie = "errTelephone=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (errNationality == "1") {
+        $('#errNationality').css('display', 'block');
+        $('#nationality').addClass("errClass");
+        document.cookie = "errNationality=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errStudyCicle == "1") {
         $('#errStudyCicle').css('display', 'block');
