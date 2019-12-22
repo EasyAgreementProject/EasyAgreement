@@ -11,26 +11,26 @@ exports.sendLaStudent = function(input) {
         "Last name (s)" : input[1],
         "First name (s)": input[0],
         "Date of birth" : input[2],
-        "Nationality": input[6],
-        "Sex [M/F]" : input[5],
-        "Academic year1":input[8],
-        "Academic year2":input[9],
-        "Study cycle" : input[7],
-        "Subject area, Code":input[10],
-        "Phone" : input[4],
-        "E-mail" : input[11],
-        "Sending Departement": input[12],
+        "Nationality": input[5],
+        "Sex [M/F]" : input[4],
+        "Academic year1":input[7],
+        "Academic year2":input[8],
+        "Study cycle" : input[6],
+        "Subject area, Code":input[9],
+        "Phone" : input[3],
+        "E-mail" : input[10],
+        "Sending Departement": input[11],
         "Contact person name": input[32],
-        "Contact person Email / Phone": input[13],
-        "Contact person name / position": input[33],
-        "Receiving contact person e-mail phone": input[13],
-        "Name Sector":input[14],
-        "Receiving Department":input[15],
-        "Address, website":input[16],
-        "Country":input[17],
-        "Size of enterprise":input[18],
-        "Mentor name / position":input[20],
-        "Mentor e-mail / phone":input[19],
+        "Contact person Email / Phone": input[12],
+        "Contact person name / position": input[18],
+        "Receiving contact person e-mail phone": input[12],
+        "Name Sector":input[13],
+        "Receiving Department":input[14],
+        "Address, website":input[15],
+        "Country":input[16],
+        "Size of enterprise":input[17],
+        "Mentor name / position":input[19],
+        "Mentor e-mail / phone":input[20],
         "from":input[21],
         "till":input[22],
         "Number of working hours for week":input[23],
@@ -47,7 +47,7 @@ exports.sendLaStudent = function(input) {
         "Header name" : "Veronica Volpicelli",
         "Last name (s)" : "Volpicelli",
         "First name (s)": "Veronica",
-        "Date of birth" : "22/04/96",
+        "Date of birth" : "22/04/1996",
         "Nationality":"Italiana",
         "Sex [M/F]" : "F",
         "Academic year1":"19",
@@ -81,7 +81,8 @@ exports.sendLaStudent = function(input) {
         "The trainee signature": "Veronica Volpicelli",
         "The trainee date":"08/12/2019"
     };*/
-    switch(input[30]+"") {
+    console.log(data["Date of birth"]+"    "+data["The trainee date"]);
+    switch("B2") {
         case "A1": data["A1"] = "X"; break;
         case "A2": data["A2"] = "X"; break;
         case "B1": data["B1"] = "X"; break;
@@ -90,7 +91,6 @@ exports.sendLaStudent = function(input) {
         case "C2": data["C2"] = "X"; break;
         default: break;
     }
-    console.log(data["Date of birth"]);
   
     return new Promise(function (fulfill, reject) {   
         let validatePr = exports.validateData(data);
@@ -256,47 +256,149 @@ exports.getData = function(student) {
 exports.validateData = function(data) {
     return new Promise(function (fulfill, reject) {
         console.log("Begin...");
-        if ((/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"])) &&
-            /^[A-za-zà-ù]+$/.test(data["Last name (s)"]) &&
-            /^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]) &&
-            /^(\d{4}(-|\/)([0-2][0-9]|(3)[0-1]){1}(-|\/)((0)[0-9]|(1)[0-2]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]) &&
-            /^[A-za-zà-ù]+$/.test(data["Nationality"]) &&
-            /^(M|F)/.test(data["Sex [M/F]"]) &&
-            /^\d{2}$/.test(data["Academic year1"]) &&
-            /^\d{2}$/.test(data["Academic year2"]) &&
-            /^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/.test(data["Study cycle"]) &&
-            /^[A-za-zà-ù]+\,{1} ?\d+$/.test(data["Subject area, Code"]) &&
-            /^\d{1,10}$/.test(data["Phone"]) &&
-            /^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]) &&
-            /^\w+$/.test(data["Sending Departement"]) &&
-            /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Contact person name"]) &&
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person Email / Phone"]) &&
-            /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])?( ?\/|,)? {1}[A-za-zà-ù]+$/.test(data["Contact person name / position"]) &&
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]) &&
-            /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Name Sector"]) &&
-            /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Receiving Department"]) &&
-            /^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]) &&
-            /^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Country"]) &&
-            /^\d+( ?[- \/] ?\d+)?$/.test(data["Size of enterprise"]) &&
-            /^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(data["Mentor name / position"]) &&
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Mentor e-mail / phone"]) &&
-            /^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["from"]) &&
-            /^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["till"]) &&
-            /^\d{1,2}$/.test(data["Number of working hours for week"]) &&
-            /^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$/.test(data["Traineeship title"]) &&
-            /^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Detailed programme of the traineeship period"]) &&
-            /^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]) &&
-            /^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Monitoring plan"]) &&
-            /^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Evaluation plan"]) &&
-            /^[A-za-zà-ù]+$/.test(data["language competence"]) &&
-            /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["The trainee signature"]) &&
-            /^(\d{4}(-|\/)([0-2][0-9]|(3)[0-1]){1}(-|\/)((0)[0-9]|(1)[0-2]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})\d{4}$/.test(data["The trainee date"])) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"]))) {
+                console.log("Header name wrong!");
+                fulfill(false);
+            }
+        if (!(/^[A-za-zà-ù]+$/.test(data["Last name (s)"]))) {
+                console.log("Last name wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]))) {
+                console.log("First name wrong!");
+                fulfill(false);
+            }
+        if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]))) {
+                console.log("Date of birth wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+$/.test(data["Nationality"]))) {
+                console.log("Nationality wrong!");
+                fulfill(false);
+            }
+            if (!(/^(M|F)/.test(data["Sex [M/F]"]))) {
+                console.log("Sex wrong!");
+                fulfill(false);
+            }
+            if (!(/^\d{2}$/.test(data["Academic year1"]))) {
+                console.log("Academic Year1 wrong!");
+                fulfill(false);
+            }
+            if (!(/^\d{2}$/.test(data["Academic year2"]))) {
+                console.log("Academic Year1 wrong!");
+                fulfill(false);
+            }
+            if (!(/^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/.test(data["Study cycle"]))) {
+                console.log("Study Cycle wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+\,{1} ?\d+$/.test(data["Subject area, Code"]))) {
+                console.log("Subject Area, Code wrong!");
+                fulfill(false);
+            }
+            if (!(/^\d{1,10}$/.test(data["Phone"]))) {
+                console.log("Phone wrong!");
+                fulfill(false);
+            }
+            if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]))) {
+                console.log("E-mail wrong!");
+                fulfill(false);
+            }
+            if (!(/^\w+$/.test(data["Sending Departement"]))) {
+                console.log("Sending Departement wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Contact person name"]))) {
+                console.log("Contact person name wrong!");
+                fulfill(false);
+            }
+            if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person Email / Phone"]))) {
+                console.log("Contact persone email / phone wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])?( ?\/|,)? {1}[A-za-zà-ù]+$/.test(data["Contact person name / position"]))) {
+                console.log("Contact persone name / position wrong!");
+                fulfill(false);
+            }
+            if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]))) {
+                console.log("Receiving contact person e-mail phone wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Name Sector"]))) {
+                console.log("Name sector wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Receiving Department"]))) {
+                console.log("Receiving department wrong!");
+                fulfill(false);
+            }
+            if (!(/^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]))) {
+                console.log("Address, website wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Country"]))) {
+                console.log("Country wrong!");
+                fulfill(false);
+            }
+            if (!(/^\d+( ?[- \/] ?\d+)?$/.test(data["Size of enterprise"]))) {
+                console.log("Size of enterprise wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(data["Mentor name / position"]))) {
+                console.log("Mentor name / position wrong!");
+                fulfill(false);
+            }
+            if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Mentor e-mail / phone"]))) {
+                console.log("Mentor email / phone wrong!");
+                fulfill(false);
+            }
+            if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["from"]))) {
+                console.log("From wrong!");
+                fulfill(false);
+            }
+            if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["till"]))) {
+                console.log("Till wrong!");
+                fulfill(false);
+            }
+            if (!(/^\d{1,2}$/.test(data["Number of working hours for week"]))) {
+                console.log("Number of working hours for week wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$/.test(data["Traineeship title"]))) {
+                console.log("Traineeship title wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Detailed programme of the traineeship period"]))) {
+                console.log("Detailed program of traineesehip period wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]))) {
+                console.log("Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Monitoring plan"]))) {
+                console.log("Monitoring plan wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Evaluation plan"]))) {
+                console.log("Evaluation plan wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+$/.test(data["language competence"]))){
+                console.log("Language competence wrong!");
+                fulfill(false);
+            }
+            if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["The trainee signature"]))) {
+                console.log("Trainee signature wrong!");
+                fulfill(false);
+            }
+            if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["The trainee date"]))) {
+                console.log("Trainee data wrong!");
+                fulfill(false);
+            }
+            else {
                 console.log("All okay!");
                 fulfill(true);
             }
-        else{
-            console.log("Something's wrong!");
-            fulfill(false);
-        }
     });
 }

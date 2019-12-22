@@ -27,12 +27,12 @@ app.get('/fillForm', function(req, res) {
 });
 
 app.post('/compileStudent', function(req, res) {
-    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCicle,
+    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
         req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactSending,
-        req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
+        req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
         req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
-        req.body.inputKnoledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
-        req.body.inputContactName, req.body.inputContactReciving
+        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
+        req.body.inputContactName, req.body.inputContactRecivings
     ];
     var sendStudent = learningAgreementControl.sendLaStudent(data);
     sendStudent.then(function(la) {
@@ -48,11 +48,11 @@ app.post('/compileStudent', function(req, res) {
 });
 
 app.get('/saveCompilation', function(req, res) {
-    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCicle,
+    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
         req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactSending,
-        req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
+        req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
         req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
-        req.body.inputKnoledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
+        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel, req.body.inputDateCompilation,
         req.body.inputContactName, req.body.inputContactReciving
     ];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
