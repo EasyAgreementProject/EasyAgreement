@@ -259,7 +259,11 @@ exports.validateData = function(data) {
         if ((/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"])) &&
             /^[A-za-zà-ù]+$/.test(data["Last name (s)"]) &&
             /^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]) &&
+<<<<<<< HEAD
             /^(\d{4}(-|\/)([0-2][0-9]|(3)[0-1]){1}(-|\/)((0)[0-9]|(1)[0-2]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]) &&
+=======
+            /^\d{4}-([0-2][0-9]|(3)[0-1]){1}-((0)[0-9]|(1)[0-2]){1}$/.test(data["Date of birth"]) &&
+>>>>>>> 39997a6d48fe40327c2f362bc624ef143aa0b5cc
             /^[A-za-zà-ù]+$/.test(data["Nationality"]) &&
             /^(M|F)/.test(data["Sex [M/F]"]) &&
             /^\d{2}$/.test(data["Academic year1"]) &&
@@ -290,7 +294,11 @@ exports.validateData = function(data) {
             /^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Evaluation plan"]) &&
             /^[A-za-zà-ù]+$/.test(data["language competence"]) &&
             /^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["The trainee signature"]) &&
+<<<<<<< HEAD
             /^(\d{4}(-|\/)([0-2][0-9]|(3)[0-1]){1}(-|\/)((0)[0-9]|(1)[0-2]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})\d{4}$/.test(data["The trainee date"])) {
+=======
+            /^\d{4}-([0-2][0-9]|(3)[0-1]){1}-((0)[0-9]|(1)[0-2]){1}$/.test(data["The trainee date"])) {
+>>>>>>> 39997a6d48fe40327c2f362bc624ef143aa0b5cc
                 console.log("All okay!");
                 fulfill(true);
             }
