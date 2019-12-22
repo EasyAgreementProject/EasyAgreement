@@ -25,6 +25,7 @@ $(document).ready(function() {
     var errAcademicYear1 = getCookie("errAcademicYear1");
     var errAcademicYear2 = getCookie("errAcademicYear2");
     var errSubjectCode = getCookie("errSubjectCode");
+    var errEmail = getCookie("errEmail");
     var errDepartmentSending = getCookie("errDepartmentSending");
     var errContactName = getCookie("errContactName");
     var errContactSending = getCookie("errContactSending");
