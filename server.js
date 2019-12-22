@@ -30,7 +30,7 @@ app.get('/fillForm', function(req, res) {
     })
 });
 
-app.post('/compileLAStudent', function(req, res) {
+app.post('/compileStudent', function(req, res) {
     var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
         req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactSending,
         req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
