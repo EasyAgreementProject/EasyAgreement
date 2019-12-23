@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Home</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/formValidation.js"></script>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <a href="index.html" style="text-decoration: none; color: black;">
+                <div class=sidebar-logo>
+                    <img src="/img/logoUni.png" style="float: left" width="50px">
+                </div>
+                <div class="sidebar-heading"> Home </div>
+            </a>
+            <div class="list-group list-group-flush">
+                <a href="profile.html" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
+                <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background-color: orange;">
+                <button id="menu-toggle"><img src="/img/menu.png" style="height: 20px; width: 20px;"></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="/img/responsive_slide.svg" style="height: 20px; width: 20px;">
+            </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+                <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+                <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
+                <hr>
+                <form id="formCompile" method="post" action="/compileStudent"><br>
+                   <ul>
+                       <li>
+                           Il tirocinante riceverà un sostegno finanziario per il suo tirocinio:
+                           <div class="row">
+                               <div class="form-check">
+                                    <label for="inputRadio1">Si</label>
+                                    <input type="radio" id="inputRadio1" name="inputRadio1" checked value="Si">
+                                    <label for="inputRadio1">No</label>
+                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="No">
+                                </div>
+                            </div><br>
+                            In caso affermativo, l'importo in EUR/mese è:
+                            <div class="form-label-group">
+                                <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese" required>
+                                <label for="inputAmount">Importo Euro/Mese</label>
+                                <span id="errAmount"></span>
+                            </div><br>
+                        </li>
+                        <li>
+                            Il tirocinante riceverà un contributo per il suo tirocinio:
+                            <div class="form-check">
+                                <label for="inputRadio2">Si</label>
+                                <input type="radio" id="inputRadio2" name="inputRadio2" checked value="Si">
+                                <label for="inputRadio1">No</label>
+                                <input type="radio" id="inputRadio2" name="inputRadio2" value="No">
+                            </div>
+                        </div>
+                        In caso affermativo, specificare il tipo di contributo:
+                        <div class="form-label-group">
+                            <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo" required>
+                            <label for="inputContribution">Tipo Di Contributo</label>
+                            <span id="errContribution"></span>
+                        </div>
+                      </li>
+                      <li>
+                        Il tirocinante è coperto dall'assicurazione contro gli infortuni?
+                        <div class="form-check">
+                            <label for="inputRadio3">Si</label>
+                            <input type="radio" id="inputRadio3" name="inputRadio3" checked value="Si">
+                            <label for="inputRadio3">No</label>
+                            <input type="radio" id="inputRadio3" name="inputRadio3" value="No">
+                        </div>
+                    </li>
+                 </ul><br>
+                    <div class="box">
+                        In caso contrario, specificare se il tirocinante è coperto da un'assicurazione contro gli infortuni fornita dall'istituto di invio:
+                        <div class="form-check">
+                            <label for="inputRadio4">Si</label>
+                            <input type="radio" id="inputRadio4" name="inputRadio4" checked value="Si">
+                            <label for="inputRadio3">No</label>
+                            <input type="radio" id="inputRadio4" name="inputRadio4" disabled value="No">
+                        </div><br>
+                        L'assicurazione contro gli infortuni copre:<br>
+                        - incidenti durante i viaggi effettuati per motivi di lavoro:
+                        <div class="form-check">
+                            <label for="inputRadio5">Si</label>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" checked value="Si">
+                            <label for="inputRadio5">No</label>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" disabled value="No">
+                        </div><br>
+                        - incidenti durante il lavoro e il ritorno da lavoro:
+                        <div class="form-check">
+                            <label for="inputRadio6">Si</label>
+                            <input type="radio" id="inputRadio6" name="inputRadio6" checked value="Si">
+                            <label for="inputRadio6">No</label>
+                            <input type="radio" id="inputRadio6" name="inputRadio6" disabled value="No">
+                        </div>
+                        (Polizza assicurativa: n. 261044627 - Compagnia assicuratrice: GENERALI)
+                        <br>
+                        Il tirocinante è coperto da un'assicurazione di responsabilità civile?
+                        <div class="form-check">
+                        <label for="inputRadio7">Si</label>
+                            <input type="radio" id="inputRadio7" name="inputRadio7" checked value="Si">
+                            <label for="inputRadio7">No</label>
+                            <input type="radio" id="inputRadio7" name="inputRadio7" disabled value="No">
+                        </div>
+                        (Polizza assicurativa: n. 261044624 - Compagnia assicuratrice: GENERALI)
+                    </div><br>
+                    L'organizzazione / impresa ricevente si impegna a garantire attrezzatura appropriata e supporto necessari al tirocinante.
+                    <br>
+                    Al termine del tirocinio, l'organizzazione / impresa ricevente si impegna a rilasciare un
+                    certificato di tirocinio da ...
+                    <br>
+                    <div class="form-label-group">
+                        <input type="number" class="form-control" id="inputWeeks" name="inputWeeks" placeholeder="Numero Settimane" required>
+                        <label for="inputWeeks">Numero Settimane</label>
+                        <span id="errWeeks"></span>
+                        <p style="font-style: italic; text-decoration: underline;">[Massimo 5 settimane dopo il tirocinio]</p>
+                    </div>
+
+                    
+                    <hr>
+                    <button class="btn btn-block" type="submit" class="saveButton">APPROVA E INVIA</button>
+                </form>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/jquery/dist/jquery.min.js "></script>
+    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js "></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle ").click(function(e) {
+            e.preventDefault();
+            $("#wrapper ").toggleClass("toggled ");
+        });
+    </script>
+    </body>
+    </html>
+                
+                   
+                
+                   
