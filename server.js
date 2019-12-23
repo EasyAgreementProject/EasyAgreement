@@ -129,7 +129,7 @@ app.get('/getVersion', function(req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.sendFile("/app/views/login.html",{root:__dirname});
+  res.sendFile("/app/views/compileLAExternalTutor.html",{root:__dirname});
 });
 
 app.get('/signup.html', function (req, res) {
