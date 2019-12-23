@@ -17,15 +17,55 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(session({  
+  secret: 'secret_session',  
+  resave: false,  
+  saveUninitialized: true    
+})); 
+
+app.use(function(req,res,next) {  
+  res.locals.session = req.session;  
+  next();   
+}); 
+
 app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
 });
 
+app.get('/viewLA.html', function(req, res){
+    res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
+});
+
+app.get('/index.html', function(req, res){
+  res.sendFile(path.join(__dirname + "/app/views/index.html"))
+});
+
+app.get('/getAllVersions', function(req, res) {
+  var getVersionsPr = learningAgreementControl.getAllVersions('v.volpicelli4@studenti.unisa.it');
+  getVersionsPr.then(function(data) {
+      if (data) {
+          res.send(data);
+      }
+  })
+});
+
 app.get('/fillForm', function(req, res) {
-    var getData = learningAgreementControl.getData(req.query.student);
+    var getData = learningAgreementControl.getData(req.session.utente.utente.Email);
+    console.log("Student = "+req.session.utente.utente.Email);
     getData.then(function(data) {
         if (data) {
             res.send(data);
+        }
+    })
+});
+
+app.get('/getStatus', function(req, res) {
+  var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email);
+  console.log("Student Status = "+req.session.utente.utente.Email);
+    getStatus.then(function(status) {
+        if (status) {
+            console.log("Status = "+status);
+            res.send(status);
         }
     })
 });
@@ -61,19 +101,32 @@ app.get('/saveCompilation', function(req, res) {
     saveStudent.then(function(file) {
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
-        file.pipe(res)
+        file.pipe(res);
     });
 });
 
-app.use(session({  
-  secret: 'secret_session',  
-  resave: false,  
-  saveUninitialized: true    
-})); 
-app.use(function(req,res,next) {  
-  res.locals.session = req.session;  
-  next();   
-});  
+app.get('/getVersion', function(req, res) {
+  var getVersionsPr = learningAgreementControl.getAllVersions('v.volpicelli4@studenti.unisa.it');
+  getVersionsPr.then(function(data) {
+      if (data && req.query.inputVersion) {
+        console.log("Version id = "+req.query.number)
+        var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, 'v.volpicelli4@studenti.unisa.it');
+        getVersionPr.then(function(la) {
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');        
+          console.log("Tornato da tutto"); 
+          var obj;
+          while (null !== (obj = la.read())) {
+            console.log(obj);
+          }
+          la.pipe(res);
+        })        
+        
+    } else {
+        res.sendFile(path.join(__dirname + "/app/views/viewLA.html"));
+    }
+  })
+});
 
 app.get('/', function (req, res) {
   res.sendFile("/app/views/login.html",{root:__dirname});

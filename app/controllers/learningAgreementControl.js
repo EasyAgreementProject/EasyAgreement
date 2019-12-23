@@ -2,6 +2,7 @@ var pdfFiller = require('pdffiller');
 var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
 var learningAgreement = new LA();
+const Readable = require('stream').Readable;
 
 exports.sendLaStudent = function(input, res) {
     let sourcePDF = "pdf/Template_LA.pdf";
@@ -120,7 +121,7 @@ exports.sendLaStudent = function(input, res) {
                     else {
                         console.log("PDF create successfully!");
                         //send Filled PDF to Client side
-                        var file = fs.createReadStream('pdf/Filled_LA.pdf');
+                        var file = fs.readFileSync('pdf/Filled_LA.pdf');
                         learningAgreement.setFilling(data);
                         learningAgreement.setDocument(file);
                         learningAgreement.setStudentID(data["E-mail"]);
@@ -282,6 +283,63 @@ exports.getData = function(student) {
             console.log("Searching done!");
             if(result) 
                 fulfill(result.filling);
+        });
+    });
+}
+
+exports.getStatus = function(student) {
+    return new Promise(function(fulfill, reject) {
+        console.log("Getting data for student: " + student);
+        getLearningAgreementPr = LA.getLearningAgreement(student);
+        getLearningAgreementPr.then(function(result, err) {
+            if (err) throw err;
+            console.log("Searching done!");
+            if(result) 
+                fulfill(result.state);
+        });
+    });
+}
+
+exports.getVersion = function(id, email) {
+    return new Promise(function(fulfill, reject) {
+        getPdfPr = LA.getPdf(id, email);
+        getPdfPr.then(function(result, err) {
+            if (err) throw err;
+            console.log("Getting version with id= "+id);
+            fs.writeFile('LA.pdf', result.document.file_data.buffer ,function(err){
+                let file = fs.createReadStream('LA.pdf');
+                if (err) throw err;
+                console.log('Sucessfully saved!');
+                const s = new Readable();
+                s._read = function noop() {};
+                s.push(result.document.file_data.buffer);
+                s.push(null);
+                console.log(s);
+                fulfill(file);
+            });            
+        });
+    });
+}
+
+exports.getAllVersions = function(student) {
+    return new Promise(function(fulfill, reject) {
+        console.log("Getting data for student: " + student);
+        getAllVersionsPr = LA.getOldVersions(student);
+        getAllVersionsPr.then(function(result, err) {
+            if (err) throw err;
+            console.log("Searching done!");
+            if(result) {                  
+                getLearningAgreementPr = LA.getLearningAgreement(student);
+                getLearningAgreementPr.then(function(la, err) {
+                    if (err) throw err;
+                    console.log("Searching done!");
+                    if(la) {
+                        result.push(la);
+                        result.sort((a, b) => b.version - a.version);
+                        fulfill(result);
+                    }
+                });
+            }
         });
     });
 }

@@ -556,7 +556,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $.get("/fillForm?student=v.volpicelli4@studenti.unisa.it", function(data, status) {
+            $.get("/fillForm", function(data) {
                 if (data["First name (s)"]) document.getElementById("inputName").value = data["First name (s)"];
                 if (data["Last name (s)"]) document.getElementById("inputSurname").value = data["Last name (s)"];
                 if (data["First name (s)"]) document.getElementById("inputName").value = data["First name (s)"];

@@ -69,12 +69,20 @@
                     </ul>
                 </div>
             </nav>
-            <div class="container-fluid">
-                <h1 class="mt-4">Learning Agreement</h1>
-                <p>Qui puoi monitorare lo stato del tuo Learning Agreement e visualizzare le versione precedenti.</p>
+            <div class="container-fluid">                
                 <hr>
-                <div class="stateLA">
-                    
+                <div class="form-label-group">
+                    <h1 class="mt-4">Learning Agreement</h1>
+                <span>Stato del Learning Agreement: </span> <span id="status"></span>
+                </div>
+                <div class="form-label-group">
+                    <form action="/getVersion" method ="GET">
+                        <p>Versione:</p>
+                        <select class="custom-select mr-sm-2"  name="inputVersion" id="versions">
+                                <option selected="selected" value="">--Seleziona--</option>
+                        </select>
+                        <input type="submit" value="Seleziona">
+                    </form>
                 </div>
                 <div class="logoCenter">
                     <img src="/img/EasyAgreement_Logo.png" alt="logo Unisa" style="opacity: 0.3; vertical-align: middle; max-width: 300px; max-height: 300px;">
@@ -94,6 +102,29 @@
         $("#menu-toggle ").click(function(e) {
             e.preventDefault();
             $("#wrapper ").toggleClass("toggled");
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $.get("/getStatus", function(status) {
+                if(status) document.getElementById("status").innerHTML = status;
+                else document.getElementById("status").innerHTML = "Non ancora compilato";
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $.get("/getAllVersions", function(array) {
+                if(array) {
+                    var select = document.getElementById("versions");
+                    for(i = 0; i < array.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = array[i].version;
+                        option.value = array[i].version;
+                        select.add(option);
+                    }     
+                }
+            });
         });
     </script>
 </body>

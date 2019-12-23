@@ -1,5 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
+var Binary = require('mongodb').Binary;
 
 //Database URL
 const url = "mongodb://localhost:27017/easyagreement";
@@ -63,6 +64,9 @@ class LearningAgreement {
                 if (err) throw err;
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
+                var insert_data = {};
+                insert_data.file_data = Binary(learningAgreement.document);
+                learningAgreement.document = insert_data;
                 var get = LearningAgreement.getLearningAgreement(learningAgreement.getStudentID());
                 get.then(function(result) {
                     console.log("Learning Agreeement per lo StudentID: " + learningAgreement.getStudentID() + " = " + result)
@@ -131,6 +135,41 @@ class LearningAgreement {
                     console.log("Learning Agreement deleted correctly!");
                     db.close();
                     fulfill();
+                });
+            });
+        });
+    }
+
+    static getOldVersions(studentID) {
+        return new Promise(function(fulfill, reject) {
+            MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+                if (err) throw err;
+                console.log("Connected successfully to server!");
+                var dbo = db.db(dbName);
+                dbo.collection("LearningAgreement_revision").find({ "studentID": studentID }).toArray(function(err, result) {
+                    if (err) throw err;
+                    console.log("Learning Agreement search completed! " + result + " StudentID = " + studentID);
+                    db.close();
+                    fulfill(result);
+                });
+            });
+        });
+    }
+
+    static getPdf(v, email) {
+        return new Promise(function(fulfill, reject) {
+            MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+                if (err) throw err;
+                console.log("Connected successfully to server! Versione = "+v+" Email = "+email);
+                var dbo = db.db(dbName);
+                dbo.collection("LearningAgreement_revision").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
+                    if (err) throw err;
+                    if(result) {
+                        console.log("Sono qui ilvaiovnzodivn "+result)
+                        db.close();
+                        fulfill(result);                        
+                    }
+                    db.close();
                 });
             });
         });
