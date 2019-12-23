@@ -236,6 +236,30 @@ static findByMatricola(studentID){
  * @param {String} email- email
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
+static findExistByEmail(email){
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                if(err) reject(err);
+                if(Boolean(result)){
+                    fulfill(false);
+                }
+                else{
+                    fulfill(true);
+                }
+                db.close();
+            })
+        });
+    });
+}
+
+/** 
+ * check if exist student by email
+ * @param {String} email- email
+ * @returns {boolean} - return true if the object does not exist in database, else false
+ */
 static findByEmail(email){
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){

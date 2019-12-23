@@ -128,34 +128,30 @@ $(document).ready(function(){
 
 function testName(name){
     if(name.length>=2){
-        var exp= new RegExp("^[A-Za-z]+$");
-        if(exp.test(name))  return true;
+        if(/^[A-Za-z]+$/.test(name))  return true;
     }
     return false;
 }
 
 function testSurname(surname){
     if(surname.length>=2){
-        var exp= new RegExp("^[A-Za-z]+$");
-        if(exp.test(surname))   return true;
+        if(/^[A-Za-z]+$/.test(surname))   return true;
     }
     return false;
 }
 
 function testEmailStudent(){
     var email= $('#inputEmail').val().toLowerCase();
-    if(email.length>=21){
-        var exp= new RegExp("^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it");
-        if(exp.test(email))     return true;
+    if(email.length>=22){
+        if(/^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it/.test(email))     return true;
     }
     return false;
 }
 
 function testEmailTutor(){
     var email= $('#inputEmailT').val().toLowerCase();
-    if(email.length>=12){
-        var exp= new RegExp("^[a-z]\.[a-z]+[0-9]*\@unisa.it");
-        if(exp.test(email))     return true;
+    if(email.length>=13){
+        if(/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))     return true;
     }
     return false;
 }
@@ -163,8 +159,7 @@ function testEmailTutor(){
 function testMatricola(){
     var matricola= $('#inputMatricola').val();
     if(matricola.length>=10){
-        var exp= new RegExp("^[0-9]+$");
-        if(exp.test(matricola))     return true;
+        if(/^[0-9]+$/.test(matricola))     return true;
     }
     return false;
 }
@@ -172,17 +167,15 @@ function testMatricola(){
 function testCitta(){
     var citta= $('#inputCity').val();
     if(citta.length>=3){
-        var exp= new RegExp("^[A-Za-z\s]*");
-        if(exp.test(citta))     return true;
+        if(/^[A-Za-z\s]+$/.test(citta))     return true;
     }
     return false;
 }
 
 function testIndirizzo(){
     var indirizzo = $('#inputAddress').val();
-    if(indirizzo.length>=3){
-        var exp= new RegExp("^[A-Za-z0-9,\s]*");
-        if(exp.test(indirizzo))     return true;
+    if(indirizzo.length>=7){
+        if(/^[A-Za-z0-9,\s]+$/.test(indirizzo))     return true;
     }
     return false;
 }
@@ -190,8 +183,7 @@ function testIndirizzo(){
 function testCorso(){
     var corso= $('#inputCourse').val();
     if(corso.length>=2){
-        var exp= new RegExp("^[A-Za-z\s]*");
-        if(exp.test(corso))     return true;
+        if(/^[A-Za-z\s]+$/.test(corso))     return true;
     }
     return false;
 }
@@ -199,8 +191,7 @@ function testCorso(){
 function testDepartment(){
     var department= $('#inputDepartmentT').val();
     if(department.length>=2){
-        var exp=new RegExp("^[A-Za-z0-9\s]*");
-        if(exp.test(department))    return true;
+        if(/^[A-Za-z0-9\s]+$/.test(department))    return true;
     }
     return false;
 }
@@ -208,8 +199,7 @@ function testDepartment(){
 function testPassword(){
     var password= $('#inputPassword').val();
     if(password.length>=8){
-        var exp=new RegExp("^[A-Za-z0-9\s]+$");
-        if(exp.test(password))  return true;
+        if(/^[A-Za-z0-9]+$/.test(password))  return true;
     }
     return false;
 }
