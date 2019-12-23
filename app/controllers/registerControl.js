@@ -152,7 +152,7 @@ exports.signup= function(req, res){
             isRight=false;
         }
 
-        if((department==null) || (department.length<=1) || (!/^[A-Za-z0-9\s]+$/.test(email))){
+        if((department==null) || (department.length<=1) || (!/^[A-Za-z0-9\s]+$/.test(department))){
             res.cookie('errTutorDepartment','1');
             isRight=false;
         }

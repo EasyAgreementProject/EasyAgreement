@@ -83,10 +83,6 @@ app.get('/signup.html', function (req, res) {
   res.sendFile("/app/views/signup.html",{root:__dirname});
 });
 
-app.get('/index.html', function (req, res) {
-  res.sendFile("/app/views/index.html",{root:__dirname});
-});
-
 app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
 });

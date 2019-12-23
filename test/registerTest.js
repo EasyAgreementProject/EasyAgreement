@@ -81,7 +81,7 @@ describe('Field test for registerControl', function(){
         chai
             .request('http://localhost:8080')
             .post('/signup')
-            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"a.ambruoso1@studenti.unisa.it"})
+            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"a.ambruoso1@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98"})
             .end(function(err, res){
                 if(err)   return done(err);
                 expect(res).to.have.cookie('errAlreadyReg');
@@ -117,7 +117,7 @@ describe('Field test for registerControl', function(){
         chai
             .request('http://localhost:8080')
             .post('/signup')
-            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "0512103456"})
+            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "0512105439",  inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98"})
             .end(function(err, res){
                 if(err)   return done(err);
                 expect(res).to.have.cookie('errAlreadyReg');
@@ -225,7 +225,7 @@ describe('Field test for registerControl', function(){
         chai
             .request('http://localhost:8080')
             .post('/signup')
-            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica" })
+            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98" })
             .end(function(err, res){
                 if(err)   return done(err);
                 expect(res).to.have.cookie('regEff');
@@ -319,7 +319,7 @@ describe('Field test for registerControl', function(){
         chai
             .request('http://localhost:8080')
             .post('/signup')
-            .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@gmail.com"})
+            .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "s.risso@unisa.it", inputPassword: "AlessioAmb98", inputDepartmentT: "Informatica", inputConfirmPassword:"AlessioAmb98"})
             .end(function(err,res) {
                 if (err) return done(err);
                 expect(res).to.have.cookie('errAlreadyReg');
@@ -384,7 +384,7 @@ describe('Field test for registerControl', function(){
         chai
             .request('http://localhost:8080')
             .post('/signup')
-            .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@unisa.it", inputPassword: "AlessioAmb98", inputDepartmentT: "Informatica"})
+            .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@unisa.it", inputPassword: "AlessioAmb98", inputDepartmentT: "Informatica", inputConfirmPassword:"AlessioAmb98"})
             .end(function(err,res) {
                 if (err) return done(err);
                 expect(res).to.have.cookie('regEff');
