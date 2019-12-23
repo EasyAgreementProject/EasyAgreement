@@ -122,6 +122,7 @@ exports.sendLaStudent = function(input, res) {
                         console.log("PDF create successfully!");
                         //send Filled PDF to Client side
                         var file = fs.readFileSync('pdf/Filled_LA.pdf');
+                        var download = fs.createReadStream('pdf/Filled_LA.pdf');
                         learningAgreement.setFilling(data);
                         learningAgreement.setDocument(file);
                         learningAgreement.setStudentID(data["E-mail"]);
@@ -130,7 +131,7 @@ exports.sendLaStudent = function(input, res) {
 
                         var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                         insertLearningAgreementPr.then(function() {
-                            fulfill(learningAgreement);
+                            fulfill(download);
                         });
 
                     }
@@ -257,7 +258,6 @@ exports.saveLaStudent = function(input) {
             else {
                 console.log("PDF create successfully!");
                 //send Filled PDF to Client side
-                let file = fs.createReadStream('pdf/Filled_LA.pdf');
                 learningAgreement.setFilling(data);
                 learningAgreement.setDocument(null);
                 learningAgreement.setStudentID(data["E-mail"]);
@@ -266,7 +266,7 @@ exports.saveLaStudent = function(input) {
 
                 let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                 insertLearningAgreementPr.then(function() {
-                    fulfill(file);
+                    fulfill();
                 });
 
             }

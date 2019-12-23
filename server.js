@@ -41,7 +41,7 @@ app.get('/index.html', function(req, res){
 });
 
 app.get('/getAllVersions', function(req, res) {
-  var getVersionsPr = learningAgreementControl.getAllVersions('v.volpicelli4@studenti.unisa.it');
+  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email);
   getVersionsPr.then(function(data) {
       if (data) {
           res.send(data);
@@ -78,12 +78,11 @@ app.post('/compileStudent', function(req, res) {
         req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
     ];
     var sendStudent = learningAgreementControl.sendLaStudent(data, res);
-    sendStudent.then(function(la) {
-        if (la) {
-            var document = la.document;
+    sendStudent.then(function(dw) {
+        if (dw) {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
-            document.pipe(res)
+            dw.pipe(res)
         } else {
             res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"));
         }
@@ -99,14 +98,12 @@ app.get('/saveCompilation', function(req, res) {
     ];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
     saveStudent.then(function(file) {
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
-        file.pipe(res);
+      res.sendFile(path.join(__dirname + "/app/views/index.html"));
     });
 });
 
 app.get('/getVersion', function(req, res) {
-  var getVersionsPr = learningAgreementControl.getAllVersions('v.volpicelli4@studenti.unisa.it');
+  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email);
   getVersionsPr.then(function(data) {
       if (data && req.query.inputVersion) {
         console.log("Version id = "+req.query.number)
@@ -129,6 +126,10 @@ app.get('/getVersion', function(req, res) {
 });
 
 app.get('/', function (req, res) {
+  res.sendFile("/app/views/login.html",{root:__dirname});
+});
+
+app.get('/compileLAExternalTutor.html', function (req, res) {
   res.sendFile("/app/views/compileLAExternalTutor.html",{root:__dirname});
 });
 

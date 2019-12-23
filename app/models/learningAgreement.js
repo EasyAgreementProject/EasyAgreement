@@ -169,7 +169,16 @@ class LearningAgreement {
                         db.close();
                         fulfill(result);                        
                     }
-                    db.close();
+                    else {
+                        dbo.collection("current_LearningAgreement").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
+                            if (err) throw err;
+                            if(result) {
+                                console.log("Sono qui ilvaiovnzodivn "+result)
+                                db.close();
+                                fulfill(result);                        
+                            }
+                        });
+                    }
                 });
             });
         });
