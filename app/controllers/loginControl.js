@@ -13,9 +13,9 @@ exports.login= function(req, res){
 
         //form validation
         var isRight=true;
-        if((username==null) || (username.length<=1) || (!new RegExp("^[a-z].[a-z]+[1-9]*@studenti.unisa.it").test(username))){
-            if(!new RegExp("^[a-z].[a-z]+[1-9]*@unisa.it").test(username)){
-                if(!new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9]){1,}?").test(username)){
+        if((username==null) || (username.length<=1) || (!/^[a-z].[a-z]+[1-9]*@studenti.unisa.it/.test(username))){
+            if(!/^[a-z].[a-z]+[1-9]*@unisa.it/.test(username)){
+                if(!/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9]){1,}?/.test(username)){
                     res.cookie('errUsername','1');
                     isRight=false;
                 }
@@ -71,6 +71,12 @@ exports.login= function(req, res){
                                             req.session.utente=adminSession;
                                             redirect(res);
                                         }
+                                        else{
+                                            res.cookie('errLogin','1');
+                                            var path = require('path');
+                                            res.sendFile(path.resolve('app/views/login.html'));
+                                            return;
+                                        }
                                     }
                                 })
                             }
@@ -82,6 +88,12 @@ exports.login= function(req, res){
                                     };
                                     req.session.utente=externalSession;
                                     redirect(res);
+                                }
+                                else{
+                                    res.cookie('errLogin','1');
+                                    var path = require('path');
+                                    res.sendFile(path.resolve('app/views/login.html'));
+                                    return;
                                 }
                             }
                         })
@@ -95,6 +107,12 @@ exports.login= function(req, res){
                             req.session.utente=academicSession;
                             redirect(res);
                         }
+                        else{
+                            res.cookie('errLogin','1');
+                            var path = require('path');
+                            res.sendFile(path.resolve('app/views/login.html'));
+                            return;
+                        }
                     }
                 })
             }
@@ -106,6 +124,12 @@ exports.login= function(req, res){
                     };
                     req.session.utente=studentSession;
                     redirect(res);
+                }
+                else{
+                    res.cookie('errLogin','1');
+                    var path = require('path');
+                    res.sendFile(path.resolve('app/views/login.html'));
+                    return;
                 }
             }
         })        
