@@ -25,42 +25,42 @@ exports.signup= function(req, res){
         //Form validation
         var isRight=true;
 
-        if((name==null) || (name.length<=1) || (!new RegExp("^[A-Za-z]+$").test(name))){
+        if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
             res.cookie('errStudentName','1');
             isRight=false;
         }
         
-        if((surname==null) || (surname.length<=1) || (!new RegExp("^[A-Za-z]+$").test(surname))){
+        if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
             res.cookie('errStudentSurname','1');
             isRight=false;
         }
 
-        if((email==null) || (email.length<=20) || (!new RegExp("^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it").test(email))){
+        if((email==null) || (email.length<=21) || (!/^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it/.test(email))){
             res.cookie('errStudentEmail','1');
             isRight=false;
         }
 
-        if((matricola==null) || (matricola.length<=9) || (!new RegExp("^[0-9]+$").test(matricola))){
+        if((matricola==null) || (matricola.length<=9) || (!/^[0-9]+$/.test(matricola))){
             res.cookie('errStudentMatricola','1');
             isRight=false;
         }
 
-        if((citta==null) || (citta.length<=2) || (!new RegExp("^[A-Za-z\s]*").test(citta))){
+        if((citta==null) || (citta.length<=2) || (!/^[A-Za-z\s]+$/.test(citta))){
             res.cookie('errStudentCity','1');
             isRight=false;
         }
 
-        if((indirizzo==null) || (indirizzo.length<=2) || (!new RegExp("^[A-Za-z0-9,\s]*").test(indirizzo))){
+        if((indirizzo==null) || (indirizzo.length<=6) || (!/^[A-Za-z0-9,\s]+$/.test(indirizzo))){
             res.cookie('errStudentAddress','1');
             isRight=false;
         }
 
-        if((corso==null) || (corso.length<=1) || (!new RegExp("^[A-Za-z\s]*").test(corso))){
+        if((corso==null) || (corso.length<=1) || (!/^[A-Za-z\s]+$/.test(corso))){
             res.cookie('errStudentCorso','1');
             isRight=false;
         }
 
-        if((password==null) || (password.length<=7) || (!new RegExp("^[A-Za-z0-9\s]+$").test(password))){
+        if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
             res.cookie('errPassword','1');
             isRight=false;
         }
@@ -92,9 +92,9 @@ exports.signup= function(req, res){
         studente.setStudentID(matricola);
 
         //Check if already exist
-        var check=studentModel.findByMatricola(matricola);
+        var checkM=studentModel.findByMatricola(matricola);
 
-        check.then(function(result){
+        checkM.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
                 var path = require('path');
@@ -102,14 +102,26 @@ exports.signup= function(req, res){
                 return;
             }
             if(result){
-                //Save student in database
-                studentModel.insertStudent(studente);
+                var checkE=studentModel.findExistByEmail(email);
 
-                //redirect
-                res.cookie('regEff','1');
-                var path = require('path');
-                res.sendFile(path.resolve('app/views/index.html'));
-                return;
+                checkE.then(function(result){
+                    if(!result){
+                        res.cookie('errAlreadyReg','1');
+                        var path = require('path');
+                        res.sendFile(path.resolve('app/views/signup.html'));
+                        return;
+                    }
+                    if(result){
+                        //Save student in database
+                        studentModel.insertStudent(studente);
+
+                        //redirect
+                        res.cookie('regEff','1');
+                        var path = require('path');
+                        res.sendFile(path.resolve('app/views/index.html'));
+                        return;
+                    }
+                })
             }
         })        
 
@@ -125,27 +137,27 @@ exports.signup= function(req, res){
 
         //Form validation
         isRight=true;
-        if((name==null) || (name.length<=1) || (!new RegExp("^[A-Za-z]+$").test(name))){
+        if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
             res.cookie('errTutorName','1');
             isRight=false;
         }
         
-        if((surname==null) || (surname.length<=1) || (!new RegExp("^[A-Za-z]+$").test(surname))){
+        if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
             res.cookie('errTutorSurname','1');
             isRight=false;
         }
 
-        if((email==null) || (email.length<=10) || (!new RegExp("^[a-z]\.[a-z]+[0-9]*\@unisa.it").test(email))){
+        if((email==null) || (email.length<=12) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
             res.cookie('errTutorEmail','1');
             isRight=false;
         }
 
-        if((department==null) || (department.length<=1) || (!new RegExp("^[A-Za-z0-9\s]*").test(email))){
+        if((department==null) || (department.length<=1) || (!/^[A-Za-z0-9\s]+$/.test(email))){
             res.cookie('errTutorDepartment','1');
             isRight=false;
         }
 
-        if((password==null) || (password.length<=7) || (!new RegExp("^[A-Za-z0-9\s]+$").test(password))){
+        if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
             res.cookie('errPassword','1');
             isRight=false;
         }
