@@ -9,4 +9,4 @@ install:
  - npm install -g istanbul
  - npm install -g codecov
 script:
- - source installdb.sh & node server.js & istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov
+ - node server.js & istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov
