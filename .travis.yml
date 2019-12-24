@@ -6,8 +6,7 @@ services:
 install:
  - sudo snap install pdftk
  - npm install
- - npm install -g istanbul
- - npm install -g codecov
+ - npm install -g istanbul mocha@3
 script:
- -  node server.js & istanbul-mocha && npm test
+ -  node server.js & istanbul cover _mocha -- $TESTFOLDER
 
