@@ -10,4 +10,4 @@ install:
  - npm install -g codecov
 script:
  - node server.js
- - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov
+ - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov & lsof -i tcp:8080 & kill -9 PID
