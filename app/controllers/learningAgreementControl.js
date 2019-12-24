@@ -2,11 +2,12 @@ var pdfFiller = require('pdffiller');
 var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
 var learningAgreement = new LA();
-const Readable = require('stream').Readable;
+let random = parseInt(Math.random()*10000);
+//const Readable = require('stream').Readable;
 
 exports.sendLaStudent = function(input, res) {
     let sourcePDF = "pdf/Template_LA.pdf";
-    let destinationPDF = "pdf/Filled_LA.pdf";
+    let destinationPDF = "pdf/Filled_LA_"+random+".pdf";
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -120,13 +121,16 @@ exports.sendLaStudent = function(input, res) {
                         throw err;
                     else {
                         console.log("PDF create successfully!");
-                        //send Filled PDF to Client side
-                        var file = fs.readFileSync('pdf/Filled_LA.pdf');
-                        var download = fs.createReadStream('pdf/Filled_LA.pdf');
+                        //send Filled PDF to Client side                        
+                        var file = fs.readFileSync('pdf/Filled_LA_'+random+'.pdf');
+                        var download = fs.createReadStream('pdf/Filled_LA_'+random+'.pdf');
+                        fs.unlink('pdf/Filled_LA_'+random+'.pdf', function(err){
+                            if (err) throw err;
+                        });
                         learningAgreement.setFilling(data);
                         learningAgreement.setDocument(file);
                         learningAgreement.setStudentID(data["E-mail"]);
-                        learningAgreement.setState("sumbitted");
+                        learningAgreement.setState("Submitted");
                         learningAgreement.setDate(data["The trainee date"]);
 
                         var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -274,6 +278,228 @@ exports.saveLaStudent = function(input) {
     })
 }
 
+exports.sendLaAcademicTutor = function(input, res) {
+    let sourcePDF = "pdf/Template_LA.pdf";
+    let destinationPDF = "pdf/Filled_LA_"+random+".pdf";
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd + "/" + mm + "/" + yyyy;
+
+    return new Promise(function(fulfill, reject) {
+        var getDataPr = exports.getData('v.volpicelli4@studenti.unisa.it');
+        getDataPr.then(function(data) {        
+            console.log(input[1][0] + "    " + data["The trainee date"]);
+            
+            data["Award"] = input[0];
+            switch (input[1]) {
+                case "certificate":
+                    data["Traineeship certificate"] = "X";
+                    break;
+                case "report":
+                    data["Final report"] = "X";
+                    break;
+                case "interview":
+                    data["Interview"] = "X";
+                    break;
+            }
+
+            switch (input[1][0]) {
+                case "certificate":
+                    data["Traineeship certificate"] = "X";
+                    break;
+                case "report":
+                    data["Final report"] = "X";
+                    break;
+                case "interview":
+                    data["Interview"] = "X";
+                    break;
+            }
+
+            switch (input[1][1]) {
+                case "certificate":
+                    data["Traineeship certificate"] = "X";
+                    break;
+                case "report":
+                    data["Final report"] = "X";
+                    break;
+                case "interview":
+                    data["Interview"] = "X";
+                    break;
+            }
+
+            switch (input[1][2]) {
+                case "certificate":
+                    data["Traineeship certificate"] = "X";
+                    break;
+                case "report":
+                    data["Final report"] = "X";
+                    break;
+                case "interview":
+                    data["Interview"] = "X";
+                    break;
+            }
+
+            switch (input[2]) {
+                case "Si":
+                    data["Europass Mobility Document Yes"] = "X";
+                    break;
+                case "No":
+                    data["Europass Mobility Document No"] = "X";
+                    break;
+            }
+
+            switch (input[3]) {
+                case "Si":
+                    data["Award ECTS credits Yes"] = "X";
+                    break;
+                case "No":
+                    data["Award ECTS credits No"] = "X";
+                    break;
+            }
+
+            data["If yes, please indicate the number of ECTS credits"] = input[4];
+
+            switch (input[5]) {
+                case "Si":
+                    data["Give a grade Yes"] = "X";
+                    break;
+                case "No":
+                    data["Give a grade No"] = "X";
+                    break;
+            }
+
+            switch (input[6]) {
+                case "certificate":
+                    data["Traineeship certificate1"] = "X";
+                    break;
+                case "report":
+                    data["Final report1"] = "X";
+                    break;
+                case "interview":
+                    data["Interview1"] = "X";
+                    break;
+            }
+
+            switch (input[6][0]) {
+                case "certificate":
+                    data["Traineeship certificate1"] = "X";
+                    break;
+                case "report":
+                    data["Final report1"] = "X";
+                    break;
+                case "interview":
+                    data["Interview1"] = "X";
+                    break;
+            }
+
+            switch (input[6][1]) {
+                case "certificate":
+                    data["Traineeship certificate1"] = "X";
+                    break;
+                case "report":
+                    data["Final report1"] = "X";
+                    break;
+                case "interview":
+                    data["Interview1"] = "X";
+                    break;
+            }
+
+            switch (input[6][2]) {
+                case "certificate":
+                    data["Traineeship certificate1"] = "X";
+                    break;
+                case "report":
+                    data["Final report1"] = "X";
+                    break;
+                case "interview":
+                    data["Interview1"] = "X";
+                    break;
+            }
+
+            switch (input[7]) {
+                case "Si":
+                    data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";
+                    break;
+                case "No":
+                    data["Record the traineeship in the trainee's Transcript of Records No"] = "X";
+                    break;
+            }
+
+            switch (input[8]) {
+                case "Si":
+                    data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "X";
+                    break;
+                case "No":
+                    data["Record the traineeship in the trainee's Europass Mobility Document No"] = "X";
+                    break;
+            }
+
+            data["Academic Tutor sign"] = data["Contact person name"];      
+            data["Academic Tutor date"] = today; 
+            data["International Departemental Coordinator sign"] = data["Contact person name"];  
+            data["International Departemental Coordinator date"] = today;
+            
+            /*data["Award"] = 12;
+            data["Traineeship certificate"] = "X";
+            data["Final report"] = "X";
+            data["Interview"] = "X";
+            data["Europass Mobility Document Yes"] = "X";
+            data["Europass Mobility Document No"] = "X";
+            data["Award ECTS credits Yes"] = "X";
+            data["Award ECTS credits No"] = "X";
+            data["If yes, please indicate the number of ECTS credits"] = 12;
+            data["Give a grade Yes"] = "X";
+            data["Give a grade No"] = "X";  
+            data["Traineeship certificate1"] = "X";  
+            data["Final report1"] = "X";  
+            data["Interview1"] = "X";  
+            data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";  
+            data["Record the traineeship in the trainee's Transcript of Records No"] = "X";  
+            data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "X";  
+            data["Record the traineeship in the trainee's Europass Mobility Document No"] = "X";
+            data["Academic Tutor sign"] = data["Contact person name"];      
+            data["Academic Tutor date"] = today; 
+            data["International Departemental Coordinator sign"] = data["Contact person name"];  
+            data["International Departemental Coordinator date"] = today;*/
+            
+            let validatePr = exports.validateData(data, res);
+            validatePr.then(function(result) {
+                if (result) {
+                    pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
+                        if (err)
+                            throw err;
+                        else {
+                            console.log("PDF create successfully!");
+                            //send Filled PDF to Client side                        
+                            var file = fs.readFileSync('pdf/Filled_LA_'+random+'.pdf');
+                            var download = fs.createReadStream('pdf/Filled_LA_'+random+'.pdf');
+                            fs.unlink('pdf/Filled_LA_'+random+'.pdf', function(err){
+                                if (err) throw err;
+                            });
+                            learningAgreement.setFilling(data);
+                            learningAgreement.setDocument(file);
+                            learningAgreement.setStudentID(data["E-mail"]);
+                            learningAgreement.setState("Approved from Academic Tutor");
+                            learningAgreement.setDate(data["Academic Tutor date"]);
+
+                            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                            insertLearningAgreementPr.then(function() {
+                                fulfill(download);
+                            });
+
+                        }
+                    })
+                } else {
+                    fulfill(null);
+                }
+            });
+
+        })
+    });
+}
+
 exports.getData = function(student) {
     return new Promise(function(fulfill, reject) {
         console.log("Getting data for student: " + student);
@@ -306,15 +532,18 @@ exports.getVersion = function(id, email) {
         getPdfPr.then(function(result, err) {
             if (err) throw err;
             console.log("Getting version with id= "+id);
-            fs.writeFile('LA.pdf', result.document.file_data.buffer ,function(err){
-                let file = fs.createReadStream('LA.pdf');
-                if (err) throw err;
+            fs.writeFile('pdf/Old_LA_'+random+'.pdf', result.document.file_data.buffer ,function(err){                        
+                if (err) throw err;                
                 console.log('Sucessfully saved!');
-                const s = new Readable();
+                var file = fs.createReadStream('pdf/Old_LA_'+random+'.pdf');
+                fs.unlink('pdf/Old_LA_'+random+'.pdf', function(err){
+                    if (err) throw err;
+                });
+                /*const s = new Readable();
                 s._read = function noop() {};
                 s.push(result.document.file_data.buffer);
                 s.push(null);
-                console.log(s);
+                console.log(s);*/
                 fulfill(file);
             });            
         });

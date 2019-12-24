@@ -77,8 +77,8 @@ app.post('/compileStudent', function(req, res) {
         req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
         req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
     ];
-    var sendStudent = learningAgreementControl.sendLaStudent(data, res);
-    sendStudent.then(function(dw) {
+    var sendStudentPr = learningAgreementControl.sendLaStudent(data, res);
+    sendStudentPr.then(function(dw) {
         if (dw) {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
@@ -87,6 +87,22 @@ app.post('/compileStudent', function(req, res) {
             res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"));
         }
     })
+});
+
+app.post('/compileAcademicTutor', function(req, res) {
+  var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
+      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, 'v.volpicelli4@studenti.unisa.it'
+  ];
+  var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
+  sendTutorPr.then(function(dw) {
+      if (dw) {
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
+          dw.pipe(res)
+      } else {
+          res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"));
+      }
+  })
 });
 
 app.get('/saveCompilation', function(req, res) {
@@ -110,15 +126,10 @@ app.get('/getVersion', function(req, res) {
         var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, 'v.volpicelli4@studenti.unisa.it');
         getVersionPr.then(function(la) {
           res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');        
+          res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
           console.log("Tornato da tutto"); 
-          var obj;
-          while (null !== (obj = la.read())) {
-            console.log(obj);
-          }
           la.pipe(res);
         })        
-        
     } else {
         res.sendFile(path.join(__dirname + "/app/views/viewLA.html"));
     }
@@ -131,6 +142,10 @@ app.get('/', function (req, res) {
 
 app.get('/compileLAExternalTutor.html', function (req, res) {
   res.sendFile("/app/views/compileLAExternalTutor.html",{root:__dirname});
+});
+
+app.get('/compileLAAcademicTutor.html', function (req, res) {
+  res.sendFile("/app/views/compileLAAcademicTutor.html",{root:__dirname});
 });
 
 app.get('/signup.html', function (req, res) {
