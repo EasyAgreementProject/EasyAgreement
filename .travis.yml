@@ -3,7 +3,6 @@ node_js:
  - "node"
 services:
  - mongodb
- - node server.js
 install:
  - sudo snap install pdftk
  - npm install
