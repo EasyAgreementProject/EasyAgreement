@@ -28,7 +28,7 @@
     "mocha-lcov-reporter": "^1.3.0"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "node server.js"
   },
   "repository": {
