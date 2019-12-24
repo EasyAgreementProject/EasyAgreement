@@ -3,7 +3,6 @@ node_js:
  - "node"
 install:
  - echo -ne '\n' | sudo add-apt-repository ppa:malteworld/ppa 
- - sudo apt update
  - sudo apt install pdftk
  - npm install
  - npm install -g istanbul
