@@ -6,9 +6,7 @@ services:
 install:
  - sudo snap install pdftk
  - npm install
- - npm install -g istanbul
- - npm install -g codecov
 script:
- -  node server.js & npm test & istanbul cover _mocha
+ -  node server.js & npm test
 
 
