@@ -64,12 +64,12 @@
                     </ul>
                 </div>
             </nav>
-            <div class="container-fluid">
+             class="container-fluid">
                 <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
                 <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
                 <hr>
-                <form id="formCompile" method="post" action="/compileStudent"><br>
+                <div id="formCompile" method="post" action="/compileStudent"><br>
                    <ul>
                        <li>
                            Il tirocinante riceverà un sostegno finanziario per il suo tirocinio:
@@ -86,17 +86,18 @@
                                 <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese" required>
                                 <label for="inputAmount">Importo Euro/Mese</label>
                                 <span id="errAmount"></span>
-                            </div><br>
-                        </li>
+                            </div>
+                        </li><br>
                         <li>
                             Il tirocinante riceverà un contributo per il suo tirocinio:
+                            <div class="row">
                             <div class="form-check">
                                 <label for="inputRadio2">Si</label>
                                 <input type="radio" id="inputRadio2" name="inputRadio2" checked value="Si">
                                 <label for="inputRadio1">No</label>
                                 <input type="radio" id="inputRadio2" name="inputRadio2" value="No">
                             </div>
-                        </div>
+                            </div>
                         In caso affermativo, specificare il tipo di contributo:
                         <div class="form-label-group">
                             <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo" required>
@@ -104,65 +105,154 @@
                             <span id="errContribution"></span>
                         </div>
                       </li>
+                      <br>
                       <li>
                         Il tirocinante è coperto dall'assicurazione contro gli infortuni?
+                       <div class="row">
                         <div class="form-check">
                             <label for="inputRadio3">Si</label>
                             <input type="radio" id="inputRadio3" name="inputRadio3" checked value="Si">
                             <label for="inputRadio3">No</label>
                             <input type="radio" id="inputRadio3" name="inputRadio3" value="No">
                         </div>
+                       </div>
                     </li>
-                 </ul><br>
-                    <div class="box">
+                 </ul>
+                 <hr>
+                 <ul>
+                     <li>
                         In caso contrario, specificare se il tirocinante è coperto da un'assicurazione contro gli infortuni fornita dall'istituto di invio:
+                       <div class="row">
                         <div class="form-check">
                             <label for="inputRadio4">Si</label>
-                            <input type="radio" id="inputRadio4" name="inputRadio4" checked value="Si">
+                            <input type="radio" id="inputRadio4" name="inputRadio4" value="Si">
                             <label for="inputRadio3">No</label>
-                            <input type="radio" id="inputRadio4" name="inputRadio4" disabled value="No">
-                        </div><br>
-                        L'assicurazione contro gli infortuni copre:<br>
-                        - incidenti durante i viaggi effettuati per motivi di lavoro:
-                        <div class="form-check">
-                            <label for="inputRadio5">Si</label>
-                            <input type="radio" id="inputRadio5" name="inputRadio5" checked value="Si">
-                            <label for="inputRadio5">No</label>
-                            <input type="radio" id="inputRadio5" name="inputRadio5" disabled value="No">
-                        </div><br>
-                        - incidenti durante il lavoro e il ritorno da lavoro:
-                        <div class="form-check">
-                            <label for="inputRadio6">Si</label>
-                            <input type="radio" id="inputRadio6" name="inputRadio6" checked value="Si">
-                            <label for="inputRadio6">No</label>
-                            <input type="radio" id="inputRadio6" name="inputRadio6" disabled value="No">
+                            <input type="radio" id="inputRadio4" name="inputRadio4" checked value="No">
                         </div>
-                        (Polizza assicurativa: n. 261044627 - Compagnia assicuratrice: GENERALI)
+                       </div>
+                       </li>
+                    <li>
+                        L'assicurazione contro gli infortuni copre:
                         <br>
+                        - incidenti durante i viaggi effettuati per motivi di lavoro:
+                    <div class="row">
+                       <div class="form-check">
+                        <label for="inputRadio5">Si</label>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" value="Si">
+                            <label for="inputRadio5">No</label>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" checked value="No">
+                        </div>
+                    </div>
+                        - incidenti durante il lavoro e il ritorno da lavoro:
+                    <div class="row">
+                        <div class="form-check">
+                        <label for="inputRadio6">Si</label>
+                            <input type="radio" id="inputRadio6" name="inputRadio6" value="Si">
+                            <label for="inputRadio6">No</label>
+                            <input type="radio" id="inputRadio6" name="inputRadio6" checked value="No">  
+                        </div>
+                    </div>
+                    </li>
+                            (Polizza assicurativa: n. 261044627 - Compagnia assicuratrice: GENERALI)
+                        <br>
+                        <li>
                         Il tirocinante è coperto da un'assicurazione di responsabilità civile?
+                        <div class="row">
                         <div class="form-check">
                         <label for="inputRadio7">Si</label>
-                            <input type="radio" id="inputRadio7" name="inputRadio7" checked value="Si">
+                            <input type="radio" id="inputRadio7" name="inputRadio7" value="Si">
                             <label for="inputRadio7">No</label>
-                            <input type="radio" id="inputRadio7" name="inputRadio7" disabled value="No">
-                        </div>
-                        (Polizza assicurativa: n. 261044624 - Compagnia assicuratrice: GENERALI)
-                    </div><br>
+                            <input type="radio" id="inputRadio7" name="inputRadio7" checked value="No">
+                       </div> 
+                    </div>
+                    </li>
+                       (Polizza assicurativa: n. 261044624 - Compagnia assicuratrice: GENERALI)
+                    </ul>
+                <br>
+                <hr>
+                <p style="margin-left: 10px;">
                     L'organizzazione / impresa ricevente si impegna a garantire attrezzatura appropriata e supporto necessari al tirocinante.
-                    <br>
                     Al termine del tirocinio, l'organizzazione / impresa ricevente si impegna a rilasciare un
-                    certificato di tirocinio da ...
-                    <br>
+                    certificato di tirocinio da</p>
+                    
                     <div class="form-label-group">
                         <input type="number" class="form-control" id="inputWeeks" name="inputWeeks" placeholeder="Numero Settimane" required>
                         <label for="inputWeeks">Numero Settimane</label>
-                        <span id="errWeeks"></span>
+                        <span id="errWeeks">Numero settimane non valido</span>
+                        <br>
                         <p style="font-style: italic; text-decoration: underline;">[Massimo 5 settimane dopo il tirocinio]</p>
                     </div>
-
-                    
                     <hr>
-                    <button class="btn btn-block" type="submit" class="saveButton">APPROVA E INVIA</button>
+                    <div class="Respnsabile" style="margin-left: 10px;">
+                    <h5 style="text-align: justify; font-style: italic; color: darkblue;">Responsabili</h5><br>                    <br>
+                    <p style="font-weight: bold;"><sup>9</sup>Respnsabile dell'istituto d'invio (Tutor accademico responsabile dell'accordo):</p>
+                    <br>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputATname" name="inputATname" placeholder="Nome Tutor Accademico" required>
+                        <label for="inputATname">Nome Tutor Accademico</label>
+                        <span id="errATname">Nome non valido</span>
+                    </div>
+                    <div class="form-label-group">
+                    <input type="text" class="form-control" id="inputATtelephone" name="inputATtelephone" placeholder="Numero Di Telefono Tutor Accademico" required>
+                    <label for="inputATtelephone">Numero Di Telefono Tutor Accademico</label>
+                    <span id="errATtelephone">Numero di telefono non valido</span>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputATfunction" name="inputATfunction" placeholder="Funzione Tutor Accademico" required>
+                        <label for="inputATfunction">Funzione Tutor Accademico</label>
+                        <span id="errATfunction">Funzione non valida</span>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="email" class="form-control" id="inputATemail" name="inputATemail" placeholder="E-mail Tutor Accademico" required>
+                        <label for="inputATemail">E-mail Tutor Accademico</label>
+                        <span id="errATemail">E-mail non valida</span>
+                    </div>
+                    <br>
+                    <p style="font-weight: bold;"><sup>10</sup>Respnsabile dell'organizzazione / impresa ricevente (supervisore):</p>
+                    <br>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputETname" name="inputETname" placeholder="Nome Tutor Esterno" required>
+                        <label for="inputETname">Nome Tutor Esterno</label>
+                        <span id="errETname">Nome non valido</span>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputETtelephone" name="inputETtelephone" placeholder="Numero Di Telefono Tutor Esterno" required>
+                        <label for="inputETtelephone">Numero Di Telefono Tutor Esterno</label>
+                        <span id="errETtelephone">Numero di telefono non valido</span>
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" class="form-control" id="inputETfunction" name="inputETfunction" placeholder="Funzione Tutor Esterno" required>
+                            <label for="inputETfunction">Funzione Tutor Esterno</label>
+                            <span id="errETfunction">Funzione non valida</span>
+                        </div>
+                        <div class="form-label-group">
+                            <input type="email" class="form-control" id="inputETemail" name="inputETemail" placeholder="E-mail Tutor Esterno" required>
+                            <label for="inputETemail">E-mail Tutor Esterno</label>
+                            <span id="errETemail">E-mail non valida</span>
+                        </div>
+                        </div>
+                        <hr>
+                        <div class="According" style="margin-left: 10px;">
+                        <h5 style="text-align: justify; font-style: italic; color: darkblue;">Impegno Delle Tre Parti</h5><br>
+                        <p> Firmando questo documento, il tirocinante, l'istituto di invio e il destinatario
+                            organizzazione / impresa confermano di approvare il Learning Agreement proposto e di
+                            rispettare tutte le disposizioni concordate da tutte le parti.
+                            Il tirocinante e l'organizzazione / impresa ricevente comunicheranno all'istituto di invio
+                            qualsiasi problema o modifica relativa al periodo di tirocinio.</p>
+                        </div>
+                            <hr>
+                            <div class="notes">
+                        <h5 style="text-align: justify; font-style: italic; color: darkblue;">Note</h5><br>
+                            
+                                <p>9) Responsabile dell'Istituzione di invio: questa persona è responsabile della firma del Learning Agreement
+                                    , modificandolo se necessario e riconoscendo i crediti e i relativi risultati di apprendimento
+                                    a nome dell'organismo accademico responsabile come stabilito nel Learning Agreement.<br>
+                                    <hr>10) Responsabile dell'organizzazione ricevente (supervisore): questa persona è responsabile
+                                    firmando il Learning Agreement, modificandolo se necessario, supervisionando il tirocinante durante il tirocinio
+                                    e firmando il certificato di tirocinio.</p>
+                            </div>
+                    <hr>
+                    <button class="btn btn-block" type="submit" class="saveButton">APPROVA</button>
                 </form>
             </div>
         </div>
