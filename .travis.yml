@@ -9,5 +9,5 @@ install:
  - npm install -g istanbul
  - npm install -g codecov
 script:
- -  node server.js & npm test
+ -  node server.js & istanbul-mocha && npm test
 
