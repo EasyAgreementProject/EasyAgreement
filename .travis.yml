@@ -3,10 +3,13 @@ node_js:
  - "node"
 services:
  - mongodb
+ - node server.js
 install:
  - sudo snap install pdftk
  - npm install
  - npm install -g istanbul
  - npm install -g codecov
 script:
- -  node server.js
+script:
+ -  istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov
+
