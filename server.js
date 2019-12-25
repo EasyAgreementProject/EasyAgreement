@@ -91,7 +91,7 @@ app.post('/compileStudent', function(req, res) {
 
 app.post('/compileAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.utente.utente.Email
+      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.utente.utente.Email //To change with email of student request 
   ];
   var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
   sendTutorPr.then(function(dw) {
@@ -101,6 +101,20 @@ app.post('/compileAcademicTutor', function(req, res) {
           dw.pipe(res)
       } else {
           res.sendFile(path.join(__dirname + "/app/views/compileLAAcademicTutor.html"));
+      }
+  })
+});
+
+app.post('/compileExternalTutor', function(req, res) {
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.utente.utente.Email]; //To change with email of student request 
+  var sendTutorPr = learningAgreementControl.sendLaExternalTutor(data, res);
+  sendTutorPr.then(function(dw) {
+      if (dw) {
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
+          dw.pipe(res)
+      } else {
+          res.sendFile(path.join(__dirname + "/app/views/compileLAExternalTutor.html"));
       }
   })
 });

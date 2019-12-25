@@ -501,6 +501,155 @@ exports.sendLaAcademicTutor = function(input, res) {
     });
 }
 
+exports.sendLaExternalTutor = function(input, res) {
+    let sourcePDF = "pdf/Template_LA.pdf";
+    let destinationPDF = "pdf/Filled_LA_"+random+".pdf";
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd + "/" + mm + "/" + yyyy;
+
+    return new Promise(function(fulfill, reject) {
+        var getDataPr = exports.getData(input[6]);
+        getDataPr.then(function(data) {        
+            switch(input[0]) {
+                case "Si": 
+                    data["financial support Yes"] = "X";
+                    break;
+                case "No":
+                    data["financial support No"] = "X";
+            }
+
+            data["if financial support Yes"] = input[1];
+
+            switch(input[2]) {
+                case "Si": 
+                    data["The trainee will receive a contribution in kind for his/her traineeship Yes"] = "X";
+                    break;
+                case "No":
+                    data["The trainee will receive a contribution in kind for his/her traineeship No"] = "X";
+            }
+ 
+            data["If yes, please specify"] = input[3];
+            data["Traineeship Certificate by"] = input[4];
+
+            switch(input[5]) {
+                case "Si": 
+                    data["Is the trainee covered by the accident insurance Yes"] = "X";
+                    break;
+                case "No":
+                    data["Is the trainee covered by the accident insurance No"] = "X";
+            }
+
+            var pos = data["Contact person name / position"].indexOf(" ");
+            var pos2 = data["Contact person name / position"].indexOf(" ", pos+1);
+            var pos3 = data["Contact person name / position"].lastIndexOf(" ");
+            var tmp;
+            var name;
+            var position = data["Contact person name / position"].substring(pos3);
+
+            if(pos2 == pos3) {
+                tmp = data["Contact person name / position"].substring(0, pos2);
+            }
+            else {
+                tmp = data["Contact person name / position"].substring(0, pos3);
+            }
+
+            if(tmp.indexOf(",") != -1) {
+                var i = tmp.indexOf(",")
+                name = tmp.substring(0, i);
+            }
+            else if(tmp.indexOf("/") != -1) {
+                var i = tmp.indexOf("/")
+                name = tmp.substring(0, i);
+            }
+            else {
+                name = tmp;
+            }
+
+            pos = data["Contact person Email / Phone"].indexOf(" ");
+            var email = data["Contact person Email / Phone"].substring(0, pos);
+            var phone = data["Contact person Email / Phone"].substring(pos);
+
+            data["Responsible person sending Name"] = name;
+            data["Responsible person sending Phone number"] = phone;
+            data["Responsible person sending Function"] = position;
+            data["Responsible person sending E-mail"] = email;
+
+            pos = data["Mentor name / position"].indexOf(" ");
+            pos2 = data["Mentor name / position"].indexOf(" ", pos+1);
+            pos3 = data["Mentor name / position"].lastIndexOf(" ");
+            tmp;
+            name;
+            position = data["Mentor name / position"].substring(pos3);
+
+            if(pos2 == pos3) {
+                tmp = data["Mentor name / position"].substring(0, pos2);
+            }
+            else {
+                tmp = data["Mentor name / position"].substring(0, pos3);
+            }
+
+            if(tmp.indexOf(",") != -1) {
+                var i = tmp.indexOf(",")
+                name = tmp.substring(0, i);
+            }
+            else if(tmp.indexOf("/") != -1) {
+                var i = tmp.indexOf("/")
+                name = tmp.substring(0, i);
+            }
+            else {
+                name = tmp;
+            }
+
+            pos = data["Mentor e-mail / phone"].indexOf(" ");
+            email = data["Mentor e-mail / phone"].substring(0, pos);
+            phone = data["Mentor e-mail / phone"].substring(pos);
+
+            data["Responsible person receiving Name"] = name;
+            data["Responsible person receiving Phone number"] = phone;
+            data["Responsible person receiving Function"] = position;
+            data["Responsible person receiving E-mail"] = email;
+            data["The receiving organization sign"] = name;
+            data["The receiving organization date"] = today;
+
+            let validatePr = exports.validateDataExternalTutor(data, res);
+            validatePr.then(function(result) {
+                if (result) {
+                    pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
+                        if (err)
+                            throw err;
+                        else {
+                            console.log("PDF create successfully!");
+                            //send Filled PDF to Client side                        
+                            var file = fs.readFileSync('pdf/Filled_LA_'+random+'.pdf');
+                            var download = fs.createReadStream('pdf/Filled_LA_'+random+'.pdf');
+                            fs.unlink('pdf/Filled_LA_'+random+'.pdf', function(err){
+                                if (err) throw err;
+                            });
+                            learningAgreement.setFilling(data);
+                            learningAgreement.setDocument(file);
+                            learningAgreement.setStudentID(data["E-mail"]);
+                            learningAgreement.setState("Approved from Academic Tutor");
+                            learningAgreement.setDate(data["Academic Tutor date"]);
+
+                            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                            insertLearningAgreementPr.then(function() {
+                                fulfill(download);
+                            });
+
+                        }
+                    })
+                } else {
+                    fulfill(null);
+                }
+            });
+
+        })
+    });
+}
+
 exports.getData = function(student) {
     return new Promise(function(fulfill, reject) {
         console.log("Getting data for student: " + student);
@@ -806,5 +955,12 @@ exports.validateDataAcademicTutor = function(data, res) {
             console.log("Missing fields!");
             fulfill(false); 
         }
+    });
+}
+
+exports.validateDataExternalTutor = function(data, res) {
+    return new Promise(function(fulfill, reject) {
+        console.log("Begin...");
+        fulfill(true);
     });
 }
