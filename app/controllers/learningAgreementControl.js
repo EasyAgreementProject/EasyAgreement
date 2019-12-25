@@ -113,7 +113,7 @@ exports.sendLaStudent = function(input, res) {
     }
 
     return new Promise(function(fulfill, reject) {
-        let validatePr = exports.validateData(data, res);
+        let validatePr = exports.validateDataStudent(data, res);
         validatePr.then(function(result) {
             if (result) {
                 pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
@@ -288,58 +288,59 @@ exports.sendLaAcademicTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData('v.volpicelli4@studenti.unisa.it');
+        var getDataPr = exports.getData(input[9]);
         getDataPr.then(function(data) {        
-            console.log(input[1][0] + "    " + data["The trainee date"]);
-            
+            //Traineeship embedded in the curriculum
             data["Award"] = input[0];
-            switch (input[1]) {
-                case "certificate":
-                    data["Traineeship certificate"] = "X";
-                    break;
-                case "report":
-                    data["Final report"] = "X";
-                    break;
-                case "interview":
-                    data["Interview"] = "X";
-                    break;
-            }
+            if(input[1]) {
+                switch (input[1]) {
+                    case "certificate":
+                        data["Traineeship certificate"] = "X";
+                        break;
+                    case "report":
+                        data["Final report"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview"] = "X";
+                        break;
+                }
+                
+                switch (input[1][0]) {
+                    case "certificate":
+                        data["Traineeship certificate"] = "X";
+                        break;
+                    case "report":
+                        data["Final report"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview"] = "X";
+                        break;
+                }
 
-            switch (input[1][0]) {
-                case "certificate":
-                    data["Traineeship certificate"] = "X";
-                    break;
-                case "report":
-                    data["Final report"] = "X";
-                    break;
-                case "interview":
-                    data["Interview"] = "X";
-                    break;
-            }
+                switch (input[1][1]) {
+                    case "certificate":
+                        data["Traineeship certificate"] = "X";
+                        break;
+                    case "report":
+                        data["Final report"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview"] = "X";
+                        break;
+                }
 
-            switch (input[1][1]) {
-                case "certificate":
-                    data["Traineeship certificate"] = "X";
-                    break;
-                case "report":
-                    data["Final report"] = "X";
-                    break;
-                case "interview":
-                    data["Interview"] = "X";
-                    break;
-            }
-
-            switch (input[1][2]) {
-                case "certificate":
-                    data["Traineeship certificate"] = "X";
-                    break;
-                case "report":
-                    data["Final report"] = "X";
-                    break;
-                case "interview":
-                    data["Interview"] = "X";
-                    break;
-            }
+                switch (input[1][2]) {
+                    case "certificate":
+                        data["Traineeship certificate"] = "X";
+                        break;
+                    case "report":
+                        data["Final report"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview"] = "X";
+                        break;
+                }
+            }   
 
             switch (input[2]) {
                 case "Si":
@@ -349,7 +350,7 @@ exports.sendLaAcademicTutor = function(input, res) {
                     data["Europass Mobility Document No"] = "X";
                     break;
             }
-
+            //Traineeship voluntary
             switch (input[3]) {
                 case "Si":
                     data["Award ECTS credits Yes"] = "X";
@@ -369,55 +370,55 @@ exports.sendLaAcademicTutor = function(input, res) {
                     data["Give a grade No"] = "X";
                     break;
             }
+            if(input[6]) {
+                switch (input[6]) {
+                    case "certificate":
+                        data["Traineeship certificate1"] = "X";
+                        break;
+                    case "report":
+                        data["Final report1"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview1"] = "X";
+                        break;
+                }
 
-            switch (input[6]) {
-                case "certificate":
-                    data["Traineeship certificate1"] = "X";
-                    break;
-                case "report":
-                    data["Final report1"] = "X";
-                    break;
-                case "interview":
-                    data["Interview1"] = "X";
-                    break;
+                switch (input[6][0]) {
+                    case "certificate":
+                        data["Traineeship certificate1"] = "X";
+                        break;
+                    case "report":
+                        data["Final report1"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview1"] = "X";
+                        break;
+                }
+
+                switch (input[6][1]) {
+                    case "certificate":
+                        data["Traineeship certificate1"] = "X";
+                        break;
+                    case "report":
+                        data["Final report1"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview1"] = "X";
+                        break;
+                }
+
+                switch (input[6][2]) {
+                    case "certificate":
+                        data["Traineeship certificate1"] = "X";
+                        break;
+                    case "report":
+                        data["Final report1"] = "X";
+                        break;
+                    case "interview":
+                        data["Interview1"] = "X";
+                        break;
+                }
             }
-
-            switch (input[6][0]) {
-                case "certificate":
-                    data["Traineeship certificate1"] = "X";
-                    break;
-                case "report":
-                    data["Final report1"] = "X";
-                    break;
-                case "interview":
-                    data["Interview1"] = "X";
-                    break;
-            }
-
-            switch (input[6][1]) {
-                case "certificate":
-                    data["Traineeship certificate1"] = "X";
-                    break;
-                case "report":
-                    data["Final report1"] = "X";
-                    break;
-                case "interview":
-                    data["Interview1"] = "X";
-                    break;
-            }
-
-            switch (input[6][2]) {
-                case "certificate":
-                    data["Traineeship certificate1"] = "X";
-                    break;
-                case "report":
-                    data["Final report1"] = "X";
-                    break;
-                case "interview":
-                    data["Interview1"] = "X";
-                    break;
-            }
-
             switch (input[7]) {
                 case "Si":
                     data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";
@@ -464,7 +465,7 @@ exports.sendLaAcademicTutor = function(input, res) {
             data["International Departemental Coordinator sign"] = data["Contact person name"];  
             data["International Departemental Coordinator date"] = today;*/
             
-            let validatePr = exports.validateData(data, res);
+            let validatePr = exports.validateDataAcademicTutor(data, res);
             validatePr.then(function(result) {
                 if (result) {
                     pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
@@ -573,13 +574,13 @@ exports.getAllVersions = function(student) {
     });
 }
 
-exports.validateData = function(data, res) {
+exports.validateDataStudent = function(data, res) {
     return new Promise(function(fulfill, reject) {
         console.log("Begin...");
         if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"]))) {
             if(res) {
-                if(res) res.cookie("errName", "1");
-                if(res) res.cookie("errSurname", "1");
+                res.cookie("errName", "1");
+                res.cookie("errSurname", "1");
             }
             console.log("Header Name wrong!");
             fulfill(false);
@@ -759,8 +760,51 @@ exports.validateData = function(data, res) {
             console.log("today date wrong!");
             fulfill(false);
         } else {
-            console.log("All okay", "1");
+            console.log("All okay");
             fulfill(true);
+        }
+    });
+}
+
+exports.validateDataAcademicTutor = function(data, res) {
+    return new Promise(function(fulfill, reject) {
+        console.log("Begin...");
+                
+        if (data["Award"] && (data["Traineeship certificate"] || data["Final report"] || data["Interview"]) && (data["Europass Mobility Document Yes"] || data["Europass Mobility Document No"])) {
+            if(data["Award ECTS credits Yes"] || data["Award ECTS credits No"] || data["If yes, please indicate the number of ECTS credits"] || data["Give a grade Yes"] || data["Give a grade No"] ||
+            data["Traineeship certificate1"] || data["Final report1"] || data["Interview1"] || data["Record the traineeship in the trainee's Transcript of Records Yes"] ||
+            data["Record the traineeship in the trainee's Transcript of Records No"] || data["Record the traineeship in the trainee's Europass Mobility Document Yes"] || data["Record the traineeship in the trainee's Europass Mobility Document No"]) {
+                if(res) res.cookie("errCompileOnlyOne", "1");
+                console.log("Compile only form one!");
+                if (!(/^\d{1,2}$/.test(data["Award"]))) {
+                    if(res) res.cookie("errAward", "1");
+                    console.log("Award wrong!");
+                    fulfill(false);        
+                }                 
+                fulfill(false);    
+            }
+            fulfill(true);
+        }
+        else if ((data["Award ECTS credits Yes"] || data["Award ECTS credits No"]) && data["If yes, please indicate the number of ECTS credits"] && (data["Give a grade Yes"] || data["Give a grade No"]) &&
+        (data["Traineeship certificate1"] || data["Final report1"] || data["Interview1"]) && (data["Record the traineeship in the trainee's Transcript of Records Yes"] ||
+        data["Record the traineeship in the trainee's Transcript of Records No"]) && (data["Record the traineeship in the trainee's Europass Mobility Document Yes"] || data["Record the traineeship in the trainee's Europass Mobility Document No"])) {
+            if(data["Award"] || data["Traineeship certificate"] || data["Final report"] || data["Interview"] || data["Europass Mobility Document Yes"] || data["Europass Mobility Document No"]) {
+                if(res) res.cookie("errCompileOnlyOne", "1");
+                console.log("Compile only form two!");
+                if (!(/^\d{1,2}$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
+                    if(res) res.cookie("errNumberCredits", "1");
+                    console.log("Number of ECTS credits wrong!");
+                    fulfill(false);               
+                }         
+                fulfill(false);                
+            }     
+            fulfill(true);   
+        }
+        
+        else {
+            if(res) res.cookie("errMissingFields", "1");
+            console.log("Missing fields!");
+            fulfill(false); 
         }
     });
 }

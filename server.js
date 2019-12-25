@@ -91,7 +91,7 @@ app.post('/compileStudent', function(req, res) {
 
 app.post('/compileAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, 'v.volpicelli4@studenti.unisa.it'
+      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.utente.utente.Email
   ];
   var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
   sendTutorPr.then(function(dw) {
@@ -100,7 +100,7 @@ app.post('/compileAcademicTutor', function(req, res) {
           res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
           dw.pipe(res)
       } else {
-          res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"));
+          res.sendFile(path.join(__dirname + "/app/views/compileLAAcademicTutor.html"));
       }
   })
 });
@@ -123,16 +123,14 @@ app.get('/getVersion', function(req, res) {
   getVersionsPr.then(function(data) {
       if (data && req.query.inputVersion) {
         console.log("Version id = "+req.query.number)
-        var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, 'v.volpicelli4@studenti.unisa.it');
+        var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.utente.utente.Email);
         getVersionPr.then(function(la) {
           res.setHeader('Content-Type', 'application/pdf');
           res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
           console.log("Tornato da tutto"); 
           la.pipe(res);
         })        
-    } else {
-        res.sendFile(path.join(__dirname + "/app/views/viewLA.html"));
-    }
+    } 
   })
 });
 
