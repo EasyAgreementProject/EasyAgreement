@@ -72,16 +72,20 @@
             <div class="container-fluid">                
                 <hr>
                 <div class="form-label-group">
-                    <h1 class="mt-4">Learning Agreement</h1>
+                    <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
+                    <hr>
                 <span>Stato del Learning Agreement: </span> <span id="status"></span>
                 </div>
                 <div class="form-label-group">
-                    <form action="/getVersion" method ="GET">
+                    <form action="/getVersions" method ="GET">
+                        <div class="list_version">
                         <p>Versione:</p>
                         <select class="custom-select mr-sm-2"  name="inputVersion" id="versions">
                                 <option selected="selected" value="">--Seleziona--</option>
                         </select>
-                        <input type="submit" value="Seleziona">
+                        </div>
+                        <br>
+                        <button class="btn btn-block" type="submit" class="saveButton">SELEZIONA</button>
                     </form>
                 </div>
                 <div class="logoCenter">

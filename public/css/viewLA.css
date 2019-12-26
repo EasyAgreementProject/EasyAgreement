@@ -59,4 +59,11 @@
                             margin-left: auto;
                             margin-right: auto;
                         }
+                        .list_versions{
+                           vertical-align: middle;
+                           margin-left: 15px;
+                           margin-right: 15px;
+                           
+
+                        }
                     };
