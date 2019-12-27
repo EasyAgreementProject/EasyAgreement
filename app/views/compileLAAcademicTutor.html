@@ -14,7 +14,7 @@
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/compileLAAcademicTutor.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="./js/formValidation.js"></script>
 </head>
@@ -72,8 +72,9 @@
                 <form id="formCompile" method="post" action="/compileAcademicTutor"><br>
                    <p>L'istituzione si impegna a rispettare tutti i principi della "Erasmus Charter for Heigher Education" relativa ai tirocini.</p>
                    <hr>
+                   <div id="Info1">
                    <p style="font-weight: bold">Il tirocinio è integrato nel curriculum e al soddisfacente completamento dello stesso, l'istituzione si impegna a:</p>     
-                   <br>
+                   <br> 
                    <ul>
                     <li>
                         Premiare: <div class="form-label-group">
@@ -112,7 +113,9 @@
                     </div>
                     </li>
                     </ul> 
+                    </div>
                     <hr>
+                    <div id="Info2">
                     <p style="font-weight: bold;">Il tirocinio è volontario e al termine soddisfacente del tirocinio, l'istituzione si impegna a:</p>
                     <ul>
                         <li>
@@ -181,6 +184,7 @@
                     </div>
                  </li>
                     </ul>
+                    </div>
                     <hr>
                         <h5 style="text-align: justify; font-style: italic; color: darkblue;">Impegno Delle Tre Parti</h5><br>
                         <p>Firmando questo documento, il tirocinante, l'istituto di invio e il destinatario
@@ -234,7 +238,43 @@
     </script>
     <script type="text/javascript">
     function locked(){
-     
+     if(document.getElementById("inputCredits").value>0){
+         document.getElementById("inputRadio2").style.display='none';
+         document.getElementById("inputRadio3").style.display='none';
+         document.getElementById("inputCertificate1").style.display='none';
+         document.getElementById("inputReport1").style.display='none';
+         document.getElementById("inputInterview1").style.display='none';
+         document.getElementById("inputRadio4").style.display='none';
+         document.getElementById("inputRadio5").style.display='none';
+         document.getElementById("inputCredits").style.display='initial';
+         document.getElementById("inputCertificate").style.display='initial';
+         document.getElementById("inputReport").style.display='initial';
+         document.getElementById("inputInterview").style.display='initial';
+         for(var i=0;i<7;i++){
+             document.getElementById("Info2")[i].required=false;
+         }
+         for(var i=7;i<10;i++){
+             document.getElementById("Info1")[i].required=true;
+         }
+     }else{
+        document.getElementById("inputCertificate").style.display='none';
+         document.getElementById("inputReport").style.display='none';
+         document.getElementById("inputInterview").style.display='none';
+         document.getElementById("inputCredits").style.display='none';
+         document.getElementById("inputRadio2").style.display='initial';
+         document.getElementById("inputRadio3").style.display='initial';
+         document.getElementById("inputCertificate1").style.display='initial';
+         document.getElementById("inputReport1").style.display='initial';
+         document.getElementById("inputInterview1").style.display='initial';
+         document.getElementById("inputRadio4").style.display='initial';
+         document.getElementById("inputRadio5").style.display='initial';
+         for(var i=0;i<4;i++){
+             document.getElementById("Info1")[i].required=false;
+         }
+         for(var i=4;i<11;i++){
+             document.getElementById("Info2")[i].required=true;
+         }
+     }
    
 }
     </script>
