@@ -22,7 +22,7 @@ $(document).ready(function() {
     });
 });
 
-function testAward(award){
+function testAward(){
     var award= $('#inputAward').val();
     if(award.length>=1){
         if(/^\d{1,2}$/.test(award)) return true;
@@ -30,7 +30,7 @@ function testAward(award){
     return false;
 }
 
-function testNumberCredits(credits){
+function testNumberCredits(){
     var credits= $('#inputNumberCredits').val();
     if(credits.lenght>=1){
         if(/^\d{1,2}$/.test(credits)) return true;

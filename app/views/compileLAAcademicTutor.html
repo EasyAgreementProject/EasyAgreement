@@ -33,11 +33,11 @@
             </a>
             <div class="list-group list-group-flush">
                 <a href="profile.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
+                    <img src="/img/profile.svg" style="height: 20px; width: 20px;">Profilo</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
                 <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
+                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;">Lista Tutor</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -72,32 +72,32 @@
                 <form id="formCompile" method="post" action="/compileAcademicTutor"><br>
                    <p>L'istituzione si impegna a rispettare tutti i principi della "Erasmus Charter for Heigher Education" relativa ai tirocini.</p>
                    <hr>
-                   <div id="Info1">
+                   <div id="Info1" onclick="javascript: locked()">
                    <p style="font-weight: bold">Il tirocinio è integrato nel curriculum e al soddisfacente completamento dello stesso, l'istituzione si impegna a:</p>     
                    <br> 
                    <ul>
                     <li>
                         Premiare: <div class="form-label-group">
-                        <input type="number" class="form-control" id="inputCredits" name="inputCredits" min="0" onclick="javascript: locked()" required></div>
+                        <input type="number" class="form-control" id="inputCredits" name="inputCredits" min="0" required></div>
                         <label for="inputCredits"></label>
                         <span id="errAward">Numero crediti non valido</span>
                     ECTS crediti.
                     </li><br>
                     <li>
                         Dare una votazione basata su: <div class="form-check">
-                            <input class="form-check-input" type="radio" id="inputCertificate" name="vote" value="certificate" onclick="javascript: locked()" >
+                            <input class="form-check-input" type="radio" id="inputCertificate" name="vote" value="certificate">
                             <label class="form-check-label" for="vote">
                                 Certificato di tirocinio
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="inputReport" name="vote" value="report" onclick="javascript: locked()" >
+                            <input class="form-check-input" type="radio" id="inputReport" name="vote" value="report">
                             <label class="form-check-label" for="vote">
                                 Rapporto finale
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="inputInterview" name="vote" value="interview" onclick="javascript: locked()" >
+                            <input class="form-check-input" type="radio" id="inputInterview" name="vote" value="interview" >
                             <label class="form-check-label" for="vote">
                                 Colloquio
                             </label>
@@ -106,30 +106,30 @@
                         <li>Registrare il tirocinio nel Supplemento del diploma del tirocinante (o equivalente).</li>
                         <li>Registrare il tirocinio nel documento di mobilità Europass del tirocinante.<div class="row"><div class="form-check">
                             <label for="inputRadio1">Si</label>
-                            <input type="radio" id="inputRadio1" name="inputRadio1" value="Si" checked onclick="javascript: locked()">
+                            <input type="radio" id="inputRadio1" name="inputRadio1" value="Si" checked >
                             <label for="inputRadio1">No</label>
-                            <input type="radio" id="inputRadio1" name="inputRadio1" value="No"  onclick="javascript: locked()">
+                            <input type="radio" id="inputRadio1" name="inputRadio1" value="No">
                         </div>
                     </div>
                     </li>
                     </ul> 
                     </div>
                     <hr>
-                    <div id="Info2">
+                    <div id="Info2" onclick="javascript: locked()">
                     <p style="font-weight: bold;">Il tirocinio è volontario e al termine soddisfacente del tirocinio, l'istituzione si impegna a:</p>
                     <ul>
                         <li>
                             Premiare con crediti ECTS <div class="row">
                                 <div class="form-check">
                                     <label for="inputRadio2">Si</label>
-                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="Si" checked onclick="javascript: locked()">
+                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="Si" checked>
                                     <label for="inputRadio2">No</label>
-                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="No"  onclick="javascript: locked()"><br>
+                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="No"><br>
                                 </div>
                             </div>
                                 In caso affermativo, si prega di indicare il numero di crediti ECTS:
                                  <div class="form-label-group">
-                                    <input type="number" class="form-control" id="inputCredits2" name="inputCredits2" min="0" onclick="javascript: locked()">
+                                    <input type="number" class="form-control" id="inputCredits2" name="inputCredits2" min="0">
                                     <label for="inputCredits2"></label>
                                     <span id="errNumberCredits">Numero crediti non valido</span>
                                 </div>
@@ -137,26 +137,26 @@
                         <li>Dare una votazione: <div class="row">
                             <div class="form-check">
                                 <label for="inputRadio6">Si</label>
-                                <input type="radio" id="inputRadio3" name="inputRadio3" value="Si" onclick="javascript: locked()">
+                                <input type="radio" id="inputRadio3" name="inputRadio3" value="Si" >
                                 <label for="inputRadio3">No</label>
-                                <input type="radio" id="inputRadio3" name="inputRadio3" value="No" checked onclick="javascript: locked()"><br>
+                                <input type="radio" id="inputRadio3" name="inputRadio3" value="No" checked ><br>
                             </div>
                         </div>
                     In caso affermativo, si prega di indicare se ciò si baserà su:<br>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="inputCertificate1" name="vote1" value="certificate" onclick="javascript: locked()">
+                        <input class="form-check-input" type="radio" id="inputCertificate1" name="vote1" value="certificate">
                         <label class="form-check-label" for="vote1">
                             Certificato di tirocinio
                         </label>
                     </div>
                     <div class="form-check">   
-                        <input class="form-check-input" type="radio" id="inputReport1" name="vote1" value="report" onclick="javascript: locked()">
+                        <input class="form-check-input" type="radio" id="inputReport1" name="vote1" value="report">
                         <label class="form-check-label" for="vote1">
                             Rapporto finale
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="inputInterview1" name="vote1" value="interview" onclick="javascript: locked()">
+                        <input class="form-check-input" type="radio" id="inputInterview1" name="vote1" value="interview">
                         <label class="form-check-label" for="vote1">
                             Colloquio
                         </label>
@@ -166,9 +166,9 @@
                     <div class="row">
                         <div class="form-check">
                             <label for="inputRadio4">Si</label>
-                            <input type="radio" id="inputRadio4" name="inputRadio4" value="Si" onclick="javascript: locked()">
+                            <input type="radio" id="inputRadio4" name="inputRadio4" value="Si">
                             <label for="inputRadio4">No</label>
-                            <input type="radio" id="inputRadio4" name="inputRadio4" value="No" checked onclick="javascript: locked()"><br>
+                            <input type="radio" id="inputRadio4" name="inputRadio4" value="No" checked ><br>
                         </div>
                     </div>
                  </li>
@@ -177,9 +177,9 @@
                     <div class="row">
                         <div class="form-check">
                             <label for="inputRadio5">Si</label>
-                            <input type="radio" id="inputRadio5" name="inputRadio5" value="Si" onclick="javascript: locked()">
+                            <input type="radio" id="inputRadio5" name="inputRadio5" value="Si">
                             <label for="inputRadio5">No</label>
-                            <input type="radio" id="inputRadio5" name="inputRadio5" value="No" checked onclick="javascript: locked()"><br>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" value="No" checked ><br>
                         </div>
                     </div>
                  </li>
@@ -250,12 +250,6 @@
          document.getElementById("inputCertificate").style.display='initial';
          document.getElementById("inputReport").style.display='initial';
          document.getElementById("inputInterview").style.display='initial';
-         for(var i=0;i<7;i++){
-             document.getElementById("Info2")[i].required=false;
-         }
-         for(var i=7;i<10;i++){
-             document.getElementById("Info1")[i].required=true;
-         }
      }else{
         document.getElementById("inputCertificate").style.display='none';
          document.getElementById("inputReport").style.display='none';
@@ -268,12 +262,6 @@
          document.getElementById("inputInterview1").style.display='initial';
          document.getElementById("inputRadio4").style.display='initial';
          document.getElementById("inputRadio5").style.display='initial';
-         for(var i=0;i<4;i++){
-             document.getElementById("Info1")[i].required=false;
-         }
-         for(var i=4;i<11;i++){
-             document.getElementById("Info2")[i].required=true;
-         }
      }
    
 }

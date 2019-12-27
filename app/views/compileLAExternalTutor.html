@@ -76,16 +76,16 @@
                            <div class="row">
                                <div class="form-check">
                                     <label for="inputRadio1">Si</label>
-                                    <input type="radio" id="inputRadio1" name="inputRadio1"   value="Si">
+                                    <input type="radio" id="inputRadio1" name="inputRadio1"  value="Si">
                                     <label for="inputRadio1">No</label>
                                     <input type="radio" id="inputRadio1" name="inputRadio1" value="No">
                                 </div>
                             </div><br>
                             In caso affermativo, l'importo in EUR/mese è:
                             <div class="form-label-group">
-                                <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese">
+                                <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese" required>
                                 <label for="inputAmount">Importo Euro/Mese</label>
-                                <span id="errAmount"></span>
+                                <span id="errAmount">Importo non valido</span>
                             </div>
                         </li><br>
                         <li>
@@ -93,16 +93,16 @@
                             <div class="row">
                             <div class="form-check">
                                 <label for="inputRadio2">Si</label>
-                                <input type="radio" id="inputRadio2" name="inputRadio2"   value="Si">
+                                <input type="radio" id="inputRadio2" name="inputRadio2"  value="Si">
                                 <label for="inputRadio1">No</label>
                                 <input type="radio" id="inputRadio2" name="inputRadio2" value="No">
                             </div>
                             </div>
                         In caso affermativo, specificare il tipo di contributo:
                         <div class="form-label-group">
-                            <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo">
+                            <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo" required>
                             <label for="inputContribution">Tipo Di Contributo</label>
-                            <span id="errContribution"></span>
+                            <span id="errContribution">Tipo di contributo non valido</span>
                         </div>
                       </li>
                       <br>
@@ -172,7 +172,18 @@
             $("#wrapper ").toggleClass("toggled ");
         });
     </script>
-    <script type="text/javascript" src="./js/academicTutorCookies.js"></script>
+    <script language="text/javascript">
+    $(document).ready(function() {
+        $.get("/fillform", function(data){
+            if (data["financial support Yes"]) document.getElementById("inputRadio1").checked= true;
+            if (data["financial support No"]) document.getElementById("inputRadio1").checked = true;
+            if (data["The trainee will receive a contribution in kind for his/her traineeship Yes"]) document.getElementById("inputRadio2").checked = true;
+            if (data["The trainee will receive a contribution in kind for his/her traineeship No"]) document.getElementById("inputRadio2").checked = true;
+            if (data["If yes, please specify"]) document.getElementById("inputContribution").value = data["If yes, please specify"];
+            if (data["Traineeship Certificate by"]) document.getElementById("inputWeeks").checked = true;
+        });
+    });
+    </script>
     </body>
     </html>
                 
