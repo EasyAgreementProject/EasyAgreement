@@ -7,4 +7,6 @@ install:
  - sudo snap install pdftk
  - npm install
 script:
- -  node server.js & npm test
+ - node server.js &
+ - npm test
+ - npm run coverage
