@@ -21,6 +21,10 @@ app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
 });
 
+app.get('/gestioneDocumenti.html', function(req, res) {
+    res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
+});
+
 app.get('/fillForm', function(req, res) {
     var getData = learningAgreementControl.getData(req.query.student);
     getData.then(function(data) {
@@ -65,15 +69,15 @@ app.get('/saveCompilation', function(req, res) {
     });
 });
 
-app.use(session({  
-  secret: 'secret_session',  
-  resave: false,  
-  saveUninitialized: true    
-})); 
-app.use(function(req,res,next) {  
-  res.locals.session = req.session;  
-  next();   
-});  
+app.use(session({
+  secret: 'secret_session',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(function(req,res,next) {
+  res.locals.session = req.session;
+  next();
+});
 
 app.get('/', function (req, res) {
   res.sendFile("/app/views/login.html",{root:__dirname});

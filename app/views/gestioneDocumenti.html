@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Home</title>
+    <title>Gestione Documenti</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -70,28 +69,46 @@
                 </div>
             </nav>
             <div class="container-fluid">
-                <h1 class="mt-4">Homepage</h1>
-                <p>Benvenuto sulla tua homepage.</p>
+                <h1 class="mt-4">Gestione Documenti</h1>
                 <div class="logoCenter">
                     <img src="/img/EasyAgreement_Logo.png" alt="logo Unisa" style="opacity: 0.3; vertical-align: middle; max-width: 300px; max-height: 300px;">
                 </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+                <div class="table-responsive"
+	                 style="margin-left: 30px; margin-right: 30px;">
+	                 <table class="table table-bordered table-striped">
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/jquery/dist/jquery.min.js "></script>
-    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js "></script>
+		                   <tr class="active">
+			                      <th class="text-center">Documento</th>
+			                      <th class="text-center">Stato</th>
+                            <th class="text-center">Carica</th>
+			                      <th class="text-center">Visualizza</th>
+			                      <th class="text-center">Elimina</th>
+		                  </tr>
 
-    <!-- Menu Toggle Script -->
-    <script>
-        $("#menu-toggle ").click(function(e) {
-            e.preventDefault();
-            $("#wrapper ").toggleClass("toggled");
-        });
-    </script>
-</body>
+                      <tr>
+                      			<td class="text-center" name="documento_cd">Carta Di Identità</td>
+                      			<td class="text-center" name="stato_cd"></td>
+                            <td class="text-center" name="carica_cd">
+                              <form action="fileupload" method="post" enctype="multipart/form-data">
+                              <input type="file" name="filetoupload"><br>
+                              <input type="submit">
+                            </form><img src="/img/upload.png" width="20px" height="20px"></td>
+                      			<td class="text-center" name="visualizza_cd"><img src="/img/spunta-verde.png" width="20px" height="20px"></img></td>
+                      			<td class="text-center" name="elimina_cd"><img src="/img/delete.png" width="20px" height="20px"></img></td>
+		                  </tr>
+
+                      <tr>
+                            <td class="text-center" name="documento_cv">Curriculum Vitae</td>
+                            <td class="text-center" name="stato_cv"></td>
+                            <td class="text-center" name="carica_cv"><a>
+                              <form action="fileupload" method="post" enctype="multipart/form-data">
+                              <input type="file" name="filetoupload"><br>
+                              <input type="submit">
+                            </form><img src="/img/upload.png" width="20px" height="20px"></a></td>
+                            <td class="text-center" name="visualizza_cv"><img src="/img/spunta-verde.png" width="20px" height="20px"></img></td>
+                            <td class="text-center" name="elimina_cv"><img src="/img/delete.png" width="20px" height="20px"></img></td>
+                      </tr>
+
+
 
 </html>
