@@ -292,56 +292,17 @@ exports.sendLaAcademicTutor = function(input, res) {
         getDataPr.then(function(data) {        
             //Traineeship embedded in the curriculum
             data["Award"] = input[0];
-            if(input[1]) {
-                switch (input[1]) {
-                    case "certificate":
-                        data["Traineeship certificate"] = "X";
-                        break;
-                    case "report":
-                        data["Final report"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview"] = "X";
-                        break;
-                }
-                
-                switch (input[1][0]) {
-                    case "certificate":
-                        data["Traineeship certificate"] = "X";
-                        break;
-                    case "report":
-                        data["Final report"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview"] = "X";
-                        break;
-                }
-
-                switch (input[1][1]) {
-                    case "certificate":
-                        data["Traineeship certificate"] = "X";
-                        break;
-                    case "report":
-                        data["Final report"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview"] = "X";
-                        break;
-                }
-
-                switch (input[1][2]) {
-                    case "certificate":
-                        data["Traineeship certificate"] = "X";
-                        break;
-                    case "report":
-                        data["Final report"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview"] = "X";
-                        break;
-                }
-            }   
-
+            switch (input[1]) {
+                case "certificate":
+                    data["Traineeship certificate"] = "X";
+                    break;
+                case "report":
+                    data["Final report"] = "X";
+                    break;
+                case "interview":
+                    data["Interview"] = "X";
+                    break;
+            }
             switch (input[2]) {
                 case "Si":
                     data["Europass Mobility Document Yes"] = "X";
@@ -370,55 +331,19 @@ exports.sendLaAcademicTutor = function(input, res) {
                     data["Give a grade No"] = "X";
                     break;
             }
-            if(input[6]) {
-                switch (input[6]) {
-                    case "certificate":
-                        data["Traineeship certificate1"] = "X";
-                        break;
-                    case "report":
-                        data["Final report1"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview1"] = "X";
-                        break;
-                }
-
-                switch (input[6][0]) {
-                    case "certificate":
-                        data["Traineeship certificate1"] = "X";
-                        break;
-                    case "report":
-                        data["Final report1"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview1"] = "X";
-                        break;
-                }
-
-                switch (input[6][1]) {
-                    case "certificate":
-                        data["Traineeship certificate1"] = "X";
-                        break;
-                    case "report":
-                        data["Final report1"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview1"] = "X";
-                        break;
-                }
-
-                switch (input[6][2]) {
-                    case "certificate":
-                        data["Traineeship certificate1"] = "X";
-                        break;
-                    case "report":
-                        data["Final report1"] = "X";
-                        break;
-                    case "interview":
-                        data["Interview1"] = "X";
-                        break;
-                }
+        
+            switch (input[6]) {
+                case "certificate":
+                    data["Traineeship certificate1"] = "X";
+                    break;
+                case "report":
+                    data["Final report1"] = "X";
+                    break;
+                case "interview":
+                    data["Interview1"] = "X";
+                    break;
             }
+
             switch (input[7]) {
                 case "Si":
                     data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";
@@ -961,6 +886,44 @@ exports.validateDataAcademicTutor = function(data, res) {
 exports.validateDataExternalTutor = function(data, res) {
     return new Promise(function(fulfill, reject) {
         console.log("Begin...");
-        fulfill(true);
+        if (data["financial support Yes"] == "X" && !data["if financial support Yes"]) {
+            if(res) res.cookie("errFinancialSupport", "1");
+            console.log("Missing financial support!");
+            fulfill(false);
+        }
+
+        if (data["The trainee will receive a contribution in kind for his/her traineeship Yes"] == "X" && !data["If yes, please specify"]) {
+            if(res) res.cookie("errContribution", "1");
+            console.log("Missing contribution!");
+            fulfill(false); 
+        }
+
+        if ((!data["financial support Yes"] && !data["financial support No"]) || (!data["The trainee will receive a contribution in kind for his/her traineeship Yes"] && !data["The trainee will receive a contribution in kind for his/her traineeship No"])) {
+            if(res) res.cookie("errMissingFields", "1");
+            console.log("Missing fields!");
+            fulfill(false); 
+        }
+
+        if (!(/^\d*(,\d+)?€?$/.test(data["if financial support Yes"]))) {
+            if(res) res.cookie("errFinancialSupport", "1");
+            console.log("Financial support wrong!");
+            fulfill(false); 
+        }
+
+        if (!(/^[\wà-ù\.,"' ]*$/.test(data["If yes, please specify"]))) {
+            if(res) res.cookie("errContribution", "1");
+            console.log("Contribution wrong!");
+            fulfill(false); 
+        }
+
+        if (!(/^[0-5]{1}$/.test(data["Traineeship Certificate by"]))) {
+            if(res) res.cookie("errWeeks", "1");
+            console.log("Traineeship certificate wrong!");
+            fulfill(false); 
+        }
+        else {
+            console.log("All okay");
+            fulfill(true);
+        }
     });
 }
