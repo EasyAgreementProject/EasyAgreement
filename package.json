@@ -11,6 +11,7 @@
     "connect": "^3.7.0",
     "cookie-parser": "^1.4.4",
     "cookieparser": "^0.1.0",
+    "coveralls": "^3.0.9",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
