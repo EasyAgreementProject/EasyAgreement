@@ -8,6 +8,7 @@ var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
+const io = require('socket.io')(3000)
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
@@ -83,6 +84,10 @@ app.get('/signup.html', function (req, res) {
   res.sendFile("/app/views/signup.html",{root:__dirname});
 });
 
+app.get('/index.html', function (req, res) {
+  res.sendFile("/app/views/index.html",{root:__dirname});
+});
+
 app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
 });
@@ -94,3 +99,12 @@ app.post('/login', function(request, response){
 app.listen(8080, function () {
   console.log('EasyAgreement Platform listening on port 8080!');
 });
+
+io.on('connection', socket => {
+  socket.on('send-chat-message', message => {
+    socket.broadcast.emit('chat-message', { message: message})
+  })
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('user-disconnected')
+  })
+})

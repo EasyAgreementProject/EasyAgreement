@@ -143,7 +143,6 @@ exports.login= function(req, res){
  */
 function redirect(res){
     res.cookie('logEff','1');
-    var path = require('path');
-    res.sendFile(path.resolve('app/views/index.html'));
+    res.redirect('/index.html');
     return;
 }
