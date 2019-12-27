@@ -1,3 +1,6 @@
+.DS_Store
+*.fdf
+
 # Logs
 logs
 *.log
