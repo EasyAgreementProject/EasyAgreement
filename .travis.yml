@@ -10,5 +10,3 @@ script:
  - node server.js &
  - npm test
  - npm run coverage
-after_success:
- - npm run coverage
