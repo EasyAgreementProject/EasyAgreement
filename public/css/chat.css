@@ -57,11 +57,11 @@
   }
   
   .leftInnerContainer {
-    flex: 0.5;
+    flex: 4;
     display: flex;
     align-items: center;
-    margin-left: 5%;
     color: white;
+    width: 100%;
   }
   
   .rightInnerContainer {
@@ -69,6 +69,7 @@
     flex: 0.5;
     justify-content: flex-end;
     margin-right: 5%;
+    width: 5%;
   }
   
   .onlineIcon {
@@ -128,7 +129,6 @@
     width: 100%;
     letter-spacing: 0;
     float: left;
-    font-size: 1.1em;
     word-wrap: break-word;
     margin-bottom: 0;
   }
@@ -140,7 +140,7 @@
   .messageContainer {
     display: flex;
     justify-content: flex-end;
-    padding: 0 5%;
+    padding: 0 0 1% 1%;
     margin-top: 3px;
   }
   
@@ -174,6 +174,155 @@
     border-top: 1px solid #ddd;
   }
   
+  .chat-menu{
+    margin-left: 1%;
+    height: 24px;
+    width: 24px;
+    margin-top: inherit;
+  }
+
+  .popup-chat-menu{
+    max-width: 340px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10000;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26), 0 2px 10px 0 rgba(0,0,0,.16);
+    padding: 9px 0;
+    text-align: left;
+  }
+
+  .ul-chat-menu{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .button-menu{
+    padding-top: 13px;
+    padding-right: 24px;
+    padding-left: 24px;
+    box-sizing: border-box;
+  }
+
+  #input-search-chat{
+    background-color: #fff;
+    height: 30px;
+  }
+
+  #search-chat-button{
+    background-color: #fff;
+    height: 30px;
+  }
+
+  #search-form-chat{
+    width: 100%;
+  }
+
+  #icon-search-chat{
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .choice-user{
+    display: flex;
+    padding:3% 5%;
+    height: 15%;
+    border-top: 1px solid #ddd;
+  }
+
+  .choice-user-button{
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #2979FF;
+    display: inline-block;
+    border: none;
+    width: 50%;
+    height: 100%;
+  }
+
+  .choice-user-button:hover{
+    background: rgb(0, 50, 136);
+  }
+
+  #academicButtonChat{
+    border-radius: 24px 0 0 24px;
+  }
+
+  #externalButtonChat{
+    border-radius: 0 24px 24px 0;
+  }
+
+  .contact-container{
+    width: 100%;
+    padding: 0 0 1% 1%;
+    margin-top: 3px;
+  }
+
+  .contact{
+    display: block;
+    margin:2% 3%;
+  }
+
+  .contact-container:hover{
+    background-color: #eee;
+  }
+
+  .user-info-name{
+    font-size: 1.2em;
+    padding: 2%;
+    margin-bottom: 0;
+  }
+
+  .contacts{
+    padding: 5% 3% 5% 3%;
+    overflow: auto;
+    flex: auto;
+  }
+
+  .user-info-email{
+    font-size: 0.8em;
+    color: #5d5d5d;
+    padding: 2%;
+    margin-bottom: 0;
+  }
+
+  #name-of-user{
+    font-size:1.3em;
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+  
+  #name-of-user:hover{
+    text-decoration: none;
+  }
+
+  #back-chat{
+    margin-right: 5%;
+  }
+
+  #back-icon-chat{
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #minimize{
+    font-weight: bold;
+    font-size: 1.5em;
+    color: white;
+    margin-bottom: 0;
+  }
+
+  #minimize-a{
+    margin-right: 40%;
+  }
+
+  #close-chat{
+    margin-top: 100%;
+  }
+
   @media (min-width: 320px) and (max-width: 480px) {
     .outerContainer {
       height: 100%;
