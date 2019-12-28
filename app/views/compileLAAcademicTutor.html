@@ -239,29 +239,30 @@
     <script type="text/javascript">
     function locked(){
      if(document.getElementById("inputCredits").value>0){
-         document.getElementById("inputRadio2").style.display='none';
-         document.getElementById("inputRadio3").style.display='none';
-         document.getElementById("inputCertificate1").style.display='none';
-         document.getElementById("inputReport1").style.display='none';
-         document.getElementById("inputInterview1").style.display='none';
-         document.getElementById("inputRadio4").style.display='none';
-         document.getElementById("inputRadio5").style.display='none';
-         document.getElementById("inputCredits").style.display='initial';
-         document.getElementById("inputCertificate").style.display='initial';
-         document.getElementById("inputReport").style.display='initial';
-         document.getElementById("inputInterview").style.display='initial';
+         document.getElementById("Info1").style.display='initial';
+         document.getElementById("Info2").style.display='none';
+         document.getElementById("Info1").required=true;
+         document.getElementById("Info2").required=false;
+         if((document.getElementById("inputCredits").value<1)||(document.getElementById("inputCredits").value==null)){
+            document.getElementById("Info2").style.display='initial';
+            document.getElementById("Info2").required=true;
+         }
+     }else if(document.getElementById("inputCredits2").value>0){
+        document.getElementById("Info1").style.display='none';
+        document.getElementById("Info2").style.display='initial';
+        document.getElementById("Info1").required= false;
+        document.getElementById("Info2").required= true;
+        if((document.getElementById("inputCredits2").value<1)||(document.getElementById("inputCredits2").value==null)){
+            document.getElementById("Info1").style.display="initial";
+            document.getElementById("Info1").required=true;
+
+
+        }
      }else{
-        document.getElementById("inputCertificate").style.display='none';
-         document.getElementById("inputReport").style.display='none';
-         document.getElementById("inputInterview").style.display='none';
-         document.getElementById("inputCredits").style.display='none';
-         document.getElementById("inputRadio2").style.display='initial';
-         document.getElementById("inputRadio3").style.display='initial';
-         document.getElementById("inputCertificate1").style.display='initial';
-         document.getElementById("inputReport1").style.display='initial';
-         document.getElementById("inputInterview1").style.display='initial';
-         document.getElementById("inputRadio4").style.display='initial';
-         document.getElementById("inputRadio5").style.display='initial';
+        document.getElementById("Info1").style.display='initial';
+        document.getElementById("Info2").style.display='initial';
+        document.getElementById("Info1").required= true;
+        document.getElementById("Info2").required= true;
      }
    
 }

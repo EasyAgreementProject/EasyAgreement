@@ -2,6 +2,7 @@ $(document).ready(function() {
    $('#formCompile').submit(function() {
     var res = true;
 
+    if($('#inputCredits').is(':checked')){
     if(!testAward($('#inputCredits').val())){
         res = false;
         $('#errAward').css('display', 'block');
@@ -10,6 +11,8 @@ $(document).ready(function() {
         $('#errAward').css('display', 'none');
         $('#inputCredits').removeClass("errClass");
     }
+   
+}else if($('#inputCredits2').is(':checked')){
     if(!testNumberCredits($('#inputCredits2').val())){
         res = false;
         $('#errNumberCredits').css('display', 'block');
@@ -18,6 +21,7 @@ $(document).ready(function() {
         $('#errNumberCredits').css('display', 'none');
         $('#inputCredits2').removeClass("errClass");
     }
+}
     return res;
     });
 });
