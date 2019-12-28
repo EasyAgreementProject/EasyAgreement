@@ -2,7 +2,6 @@ $(document).ready(function(){
     $('#formCompile').submit(function(){
         var res= true;
 
-    if($('#inputRadio1').is(':checked').val('Si')){
         if(!testAmount($('#inputAmount').val())){
             res= false;
             $('#errAmount').css('display','block');
@@ -11,8 +10,6 @@ $(document).ready(function(){
             $('#errAmount').css('display','block');
             $('#inputAmount').removeClass("errClass");
         }
-    }
-    if($('#inputRadio2').is(':checked').val('Si')){
         if(!testContribution($('#inputContribution').val())){
             res= false;
             $('#errContribution').css('display','block');
@@ -21,7 +18,6 @@ $(document).ready(function(){
             $('#errContribution').css('display','block');
             $('#inputContribution').removeClass("errClass");
         }
-    }
         if(!testWeeks($('#inputWeeks').val())){
             res= false;
             $('#errWeeks').css('display','block');
