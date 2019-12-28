@@ -8,15 +8,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home</title>
+    <title>Compilazione LA Tutor Esterno</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/compileLAExternalTutor.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/formValidation.js"></script>
+    <script type="text/javascript" src="./js/formValidationExternalTutor.js"></script>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
                 <div class=sidebar-logo>
                     <img src="/img/logoUni.png" style="float: left" width="50px">
                 </div>
-                <div class="sidebar-heading"> Home </div>
+                <div class="sidebar-heading">Home</div>
             </a>
             <div class="list-group list-group-flush">
                 <a href="profile.html" class="list-group-item list-group-item-action bg-light">
@@ -64,7 +65,7 @@
                     </ul>
                 </div>
             </nav>
-             class="container-fluid">
+             <div class="container-fluid">
                 <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
                 <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
@@ -72,40 +73,45 @@
                 <form id="formCompile" method="post" action="/compileExternalTutor"><br>
                    <ul>
                        <li>
+                        
                            Il tirocinante riceverà un sostegno finanziario per il suo tirocinio:
                            <div class="row">
                                <div class="form-check">
                                     <label for="inputRadio1">Si</label>
-                                    <input type="radio" id="inputRadio1" name="inputRadio1"  value="Si">
+                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="Si" checked onclick="javascript: hiddenText();">
                                     <label for="inputRadio1">No</label>
-                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="No">
+                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="No" onclick="javascript: hiddenText();">
                                 </div>
-                            </div><br>
+                            </div>
+                            <div id="amount">
                             In caso affermativo, l'importo in EUR/mese è:
                             <div class="form-label-group">
                                 <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese" required>
                                 <label for="inputAmount">Importo Euro/Mese</label>
                                 <span id="errAmount">Importo non valido</span>
                             </div>
-                        </li><br>
+                            </div>
+                        </li>
                         <li>
+                            
                             Il tirocinante riceverà un contributo per il suo tirocinio:
                             <div class="row">
                             <div class="form-check">
                                 <label for="inputRadio2">Si</label>
-                                <input type="radio" id="inputRadio2" name="inputRadio2"  value="Si">
+                                <input type="radio" id="inputRadio2" name="inputRadio2"  value="Si" checked onclick="javascript: hiddenText();">
                                 <label for="inputRadio1">No</label>
-                                <input type="radio" id="inputRadio2" name="inputRadio2" value="No">
+                                <input type="radio" id="inputRadio2" name="inputRadio2" value="No" onclick="javascript: hiddenText();">
                             </div>
-                            </div>
+                        </div>
+                          <div id="contribution">  
                         In caso affermativo, specificare il tipo di contributo:
                         <div class="form-label-group">
                             <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo" required>
                             <label for="inputContribution">Tipo Di Contributo</label>
                             <span id="errContribution">Tipo di contributo non valido</span>
                         </div>
+                      </div>
                       </li>
-                      <br>
                       <li>
                         Il tirocinante è coperto dall'assicurazione contro gli infortuni?
                        <div class="row">
@@ -177,6 +183,7 @@
         $.get("/fillform", function(data){
             if (data["financial support Yes"]) document.getElementById("inputRadio1").checked= true;
             if (data["financial support No"]) document.getElementById("inputRadio1").checked = true;
+            if (data["if financial support Yes"]) document.getElementById("inputAmount").value= data["if financial support Yes"];
             if (data["The trainee will receive a contribution in kind for his/her traineeship Yes"]) document.getElementById("inputRadio2").checked = true;
             if (data["The trainee will receive a contribution in kind for his/her traineeship No"]) document.getElementById("inputRadio2").checked = true;
             if (data["If yes, please specify"]) document.getElementById("inputContribution").value = data["If yes, please specify"];
@@ -184,6 +191,19 @@
         });
     });
     </script>
+    <script language="text/javascript">
+    function hiddenText(){
+        if(document.getElementById("inputRadio1").checked==false){
+            document.getElementById("amount").style.display='none';
+            document.getElementById("inputAmount").required= false;
+        }
+        if(document.getElementById("inputRadio2").checked==false){
+            document.getElementById("contribution").style.display='none';
+            document.getElementById("inputContribution").required= false;
+        }
+    }
+    </script>
+    <script type="text/javascript" src="./js/externalTutorCookies.js"></script>
     </body>
     </html>
                 
