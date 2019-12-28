@@ -8,6 +8,8 @@ var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
+var formidable = require('formidable');
+var ssn; // Session variable
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
@@ -22,6 +24,7 @@ app.get('/compileLAStudent.html', function(req, res) {
 });
 
 app.get('/gestioneDocumenti.html', function(req, res) {
+  
     res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
 });
 
@@ -80,6 +83,7 @@ app.use(function(req,res,next) {
 });
 
 app.get('/', function (req, res) {
+  ssn=req.session;
   res.sendFile("/app/views/login.html",{root:__dirname});
 });
 
@@ -95,6 +99,12 @@ app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
 });
 
+app.post('/fileupload', function(request, response){
+  var docManager=documentControl.docHandler(req,res);
+  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
+});
+
 app.listen(8080, function () {
   console.log('EasyAgreement Platform listening on port 8080!');
 });
+

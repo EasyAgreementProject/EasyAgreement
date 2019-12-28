@@ -289,6 +289,126 @@ static findByEmail(email){
         });
     });
 }
+
+static checkCVPresence(email) {   //Check if a CV in pdf format is present in selected student.
+                                  //Search is performed by using email as func argument.
+
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                if(err) reject(err);
+                if(result!=null && student.CV != null){
+                    
+                    fulfill(true);
+                    
+                }
+                else{
+                    fulfill(false);
+                }
+                db.close();
+            })
+        });
+    });
+
+
+
+
+}
+
+
+static checkIDPresence(email) {   //Check if a ID in pdf or jpeg format is present in selected student.
+                                  //Search is performed by using email as func argument.
+
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                if(err) reject(err);
+                if(result!=null && student.IDCard != null){
+                    
+                    fulfill(true);
+                    
+                }
+                else{
+
+                    fulfill(false);
+                }
+                db.close();
+                })
+            });
+        });
+
+    }
+
+
+static updateStudentCV(email, ObjectCV) {   //Insert/update student CV
+       
+
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            
+                dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                if(err) reject(err);
+                dbo.collection("Student").updateOne(
+                    {"email" : result.email},
+                    {$set:{"CV" : ObjectCV }})
+                fulfill(true);
+                db.close();
+                })
+            });
+        });
+
+    }
+
+
+    static updateStudentID(email, ObjectID) {   //Insert/update student ID
+       
+
+        return new Promise(function(fulfill,reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  reject(err);
+                var dbo= db.db(dbName);
+                
+                    dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                    if(err) reject(err);
+                    dbo.collection("Student").updateOne(
+                        {"email" : result.email},
+                        {$set:{"IDCard" : ObjectID }})
+                    fulfill(true);
+                    db.close();
+                    })
+                });
+            });
+    
+        }
+
+        static retrieveStudentCV(email) {   //Insert/update student ID
+       
+
+            return new Promise(function(fulfill,reject){
+                MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                    if(err)  reject(err);
+                    var dbo= db.db(dbName);
+                    
+                        dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                        if(err) reject(err);
+                        dbo.collection("Student").updateOne(
+                            {"email" : result.email},
+                            {$set:{"IDCard" : ObjectID }})
+                        fulfill(true);
+                        db.close();
+                        })
+                    });
+                });
+        
+            }
+
+
 }
 
 module.exports= Student;
