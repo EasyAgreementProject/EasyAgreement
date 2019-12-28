@@ -69,10 +69,9 @@
                 </div>
             </nav>
             <div class="container-fluid">
+                  <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+                  <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
                 <h1 class="mt-4">Gestione Documenti</h1>
-                <div class="logoCenter">
-                    <img src="/img/EasyAgreement_Logo.png" alt="logo Unisa" style="opacity: 0.3; vertical-align: middle; max-width: 300px; max-height: 300px;">
-                </div>
                 <div class="table-responsive"
 	                 style="margin-left: 30px; margin-right: 30px;">
 	                 <table class="table table-bordered table-striped">
@@ -93,8 +92,8 @@
                               <input type="file" name="filetoupload"><br>
                               <input type="submit">
                             </form><img src="/img/upload.png" width="20px" height="20px"></td>
-                      			<td class="text-center" name="visualizza_cd"><img src="/img/spunta-verde.png" width="20px" height="20px"></img></td>
-                      			<td class="text-center" name="elimina_cd"><img src="/img/delete.png" width="20px" height="20px"></img></td>
+                      			<td class="text-center" name="visualizza_cd"><form action="fileviewCD" method="post"><input type="image" src="/img/spunta-verde.png" width="20px" height="20px"></td>
+                      			<td class="text-center" name="elimina_cd"><form action="deleteCD" method="post"><input type="image" src="/img/delete.png" width="20px" height="20px"></td>
 		                  </tr>
 
                       <tr>
@@ -105,8 +104,8 @@
                               <input type="file" name="filetoupload"><br>
                               <input type="submit">
                             </form><img src="/img/upload.png" width="20px" height="20px"></a></td>
-                            <td class="text-center" name="visualizza_cv"><img src="/img/spunta-verde.png" width="20px" height="20px"></img></td>
-                            <td class="text-center" name="elimina_cv"><img src="/img/delete.png" width="20px" height="20px"></img></td>
+                            <td class="text-center" name="visualizza_cv"><form action="fileviewCV" method="post"><input type="image" src="/img/spunta-verde.png" width="20px" height="20px"></td>
+                            <td class="text-center" name="elimina_cv"><form action="deleteCV" method="post"><input type="image" src="/img/delete.png" width="20px" height="20px"></td>
                       </tr>
 
 
