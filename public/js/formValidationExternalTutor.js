@@ -49,7 +49,7 @@ function testContribution(){
 }
 function testWeeks(){
     var weeks=$('#inputWeeks').val();
-    if(weeks.lenght>0){
+    if(weeks.lenght<=5){
         if(/^[0-5]{1}$/.test(weeks)) return true;
     }
     return false;
