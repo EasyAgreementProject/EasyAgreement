@@ -63,12 +63,16 @@ exports.login= function(req, res){
                                         return;
                                     }
                                     else{
-                                        if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
+                                       // if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
+                                           if(resultAd.getPassword() == password){
                                             var adminSession={
                                                 utente: resultAd,
                                                 type: "admin"
                                             };
+                                            
                                             req.session.utente=adminSession;
+                                            
+                                            console.log(req.session.utente);
                                             redirect(res);
                                         }
                                         else{
@@ -82,11 +86,13 @@ exports.login= function(req, res){
                             }
                             else{
                                 if(hash.checkPassword(resultE.getPassword().hash, resultE.getPassword().salt, password)){
-                                    var externalSession={
+                                  //if(resultE.getPassword() == password) 
+                                   var externalSession={
                                         utente: resultE,
                                         type: "externalTutor"
                                     };
                                     req.session.utente=externalSession;
+                                    console.log(req.session.utente);
                                     redirect(res);
                                 }
                                 else{
@@ -99,12 +105,14 @@ exports.login= function(req, res){
                         })
                     }
                     else{
-                        if(hash.checkPassword(resultA.getPassword().hash, resultA.getPassword().salt, password)){
+                       if(hash.checkPassword(resultA.getPassword().hash, resultA.getPassword().salt, password)){
                             var academicSession={
                                 utente: resultA,
                                 type: "academicTutor"
                             };
                             req.session.utente=academicSession;
+                            console.log(req.session.utente);
+
                             redirect(res);
                         }
                         else{
@@ -117,12 +125,13 @@ exports.login= function(req, res){
                 })
             }
             else{
-                if(hash.checkPassword(resultS.getPassword().hash, resultS.getPassword().salt, password)){
+               if(hash.checkPassword(resultS.getPassword().hash, resultS.getPassword().salt, password)){
                     var studentSession={
                         utente: resultS,
                         type: "student"
                     };
                     req.session.utente=studentSession;
+                    console.log(req.session.utente);
                     redirect(res);
                 }
                 else{
@@ -133,7 +142,7 @@ exports.login= function(req, res){
                 }
             }
         })        
-        
+
 }
 
 /**
@@ -144,6 +153,9 @@ exports.login= function(req, res){
 function redirect(res){
     res.cookie('logEff','1');
     var path = require('path');
-    res.sendFile(path.resolve('app/views/index.html'));
+    res.setHeader('Content-Type', 'text/html');
+
+    res.sendFile(path.resolve('app/views/index.ejs'));
+
     return;
 }

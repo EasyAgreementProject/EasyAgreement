@@ -206,6 +206,8 @@ static insertStudent(student) {
 }
 
 
+
+
 /**
  * Find student by StudentID
  * @param {String} studentID- studentID
@@ -224,7 +226,7 @@ static findByMatricola(studentID){
                 else{
                     fulfill(true);
                 }
-                db.close;
+                db.close();
             
             });
         });
@@ -288,6 +290,25 @@ static findByEmail(email){
             })
         });
     });
+}
+
+static updateStudent(student,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) throw err;
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues = { $set: {Name: student.Name, Surname: student.Surname, Address: student.Address, Email: student.Email, City: student.City, DegreeCourse: student.DegreeCourse } };
+             dbo.collection("Student").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) throw err;
+                     console.log("1 document updated+ name: "+student.DegreeCourse);
+                db.close();
+             });
+            });
+        });
+    
 }
 }
 

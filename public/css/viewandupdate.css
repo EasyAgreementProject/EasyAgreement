@@ -168,35 +168,13 @@
                         }
                         #errName,
                         #errSurname,
-                        #errDate,
-                        #errTelephone,
-                        #errStudyCicle,
-                        #errAcademicYear1,
-                        #errAcademicYear2,
-                        #errNationality,
-                        #errSubjectCode,
                         #errEmail,
-                        #errDepartmentSending,
-                        #errContactName,
-                        #errContactSending,
-                        #errNameSector,
-                        #errDepartmentReciving,
-                        #errAddressWebSite,
-                        #errCountry,
-                        #errSizeEnterprise,
-                        #errContactReciving,
-                        #errMentor,
-                        #errMentorInfo,
-                        #errDateFrom,
-                        #errDateTo,
-                        #errHourWork,
-                        #errTitle,
-                        #errDetailed,
-                        #errKnowledge,
-                        #errMonitoring,
-                        #errEvaluation,
-                        #errLenguage,
-                        #errDateCompilation {
+                        #errCity,
+                        #errDegree,
+                        #errOrganization,
+                        #errDepartment,
+                        #errAddress
+                         {
                             color: red;
                             display: none;
                             margin-top: -5px;

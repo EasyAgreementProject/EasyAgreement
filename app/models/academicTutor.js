@@ -133,11 +133,17 @@ static findByEmail(email){
             var dbo= db.db(dbName);
             dbo.collection("AcademicTutor").findOne({"E_mail": email}, function(err, result){
                 if(err) reject(err);
-                if(Boolean(result)){
-                    fulfill(false);
+                if(result!=null){
+                    var academicTutor= new AcademicTutor();
+                    academicTutor.setName(result.Name);
+                    academicTutor.setSurname(result.Surname);
+                    academicTutor.setDegreeCourse(result.E_mail);
+                    academicTutor.setAddress(result.Department);
+                    academicTutor.setPassword(result.Password);
+                    fulfill(academicTutor);
                 }
                 else{
-                    fulfill(true);
+                    fulfill(null);
                 }
                 db.close();
             })
@@ -174,6 +180,24 @@ static RetrieveByEmail(email){
         });
     });
 }
-}
 
+static updateAcademicTutor(academicTutor,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) throw err;
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues = { $set: {Name: academicTutor.Name, Surname: academicTutor.Surname, Email: academicTutor.Email, Department: academicTutor.Department} };
+             dbo.collection("AcademicTutor").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) throw err;
+                     console.log("1 document updated");
+                db.close();
+             });
+            });
+        });
+    
+}
+}
 module.exports= AcademicTutor;

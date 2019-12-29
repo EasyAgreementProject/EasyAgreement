@@ -41,6 +41,7 @@ $(document).ready(function(){
     var errPassword=getCookie("errPassword");
     var errLogin= getCookie("errLogin");
     var logEff=getCookie("logEff");
+    var logoutEff=getCookie("logoutEff");
 
     if(errName=="1"){
         $('#errName').css('display','block');
@@ -129,5 +130,13 @@ $(document).ready(function(){
     if(logEff=="1"){
         swal('Benvenuto', 'Login effettuato', 'success');
         document.cookie="logEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+    }   
+
+
+    if(logoutEff=="1"){
+        swal('Arrivederci', 'Logout effettuato', 'success');
+        document.cookie="logEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie="logoutEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }   
 });

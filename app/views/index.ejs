@@ -14,8 +14,11 @@
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/viewandupdate.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script type="text/javascript" src="./js/cookie.js"></script>
 
 </head>
@@ -33,11 +36,15 @@
                 <div class="sidebar-heading">Home</div>
             </a>
             <div class="list-group list-group-flush">
-                <a href="profile.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
+                <form method="get" action="/profile"><button  type="submit" class="list-group-item list-group-item-action bg-light">
+                    
+
+                        <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</button></form> 
                 <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Compilazione LA</a>
+                    
+                        <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Compilazione LA</a> 
                 <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
+                    
                     <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
                 <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
@@ -64,7 +71,9 @@
                             <a class="nav-link" href="#"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.html">Logout</a>
+                            <form method="get" action="/logout">
+                            <button type="submit" class="nav-link"> Logout </button>
+                            </form>
                         </li>
                     </ul>
                 </div>

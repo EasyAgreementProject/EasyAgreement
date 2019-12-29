@@ -6,6 +6,9 @@ var learningAgreementControl = require('./app/controllers/learningAgreementContr
 var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
+var studentControl= require('./app/controllers/studentControl');
+var academicTutorControl= require('./app/controllers/academicTutorControl');
+
 var bodyParser= require('body-parser');
 var session = require('express-session');
 
@@ -16,6 +19,9 @@ app.use(cookieParser());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set('views', path.join(__dirname, 'app/views'));
+app.set('view engine', 'ejs');
 
 app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
@@ -87,8 +93,63 @@ app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
 });
 
+app.post('/updateProfile', function(req, res) {
+  
+  console.log("SONO NEL UPDATE SERVER: "+JSON.stringify(req.session.utente.type));
+
+    
+         // var update=academicTutorControl.update(req, res);
+    
+      //else
+       //if(req.session.utente.type=="student")
+         var updateUser=studentControl.update(req, res);
+
+
+  
+   
+});
+
 app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
+});
+
+
+app.get('/profile', function (request, response) {
+  if(request.session.utente == null)
+  
+    response.sendFile("/app/views/login.html",{root:__dirname});
+  
+  else
+  {
+    //console.log("SONO NEL VIEW SERVER: "+JSON.stringify(request.session.utente.type));
+    //var viewFile= studentControl.view(request,response);
+    console.log("SONO NEL VIEW SERVER: "+JSON.stringify(request.session.utente.type));
+    if(request.session.utente.type=="academicTutor")
+      var viewFile= academicTutorControl.view(request,response);
+    else
+      if(request.session.utente.type=="student")
+        var viewFile= studentControl.view(request,response);
+
+
+  }
+    
+});
+
+
+app.get('/logout',function(req,res){
+  var utente = req.session.utente;
+  console.log(utente);
+  req.session.destroy(function(err){
+    if(err){
+      console.log("ERRORE+ "+utente);
+      console.log(err);
+    }else{
+      res.cookie('logoutEff','1');
+      console.log("sessione eliminata");
+
+      res.sendFile("/app/views/login.html",{root:__dirname});
+    }
+  });
 });
 
 app.listen(8080, function () {
