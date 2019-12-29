@@ -450,7 +450,7 @@ static retrieveStudentID(email) {   //Insert/update student ID
         }
 
 
-        static deleteStudentCV(email) {   //Delete student ID
+        static deleteStudentID(email) {   //Delete student ID
        
 
             return new Promise(function(fulfill,reject){

@@ -10,25 +10,48 @@ exports.docHandler = function(err,req,res) {
   var email = currSess.Email;
   console.log("Session data retrieval is ok");
   var form = new formidable.IncomingForm();
+  form.keepExtensions=true;
+  form.multiples=false;
   form.parse(req, function(err, fields, files) {
     res.writeHead(200, {'content-type': 'text/plain'});
-    studentModel.updateStudentCV(email, files);
+    
+
+    studentModel.updateStudentCV(email, req.files);
     
 
 
   });
 
 
-  exports.docEraser = function(req, res) {
+  exports.IDEraser = function(err, request, response) {
 
     if (err) throw err;
-    var currSess=req.session.utente;
+    var currSess=request.session.utente;
     var email = currSess.Email;
-    
+    studentModel.deleteStudentID(email);
+    redirect(response);
 
 
 
   }
+
+  exports.CVEraser = function(err, request, response) {
+
+    if (err) throw err;
+    var currSess=request.session.utente;
+    var email = currSess.Email;
+    studentModel.deleteStudentCV(email);
+    redirect(response);
+
+
+
+  }
+
+  function redirect(res) {
+  var path = require('path');
+  res.sendFile(path.resolve('app/views/index.html'));
+  return;
+}
   
 
 

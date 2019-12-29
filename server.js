@@ -2,11 +2,11 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var documentControl = require('./app/controllers/documentControl.js');
 var learningAgreementControl = require('./app/controllers/learningAgreementControl');
 var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
-var documentControl = require('./app/controllers/documentControl.js')
 var bodyParser= require('body-parser');
 var session = require('express-session');
 var formidable = require('formidable');
@@ -109,12 +109,12 @@ app.post('/fileupload', function(request, response){
 });
 
 app.post('/deleteCV', function(request, response){
-  var docManager=documentControl.docHandler(req,res);
+  var docManager=documentControl.CVEraser(request,response);
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
 });
 
 app.post('/deleteCD', function(request, response){
-  var docManager=documentControl.docHandler(req,res);
+  var docManager=documentControl.IDEraser(request, response);
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
 });
 
