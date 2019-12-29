@@ -71,8 +71,7 @@ exports.signup= function(req, res){
         }
 
         if(!isRight){
-            var path = require('path');
-            res.sendFile(path.resolve('app/views/signup.html'));
+            res.redirect('/signup.html');
             return;
         }
 
@@ -97,8 +96,7 @@ exports.signup= function(req, res){
         checkM.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
-                var path = require('path');
-                res.sendFile(path.resolve('app/views/signup.html'));
+                res.redirect('/signup.html');
                 return;
             }
             if(result){
@@ -107,8 +105,7 @@ exports.signup= function(req, res){
                 checkE.then(function(result){
                     if(!result){
                         res.cookie('errAlreadyReg','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/signup.html'));
+                        res.redirect('/signup.html');
                         return;
                     }
                     if(result){
@@ -117,8 +114,7 @@ exports.signup= function(req, res){
 
                         //redirect
                         res.cookie('regEff','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
+                        res.redirect('/index.html');
                         return;
                     }
                 })
@@ -168,8 +164,7 @@ exports.signup= function(req, res){
         }
 
         if(!isRight){
-            var path = require('path');
-            res.sendFile(path.resolve('app/views/signup.html'));
+            res.redirect('/signup.html');
             return;
         }
 
@@ -190,8 +185,7 @@ exports.signup= function(req, res){
         check.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
-                var path = require('path');
-                res.sendFile(path.resolve('app/views/signup.html'));
+                res.redirect('/signup.html');
                 return;
             }
             if(result){
@@ -200,8 +194,7 @@ exports.signup= function(req, res){
 
                 //redirect
                 res.cookie('regEff','1');
-                var path = require('path');
-                res.sendFile(path.resolve('app/views/index.html'));
+                res.redirect('/index.html');
                 return;
             }
         })   

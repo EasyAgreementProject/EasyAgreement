@@ -29,8 +29,7 @@ exports.login= function(req, res){
         }
 
         if(!isRight){
-            var path = require('path');
-            res.sendFile(path.resolve('app/views/login.html'));
+            res.redirect('/');
             return;
         }
         
@@ -58,8 +57,7 @@ exports.login= function(req, res){
                                 checkAdmin.then(function(resultAd){
                                     if(resultAd==null){
                                         res.cookie('errLogin','1');
-                                        var path = require('path');
-                                        res.sendFile(path.resolve('app/views/login.html'));
+                                        res.redirect('/');
                                         return;
                                     }
                                     else{
@@ -73,8 +71,7 @@ exports.login= function(req, res){
                                         }
                                         else{
                                             res.cookie('errLogin','1');
-                                            var path = require('path');
-                                            res.sendFile(path.resolve('app/views/login.html'));
+                                            res.redirect('/');
                                             return;
                                         }
                                     }
@@ -91,8 +88,7 @@ exports.login= function(req, res){
                                 }
                                 else{
                                     res.cookie('errLogin','1');
-                                    var path = require('path');
-                                    res.sendFile(path.resolve('app/views/login.html'));
+                                    res.redirect('/');
                                     return;
                                 }
                             }
@@ -109,8 +105,7 @@ exports.login= function(req, res){
                         }
                         else{
                             res.cookie('errLogin','1');
-                            var path = require('path');
-                            res.sendFile(path.resolve('app/views/login.html'));
+                            res.redirect('/');
                             return;
                         }
                     }
@@ -127,8 +122,7 @@ exports.login= function(req, res){
                 }
                 else{
                     res.cookie('errLogin','1');
-                    var path = require('path');
-                    res.sendFile(path.resolve('app/views/login.html'));
+                    res.redirect('/');
                     return;
                 }
             }

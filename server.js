@@ -6,17 +6,23 @@ var learningAgreementControl = require('./app/controllers/learningAgreementContr
 var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
+var messageControl= require('./app/controllers/messageControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
 const io = require('socket.io')(3000)
+app.set('view engine', 'ejs');
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 app.use(cookieParser());
 
+app.set('views', path.join(__dirname, '/app/views'));
+app.engine('html', require('ejs').renderFile);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
@@ -71,10 +77,11 @@ app.use(session({
   resave: false,  
   saveUninitialized: true    
 })); 
+
 app.use(function(req,res,next) {  
   res.locals.session = req.session;  
   next();   
-});  
+}); 
 
 app.get('/', function (req, res) {
   res.sendFile("/app/views/login.html",{root:__dirname});
@@ -85,7 +92,7 @@ app.get('/signup.html', function (req, res) {
 });
 
 app.get('/index.html', function (req, res) {
-  res.sendFile("/app/views/index.html",{root:__dirname});
+  res.render('index');
 });
 
 app.post('/signup', function(req, res) {
@@ -107,4 +114,13 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     socket.broadcast.emit('user-disconnected')
   })
+})
+
+app.post('/getConnectedUser', function (req, res){
+  var user= messageControl.getConnectedUser(req);
+  res.json(user); 
+})
+
+app.post('/getContacts', function (req, res){
+  messageControl.getAllContacts(req.body.type, res);
 })

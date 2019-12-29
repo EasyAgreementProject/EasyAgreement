@@ -247,14 +247,6 @@
     background: rgb(0, 50, 136);
   }
 
-  #academicButtonChat{
-    border-radius: 24px 0 0 24px;
-  }
-
-  #externalButtonChat{
-    border-radius: 0 24px 24px 0;
-  }
-
   .contact-container{
     width: 100%;
     padding: 0 0 1% 1%;

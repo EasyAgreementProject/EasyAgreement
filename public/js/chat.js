@@ -1,4 +1,18 @@
 //contatti e messaggi ajax, da vedere come ordinare manca data, da fare modifica e rimozione messaggio
+var connectedUser=null;
+
+$.ajax({
+  type:'POST',
+  url:'http://localhost:8080/getConnectedUser',
+  contentType: 'application/json',
+  async:false,
+  success:function(user){
+    connectedUser=user;
+  },
+  error: function(){
+    console.log("error");
+  }
+});
 
 
 $('body').append(['<div class="outerContainer chatbox--tray" style="display: none;">',
@@ -20,18 +34,13 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
       '</a>',
       '</div>',
       '<div class="contacts" id="contacts">',
-          '<div class="contact-container">',
-              '<div class="contact">',
-                  '<p class="user-info-name">Filomena Ferrucci</p>',
-                  '<p class="user-info-email">f.ferrucci@unisa.it</p>',
-              '</div>',
-          '</div>',
       '</div>',
       '<div class="messages" id="messages" style="display:none;">',
       '</div>',
       '<div class="choice-user">',
           '<button class="choice-user-button" id="academicButtonChat" >Tutor accademici</button>',
-          '<button class="choice-user-button" id="externalButtonChat">Tutor esterni</button>',
+          '<button class="choice-user-button" id="externalButtonChat" >Tutor esterni</button>',
+          '<button class="choice-user-button" id="studentButtonChat" >Studenti</button>',
       '</div>',
       '<div class="send-form" style="display:none;">',
             '<form class="form-chat" id="form-chat">',
@@ -42,14 +51,24 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
   '</div>',
 '</div>'].join('\n'));
 
-//caricare i contatti con ajax
+//caricare i contatti con ajax a seconda dell'utente
+/*$.ajax({
+  type:"POST",
+  url:"/getContacts",
+  data: {user:el},
+  async:false,
+  success:function(bool){
+    if(bool=="si")	b=true;
+  }
+});*/
 
+//console.log("JSON.stringify(session.utente.type)");
 
 const socket = io('http://localhost:3000')
 const messageContainer = document.getElementById('messages')
 const messageForm = document.getElementById('form-chat')
 const messageInput = document.getElementById('input-chat')
-
+var receivers=null;
 
 socket.on('chat-message', data => {
   appendMessage(`${data.message}`)
@@ -165,6 +184,14 @@ function appendSentMessage(message){
         }
       });
 
+      $('#input-search-chat').keydown(function(e){
+        if (e.keyCode == 13 && !e.shiftKey)
+        {
+            e.preventDefault();
+            $('#searh-chat-button').click();
+        }
+      });
+
       $('body').on('click', function(){
         if($('.popup-chat-menu').hasClass("Removable"))  $('.popup-chat-menu').remove();
       });
@@ -185,6 +212,45 @@ function appendSentMessage(message){
         $('#back-chat').css('display', 'block');
         $('#name-of-user').append(name);
         //caricare messaggi con email e appenderli tramite le funzioni append
+      });
+
+      $('#form-chat').submit(function(){
+        return false;
+      });
+
+      $('#search-form-chat').submit(function(){
+        return false;
+      });
+
+      if(connectedUser.type=="student"){
+        $('#studentButtonChat').css('display', 'none');
+        $('#academicButtonChat').css('border-radius', '24px 0 0 24px');
+        $('#externalButtonChat').css('border-radius', '0 24px 24px 0');
+        getReceivers('academic');
+      }
+      else if(connectedUser.type=="academic"){
+        $('#academicButtonChat').css('display', 'none');
+        $('#externalButtonChat').css('border-radius', '24px 0 0 24px');
+        $('#studentButtonChat').css('border-radius', '0 24px 24px 0');
+        getReceivers('external');
+      }
+      else if(connectedUser.type=="external"){
+        $('#externalButtonChat').css('display', 'none');
+        $('#academicButtonChat').css('border-radius', '24px 0 0 24px');
+        $('#studentButtonChat').css('border-radius', '0 24px 24px 0');
+        getReceivers('academic');
+      }
+
+      $('#studentButtonChat').on('click', function(){
+        getReceivers('student');
+      });
+
+      $('#academicButtonChat').on('click', function(){
+        getReceivers('academic');
+      });
+
+      $('#externalButtonChat').on('click', function(){
+        getReceivers('external');
       });
       
   });
@@ -215,6 +281,7 @@ function appendSentMessage(message){
   }
 
   function appendAcademic(academic){
+    console.log(academic);
     $('.contacts').append(['<div class="contact-container">',
     '<div class="contact">',
         '<p class="user-info-name">'+academic.Name+'</p>',
@@ -230,4 +297,38 @@ function appendSentMessage(message){
         '<p class="user-info-email">'+external.email+'</p>',
     '</div>',
 '</div>',].join('\n'));
+  }
+
+  function getReceivers(typeOfUser){
+    $.ajax({
+      type:"POST",
+      url:"/getContacts",
+      data:{type: typeOfUser},
+      success:function(users){
+        var i=0;
+        if(typeOfUser=="student"){
+          while(users[i]!=null){
+            appendStudent(users[i]);
+            i++;
+          }
+        }
+        else if(typeOfUser=="academic"){
+          console.log(users);
+          while(users[i]!=null){
+            console.log("we");
+            appendAcademic(users[i]);
+            i++;
+          }
+        }
+        else if(typeOfUser=="external"){
+          while(users[i]!=null){
+            appendExternal(users[i]);
+            i++;
+          }
+        }
+      },
+      error: function(){
+        console.log("error");
+      }
+    });
   }
