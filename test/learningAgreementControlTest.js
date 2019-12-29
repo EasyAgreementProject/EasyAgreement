@@ -756,10 +756,18 @@ describe('Field test for learningAgreementControl', function(){
         });
     });
 
-    it('Testing method sendLaExternalTutor - TC_LAM_3.9', function(){
-        var input = ['Si', '300', 'Si', 'Buoni Pasto', 'Si', '5'];
-        var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
-        sendLaExternalTutor.then(function(la) {
+    it('Testing method getVersion - TC_LAM_4.1', function(){
+        var input = ['%&'];
+        var getVersion = compileControl.getVersion(input);
+        getVersion.then(function(la) {
+            assert.isNull(la);
+        });
+    });
+
+    it('Testing method getVersion - TC_LAM_4.2', function(){
+        var input = ['1'];
+        var getVersion = compileControl.getVersion(input);
+        getVersion.then(function(la) {
             assert.isNotNull(la);
         });
     });

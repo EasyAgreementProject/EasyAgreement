@@ -860,7 +860,7 @@ exports.getStatus = function(student) {
 
 exports.getVersion = function(id, email) {
     return new Promise(function(fulfill, reject) {
-        getPdfPr = LA.getPdf(id, email);
+        getPdfPr = LA.getPdf(id, "v.volpicelli4@studenti.unisa.it");
         getPdfPr.then(function(result, err) {
             if (err) throw err;
             console.log("Getting version with id= "+id);
