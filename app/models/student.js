@@ -397,16 +397,35 @@ static updateStudentCV(email, ObjectCV) {   //Insert/update student CV
                     
                         dbo.collection("Student").findOne({"Email": email}, function(err, result){
                         if(err) reject(err);
-                        dbo.collection("Student").updateOne(
-                            {"email" : result.email},
-                            {$set:{"IDCard" : ObjectID }})
-                        fulfill(true);
+                        //code here
+                        fulfill(result);
                         db.close();
                         })
                     });
                 });
         
             }
+
+
+
+static retrieveStudentID(email) {   //Insert/update student ID
+       
+
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            
+                dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                if(err) reject(err);
+                //code here
+                fulfill(result);
+                db.close();
+                })
+            });
+        });
+
+    }
 
 
 }

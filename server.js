@@ -104,6 +104,16 @@ app.post('/fileupload', function(request, response){
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
 });
 
+app.post('/deleteCV', function(request, response){
+  var docManager=documentControl.docHandler(req,res);
+  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
+});
+
+app.post('/deleteCD', function(request, response){
+  var docManager=documentControl.docHandler(req,res);
+  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
+});
+
 app.listen(8080, function () {
   console.log('EasyAgreement Platform listening on port 8080!');
 });

@@ -10,11 +10,23 @@ exports.docHandler = function(req,res) {
   var form = new formidable.IncomingForm();
   form.parse(req, function(err, fields, files) {
     res.writeHead(200, {'content-type': 'text/plain'});
-    
+    studentModel.updateStudentCV(email, files);
     
 
 
   });
+
+
+  exports.docEraser = function(req, res) {
+
+    if (err) throw err;
+    var currSess=req.session.utente;
+    var email = currSess.Email;
+    
+
+
+
+  }
   
 
 
