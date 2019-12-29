@@ -1,12 +1,10 @@
 var hash=require('./hash.js');
-var adminModel= require('../models/admin.js');
+var adminModel= require('../models/administrator.js');
 var session = require('express-session');
 
 exports.update=function(req,res){
 
-        var name= req.body.inputName;
-        var surname= req.body.inputSurname;
-        var email= req.body.inputEmail;
+        var password= req.body.inputPassword;
         
 
 
@@ -25,10 +23,12 @@ if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
     isRight=false;
 }
 
-if((email==null) || (email.length<=21) || (!/^[a-z]\.[a-z]+[0-9]*\@^[a-z]/.test(email))){
+if((email==null) || (email.length<=1) || (!/^[a-z]\.[a-z]+[0-9]*\@^[a-z]/.test(email))){
     res.cookie('erradminEmail','1');
     isRight=false;
 }
+
+
 
 
 
@@ -54,8 +54,8 @@ if(!isRight){
 
       
         console.log("sono qui"+ JSON.stringify(session.utente.utente.Email));
-        
-       adminModel.updateadmin(admin);
+        var checkS=administratorControl.updateAdministrator(admin,req.session.utente.utente.Email);
+        res.render('profile');
         /*
         checkM.then(function(result){
             if(!result){

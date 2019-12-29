@@ -17,22 +17,22 @@ exports.update=function(req,res){
 var isRight=true;
 
 if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
-    res.cookie('errexternalTutorName','1');
+    console.log("errorz");res.cookie('errexternalTutorName','1');
     isRight=false;
 }
 
 if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
-    res.cookie('errexternalTutorSurname','1');
+    console.log("errorz1");res.cookie('errexternalTutorSurname','1');
     isRight=false;
 }
 
-if((email==null) || (email.length<=21) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
-    res.cookie('errexternalTutorEmail','1');
+if((email==null) || (email.length<=1) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
+    console.log("errorz2"); res.cookie('errexternalTutorEmail','1');
     isRight=false;
 }
 
 if((organization==null) || (organization.length<=1) || (!/^[A-Za-z]+$/.test(organization))){
-    res.cookie('errOrganizationName','1');
+    console.log("errorz3"); res.cookie('errOrganizationName','1');
     isRight=false;
 }
 
@@ -57,9 +57,9 @@ if(!isRight){
         externalTutor.setOrganization(organization);
 
       
-        console.log("sono qui"+ JSON.stringify(session.utente.utente.Email));
-        
-       externalTutorModel.updateexternalTutor(externalTutor);
+       console.log("DATI DELL'EXTERNAL" +JSON.stringify(externalTutor));
+        var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.Email);
+        res.render('profile');
         /*
         checkM.then(function(result){
             if(!result){

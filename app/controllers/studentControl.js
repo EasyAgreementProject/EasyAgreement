@@ -32,7 +32,7 @@ if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
     isRight=false;
 }
 
-if((email==null) || (email.length<=21) || (!/^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it/.test(email))){
+if((email==null) || (email.length<=1) || (!/^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it/.test(email))){
     res.cookie('errStudentEmail','1');
     isRight=false;
 }
@@ -76,7 +76,6 @@ if(!isRight){
 
         
        var checkS=studentModel.updateStudent(studente,req.session.utente.utente.Email);
-       res.setHeader('Content-Type', 'text/html');
 
        res.render('profile');
         /*
@@ -120,8 +119,7 @@ if(!isRight){
 
     exports.view= function(req, res){
 
-        res.setHeader('Content-Type', 'text/html');
-
+        
     res.render('profile');
 
 }

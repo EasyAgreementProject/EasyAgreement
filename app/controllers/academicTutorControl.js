@@ -17,21 +17,25 @@ exports.update=function(req,res){
 var isRight=true;
 
 if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
+    console.log("errore5!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     res.cookie('erracademicTutorName','1');
     isRight=false;
 }
 
 if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
+    console.log("errore1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     res.cookie('erracademicTutorSurname','1');
     isRight=false;
 }
 
-if((email==null) || (email.length<=21) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
-    res.cookie('erracademicTutorEmail','1');
+
+if((email==null) || (email.length<=1) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
+    res.cookie('errStudentEmail','1');
     isRight=false;
 }
 
 if((department==null) || (department.length<=1) || (!/^[A-Za-z]+$/.test(department))){
+    console.log("errore1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     res.cookie('errDepartmentName','1');
     isRight=false;
 }
@@ -40,6 +44,7 @@ if((department==null) || (department.length<=1) || (!/^[A-Za-z]+$/.test(departme
 
 if(!isRight){
     var path = require('path');
+    console.log("errore!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     res.render('profile');
     return;
 }
@@ -59,7 +64,6 @@ if(!isRight){
       
         console.log("sono nel accademic");
         var checkS=academicTutorModel.updateAcademicTutor(academicTutor,req.session.utente.utente.Email);
-        res.setHeader('Content-Type', 'text/html');
         res.render('profile');
 
         /*
@@ -102,7 +106,6 @@ if(!isRight){
 }
 
     exports.view= function(req, res){
-        res.setHeader('Content-Type', 'text/html');
 
 
     res.render('profile');

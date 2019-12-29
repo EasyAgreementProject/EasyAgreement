@@ -85,8 +85,8 @@ exports.login= function(req, res){
                                 })
                             }
                             else{
-                                if(hash.checkPassword(resultE.getPassword().hash, resultE.getPassword().salt, password)){
-                                  //if(resultE.getPassword() == password) 
+                                //if(hash.checkPassword(resultE.getPassword().hash, resultE.getPassword().salt, password)){
+                                  if(resultE.getPassword() == password) {
                                    var externalSession={
                                         utente: resultE,
                                         type: "externalTutor"

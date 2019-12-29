@@ -103,7 +103,24 @@ static findByEmail(email){
         });
     });
 }
-
+static updateExternalTutor(externalTutor,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) throw err;
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues = { $set: {Name: externalTutor.Name, Surname: externalTutor.Surname, Email: externalTutor.Email, Organization: externalTutor.Organization} };
+             dbo.collection("ExternalTutor").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) throw err;
+                     console.log("1 document updated+ name: "+ externalTutor.Organization);
+                db.close();
+             });
+            });
+        });
+    
+}
 
 }
 module.exports= externalTutor;

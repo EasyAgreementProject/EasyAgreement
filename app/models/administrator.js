@@ -78,6 +78,25 @@ static findByEmail(email){
         });
     });
 }
+
+static updatePassword(admin,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) throw err;
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues = { $set: {Password: admin.Password } };
+             dbo.collection("Administrator").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) throw err;
+                     console.log("1 document updated+ name: ");
+                db.close();
+             });
+            });
+        });
+    
+}
 }
 
 module.exports= Administrator;

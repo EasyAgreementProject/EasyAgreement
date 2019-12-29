@@ -8,6 +8,9 @@ var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
 var studentControl= require('./app/controllers/studentControl');
 var academicTutorControl= require('./app/controllers/academicTutorControl');
+var externalTutorControl= require('./app/controllers/externalTutorControl');
+var administratorControl= require('./app/controllers/administratorControl');
+
 
 var bodyParser= require('body-parser');
 var session = require('express-session');
@@ -98,11 +101,18 @@ app.post('/updateProfile', function(req, res) {
   console.log("SONO NEL UPDATE SERVER: "+JSON.stringify(req.session.utente.type));
 
     
-         // var update=academicTutorControl.update(req, res);
-    
-      //else
-       //if(req.session.utente.type=="student")
-         var updateUser=studentControl.update(req, res);
+         
+      if(req.session.utente.type=="student")
+         var updateS=studentControl.update(req, res);
+        else
+         if(req.session.utente.type=="academicTutor")
+          var updateE=academicTutorControl.update(req, res);
+        else
+        if(req.session.utente.type=="externalTutor")
+                  var updateE=externalTutorControl.update(req, res);
+                  else
+                  var updateA=administratorControl.update(req, res);
+
 
 
   
@@ -120,15 +130,16 @@ app.get('/profile', function (request, response) {
     response.sendFile("/app/views/login.html",{root:__dirname});
   
   else
-  {
-    //console.log("SONO NEL VIEW SERVER: "+JSON.stringify(request.session.utente.type));
-    //var viewFile= studentControl.view(request,response);
-    console.log("SONO NEL VIEW SERVER: "+JSON.stringify(request.session.utente.type));
-    if(request.session.utente.type=="academicTutor")
-      var viewFile= academicTutorControl.view(request,response);
-    else
-      if(request.session.utente.type=="student")
-        var viewFile= studentControl.view(request,response);
+  {      if(request.session.utente.type=="student") 
+             var viewFile= studentControl.view(request,response);
+             else
+                if(request.session.utente.type=="academicTutor")
+                 var updateA=academicTutorControl.view(request, response);
+                 else
+                  if(request.session.utente.type=="externalTutor")
+                  var updateE=externalTutorControl.view(request, response);
+                  else
+                  var updateA=administratorControl.view(request, response);
 
 
   }
