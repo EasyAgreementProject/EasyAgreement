@@ -119,8 +119,20 @@ io.on('connection', socket => {
 app.post('/getConnectedUser', function (req, res){
   var user= messageControl.getConnectedUser(req);
   res.json(user); 
-})
+});
 
 app.post('/getContacts', function (req, res){
   messageControl.getAllContacts(req.body.type, res);
-})
+});
+
+app.post('/getMessages', function(req, res){
+  messageControl.getAllMessages(req.body.sender, req.body.recipient, res);
+});
+
+app.post('/saveMessage', function(req, res){
+  messageControl.saveMessage(req.body.message, res);
+});
+
+app.post('/removeMessage', function(req, res){
+  messageControl.removeMessage(req.body.messageID, res);
+});

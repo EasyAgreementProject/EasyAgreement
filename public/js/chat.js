@@ -1,4 +1,4 @@
-//contatti e messaggi ajax, da vedere come ordinare manca data, da fare modifica e rimozione messaggio
+//da fare modifica e rimozione messaggio
 var connectedUser=null;
 
 $.ajax({
@@ -51,7 +51,7 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
   '</div>',
 '</div>'].join('\n'));
 
-//caricare i contatti con ajax a seconda dell'utente
+
 /*$.ajax({
   type:"POST",
   url:"/getContacts",
@@ -62,13 +62,25 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
   }
 });*/
 
-//console.log("JSON.stringify(session.utente.type)");
 
 const socket = io('http://localhost:3000')
 const messageContainer = document.getElementById('messages')
 const messageForm = document.getElementById('form-chat')
 const messageInput = document.getElementById('input-chat')
 var receivers=null;
+var emailReceiver=null;
+var senderID=null;
+var element=null;
+
+if(connectedUser.type=="student"){
+  senderID=connectedUser.utente.Email;
+}
+else if(connectedUser.type=="academic"){
+  senderID=connectedUser.utente.E_mail;
+}
+else if( connectedUser.type=="external"){
+  senderID=connectedUser.utente.email;
+}
 
 socket.on('chat-message', data => {
   appendMessage(`${data.message}`)
@@ -77,11 +89,15 @@ socket.on('chat-message', data => {
 if(messageForm!=null){
   messageForm.addEventListener('submit', e => {
     e.preventDefault()
-    const message = messageInput.value
+    var d= new Date();
+    var data={hour: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds(), day: d.getDate(), month: ((d.getMonth())+1), year: d.getFullYear()};
+    var messageID= saveMessage({senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data});
+    const message = {_id: messageID, senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data};
     if(message.length==0) return; 
     appendSentMessage(message);
-    socket.emit('send-chat-message', message)
-    messageInput.value = ''
+    socket.emit('send-chat-message', message);
+    messageInput.value = '';
+    
   })
 }
 
@@ -101,13 +117,18 @@ function appendMessage(message) {
 }
 
 function appendSentMessage(message){
+  console.log(message._id);
   var div= document.createElement('div');
   div.className="messageContainer justifyEnd";
   var div1= document.createElement('div');
   div1.className="messageBox backgroundBlue";
   var pI= document.createElement('p');
   pI.className="messageText colorWhite";
-  var text1= document.createTextNode(message);
+  var idMessage=document.createElement('span');
+  idMessage.className="id-message";
+  idMessage.style.display="none";
+  idMessage.innerHTML=message._id;
+  var text1= document.createTextNode(message.text);
   var img= document.createElement('img');
   img.className="chat-menu";
   img.src="../img/icon-menu-chat.png";
@@ -115,9 +136,14 @@ function appendSentMessage(message){
   var href= document.createElement('a');
   href.href="javascript:void(0)";
   href.appendChild(img);
-  href.setAttribute('onclick', 'showPopup(event)');
+  href.setAttribute('onclick', 'showPopup(event, this)');
+  var span= document.createElement('p');
+  span.className="chat-data";
+  span.innerHTML=message.date.hour+":"+message.date.minutes+", "+message.date.day+"/"+message.date.month+"/"+message.date.year;
   pI.appendChild(text1);
   div1.appendChild(pI);
+  div1.appendChild(span);
+  div1.appendChild(idMessage);
   div.appendChild(div1);
   div.appendChild(href);
   messageContainer.appendChild(div);
@@ -164,12 +190,13 @@ function appendSentMessage(message){
       $chatboxBack.on('click', function(e){
         e.stopPropagation();
         $('#search-form-chat').css('display', 'flex');
-        $('.contacts').css('display', 'flex');
+        $('.contacts').css('display', 'block');
         $('.choice-user').css('display', 'flex');
         $('#name-of-user').css('display', 'none');
         $('.messages').css('display', 'none');
         $('.send-form').css('display', 'none');
         $('#back-chat').css('display', 'none');
+        $('.messages').empty();
       });
 
       $chatOpen.on('click', function(){
@@ -193,26 +220,17 @@ function appendSentMessage(message){
       });
 
       $('body').on('click', function(){
-        if($('.popup-chat-menu').hasClass("Removable"))  $('.popup-chat-menu').remove();
+        if($('.popup-chat-menu').hasClass("Removable")){
+          $('.popup-chat-menu').remove();
+          element=null;
+        }  
       });
 
       $('body').on('click', function(){
         $('.popup-chat-menu').addClass("Removable");
       });
 
-      $('.contact').on('click', function(){
-        var name=$('.user-info-name').text();
-        var email=$('.user-info-email').text();
-        $('#search-form-chat').css('display', 'none');
-        $('.contacts').css('display', 'none');
-        $('.choice-user').css('display', 'none');
-        $('#name-of-user').css('display', 'block');
-        $('.messages').css('display', 'block');
-        $('.send-form').css('display', 'block');
-        $('#back-chat').css('display', 'block');
-        $('#name-of-user').append(name);
-        //caricare messaggi con email e appenderli tramite le funzioni append
-      });
+      
 
       $('#form-chat').submit(function(){
         return false;
@@ -252,20 +270,23 @@ function appendSentMessage(message){
       $('#externalButtonChat').on('click', function(){
         getReceivers('external');
       });
-      
+
   });
 
 
 
-  function showPopup(e){
+  function showPopup(e, el){
+    element=el;
+    var id=$(el.parentNode).children('.messageBox').children('.id-message').text();
+    console.log(id);
     $('.popup-chat-menu').remove();
         $('body').append(['<div tabindex="-1" class="popup-chat-menu" style="transform-origin: top right; top:'+(e.pageY)+'px; right:'+(-(e.pageX -$(window).width()))+'px; transform: scale(1); opacity:1;">',
                             '<ul class="ul-chat-menu">',
                               '<li tabindex="-1" class="update-message" data-animate-dropdown-item="true">',
-                                '<div class="button-menu" role="button" title="Modifica messaggio">Modifica messaggio</div>',
+                                '<div class="button-menu" role="button" title="Modifica messaggio" onclick="updateMessage()">Modifica messaggio</div>',
                               '</li>',
                               '<li tabindex="-1" class="remove-message" data-animate-dropdown-item="true">', 
-                                '<div class="button-menu" role="button" title="Elimina messaggio">Elimina messaggio</div>',
+                                '<div class="button-menu" role="button" title="Elimina messaggio" onclick="removeMessage()">Elimina messaggio</div>',
                               '</li>',
                             '</ul>',
                           '</div>'].join('\n'));
@@ -273,7 +294,7 @@ function appendSentMessage(message){
 
   function appendStudent(student){
     $('.contacts').append(['<div class="contact-container">',
-    '<div class="contact">',
+    '<div class="contact" onclick="accessChat(this)">',
         '<p class="user-info-name">'+student.Name+'</p>',
         '<p class="user-info-email">'+student.Email+'</p>',
     '</div>',
@@ -281,9 +302,8 @@ function appendSentMessage(message){
   }
 
   function appendAcademic(academic){
-    console.log(academic);
     $('.contacts').append(['<div class="contact-container">',
-    '<div class="contact">',
+    '<div class="contact" onclick="accessChat(this)">',
         '<p class="user-info-name">'+academic.Name+'</p>',
         '<p class="user-info-email">'+academic.E_mail+'</p>',
     '</div>',
@@ -292,7 +312,7 @@ function appendSentMessage(message){
 
   function appendExternal(external){
     $('.contacts').append(['<div class="contact-container">',
-    '<div class="contact">',
+    '<div class="contact" onclick="accessChat(this)">',
         '<p class="user-info-name">'+external.name+'</p>',
         '<p class="user-info-email">'+external.email+'</p>',
     '</div>',
@@ -313,9 +333,7 @@ function appendSentMessage(message){
           }
         }
         else if(typeOfUser=="academic"){
-          console.log(users);
           while(users[i]!=null){
-            console.log("we");
             appendAcademic(users[i]);
             i++;
           }
@@ -329,6 +347,126 @@ function appendSentMessage(message){
       },
       error: function(){
         console.log("error");
+      }
+    });
+  }
+
+  function accessChat(item){
+    var name=$(item).children('.user-info-name').text();
+    emailReceiver=$(item).children('.user-info-email').text();
+    $('#search-form-chat').css('display', 'none');
+    $('.contacts').css('display', 'none');
+    $('.choice-user').css('display', 'none');
+    $('#name-of-user').css('display', 'block');
+    $('.messages').css('display', 'block');
+    $('.send-form').css('display', 'block');
+    $('#back-chat').css('display', 'block');
+    $('#name-of-user').text(name);
+    
+    $.ajax({
+      type: "POST",
+      url:"/getMessages",
+      data:{sender: senderID, recipient: emailReceiver},
+      success: function(messages){
+        var i=0;
+        var j=0;
+        if(messages.sender.length==0){
+          if(messages.recipient.length==0)  return null;
+          else{
+            for(var h=0; messages.recipient[h]!=null; h++)  appendMessage(messages.recipient[h]);
+          }
+        }
+        for(;messages.sender[i]!=null;i++){
+          if(messages.recipient.length==0){
+            appendSentMessage(messages.sender[i]);
+            continue;
+          }
+          for(;messages.recipient[j]!=null;j++){
+            if(messages.sender[i].date.year > messages.recipient[i].date.year){
+              appendMessage(messages.recipient[i]);
+            }
+            else if(messages.sender[i].date.year < messages.recipient[i].date.year){
+              appendSentMessage(messages.sender[i]);
+              break;
+            }
+            else if(messages.sender[i].date.year == messages.recipient[i].date.year){
+              if(messages.sender[i].date.month > messages.recipient[i].date.month){
+                appendMessage(messages.recipient[i]);
+              }
+              else if(messages.sender[i].date.month < messages.recipient[i].date.month){
+                appendSentMessage(messages.sender[i]);
+                break;
+              }
+              else if(messages.sender[i].date.month == messages.recipient[i].date.month){
+                if(messages.sender[i].date.day > messages.recipient[i].date.day){
+                  appendMessage(messages.recipient[i]);
+                }
+                else if(messages.sender[i].date.day < messages.recipient[i].date.day){
+                  appendSentMessage(messages.sender[i]);
+                  break;
+                }
+                else if(messages.sender[i].date.day == messages.recipient[i].date.day){
+                  if(messages.sender[i].date.hour > messages.recipient[i].date.hour){
+                    appendMessage(messages.recipient[i]);
+                  }
+                  else if(messages.sender[i].date.hour < messages.recipient[i].date.hour){
+                    appendSentMessage(messages.sender[i]);
+                    break;
+                  }
+                  else if(messages.sender[i].date.hour == messages.recipient[i].date.hour){
+                    if(messages.sender[i].date.minutes > messages.recipient[i].date.minutes){
+                      appendMessage(messages.recipient[i]);
+                    }
+                    else if(messages.sender[i].date.minutes < messages.recipient[i].date.minutes){
+                      appendSentMessage(messages.sender[i]);
+                      break;
+                    }
+                    else if(messages.sender[i].date.minutes == messages.recipient[i].date.minutes){
+                      if(messages.sender[i].date.seconds > messages.recipient[i].date.seconds){
+                        appendMessage(messages.recipient[i]);
+                      }
+                      else if(messages.sender[i].date.seconds < messages.recipient[i].date.seconds){
+                        appendSentMessage(messages.sender[i]);
+                        break;
+                      }
+                      else if(messages.sender[i].date.seconds == messages.recipient[i].date.seconds){
+                        appendSentMessage(messages.sender[i]);
+                        appendMessage(messages.recipient[i]);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function saveMessage(message){
+    var id=null;
+    $.ajax({
+      type:"POST",
+      url:"/saveMessage",
+      data:{message: message},
+      async:false,
+      success: function(result){
+        id=result;
+      }
+    });
+    return id;
+  }
+
+  function removeMessage(){
+    var id=$(element.parentNode).children('.messageBox').children('.id-message').text();
+    $(element.parentNode).remove();
+    $.ajax({
+      type:"POST",
+      url:"/removeMessage",
+      data:{messageID: id},
+      success: function(result){
+
       }
     });
   }
