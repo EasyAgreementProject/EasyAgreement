@@ -5,13 +5,13 @@ var messageModel= require('../models/message');
 
 exports.getAllContacts= function(type, res){
     var users=null;
-    if(type=="academic"){
+    if(type=="academicTutor"){
         users=academicModel.RetrieveAll();
     }
     else if(type=="student"){
         users=studentModel.RetrieveAll();
     }
-    else if(type=="external"){
+    else if(type=="externalTutor"){
         users=externalModel.RetrieveAll();
     }
     users.then(function(result){
@@ -128,14 +128,17 @@ exports.saveMessage= function(message, res){
     });
 }
 
-exports.updateMessage= function(message){
-
+exports.updateMessage= function(id, text, res){
+    var update= messageModel.updateMessage(id, text);
+    update.then(function(result){
+        res.json(true);
+    })
 }
 
 exports.removeMessage= function(messageID, res){
     var remove= messageModel.removeMessage(messageID);
     remove.then(function(result){
-        res.json();
+        res.json(true);
     })
 }
 

@@ -136,3 +136,7 @@ app.post('/saveMessage', function(req, res){
 app.post('/removeMessage', function(req, res){
   messageControl.removeMessage(req.body.messageID, res);
 });
+
+app.post('/updateMessage', function(req, res){
+  messageControl.updateMessage(req.body.messageID, req.body.text, res);
+});

@@ -71,33 +71,42 @@ var receivers=null;
 var emailReceiver=null;
 var senderID=null;
 var element=null;
+var id=null;
+
 
 if(connectedUser.type=="student"){
   senderID=connectedUser.utente.Email;
 }
-else if(connectedUser.type=="academic"){
+else if(connectedUser.type=="academicTutor"){
   senderID=connectedUser.utente.E_mail;
 }
-else if( connectedUser.type=="external"){
-  senderID=connectedUser.utente.email;
+else if( connectedUser.type=="externalTutor"){
+  senderID=connectedUser.utente.E_mail;
 }
 
 socket.on('chat-message', data => {
-  appendMessage(`${data.message}`)
+  appendMessage(data.message);
 })
 
 if(messageForm!=null){
   messageForm.addEventListener('submit', e => {
-    e.preventDefault()
-    var d= new Date();
-    var data={hour: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds(), day: d.getDate(), month: ((d.getMonth())+1), year: d.getFullYear()};
-    var messageID= saveMessage({senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data});
-    const message = {_id: messageID, senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data};
-    if(message.length==0) return; 
-    appendSentMessage(message);
-    socket.emit('send-chat-message', message);
-    messageInput.value = '';
-    
+    e.preventDefault();
+    if(messageForm.classList.contains('modificable')){
+      if(messageInput.value.length==0) return;
+      changeMessageText(messageInput.value);
+      messageForm.classList.remove('modificable');
+      messageInput.value = '';
+    }
+    else{
+      var d= new Date();
+      var data={hour: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds(), day: d.getDate(), month: ((d.getMonth())+1), year: d.getFullYear()};
+      var messageID= saveMessage({senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data});
+      const message = {_id: messageID, senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data};
+      if(message.length==0) return; 
+      appendSentMessage(message);
+      socket.emit('send-chat-message', message);
+      messageInput.value = '';
+    }
   })
 }
 
@@ -108,16 +117,19 @@ function appendMessage(message) {
   div1.className="messageBox backgroundLight";
   var pI= document.createElement('p');
   pI.className="messageText colorDark";
-  var text1= document.createTextNode(message);
+  var text1= document.createTextNode(message.text);
+  var span= document.createElement('p');
+  span.className="chat-data";
+  span.innerHTML=message.date.hour+":"+message.date.minutes+", "+message.date.day+"/"+message.date.month+"/"+message.date.year;
   pI.appendChild(text1);
   div1.appendChild(pI);
+  div1.appendChild(span);
   div.appendChild(div1);
   messageContainer.appendChild(div);
   messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
 function appendSentMessage(message){
-  console.log(message._id);
   var div= document.createElement('div');
   div.className="messageContainer justifyEnd";
   var div1= document.createElement('div');
@@ -244,31 +256,34 @@ function appendSentMessage(message){
         $('#studentButtonChat').css('display', 'none');
         $('#academicButtonChat').css('border-radius', '24px 0 0 24px');
         $('#externalButtonChat').css('border-radius', '0 24px 24px 0');
-        getReceivers('academic');
+        getReceivers('academicTutor');
       }
-      else if(connectedUser.type=="academic"){
+      else if(connectedUser.type=="academicTutor"){
         $('#academicButtonChat').css('display', 'none');
         $('#externalButtonChat').css('border-radius', '24px 0 0 24px');
         $('#studentButtonChat').css('border-radius', '0 24px 24px 0');
-        getReceivers('external');
+        getReceivers('externalTutor');
       }
-      else if(connectedUser.type=="external"){
+      else if(connectedUser.type=="externalTutor"){
         $('#externalButtonChat').css('display', 'none');
         $('#academicButtonChat').css('border-radius', '24px 0 0 24px');
         $('#studentButtonChat').css('border-radius', '0 24px 24px 0');
-        getReceivers('academic');
+        getReceivers('accademicTutor');
       }
 
       $('#studentButtonChat').on('click', function(){
+        $('.contacts').empty();
         getReceivers('student');
       });
 
       $('#academicButtonChat').on('click', function(){
-        getReceivers('academic');
+        $('.contacts').empty();
+        getReceivers('academicTutor');
       });
 
       $('#externalButtonChat').on('click', function(){
-        getReceivers('external');
+        $('.contacts').empty();
+        getReceivers('externalTutor');
       });
 
   });
@@ -277,8 +292,6 @@ function appendSentMessage(message){
 
   function showPopup(e, el){
     element=el;
-    var id=$(el.parentNode).children('.messageBox').children('.id-message').text();
-    console.log(id);
     $('.popup-chat-menu').remove();
         $('body').append(['<div tabindex="-1" class="popup-chat-menu" style="transform-origin: top right; top:'+(e.pageY)+'px; right:'+(-(e.pageX -$(window).width()))+'px; transform: scale(1); opacity:1;">',
                             '<ul class="ul-chat-menu">',
@@ -313,8 +326,8 @@ function appendSentMessage(message){
   function appendExternal(external){
     $('.contacts').append(['<div class="contact-container">',
     '<div class="contact" onclick="accessChat(this)">',
-        '<p class="user-info-name">'+external.name+'</p>',
-        '<p class="user-info-email">'+external.email+'</p>',
+        '<p class="user-info-name">'+external.Name+'</p>',
+        '<p class="user-info-email">'+external.E_mail+'</p>',
     '</div>',
 '</div>',].join('\n'));
   }
@@ -332,13 +345,13 @@ function appendSentMessage(message){
             i++;
           }
         }
-        else if(typeOfUser=="academic"){
+        else if(typeOfUser=="academicTutor"){
           while(users[i]!=null){
             appendAcademic(users[i]);
             i++;
           }
         }
-        else if(typeOfUser=="external"){
+        else if(typeOfUser=="externalTutor"){
           while(users[i]!=null){
             appendExternal(users[i]);
             i++;
@@ -362,7 +375,10 @@ function appendSentMessage(message){
     $('.send-form').css('display', 'block');
     $('#back-chat').css('display', 'block');
     $('#name-of-user').text(name);
-    
+    getMessages(emailReceiver);
+  }
+  
+  function getMessages(emailReceiver)  {
     $.ajax({
       type: "POST",
       url:"/getMessages",
@@ -469,4 +485,23 @@ function appendSentMessage(message){
 
       }
     });
+  }
+
+  function updateMessage(){
+    id=$(element.parentNode).children('.messageBox').children('.id-message').text();
+    $('.form-chat').addClass("modificable");
+    messageInput.value=$(element.parentNode).children('.messageBox').children('.messageText').text();
+  }
+
+  function changeMessageText(text){
+    $('.messages').empty();
+    $.ajax({
+      type:"POST",
+      url:"/updateMessage",
+      data:{messageID:id, text: text},
+      async: false,
+      success: function(result){
+      }
+    });
+    getMessages(emailReceiver);
   }

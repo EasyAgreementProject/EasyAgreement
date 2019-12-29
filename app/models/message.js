@@ -90,13 +90,13 @@ class Message {
         });
     }
 
-    static updateMessage(message,value) {
+    static updateMessage(id,value) {
         return new Promise(function(fulfill, reject) {
             MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
                 if (err) reject(err);
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
-                dbo.collection("Message").updateOne({messageID: message.messageID},{text: value}, function(err,result) {
+                dbo.collection("Message").updateOne({_id: ObjectID(id)},{$set:{text: value}}, function(err,result) {
                     if(err) reject(err);
                     console.log("Message updated");
                     db.close();
