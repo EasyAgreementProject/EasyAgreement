@@ -10,6 +10,7 @@
     "connect": "^3.7.0",
     "cookie-parser": "^1.4.4",
     "cookieparser": "^0.1.0",
+    "coveralls": "^3.0.9",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
@@ -29,8 +30,9 @@
     "nyc": "^15.0.0"
   },
   "scripts": {
-    "test": "nyc mocha --exit",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "nyc --reporter=html --reporter=text mocha --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",

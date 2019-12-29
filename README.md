@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/EasyAgreementProject/EasyAgreement.svg?branch=master)](https://travis-ci.com/EasyAgreementProject/EasyAgreement)
+[![Coverage Status](https://coveralls.io/repos/github/EasyAgreementProject/EasyAgreement/badge.svg?branch=master)](https://coveralls.io/github/EasyAgreementProject/EasyAgreement?branch=master)
 # EasyAgreement
 This project is a meant as a platform for simplify the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of Learning Agreement document.
 
@@ -91,6 +92,7 @@ Team Members:
 * **Roberto Veneruso** - *EasyAgreement* - [rveneruso](https://github.com/rveneruso)
 * **Salvatore Amideo** - *EasyAgreement* - [Salvo1108](https://github.com/Salvo1108)
 * **Veronica Volpicelli** - *EasyAgreement* - [Chouch0](https://github.com/Chouch0)
+
 
 ## License
 
