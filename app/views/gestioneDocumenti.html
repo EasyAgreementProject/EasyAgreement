@@ -88,25 +88,26 @@
                       			<td class="text-center" name="documento_cd">Carta Di Identità</td>
                       			<td class="text-center" name="stato_cd"></td>
                             <td class="text-center" name="carica_cd">
-                              <form action="/fileupload" method="post" enctype="multipart/form-data">
+                              <form action="/fileupload" method="post" enctype="multipart/form-data" name="uploadFormCD">
                               <input type="file" name="filetoupload"><br>
                               <input type="submit">
                                 </form>
                                 <img src="/img/upload.png" width="20px" height="20px"></td>
-                      			<td class="text-center" name="visualizza_cd"><form action="/fileviewCD" method="post"><input type="image" src="/img/spunta-verde.png" width="20px" height="20px"></td>
-                      			<td class="text-center" name="elimina_cd"><form action="/deleteCD" method="post"><input type="image" src="/img/delete.png" width="20px" height="20px"></td>
+                      			<td class="text-center" name="visualizza_cd"><form action="/fileviewCD" method="post" name="viewFormCD"><button type="image"><img src="/img/spunta-verde.png" width="20px" height="20px" border="0"></button></form></td>
+                      			<td class="text-center" name="elimina_cd"><form action="/deleteCD" method="post" name="deleteFormCD"><button type="submit"><img src="/img/delete.png" width="20px" height="20px" border="0"></button></form></td>
 		                  </tr>
 
                       <tr>
                             <td class="text-center" name="documento_cv">Curriculum Vitae</td>
                             <td class="text-center" name="stato_cv"></td>
                             <td class="text-center" name="carica_cv"><a>
-                              <form action="/fileupload" method="post" enctype="multipart/form-data" id="doc">
+                              <form action="/fileupload" method="post" enctype="multipart/form-data" id="doc" name="uploadFormCV">
                               <input type="file" name="filetoupload"><br>
-                              <input type="submit">
-                            </form><img src="/img/upload.png" width="20px" height="20px"></a></td>
-                            <td class="text-center" name="visualizza_cv"><form action="fileviewCV" method="post"><input type="image" src="/img/spunta-verde.png" width="20px" height="20px"></td>
-                            <td class="text-center" name="elimina_cv"><form action="deleteCV" method="post"><input type="image" src="/img/delete.png" width="20px" height="20px"></td>
+                              <input type="submit" value="Invia CV">
+                              </form>
+                            <img src="/img/upload.png" width="20px" height="20px"></a></td>
+                            <td class="text-center" name="visualizza_cv"><form action="/fileviewCV" method="post" name="viewFormCV"><button type="image"> <img src="/img/spunta-verde.png" width="20px" height="20px" border="0"></button></form></td>
+                            <td class="text-center" name="elimina_cv"><form action="/deleteCV" method="post" name="deleteFormCV"><button type="image"> <img src="/img/delete.png" width="20px" height="20px" border="0"></button></form></td>
                       </tr>
 
 
