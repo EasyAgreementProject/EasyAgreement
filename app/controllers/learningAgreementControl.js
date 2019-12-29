@@ -149,8 +149,6 @@ exports.sendLaStudent = function(input, res) {
 }
 
 exports.saveLaStudent = function(input) {
-    var sourcePDF = "pdf/Template_LA.pdf";
-    var destinationPDF = "pdf/Filled_LA.pdf";
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -256,25 +254,17 @@ exports.saveLaStudent = function(input) {
     }
 
     return new Promise(function(fulfill, reject) {
-        pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
-            if (err)
-                throw err;
-            else {
-                console.log("PDF create successfully!");
-                //send Filled PDF to Client side
-                learningAgreement.setFilling(data);
-                learningAgreement.setDocument(null);
-                learningAgreement.setStudentID(data["E-mail"]);
-                learningAgreement.setState(null);
-                learningAgreement.setDate(data["The trainee date"]);
+        //send Filled PDF to Client side
+        learningAgreement.setFilling(data);
+        learningAgreement.setDocument(null);
+        learningAgreement.setStudentID(data["E-mail"]);
+        learningAgreement.setState(null);
+        learningAgreement.setDate(data["The trainee date"]);
 
-                let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                insertLearningAgreementPr.then(function() {
-                    fulfill();
-                });
-
-            }
-        });
+        let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+        insertLearningAgreementPr.then(function() {
+            fulfill();
+        });            
     })
 }
 

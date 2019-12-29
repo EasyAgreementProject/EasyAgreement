@@ -119,7 +119,7 @@ app.post('/compileExternalTutor', function(req, res) {
   })
 });
 
-app.get('/saveCompilation', function(req, res) {
+app.post('/saveStudent', function(req, res) {
     var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
       req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactName, req.body.inputContactSending,
       req.body.inputNameSector, req.body.inputDepartmentReciving, req.body.inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
@@ -127,7 +127,7 @@ app.get('/saveCompilation', function(req, res) {
       req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
     ];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
-    saveStudent.then(function(file) {
+    saveStudent.then(function() {
       res.sendFile(path.join(__dirname + "/app/views/index.html"));
     });
 });
