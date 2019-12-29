@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Compilazione LA Tutor Accademico</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/compileLAAcademicTutor.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/formValidationAcademicTutor.js"></script>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <a href="index.html" style="text-decoration: none; color: black;">
+                <div class=sidebar-logo>
+                    <img src="/img/logoUni.png" style="float: left" width="50px">
+                </div>
+                <div class="sidebar-heading">Home</div>
+            </a>
+            <div class="list-group list-group-flush">
+                <a href="profile.html" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/profile.svg" style="height: 20px; width: 20px;">Profilo</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
+                <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;">Lista Tutor</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background-color: orange;">
+                <button id="menu-toggle"><img src="/img/menu.png" style="height: 20px; width: 20px;"></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="/img/responsive_slide.svg" style="height: 20px; width: 20px;">
+            </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+                <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+                <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
+                <hr>
+                <form id="formCompile" method="post" action="/compileAcademicTutor"><br>
+                   <p>L'istituzione si impegna a rispettare tutti i principi della "Erasmus Charter for Heigher Education" relativa ai tirocini.</p>
+                   <hr>
+                   <div id="Info1" onclick="javascript: locked()">
+                   <p style="font-weight: bold">Il tirocinio è integrato nel curriculum e al soddisfacente completamento dello stesso, l'istituzione si impegna a:</p>     
+                   <br> 
+                   <ul>
+                    <li>
+                        Premiare: <div class="form-label-group">
+                        <input type="number" class="form-control" id="inputCredits" name="inputCredits" min="0"  ></div>
+                        <label for="inputCredits"></label>
+                        <span id="errAward">Numero crediti non valido</span>
+                    ECTS crediti.
+                    </li><br>
+                    <li>
+                        Dare una votazione basata su: <div class="form-check">
+                            <input class="form-check-input" type="radio" id="inputCertificate" name="vote" value="certificate">
+                            <label class="form-check-label" for="vote">
+                                Certificato di tirocinio
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="inputReport" name="vote" value="report">
+                            <label class="form-check-label" for="vote">
+                                Rapporto finale
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="inputInterview" name="vote" value="interview" >
+                            <label class="form-check-label" for="vote">
+                                Colloquio
+                            </label>
+                        </div>
+                        <li>Registrare il tirocinio nella Transcript of Records del tirocinante.</li>
+                        <li>Registrare il tirocinio nel Supplemento del diploma del tirocinante (o equivalente).</li>
+                        <li>Registrare il tirocinio nel documento di mobilità Europass del tirocinante.<div class="row"><div class="form-check">
+                            <label for="inputRadio1">Si</label>
+                            <input type="radio" id="inputRadio1" name="inputRadio1" value="Si"   >
+                            <label for="inputRadio1">No</label>
+                            <input type="radio" id="inputRadio1" name="inputRadio1" value="No">
+                        </div>
+                    </div>
+                    </li>
+                    </ul> 
+                    </div>
+                    <hr>
+                    <div id="Info2" onclick="javascript: locked()">
+                    <p style="font-weight: bold;">Il tirocinio è volontario e al termine soddisfacente del tirocinio, l'istituzione si impegna a:</p>
+                    <ul>
+                        <li>
+                            Premiare con crediti ECTS <div class="row">
+                                <div class="form-check">
+                                    <label for="inputRadio2">Si</label>
+                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="Si"  >
+                                    <label for="inputRadio2">No</label>
+                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="No"><br>
+                                </div>
+                            </div>
+                                In caso affermativo, si prega di indicare il numero di crediti ECTS:
+                                 <div class="form-label-group">
+                                    <input type="number" class="form-control" id="inputCredits2" name="inputCredits2" min="0">
+                                    <label for="inputCredits2"></label>
+                                    <span id="errNumberCredits">Numero crediti non valido</span>
+                                </div>
+                        </li>
+                        <li>Dare una votazione: <div class="row">
+                            <div class="form-check">
+                                <label for="inputRadio3">Si</label>
+                                <input type="radio" id="inputRadio3" name="inputRadio3" value="Si" >
+                                <label for="inputRadio3">No</label>
+                                <input type="radio" id="inputRadio3" name="inputRadio3" value="No"   ><br>
+                            </div>
+                        </div>
+                    In caso affermativo, si prega di indicare se ciò si baserà su:<br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="inputCertificate1" name="vote1" value="certificate">
+                        <label class="form-check-label" for="vote1">
+                            Certificato di tirocinio
+                        </label>
+                    </div>
+                    <div class="form-check">   
+                        <input class="form-check-input" type="radio" id="inputReport1" name="vote1" value="report">
+                        <label class="form-check-label" for="vote1">
+                            Rapporto finale
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="inputInterview1" name="vote1" value="interview">
+                        <label class="form-check-label" for="vote1">
+                            Colloquio
+                        </label>
+                    </div>
+                 </li>
+                 <li>Registrare il tirocinio nella Transcript of Records del tirocinante:
+                    <div class="row">
+                        <div class="form-check">
+                            <label for="inputRadio4">Si</label>
+                            <input type="radio" id="inputRadio4" name="inputRadio4" value="Si">
+                            <label for="inputRadio4">No</label>
+                            <input type="radio" id="inputRadio4" name="inputRadio4" value="No"   ><br>
+                        </div>
+                    </div>
+                 </li>
+                 <li>Registrare il tirocinio nel Supplemento del diploma del tirocinante (o equivalente), tranne se il tirocinante è un neolaureato.</li>
+                 <li>Registrare il tirocinio nel documento di mobilità Europass del tirocinante
+                    <div class="row">
+                        <div class="form-check">
+                            <label for="inputRadio5">Si</label>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" value="Si">
+                            <label for="inputRadio5">No</label>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" value="No"   ><br>
+                        </div>
+                    </div>
+                 </li>
+                    </ul>
+                    </div>
+                    <hr>
+                        <h5 style="text-align: justify; font-style: italic; color: darkblue;">Impegno Delle Tre Parti</h5><br>
+                        <p>Firmando questo documento, il tirocinante, l'istituto di invio e il destinatario
+                            organizzazione / impresa confermano di approvare il Learning Agreement proposto e di
+                            rispettare tutte le disposizioni concordate da tutte le parti.
+                            Il tirocinante e l'organizzazione / impresa ricevente comunicheranno all'istituto di invio
+                            qualsiasi problema o modifica relativa al periodo di tirocinio.</p>
+                    <hr>                    
+                    <button class="btn btn-block" type="submit" class="saveButton" id="send">APPROVA</button>
+                    <button class="btn btn-block" type="submit" formaction="/saveAcademicTutor" class="saveButton">SALVA</button> 
+                    
+                </form>
+                <form id = "disapproveForm" method ="POST" action = "/disapproveAcademicTutor" style = "display: none;">
+                    <div class = "form-label-group">
+                        <input type = "text" class = "form-control" name = "msg">
+                        <label for = "msg">Inserire la motivazione</label>
+                    </div>
+                    <button class="btn btn-block" type="submit" class="saveButton">DISAPPROVA</button>
+                </form>
+                <button class="btn btn-block" type="button" id="disapprove" onclick = "disapprove()" class="saveButton">DISAPPROVA</button>                  
+                    
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/jquery/dist/jquery.min.js "></script>
+    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js "></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle ").click(function(e) {
+            e.preventDefault();
+            $("#wrapper ").toggleClass("toggled ");
+        });
+    </script>
+    <script>
+        function disapprove() {
+            document.getElementById("disapproveForm").style.display = "block";
+            document.getElementById("disapprove").style.display = "none";
+        }
+    </script>
+    <script>
+    $(document).ready(function() {
+        $.get("/fillform", function(data){
+            if (data["Award"]) document.getElementById("inputCredits").value = data["Award"];
+            if (data["Traineeship certificate"]) document.getElementById("inputCertificate").checked = true;
+            if (data["Final report"]) document.getElementById("inputReport").checked = true;
+            if (data["Interview"]) document.getElementById("inputInterview").checked = true;
+            if (data["Europass Mobility Document Yes"]) document.getElementById("inputRadio1").checked = true;
+            if (data["Europass Mobility Document No"]) document.getElementById("inputRadio1").checked = true;
+            if (data["Award ECTS credits Yes"]) document.getElementById("inputRadio2").checked = true;
+            if (data["Award ECTS credits No"]) document.getElementById("inputRadio2").checked = true;
+            if (data["If yes, please indicate the number of ECTS credits"]) document.getElementById("inputCredits2").value = data["If yes, please indicate the number of ECTS credits"];
+            if (data["Give a grade Yes"]) document.getElementById("inputRadio3").checked = true;
+            if (data["Give a grade No"]) document.getElementById("inputRadio3").checked = true;
+            if (data["Traineeship certificate1"]) document.getElementById("inputCertificate1").checked = true;
+            if (data["Final report1"]) document.getElementById("inputReport1").checked = true;
+            if (data["Interview1"]) document.getElementById("inputInterview1").checked = true;
+            if (data["Record the traineeship in the trainee's Transcript of Records Yes"]) document.getElementById("inputRadio4").checked = true;
+            if (data["Record the traineeship in the trainee's Transcript of Records No"]) document.getElementById("inputRadio4").checked = true;
+            if (data["Record the traineeship in the trainee's Europass Mobility Document Yes"]) document.getElementById("inputRadio5").checked = true;
+            if (data["Record the traineeship in the trainee's Europass Mobility Document No"]) document.getElementById("inputRadio5").checked = true;
+        });
+    });
+    </script>
+    <script type="text/javascript">
+    function locked(){
+     if(document.getElementById("inputCredits").value>0){
+         document.getElementById("Info1").style.display='initial';
+         document.getElementById("Info2").style.display='none';
+         if((document.getElementById("inputCredits").value<1)||(document.getElementById("inputCredits").value==null)){
+            document.getElementById("Info2").style.display='initial';
+         }
+     }else if(document.getElementById("inputCredits2").value>0){
+        document.getElementById("Info1").style.display='none';
+        document.getElementById("Info2").style.display='initial';
+        if((document.getElementById("inputCredits2").value<1)||(document.getElementById("inputCredits2").value==null)){
+            document.getElementById("Info1").style.display="initial";
+        }
+     }else{
+        document.getElementById("Info1").style.display='initial';
+        document.getElementById("Info2").style.display='initial';
+     }
+   
+}
+    </script>
+    <script type="text/javascript" src="./js/academicTutorCookies.js"></script>
+    </body>
+    </html>
+                
+                   
+                
+                   

@@ -51,6 +51,7 @@ $(document).ready(function() {
     var errMonitoring = getCookie("errMonitoring");
     var errEvaluation = getCookie("errEvaluation");
     var errLenguage = getCookie("errLenguage");
+   
 
 
     if (errName == "1") {
