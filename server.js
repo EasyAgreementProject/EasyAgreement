@@ -132,6 +132,38 @@ app.post('/saveStudent', function(req, res) {
     });
 });
 
+app.post('/saveAcademicTutor', function(req, res) {
+  var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
+    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.utente.utente.Email //To change with email of student request 
+  ];
+  var saveTutor = learningAgreementControl.saveLaAcademicTutor(data);
+  saveTutor.then(function() {
+    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+  });
+});
+
+app.post('/saveExternalTutor', function(req, res) {
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.utente.utente.Email]; //To change with email of student request 
+  var saveTutor = learningAgreementControl.saveLaExternalTutor(data);
+  saveTutor.then(function() {
+    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+  });
+});
+
+app.post('/disapproveAcademicTutor', function(req, res) {
+  var disapproveTutorPr = learningAgreementControl.disapproveAcademicTutor(req.session.utente.utente.Email, req.body.msg);
+  disapproveTutorPr.then(function() {
+    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+  });
+});
+
+app.post('/disapproveExternalTutor', function(req, res) {
+  var disapproveTutorPr = learningAgreementControl.disapproveExternalTutor(req.session.utente.utente.Email, req.body.msg);
+  disapproveTutorPr.then(function() {
+    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+  });
+});
+
 app.get('/getVersion', function(req, res) {
   var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email);
   getVersionsPr.then(function(data) {

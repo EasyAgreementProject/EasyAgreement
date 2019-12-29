@@ -77,7 +77,7 @@
                            <div class="row">
                                <div class="form-check">
                                     <label for="inputRadio1">Si</label>
-                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="Si" checked onclick='document.getElementById("amount").style.display="initial";'>
+                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="Si"   onclick='document.getElementById("amount").style.display="initial";'>
                                     <label for="inputRadio1">No</label>
                                     <input type="radio" id="inputRadio1" name="inputRadio1" value="No" onclick='document.getElementById("amount").style.display="none"; document.getElementById("inputAmount").required=false;'>
                                 </div>
@@ -85,7 +85,7 @@
                             <div id="amount">
                             In caso affermativo, l'importo in EUR/mese è:
                             <div class="form-label-group">
-                                <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese" required>
+                                <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese">
                                 <label for="inputAmount">Importo Euro/Mese</label>
                                 <span id="errAmount">Importo non valido</span>
                             </div>
@@ -96,7 +96,7 @@
                             <div class="row">
                             <div class="form-check">
                                 <label for="inputRadio2">Si</label>
-                                <input type="radio" id="inputRadio2" name="inputRadio2"  value="Si" checked onclick='document.getElementById("contribution").style.display="initial";'>
+                                <input type="radio" id="inputRadio2" name="inputRadio2"  value="Si"   onclick='document.getElementById("contribution").style.display="initial";'>
                                 <label for="inputRadio1">No</label>
                                 <input type="radio" id="inputRadio2" name="inputRadio2" value="No" onclick='document.getElementById("contribution").style.display="none"; document.getElementById("inputContribution").required=false;'>
                             </div>
@@ -104,7 +104,7 @@
                          <div id="contribution">  
                         In caso affermativo, specificare il tipo di contributo:
                         <div class="form-label-group">
-                            <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo" required>
+                            <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo">
                             <label for="inputContribution">Tipo Di Contributo</label>
                             <span id="errContribution">Tipo di contributo non valido</span>
                         </div>
@@ -130,7 +130,7 @@
                     certificato di tirocinio da</p>
                     
                     <div class="form-label-group">
-                        <input type="number" class="form-control" id="inputWeeks" name="inputWeeks" min="0" max="5" required>
+                        <input type="number" class="form-control" id="inputWeeks" name="inputWeeks" min="0" max="5">
                         <label for="inputWeeks"></label>
                         <span id="errWeeks">Numero settimane non valido</span>
                         <br>
@@ -158,7 +158,17 @@
                             </div>
                     <hr>
                     <button class="btn btn-block" type="submit" class="saveButton">APPROVA</button>
+                    <button class="btn btn-block" type="submit" formaction="/saveExternalTutor" class="saveButton">SALVA</button>
                 </form>
+                <form id = "disapproveForm" method ="POST" action = "/disapproveExternalTutor" style = "display: none;">
+                    <div class = "form-label-group">
+                        <input type = "text" class = "form-control" name = "msg">
+                        <label for = "msg">Inserire la motivazione</label>
+                    </div>
+                    <button class="btn btn-block" type="submit" class="saveButton">DISAPPROVA</button>
+                </form>
+                <button class="btn btn-block" type="button" id="disapprove" onclick = "disapprove()" class="saveButton">DISAPPROVA</button>                  
+                                
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -175,6 +185,12 @@
             e.preventDefault();
             $("#wrapper ").toggleClass("toggled ");
         });
+    </script>
+    <script>
+        function disapprove() {
+            document.getElementById("disapproveForm").style.display = "block";
+            document.getElementById("disapprove").style.display = "none";
+        }
     </script>
     <script language="text/javascript">
     $(document).ready(function() {

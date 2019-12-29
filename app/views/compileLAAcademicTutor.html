@@ -78,7 +78,7 @@
                    <ul>
                     <li>
                         Premiare: <div class="form-label-group">
-                        <input type="number" class="form-control" id="inputCredits" name="inputCredits" min="0" required></div>
+                        <input type="number" class="form-control" id="inputCredits" name="inputCredits" min="0"  ></div>
                         <label for="inputCredits"></label>
                         <span id="errAward">Numero crediti non valido</span>
                     ECTS crediti.
@@ -106,7 +106,7 @@
                         <li>Registrare il tirocinio nel Supplemento del diploma del tirocinante (o equivalente).</li>
                         <li>Registrare il tirocinio nel documento di mobilità Europass del tirocinante.<div class="row"><div class="form-check">
                             <label for="inputRadio1">Si</label>
-                            <input type="radio" id="inputRadio1" name="inputRadio1" value="Si" checked >
+                            <input type="radio" id="inputRadio1" name="inputRadio1" value="Si"   >
                             <label for="inputRadio1">No</label>
                             <input type="radio" id="inputRadio1" name="inputRadio1" value="No">
                         </div>
@@ -122,7 +122,7 @@
                             Premiare con crediti ECTS <div class="row">
                                 <div class="form-check">
                                     <label for="inputRadio2">Si</label>
-                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="Si" checked>
+                                    <input type="radio" id="inputRadio2" name="inputRadio2" value="Si"  >
                                     <label for="inputRadio2">No</label>
                                     <input type="radio" id="inputRadio2" name="inputRadio2" value="No"><br>
                                 </div>
@@ -139,7 +139,7 @@
                                 <label for="inputRadio3">Si</label>
                                 <input type="radio" id="inputRadio3" name="inputRadio3" value="Si" >
                                 <label for="inputRadio3">No</label>
-                                <input type="radio" id="inputRadio3" name="inputRadio3" value="No" checked ><br>
+                                <input type="radio" id="inputRadio3" name="inputRadio3" value="No"   ><br>
                             </div>
                         </div>
                     In caso affermativo, si prega di indicare se ciò si baserà su:<br>
@@ -168,7 +168,7 @@
                             <label for="inputRadio4">Si</label>
                             <input type="radio" id="inputRadio4" name="inputRadio4" value="Si">
                             <label for="inputRadio4">No</label>
-                            <input type="radio" id="inputRadio4" name="inputRadio4" value="No" checked ><br>
+                            <input type="radio" id="inputRadio4" name="inputRadio4" value="No"   ><br>
                         </div>
                     </div>
                  </li>
@@ -179,7 +179,7 @@
                             <label for="inputRadio5">Si</label>
                             <input type="radio" id="inputRadio5" name="inputRadio5" value="Si">
                             <label for="inputRadio5">No</label>
-                            <input type="radio" id="inputRadio5" name="inputRadio5" value="No" checked ><br>
+                            <input type="radio" id="inputRadio5" name="inputRadio5" value="No"   ><br>
                         </div>
                     </div>
                  </li>
@@ -192,9 +192,20 @@
                             rispettare tutte le disposizioni concordate da tutte le parti.
                             Il tirocinante e l'organizzazione / impresa ricevente comunicheranno all'istituto di invio
                             qualsiasi problema o modifica relativa al periodo di tirocinio.</p>
-                    <hr>
-                    <button class="btn btn-block" type="submit" class="saveButton">APPROVA E INVIA</button>
+                    <hr>                    
+                    <button class="btn btn-block" type="submit" class="saveButton" id="send">APPROVA</button>
+                    <button class="btn btn-block" type="submit" formaction="/saveAcademicTutor" class="saveButton">SALVA</button> 
+                    
                 </form>
+                <form id = "disapproveForm" method ="POST" action = "/disapproveAcademicTutor" style = "display: none;">
+                    <div class = "form-label-group">
+                        <input type = "text" class = "form-control" name = "msg">
+                        <label for = "msg">Inserire la motivazione</label>
+                    </div>
+                    <button class="btn btn-block" type="submit" class="saveButton">DISAPPROVA</button>
+                </form>
+                <button class="btn btn-block" type="button" id="disapprove" onclick = "disapprove()" class="saveButton">DISAPPROVA</button>                  
+                    
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -211,6 +222,12 @@
             e.preventDefault();
             $("#wrapper ").toggleClass("toggled ");
         });
+    </script>
+    <script>
+        function disapprove() {
+            document.getElementById("disapproveForm").style.display = "block";
+            document.getElementById("disapprove").style.display = "none";
+        }
     </script>
     <script>
     $(document).ready(function() {
@@ -241,26 +258,18 @@
      if(document.getElementById("inputCredits").value>0){
          document.getElementById("Info1").style.display='initial';
          document.getElementById("Info2").style.display='none';
-         document.getElementById("Info1").required=true;
-         document.getElementById("Info2").required=false;
          if((document.getElementById("inputCredits").value<1)||(document.getElementById("inputCredits").value==null)){
             document.getElementById("Info2").style.display='initial';
-            document.getElementById("Info2").required=true;
          }
      }else if(document.getElementById("inputCredits2").value>0){
         document.getElementById("Info1").style.display='none';
         document.getElementById("Info2").style.display='initial';
-        document.getElementById("Info1").required= false;
-        document.getElementById("Info2").required= true;
         if((document.getElementById("inputCredits2").value<1)||(document.getElementById("inputCredits2").value==null)){
             document.getElementById("Info1").style.display="initial";
-            document.getElementById("Info1").required=true;
         }
      }else{
         document.getElementById("Info1").style.display='initial';
         document.getElementById("Info2").style.display='initial';
-        document.getElementById("Info1").required= true;
-        document.getElementById("Info2").required= true;
      }
    
 }
