@@ -416,6 +416,110 @@ exports.sendLaAcademicTutor = function(input, res) {
     });
 }
 
+exports.saveLaAcademicTutor = function(input, res) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd + "/" + mm + "/" + yyyy;
+
+    return new Promise(function(fulfill, reject) {
+        var getDataPr = exports.getData(input[9]);
+        getDataPr.then(function(data) {        
+            //Traineeship embedded in the curriculum
+            data["Award"] = input[0];
+            switch (input[1]) {
+                case "certificate":
+                    data["Traineeship certificate"] = "X";
+                    break;
+                case "report":
+                    data["Final report"] = "X";
+                    break;
+                case "interview":
+                    data["Interview"] = "X";
+                    break;
+            }
+            switch (input[2]) {
+                case "Si":
+                    data["Europass Mobility Document Yes"] = "X";
+                    break;
+                case "No":
+                    data["Europass Mobility Document No"] = "X";
+                    break;
+            }
+            //Traineeship voluntary
+            switch (input[3]) {
+                case "Si":
+                    data["Award ECTS credits Yes"] = "X";
+                    break;
+                case "No":
+                    data["Award ECTS credits No"] = "X";
+                    break;
+            }
+
+            data["If yes, please indicate the number of ECTS credits"] = input[4];
+
+            switch (input[5]) {
+                case "Si":
+                    data["Give a grade Yes"] = "X";
+                    break;
+                case "No":
+                    data["Give a grade No"] = "X";
+                    break;
+            }
+        
+            switch (input[6]) {
+                case "certificate":
+                    data["Traineeship certificate1"] = "X";
+                    break;
+                case "report":
+                    data["Final report1"] = "X";
+                    break;
+                case "interview":
+                    data["Interview1"] = "X";
+                    break;
+            }
+
+            switch (input[7]) {
+                case "Si":
+                    data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";
+                    break;
+                case "No":
+                    data["Record the traineeship in the trainee's Transcript of Records No"] = "X";
+                    break;
+            }
+
+            switch (input[8]) {
+                case "Si":
+                    data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "X";
+                    break;
+                case "No":
+                    data["Record the traineeship in the trainee's Europass Mobility Document No"] = "X";
+                    break;
+            }
+
+            data["Academic Tutor sign"] = data["Contact person name"];      
+            data["Academic Tutor date"] = today; 
+            data["International Departemental Coordinator sign"] = data["Contact person name"];  
+            data["International Departemental Coordinator date"] = today;
+                        
+            console.log("PDF create successfully!");
+            //send Filled PDF to Client side                        
+            
+            learningAgreement.setFilling(data);
+            learningAgreement.setDocument(null);
+            learningAgreement.setStudentID(data["E-mail"]);
+            learningAgreement.setState(null);
+            learningAgreement.setDate(data["Academic Tutor date"]);
+
+            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+            insertLearningAgreementPr.then(function() {
+                fulfill();
+            });                        
+        });
+    });
+}
+
 exports.sendLaExternalTutor = function(input, res) {
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF = "pdf/Filled_LA_"+random+".pdf";
@@ -546,8 +650,8 @@ exports.sendLaExternalTutor = function(input, res) {
                             learningAgreement.setFilling(data);
                             learningAgreement.setDocument(file);
                             learningAgreement.setStudentID(data["E-mail"]);
-                            learningAgreement.setState("Approved from Academic Tutor");
-                            learningAgreement.setDate(data["Academic Tutor date"]);
+                            learningAgreement.setState("Approved from External Tutor");
+                            learningAgreement.setDate(data["The receiving organization date"]);
 
                             var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                             insertLearningAgreementPr.then(function() {
@@ -562,6 +666,169 @@ exports.sendLaExternalTutor = function(input, res) {
             });
 
         })
+    });
+}
+
+exports.saveLaExternalTutor = function(input, res) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd + "/" + mm + "/" + yyyy;
+
+    return new Promise(function(fulfill, reject) {
+        var getDataPr = exports.getData(input[6]);
+        getDataPr.then(function(data) {        
+            switch(input[0]) {
+                case "Si": 
+                    data["financial support Yes"] = "X";
+                    break;
+                case "No":
+                    data["financial support No"] = "X";
+            }
+
+            data["if financial support Yes"] = input[1];
+
+            switch(input[2]) {
+                case "Si": 
+                    data["The trainee will receive a contribution in kind for his/her traineeship Yes"] = "X";
+                    break;
+                case "No":
+                    data["The trainee will receive a contribution in kind for his/her traineeship No"] = "X";
+            }
+ 
+            data["If yes, please specify"] = input[3];
+            data["Traineeship Certificate by"] = input[4];
+
+            switch(input[5]) {
+                case "Si": 
+                    data["Is the trainee covered by the accident insurance Yes"] = "X";
+                    break;
+                case "No":
+                    data["Is the trainee covered by the accident insurance No"] = "X";
+            }
+
+            var pos = data["Contact person name / position"].indexOf(" ");
+            var pos2 = data["Contact person name / position"].indexOf(" ", pos+1);
+            var pos3 = data["Contact person name / position"].lastIndexOf(" ");
+            var tmp;
+            var name;
+            var position = data["Contact person name / position"].substring(pos3);
+
+            if(pos2 == pos3) {
+                tmp = data["Contact person name / position"].substring(0, pos2);
+            }
+            else {
+                tmp = data["Contact person name / position"].substring(0, pos3);
+            }
+
+            if(tmp.indexOf(",") != -1) {
+                var i = tmp.indexOf(",")
+                name = tmp.substring(0, i);
+            }
+            else if(tmp.indexOf("/") != -1) {
+                var i = tmp.indexOf("/")
+                name = tmp.substring(0, i);
+            }
+            else {
+                name = tmp;
+            }
+
+            pos = data["Contact person Email / Phone"].indexOf(" ");
+            var email = data["Contact person Email / Phone"].substring(0, pos);
+            var phone = data["Contact person Email / Phone"].substring(pos);
+
+            data["Responsible person sending Name"] = name;
+            data["Responsible person sending Phone number"] = phone;
+            data["Responsible person sending Function"] = position;
+            data["Responsible person sending E-mail"] = email;
+
+            pos = data["Mentor name / position"].indexOf(" ");
+            pos2 = data["Mentor name / position"].indexOf(" ", pos+1);
+            pos3 = data["Mentor name / position"].lastIndexOf(" ");
+            tmp;
+            name;
+            position = data["Mentor name / position"].substring(pos3);
+
+            if(pos2 == pos3) {
+                tmp = data["Mentor name / position"].substring(0, pos2);
+            }
+            else {
+                tmp = data["Mentor name / position"].substring(0, pos3);
+            }
+
+            if(tmp.indexOf(",") != -1) {
+                var i = tmp.indexOf(",")
+                name = tmp.substring(0, i);
+            }
+            else if(tmp.indexOf("/") != -1) {
+                var i = tmp.indexOf("/")
+                name = tmp.substring(0, i);
+            }
+            else {
+                name = tmp;
+            }
+
+            pos = data["Mentor e-mail / phone"].indexOf(" ");
+            email = data["Mentor e-mail / phone"].substring(0, pos);
+            phone = data["Mentor e-mail / phone"].substring(pos);
+
+            data["Responsible person receiving Name"] = name;
+            data["Responsible person receiving Phone number"] = phone;
+            data["Responsible person receiving Function"] = position;
+            data["Responsible person receiving E-mail"] = email;
+            data["The receiving organization sign"] = name;
+            data["The receiving organization date"] = today;
+            
+            learningAgreement.setFilling(data);
+            learningAgreement.setDocument(null);
+            learningAgreement.setStudentID(data["E-mail"]);
+            learningAgreement.setState(null);
+            learningAgreement.setDate(data["Academic Tutor date"]);
+
+            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+            insertLearningAgreementPr.then(function() {
+                fulfill(); 
+            });           
+        })
+    });
+}
+
+exports.disapproveAcademicTutor = function(student, msg) {
+    return new Promise(function(fulfill, reject) {
+        console.log("Getting data for student: " + student);
+        getLearningAgreementPr = LA.getLearningAgreement(student);
+        getLearningAgreementPr.then(function(result, err) {
+            if (err) throw err;
+            console.log("Searching done!");
+            if(result) {
+                var state = "Disapprovato dal Tutor Accademico per il motivo: "+msg;
+                var updateStatePr = LA.updateState(student, state);
+                updateStatePr.then(function() {
+                    fulfill(); 
+                    
+                });
+            }
+        });
+    });
+}
+
+exports.disapproveExternalTutor = function(student, msg) {
+    return new Promise(function(fulfill, reject) {
+        console.log("Getting data for student: " + student);
+        getLearningAgreementPr = LA.getLearningAgreement(student);
+        getLearningAgreementPr.then(function(result, err) {
+            if (err) throw err;
+            console.log("Searching done!");
+            if(result) {
+                var state = "Disapprovato dal Tutor Esterno per il motivo: "+msg;
+                var updateStatePr = LA.updateState(student, state);
+                updateStatePr.then(function() {
+                    fulfill(); 
+
+                });  
+            }
+        });
     });
 }
 
@@ -855,16 +1122,29 @@ exports.validateDataAcademicTutor = function(data, res) {
             if(data["Award"] || data["Traineeship certificate"] || data["Final report"] || data["Interview"] || data["Europass Mobility Document Yes"] || data["Europass Mobility Document No"]) {
                 if(res) res.cookie("errCompileOnlyOne", "1");
                 console.log("Compile only form two!");
-                if (!(/^\d{1,2}$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
+                if (data["Award ECTS credits Yes"] && !(/^\d{1,2}$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
                     if(res) res.cookie("errNumberCredits", "1");
                     console.log("Number of ECTS credits wrong!");
                     fulfill(false);               
-                }         
+                }
+                if (data["Give a grade Yes"] && (!data["Traineeship certificate1"] && !data["Final report1"] && !data["Interview1"])) {
+                    if(res) res.cookie("errMissingFields", "1");
+                    console.log("Missing fields!");
+                    fulfill(false);         
+                }              
                 fulfill(false);                
             }     
             fulfill(true);   
         }
-        
+
+        else if (data["Award ECTS credits No"] && !data["If yes, please indicate the number of ECTS credits"]) {
+            console.log("Number of ECTS credits not asked!");
+            fulfill(true);               
+        }    
+        else if (data["Give a grade No"] && (!data["Traineeship certificate1"] && !data["Final report1"] && !data["Interview1"])) {
+            console.log("NGrade not asked!");
+            fulfill(true);               
+        }
         else {
             if(res) res.cookie("errMissingFields", "1");
             console.log("Missing fields!");

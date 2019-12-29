@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$("#send").click(function() {
    $('#formCompile').submit(function() {
     var res = true;
 

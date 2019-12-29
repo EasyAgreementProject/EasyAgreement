@@ -124,6 +124,21 @@ class LearningAgreement {
         });
     }
 
+    static updateState(studentID, state) {
+        return new Promise(function(fulfill, reject) {
+            MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+                if (err) throw err;
+                console.log("Connected successfully to server!");
+                var dbo = db.db(dbName);
+                dbo.collection("current_LearningAgreement").updateOne({ "studentID": studentID }, {$set: {"state": state}}, function(err, result) {
+                    if (err) throw err;
+                    console.log("Learning Agreement update completed! State = " + state + " StudentID = " + studentID);
+                    db.close();
+                    fulfill();
+                });
+            });
+        });
+    }
     static deleteLearningAgreement(studentID) {
         return new Promise(function(fulfill, reject) {
             MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
