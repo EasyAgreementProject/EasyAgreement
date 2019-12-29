@@ -6,6 +6,7 @@ var learningAgreementControl = require('./app/controllers/learningAgreementContr
 var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
+var documentControl = require('./app/controllers/documentControl.js')
 var bodyParser= require('body-parser');
 var session = require('express-session');
 var formidable = require('formidable');
@@ -100,7 +101,7 @@ app.post('/login', function(request, response){
 });
 
 app.post('/fileupload', function(request, response){
-  var docManager=documentControl.docHandler(req,res);
+  var docManager=documentControl.docHandler(request,response);
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
 });
 
