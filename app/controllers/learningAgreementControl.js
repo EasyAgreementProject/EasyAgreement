@@ -278,7 +278,7 @@ exports.sendLaAcademicTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData(input[9]);
+        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it");
         getDataPr.then(function(data) {        
             //Traineeship embedded in the curriculum
             data["Award"] = input[0];
@@ -424,7 +424,7 @@ exports.saveLaAcademicTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData(input[9]);
+        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it"); //input9
         getDataPr.then(function(data) {        
             //Traineeship embedded in the curriculum
             data["Award"] = input[0];
@@ -530,7 +530,7 @@ exports.sendLaExternalTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData(input[6]);
+        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it"); //input[6]
         getDataPr.then(function(data) {        
             switch(input[0]) {
                 case "Si": 
@@ -677,7 +677,7 @@ exports.saveLaExternalTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData(input[6]);
+        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it");
         getDataPr.then(function(data) {        
             switch(input[0]) {
                 case "Si": 
@@ -797,7 +797,7 @@ exports.saveLaExternalTutor = function(input, res) {
 exports.disapproveAcademicTutor = function(student, msg) {
     return new Promise(function(fulfill, reject) {
         console.log("Getting data for student: " + student);
-        getLearningAgreementPr = LA.getLearningAgreement(student);
+        getLearningAgreementPr = LA.getLearningAgreement("v.volpicelli4@studenti.unisa.it");
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
             console.log("Searching done!");
@@ -816,7 +816,7 @@ exports.disapproveAcademicTutor = function(student, msg) {
 exports.disapproveExternalTutor = function(student, msg) {
     return new Promise(function(fulfill, reject) {
         console.log("Getting data for student: " + student);
-        getLearningAgreementPr = LA.getLearningAgreement(student);
+        getLearningAgreementPr = LA.getLearningAgreement("v.volpicelli4@studenti.unisa.it");
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
             console.log("Searching done!");
