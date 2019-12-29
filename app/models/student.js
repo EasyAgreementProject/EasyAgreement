@@ -428,6 +428,50 @@ static retrieveStudentID(email) {   //Insert/update student ID
     }
 
 
+    static deleteStudentCV(email) {   //Delete student CV
+       
+
+        return new Promise(function(fulfill,reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  reject(err);
+                var dbo= db.db(dbName);
+                
+                    dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                    if(err) reject(err);
+                    dbo.collection("Student").updateOne(
+                        {"email" : result.email},
+                        {$set:{"CV" : null }})
+                    fulfill(true);
+                    db.close();
+                    })
+                });
+            });
+    
+        }
+
+
+        static deleteStudentCV(email) {   //Delete student ID
+       
+
+            return new Promise(function(fulfill,reject){
+                MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                    if(err)  reject(err);
+                    var dbo= db.db(dbName);
+                    
+                        dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                        if(err) reject(err);
+                        dbo.collection("Student").updateOne(
+                            {"email" : result.email},
+                            {$set:{"IDCard" : null }})
+                        fulfill(true);
+                        db.close();
+                        })
+                    });
+                });
+        
+            }
+
+
 }
 
 module.exports= Student;

@@ -101,8 +101,11 @@ app.post('/login', function(request, response){
 });
 
 app.post('/fileupload', function(request, response){
+  console.log("Before documentControl...");
   var docManager=documentControl.docHandler(request,response);
+  console.log("After document control, in server...");
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
+  console.log("test2");
 });
 
 app.post('/deleteCV', function(request, response){
