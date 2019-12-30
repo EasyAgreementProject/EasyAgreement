@@ -1,5 +1,3 @@
-//da fare ricerca
-
 var connectedUser=null;
 
 $.ajax({
@@ -509,13 +507,30 @@ function appendSentMessage(message){
 
   function removeMessage(){
     var id=$(element.parentNode).children('.messageBox').children('.id-message').text();
-    $(element.parentNode).remove();
-    $.ajax({
-      type:"POST",
-      url:"/removeMessage",
-      data:{messageID: id},
-      success: function(result){
-
+    var parentNode=$(element.parentNode);
+    swal({
+      title: 'Sei sicuro?',
+      text: "Non potrai più tornare indietro!",
+      icon: 'warning',
+      showCancelButton: true,
+      buttons: true,
+      dangerMode: true
+    })
+    .then(function(resul){
+      if(resul){
+        parentNode.remove();
+        $.ajax({
+          type:"POST",
+          url:"/removeMessage",
+          data:{messageID: id},
+          success: function(result){
+            swal(
+              'Cancellato!',
+              'Il tuo messaggio è stato cancellato.',
+              'success'
+            );
+          }
+        });
       }
     });
   }

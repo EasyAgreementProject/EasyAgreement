@@ -44,10 +44,6 @@ app.get('/viewLA.html', function(req, res){
     res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
 });
 
-app.get('/index.html', function(req, res){
-  res.sendFile(path.join(__dirname + "/app/views/index.html"))
-});
-
 app.get('/getAllVersions', function(req, res) {
   var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email);
   getVersionsPr.then(function(data) {
