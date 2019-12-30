@@ -6,7 +6,6 @@ exports.update=function(req,res){
 
         var name= req.body.inputName;
         var surname= req.body.inputSurname;
-        var email= req.body.inputEmail;
         var organization= req.body.inputOrganization;
         
 
@@ -26,10 +25,6 @@ if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
     isRight=false;
 }
 
-if((email==null) || (email.length<=1) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
-    console.log("errorz2"); res.cookie('errexternalTutorEmail','1');
-    isRight=false;
-}
 
 if((organization==null) || (organization.length<=1) || (!/^[A-Za-z]+$/.test(organization))){
     console.log("errorz3"); res.cookie('errOrganizationName','1');
@@ -51,15 +46,16 @@ if(!isRight){
         
         var externalTutor=new externalTutorModel();
     
-        externalTutor.setEmail(email);
+        
         externalTutor.setName(name);
         externalTutor.setSurname(surname);
         externalTutor.setOrganization(organization);
 
-      
-       console.log("DATI DELL'EXTERNAL" +JSON.stringify(externalTutor));
-        var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.Email);
-        res.render('profile');
+       console.log(JSON.stringify(req.session));
+       console.log("DATI DELL'EXTERNAL" +JSON.stringify(externalTutor)+"dati sessione: "+JSON.stringify(req.session.utente.utente.email));
+        var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.email);
+        
+        res.render('index');
         /*
         checkM.then(function(result){
             if(!result){

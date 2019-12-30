@@ -133,17 +133,11 @@ static findByEmail(email){
             var dbo= db.db(dbName);
             dbo.collection("AcademicTutor").findOne({"E_mail": email}, function(err, result){
                 if(err) reject(err);
-                if(result!=null){
-                    var academicTutor= new AcademicTutor();
-                    academicTutor.setName(result.Name);
-                    academicTutor.setSurname(result.Surname);
-                    academicTutor.setDegreeCourse(result.E_mail);
-                    academicTutor.setAddress(result.Department);
-                    academicTutor.setPassword(result.Password);
-                    fulfill(academicTutor);
+                if(Boolean(result)){
+                    fulfill(false);
                 }
                 else{
-                    fulfill(null);
+                    fulfill(true);
                 }
                 db.close();
             })
@@ -189,10 +183,10 @@ static updateAcademicTutor(academicTutor,emailv) {
             var dbo = db.db(dbName);
             console.log(".");
             var myquery = { Email: emailv };
-            var newvalues = { $set: {Name: academicTutor.Name, Surname: academicTutor.Surname, Email: academicTutor.Email, Department: academicTutor.Department} };
+            var newvalues = { $set: {Name: academicTutor.Name, Surname: academicTutor.Surname, Department: academicTutor.Department} };
              dbo.collection("AcademicTutor").updateOne(myquery, newvalues, function(err, res) {
                  if (err) throw err;
-                     console.log("1 document updated");
+                     console.log("1 document updated"+ academicTutor.Name + academicTutor.Surname+ academicTutor.Department);
                 db.close();
              });
             });

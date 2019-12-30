@@ -9,7 +9,6 @@ exports.update=function(req,res){
 
         var name= req.body.inputName;
         var surname= req.body.inputSurname;
-        var email= req.body.inputEmail;
         var matricola= req.body.inputMatricola;
         var citta= req.body.inputCity;
         var indirizzo= req.body.inputAddress;
@@ -32,10 +31,6 @@ if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
     isRight=false;
 }
 
-if((email==null) || (email.length<=1) || (!/^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it/.test(email))){
-    res.cookie('errStudentEmail','1');
-    isRight=false;
-}
 
 if((citta==null) || (citta.length<=2) || (!/^[A-Za-z\s]+$/.test(citta))){
     res.cookie('errStudentCity','1');
@@ -68,58 +63,34 @@ if(!isRight){
         var studente=new studentModel();
         studente.setCity(citta);
         studente.setDegreeCourse(corso);
-        studente.setEmail(email);
         studente.setName(name);
         studente.setSurname(surname);
         studente.setAddress(indirizzo);
-        studente.setStudentID(matricola);
+       
 
-        
+        console.log("STAMPO GET: ", studente.getName());
+        console.log("stampo sessione: "+JSON.stringify(req.session));
        var checkS=studentModel.updateStudent(studente,req.session.utente.utente.Email);
+      
+      //after update
+       req.session.utente.utente.Name=studente.getName();
+       req.session.utente.utente.City=studente.getCity();
+       req.session.utente.utente.Surname=studente.getSurname();
+       req.session.utente.utente.Address=studente.getAddress();
+       req.session.utente.utente.DegreeCourse=studente.getDegreeCourse();
 
+       //res.cookie('updateOK','1');
        res.render('profile');
+       
         /*
-        checkM.then(function(result){
-            if(!result){
-                console.log("EMAIL UGUALE A QUELLA PRECEDENTE!");
-                res.cookie('errAlreadyReg','1');
-                var path = require('path');
-                res.sendFile(path.resolve('app/views/index.html'));
-                return;
-            }
-            if(result){
-                var checkE=studentModel.findExistByEmail(email);
-
-                checkE.then(function(result){
-                    if(!result){
-                        //res.cookie('errAlreadyReg','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
-                        return;
-                    }
-                    if(result){
-                        //Save student in database
-                        studentModel.updateStudent(studente);
-
-                        //redirect
-                        res.cookie('regEff','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
-                        return;
-                    }
-                })
-            }
-        }) 
-
-
-    }
+        
 
     */
 }
 
     exports.view= function(req, res){
 
-        
+
     res.render('profile');
 
 }

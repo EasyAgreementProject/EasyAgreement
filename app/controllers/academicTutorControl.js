@@ -3,10 +3,10 @@ var academicTutorModel= require('../models/academicTutor.js');
 var session = require('express-session');
 
 exports.update=function(req,res){
-
+        
+        
         var name= req.body.inputName;
         var surname= req.body.inputSurname;
-        var email= req.body.inputEmail;
         var department= req.body.inputDepartment;
         
 
@@ -29,10 +29,6 @@ if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
 }
 
 
-if((email==null) || (email.length<=1) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
-    res.cookie('errStudentEmail','1');
-    isRight=false;
-}
 
 if((department==null) || (department.length<=1) || (!/^[A-Za-z]+$/.test(department))){
     console.log("errore1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -56,14 +52,13 @@ if(!isRight){
         
         var academicTutor=new academicTutorModel();
     
-        academicTutor.setEmail(email);
         academicTutor.setName(name);
         academicTutor.setSurname(surname);
         academicTutor.setDepartment(department);
 
       
-        console.log("sono nel accademic");
-        var checkS=academicTutorModel.updateAcademicTutor(academicTutor,req.session.utente.utente.Email);
+        console.log("sono nel accademic: stampo sessione: "+ JSON.stringify(req.session.utente.utente.E_mail)+"stampo academic tutor"+JSON.stringify(academicTutor));
+        var checkS=academicTutorModel.updateAcademicTutor(academicTutor,req.session.utente.utente.E_mail);
         res.render('profile');
 
         /*
@@ -106,7 +101,7 @@ if(!isRight){
 }
 
     exports.view= function(req, res){
-
+        console.log("sono nel accademic VIEW: stampo sessione: "+ JSON.stringify(req.session.utente.utente.E_mail));
 
     res.render('profile');
 

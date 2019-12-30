@@ -98,11 +98,11 @@ app.post('/signup', function(req, res) {
 
 app.post('/updateProfile', function(req, res) {
   
-  console.log("SONO NEL UPDATE SERVER: "+JSON.stringify(req.session.utente.type));
+ 
 
     
          
-      if(req.session.utente.type=="student")
+     if(req.session.utente.type=="student")
          var updateS=studentControl.update(req, res);
         else
          if(req.session.utente.type=="academicTutor")
@@ -110,9 +110,7 @@ app.post('/updateProfile', function(req, res) {
         else
         if(req.session.utente.type=="externalTutor")
                   var updateE=externalTutorControl.update(req, res);
-                  else
-                  var updateA=administratorControl.update(req, res);
-
+            
 
 
   
@@ -130,18 +128,16 @@ app.get('/profile', function (request, response) {
     response.sendFile("/app/views/login.html",{root:__dirname});
   
   else
-  {      if(request.session.utente.type=="student") 
+  {    if(request.session.utente.type=="student") 
              var viewFile= studentControl.view(request,response);
              else
                 if(request.session.utente.type=="academicTutor")
-                 var updateA=academicTutorControl.view(request, response);
+               { 
+                 var updateA=academicTutorControl.view(request, response);}
                  else
                   if(request.session.utente.type=="externalTutor")
                   var updateE=externalTutorControl.view(request, response);
-                  else
-                  var updateA=administratorControl.view(request, response);
-
-
+                  
   }
     
 });

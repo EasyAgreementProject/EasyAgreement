@@ -111,10 +111,10 @@ static updateExternalTutor(externalTutor,emailv) {
             var dbo = db.db(dbName);
             console.log(".");
             var myquery = { Email: emailv };
-            var newvalues = { $set: {Name: externalTutor.Name, Surname: externalTutor.Surname, Email: externalTutor.Email, Organization: externalTutor.Organization} };
+            var newvalues = { $set: {Name: externalTutor.name, Surname: externalTutor.surname,Organization: externalTutor.organization} };
              dbo.collection("ExternalTutor").updateOne(myquery, newvalues, function(err, res) {
                  if (err) throw err;
-                     console.log("1 document updated+ name: "+ externalTutor.Organization);
+                     console.log("1 document updated+ name: "+ externalTutor.organization);
                 db.close();
              });
             });

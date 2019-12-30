@@ -91,6 +91,8 @@ exports.signup= function(req, res){
         studente.setPassword(passwordHashed);
         studente.setStudentID(matricola);
 
+
+        
         //Check if already exist
         var checkM=studentModel.findByMatricola(matricola);
 
@@ -184,9 +186,10 @@ exports.signup= function(req, res){
         tutorAccademico.setEmail(email);
         tutorAccademico.setPassword(passwordHashed);
 
+
+        console.log("dati registrazione: "+JSON.stringify(tutorAccademico));
         //check if exist
         var check=academicTutorModel.findByEmail(email);
-
         check.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
@@ -201,7 +204,7 @@ exports.signup= function(req, res){
                 //redirect
                 res.cookie('regEff','1');
                 var path = require('path');
-                res.sendFile(path.resolve('app/views/index.html'));
+                res.sendFile(path.resolve('app/views/login.html'));
                 return;
             }
         })   

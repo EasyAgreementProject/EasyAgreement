@@ -42,7 +42,8 @@ $(document).ready(function(){
     var errLogin= getCookie("errLogin");
     var logEff=getCookie("logEff");
     var logoutEff=getCookie("logoutEff");
-
+    
+   
     if(errName=="1"){
         $('#errName').css('display','block');
         $('#inputName').addClass("errClass");
