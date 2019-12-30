@@ -1,0 +1,69 @@
+  
+                    body {
+                        overflow-x: hidden;
+                    }
+                    
+                    #sidebar-wrapper {
+                        background-color: orange;
+                        min-height: 100vh;
+                        margin-left: -15rem;
+                        -webkit-transition: margin .25s ease-out;
+                        -moz-transition: margin .25s ease-out;
+                        -o-transition: margin .25s ease-out;
+                        transition: margin .25s ease-out;
+                    }
+                    
+                    #sidebar-wrapper .sidebar-heading {
+                        padding: 0.875rem 1.25rem;
+                        background-color: orange;
+                        font-size: 1.2rem;
+                    }
+                    
+                    #sidebar-wrapper .list-group {
+                        width: 15rem;
+                        background-color: orange;
+                    }
+                    
+                    #page-content-wrapper {
+                        min-width: 100vw;
+                    }
+                    
+                    #wrapper.toggled #sidebar-wrapper {
+                        margin-left: 0;
+                    }
+
+                    
+                    @media (min-width: 180px) {
+                        .mt-4 {
+                            text-align: center;
+                            color: darkblue;
+                        }
+                        .logoEA {
+                            width: 100px;
+                            height: 100px;
+                            float: left;
+                            margin-top: 1rem;
+                        }
+                        #sidebar-wrapper {
+                            margin-left: 0;
+                        }
+                        #page-content-wrapper {
+                            min-width: 0;
+                            width: 100%;
+                        }
+                        #wrapper.toggled #sidebar-wrapper {
+                            margin-left: -15rem;
+                        }
+                        .logoCenter{
+                            width: 100px;
+                            height: 100px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                        .list_versions{
+                           vertical-align: middle;
+                           margin-left: 15px;
+                           margin-right: 15px;
+                        }
+                        
+                    };
