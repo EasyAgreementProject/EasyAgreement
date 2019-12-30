@@ -12,6 +12,8 @@ var session = require('express-session');
 const io = require('socket.io')(3000)
 app.set('view engine', 'ejs');
 
+var connectedClients={};
+
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
@@ -108,11 +110,12 @@ app.listen(8080, function () {
 });
 
 io.on('connection', socket => {
-  socket.on('send-chat-message', message => {
-    socket.broadcast.emit('chat-message', { message: message})
-  })
-  socket.on('disconnect', () => {
-    socket.broadcast.emit('user-disconnected')
+  socket.on('subscribe', function(sender) {
+    connectedClients[sender]=socket.id;
+    socket.username=sender;
+  });
+  socket.on('send-chat-message', function(message){
+    socket.broadcast.to(connectedClients[message.recipientID]).emit('chat-message', socket.username, message);
   })
 })
 
@@ -139,4 +142,8 @@ app.post('/removeMessage', function(req, res){
 
 app.post('/updateMessage', function(req, res){
   messageControl.updateMessage(req.body.messageID, req.body.text, res);
+});
+
+app.post('/searchUser', function(req, res){
+  messageControl.searchUser(req.body.type, req.body.search, res);
 });

@@ -145,3 +145,116 @@ exports.removeMessage= function(messageID, res){
 exports.getConnectedUser= function(req){
     return req.session.utente;
 }
+
+exports.searchUser= function(type, search, res){
+    var name=null;
+    var surname=null;
+    var users1=[];
+    var users2=[];
+    if(search.indexOf(" ")==-1){
+        name= search;
+    }
+    else{
+        name=search.substring(0, search.indexOf(" "));
+        surname= search.substring(search.indexOf(" ")+1);
+    }
+    if(type=="academicTutor"){
+        var students=studentModel.RetrieveAll();
+        students.then(function(result){
+            if(!result.length==0){
+                for(var i=0; result[i]!=null; i++){
+                    if(surname==null){
+                        if(result[i].Name==name)    users1.push(result[i]);
+                        if(result[i].Surname==name) users1.push(result[i]);
+                    }
+                    else{
+                        if(result[i].Name==name && result[i].Surname==surname)  users1.push(result[i]);
+                        if(result[i].Name==surname && result[i].Surname==name)  users1.push(result[i]);
+                    }
+                }
+            }
+            var externals=externalModel.RetrieveAll();
+            externals.then(function(result){
+                if(!result.length==0){
+                    for(var i=0; result[i]!=null; i++){
+                        if(surname==null){
+                            if(result[i].Name==name)    users2.push(result[i]);
+                            if(result[i].Surname==name) users2.push(result[i]);
+                        }
+                        else{
+                            if(result[i].Name==name && result[i].Surname==surname)  users2.push(result[i]);
+                            if(result[i].Name==surname && result[i].Surname==name)  users2.push(result[i]);
+                        }
+                    }
+                }
+                res.json({student: users1, external: users2});
+            });
+        });
+    }
+    else if(type=="student"){
+        var academics=academicModel.RetrieveAll();
+        academics.then(function(result){
+            if(!result.length==0){
+                for(var i=0; result[i]!=null; i++){
+                    if(surname==null){
+                        if(result[i].Name==name)    users1.push(result[i]);
+                        if(result[i].Surname==name) users1.push(result[i]);
+                    }
+                    else{
+                        if(result[i].Name==name && result[i].Surname==surname)  users1.push(result[i]);
+                        if(result[i].Name==surname && result[i].Surname==name)  users1.push(result[i]);
+                    }
+                }
+            }
+            var externals=externalModel.RetrieveAll();
+            externals.then(function(result){
+                if(!result.length==0){
+                    for(var i=0; result[i]!=null; i++){
+                        if(surname==null){
+                            if(result[i].Name==name)    users2.push(result[i]);
+                            if(result[i].Surname==name) users2.push(result[i]);
+                        }
+                        else{
+                            if(result[i].Name==name && result[i].Surname==surname)  users2.push(result[i]);
+                            if(result[i].Name==surname && result[i].Surname==name)  users2.push(result[i]);
+                        }
+                    }
+                }
+                res.json({academic: users1, external: users2});
+            });
+        });
+    }
+    else if(type=="externalTutor"){
+        var students=studentModel.RetrieveAll();
+        students.then(function(result){
+            if(!result.length==0){
+                for(var i=0; result[i]!=null; i++){
+                    if(surname==null){
+                        if(result[i].Name==name)    users1.push(result[i]);
+                        if(result[i].Surname==name) users1.push(result[i]);
+                    }
+                    else{
+                        if(result[i].Name==name && result[i].Surname==surname)  users1.push(result[i]);
+                        if(result[i].Name==surname && result[i].Surname==name)  users1.push(result[i]);
+                    }
+                }
+            }
+            var academics=academicModel.RetrieveAll();
+            academics.then(function(result){
+                if(!result.length==0){
+                    for(var i=0; result[i]!=null; i++){
+                        if(surname==null){
+                            if(result[i].Name==name)    users2.push(result[i]);
+                            if(result[i].Surname==name) users2.push(result[i]);
+                        }
+                        else{
+                            if(result[i].Name==name && result[i].Surname==surname)  users2.push(result[i]);
+                            if(result[i].Name==surname && result[i].Surname==name)  users2.push(result[i]);
+                        }
+                    }
+                }
+                res.json({student: users1, academic: users2});
+            });
+        });
+    }
+}

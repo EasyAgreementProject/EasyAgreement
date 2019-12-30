@@ -1,4 +1,5 @@
-//da fare modifica e rimozione messaggio
+//da fare ricerca
+
 var connectedUser=null;
 
 $.ajax({
@@ -14,6 +15,9 @@ $.ajax({
   }
 });
 
+$('head').append('<link href="css/chat.css" rel="stylesheet"></link>');
+
+$('#open-chat').append('<img class="chat-notification" src="/img/cerchio-notifica.png" style="display:none;">');
 
 $('body').append(['<div class="outerContainer chatbox--tray" style="display: none;">',
   '<div class="container">',
@@ -21,7 +25,7 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
           '<div class="infoBar">',
               '<div class="leftInnerContainer">',
                   '<form class="form-chat" id="search-form-chat">',
-                      '<input type="text" class="input-chat" id="input-search-chat", placeholder="Search...">',
+                      '<input type="text" class="input-chat" id="input-search-chat", placeholder="Search..." onfocus="selectThisForm(true)" onblur="selectThisForm(false)">',
                       '<button class="sendButton" id="search-chat-button" type="submit" id="search-button"><img id="icon-search-chat" src="/img/icon-search-chat.png" alt="search"/></button>',
                   '</form>',
                   '<a href="javascript:void(0)" id="back-chat" style="display:none;""><img id="back-icon-chat" src="/img/icon-back-chat.png" alt="close"/></a>',
@@ -31,8 +35,9 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
                   '<a href="javascript:void(0)" id="minimize-a"><p id="minimize">-</p></a>',
                   '<a href="javascript:void(0)"><img id="close-chat" src="/img/closeIcon.png" alt="close" /></a>',
               '</div>',
+              '<p id="label-chat" style="display:none;">Chat</p>',
+          '</div>',
       '</a>',
-      '</div>',
       '<div class="contacts" id="contacts">',
       '</div>',
       '<div class="messages" id="messages" style="display:none;">',
@@ -51,27 +56,19 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
   '</div>',
 '</div>'].join('\n'));
 
-
-/*$.ajax({
-  type:"POST",
-  url:"/getContacts",
-  data: {user:el},
-  async:false,
-  success:function(bool){
-    if(bool=="si")	b=true;
-  }
-});*/
-
-
-const socket = io('http://localhost:3000')
-const messageContainer = document.getElementById('messages')
-const messageForm = document.getElementById('form-chat')
-const messageInput = document.getElementById('input-chat')
+const socket = io('http://localhost:3000');
+const messageContainer = document.getElementById('messages');
+const messageForm = document.getElementById('form-chat');
+const searchForm = document.getElementById('search-form-chat');
+const messageInput = document.getElementById('input-chat');
+const searchInput = document.getElementById('input-search-chat');
 var receivers=null;
 var emailReceiver=null;
 var senderID=null;
 var element=null;
 var id=null;
+var allowSubmit=true;
+var isSelectedSearch=false;
 
 
 if(connectedUser.type=="student"){
@@ -84,49 +81,100 @@ else if( connectedUser.type=="externalTutor"){
   senderID=connectedUser.utente.E_mail;
 }
 
-socket.on('chat-message', data => {
-  appendMessage(data.message);
-})
+socket.emit('subscribe', senderID);
+
+socket.on('chat-message', function(user, message){
+  if($('.outerContainer').hasClass('chatbox--tray')){
+    $('.chat-notification').css('display', 'block');
+  }
+  appendMessage(message);
+});
 
 if(messageForm!=null){
-  messageForm.addEventListener('submit', e => {
+  messageForm.addEventListener('submit', function(e) {
     e.preventDefault();
     if(messageForm.classList.contains('modificable')){
       if(messageInput.value.length==0) return;
       changeMessageText(messageInput.value);
       messageForm.classList.remove('modificable');
       messageInput.value = '';
+      allowSubmit=true;
     }
     else{
       var d= new Date();
-      var data={hour: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds(), day: d.getDate(), month: ((d.getMonth())+1), year: d.getFullYear()};
+      var data={hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0), day: d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
       var messageID= saveMessage({senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data});
       const message = {_id: messageID, senderID: senderID ,recipientID: emailReceiver ,text: messageInput.value, date: data};
-      if(message.length==0) return; 
+      if(messageInput.value.length==0) return; 
       appendSentMessage(message);
       socket.emit('send-chat-message', message);
       messageInput.value = '';
+      allowSubmit=true;
     }
-  })
+  });
 }
 
+searchForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  if(searchInput.value.length==0)  return;
+  $('.contacts').empty();
+  $.ajax({
+    type:"POST",
+    url:"/searchUser",
+    data:{type: connectedUser.type, search: searchInput.value},
+    success: function(users){
+      var i=0;
+      if(users.hasOwnProperty('academic')){
+        if(!users.academic.length==0){
+          while(users.academic[i]!=null){
+            appendAcademic(users.academic[i]);
+            i++;
+          }
+        }
+      }
+      i=0;
+      if(users.hasOwnProperty('external')){
+        if(!users.external.length==0){
+          while(users.external[i]!=null){
+            appendExternal(users.external[i]);
+            i++
+          }
+        }
+      }
+      i=0;
+      if(users.hasOwnProperty('student')){
+        if(!users.student.length==0){
+          while(users.student[i]!=null){
+            appendStudent(users.student[i]);
+            i++;
+          }
+        }
+      }
+    }
+  });
+  searchInput.value="";
+})
+
+
 function appendMessage(message) {
-  var div= document.createElement('div');
-  div.className="messageContainer justifyStart";
-  var div1= document.createElement('div');
-  div1.className="messageBox backgroundLight";
-  var pI= document.createElement('p');
-  pI.className="messageText colorDark";
-  var text1= document.createTextNode(message.text);
-  var span= document.createElement('p');
-  span.className="chat-data";
-  span.innerHTML=message.date.hour+":"+message.date.minutes+", "+message.date.day+"/"+message.date.month+"/"+message.date.year;
-  pI.appendChild(text1);
-  div1.appendChild(pI);
-  div1.appendChild(span);
-  div.appendChild(div1);
-  messageContainer.appendChild(div);
-  messageContainer.scrollTop = messageContainer.scrollHeight;
+  if(emailReceiver===message.senderID){
+    var div= document.createElement('div');
+    div.className="messageContainer justifyStart";
+    var div1= document.createElement('div');
+    div1.className="messageBox backgroundLight";
+    var pI= document.createElement('p');
+    pI.className="messageText colorDark";
+    var text1= document.createTextNode(message.text);
+    var span= document.createElement('p');
+    span.className="chat-data ongrey";
+    span.innerHTML=message.date.hour+":"+message.date.minutes+", "+message.date.day+"/"+message.date.month+"/"+message.date.year;
+    pI.appendChild(text1);
+    div1.appendChild(pI);
+    div1.appendChild(span);
+    div.appendChild(div1);
+    messageContainer.appendChild(div);
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+  }
 }
 
 function appendSentMessage(message){
@@ -180,6 +228,9 @@ function appendSentMessage(message){
 
       $chatboxTitleMinimize.on('click', function(e){
         $chatbox.addClass("chatbox--tray");
+        $('.infoBar').css('border-radius', '0 0 0 0');
+        $chatbox.css('border-radius', '0 0 0 0');
+        $('#label-chat').css('display', ' block');
         $('.leftInnerContainer').css('display', 'none');
         $('.rightInnerContainer').css('display', 'none');
         e.stopImmediatePropagation();
@@ -189,6 +240,10 @@ function appendSentMessage(message){
       $('.infoBar').on('click', function(){
         if($chatbox.hasClass("chatbox--tray")){
           $chatbox.removeClass("chatbox--tray");
+          $('.infoBar').css('border-radius', '20px 20px 0 0');
+          $chatbox.css('border-radius', '20px 20px 0 0');
+          $('.chat-notification').css('display', 'none');
+          $('#label-chat').css('display', ' none');
           $('.leftInnerContainer').css('display', 'flex');
           $('.rightInnerContainer').css('display', 'flex');
         }
@@ -196,6 +251,7 @@ function appendSentMessage(message){
 
       $chatboxTitleClose.on('click', function(e) {
           e.stopPropagation();
+          $chatbox.addClass("chatbox--tray");
           $chatbox.css('display', 'none')
       });
 
@@ -209,25 +265,34 @@ function appendSentMessage(message){
         $('.send-form').css('display', 'none');
         $('#back-chat').css('display', 'none');
         $('.messages').empty();
+        emailReceiver=null;
       });
 
       $chatOpen.on('click', function(){
         $chatbox.css('display', 'flex');
+        if($chatbox.hasClass("chatbox--tray")){
+          $chatbox.removeClass("chatbox--tray");
+          $('.infoBar').css('border-radius', '20px 20px 0 0');
+          $chatbox.css('border-radius', '20px 20px 0 0');
+          $('.chat-notification').css('display', 'none');
+          $('#label-chat').css('display', ' none');
+          $('.leftInnerContainer').css('display', 'flex');
+          $('.rightInnerContainer').css('display', 'flex');
+        }
       });
 
       $textarea.keydown(function(e){
         if (e.keyCode == 13 && !e.shiftKey)
         {
-            e.preventDefault();
-            $sendButton.click();
-        }
-      });
-
-      $('#input-search-chat').keydown(function(e){
-        if (e.keyCode == 13 && !e.shiftKey)
-        {
-            e.preventDefault();
-            $('#searh-chat-button').click();
+          if(allowSubmit){
+            if(!messageInput.value.length==0){
+              if(!isSelectedSearch){
+                e.preventDefault();
+                allowSubmit=false;
+                $sendButton.click();
+              }
+            }
+          }
         }
       });
 
@@ -385,76 +450,44 @@ function appendSentMessage(message){
       data:{sender: senderID, recipient: emailReceiver},
       success: function(messages){
         var i=0;
-        var j=0;
+        var arrayOfMessages=[];
+
         if(messages.sender.length==0){
           if(messages.recipient.length==0)  return null;
           else{
-            for(var h=0; messages.recipient[h]!=null; h++)  appendMessage(messages.recipient[h]);
+            for(i=0; messages.recipient[i]!=null; i++)  appendMessage(messages.recipient[i]);
+            return;
           }
         }
-        for(;messages.sender[i]!=null;i++){
-          if(messages.recipient.length==0){
-            appendSentMessage(messages.sender[i]);
-            continue;
+
+        if(messages.recipient.length==0){
+          if(messages.sender.length==0) return null;
+          else{
+            for(i=0; messages.sender[i]!=null;i++)  appendSentMessage(messages.sender[i]);
+            return;
           }
-          for(;messages.recipient[j]!=null;j++){
-            if(messages.sender[i].date.year > messages.recipient[i].date.year){
-              appendMessage(messages.recipient[i]);
-            }
-            else if(messages.sender[i].date.year < messages.recipient[i].date.year){
-              appendSentMessage(messages.sender[i]);
-              break;
-            }
-            else if(messages.sender[i].date.year == messages.recipient[i].date.year){
-              if(messages.sender[i].date.month > messages.recipient[i].date.month){
-                appendMessage(messages.recipient[i]);
-              }
-              else if(messages.sender[i].date.month < messages.recipient[i].date.month){
-                appendSentMessage(messages.sender[i]);
-                break;
-              }
-              else if(messages.sender[i].date.month == messages.recipient[i].date.month){
-                if(messages.sender[i].date.day > messages.recipient[i].date.day){
-                  appendMessage(messages.recipient[i]);
-                }
-                else if(messages.sender[i].date.day < messages.recipient[i].date.day){
-                  appendSentMessage(messages.sender[i]);
-                  break;
-                }
-                else if(messages.sender[i].date.day == messages.recipient[i].date.day){
-                  if(messages.sender[i].date.hour > messages.recipient[i].date.hour){
-                    appendMessage(messages.recipient[i]);
-                  }
-                  else if(messages.sender[i].date.hour < messages.recipient[i].date.hour){
-                    appendSentMessage(messages.sender[i]);
-                    break;
-                  }
-                  else if(messages.sender[i].date.hour == messages.recipient[i].date.hour){
-                    if(messages.sender[i].date.minutes > messages.recipient[i].date.minutes){
-                      appendMessage(messages.recipient[i]);
-                    }
-                    else if(messages.sender[i].date.minutes < messages.recipient[i].date.minutes){
-                      appendSentMessage(messages.sender[i]);
-                      break;
-                    }
-                    else if(messages.sender[i].date.minutes == messages.recipient[i].date.minutes){
-                      if(messages.sender[i].date.seconds > messages.recipient[i].date.seconds){
-                        appendMessage(messages.recipient[i]);
-                      }
-                      else if(messages.sender[i].date.seconds < messages.recipient[i].date.seconds){
-                        appendSentMessage(messages.sender[i]);
-                        break;
-                      }
-                      else if(messages.sender[i].date.seconds == messages.recipient[i].date.seconds){
-                        appendSentMessage(messages.sender[i]);
-                        appendMessage(messages.recipient[i]);
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+        }
+
+        for(i=0; messages.sender[i]!=null; i++){
+          messages.sender[i].compareData= new Date(messages.sender[i].date.year, messages.sender[i].date.month-1, messages.sender[i].date.day, messages.sender[i].date.hour, messages.sender[i].date.minutes, messages.sender[i].date.seconds);
+          arrayOfMessages.push(messages.sender[i]);
+        }
+
+        for(i=0; messages.recipient[i]!=null; i++){
+          messages.recipient[i].compareData= new Date(messages.recipient[i].date.year, messages.recipient[i].date.month-1, messages.recipient[i].date.day, messages.recipient[i].date.hour, messages.recipient[i].date.minutes, messages.recipient[i].date.seconds);
+          arrayOfMessages.push(messages.recipient[i]);
+        }
+
+        arrayOfMessages.sort(function(a,b){
+          if(a.compareData<b.compareData) return -1;
+          if(a.compareData>b.compareData) return 1;
+          return 0;
+        });
+
+        for(i=0; arrayOfMessages[i]!=null; i++){
+          delete arrayOfMessages[i].compareData;
+          if(emailReceiver==arrayOfMessages[i].recipientID)  appendSentMessage(arrayOfMessages[i]);
+          else if(emailReceiver==arrayOfMessages[i].senderID) appendMessage(arrayOfMessages[i]);
         }
       }
     });
@@ -504,4 +537,8 @@ function appendSentMessage(message){
       }
     });
     getMessages(emailReceiver);
+  }
+
+  function selectThisForm(boolean){
+    isSelectedSearch=boolean;
   }
