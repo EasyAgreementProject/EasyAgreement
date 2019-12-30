@@ -2,10 +2,10 @@ var pdfFiller = require('pdffiller');
 var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
 var learningAgreement = new LA();
-let random = parseInt(Math.random()*10000);
 //const Readable = require('stream').Readable;
 
 exports.sendLaStudent = function(input, res) {
+    let random = parseInt(Math.random()*10000);
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF = "pdf/Filled_LA_"+random+".pdf";
     var today = new Date();
@@ -269,6 +269,7 @@ exports.saveLaStudent = function(input) {
 }
 
 exports.sendLaAcademicTutor = function(input, res) {
+    let random = parseInt(Math.random()*10000);
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF = "pdf/Filled_LA_"+random+".pdf";
     var today = new Date();
@@ -521,6 +522,7 @@ exports.saveLaAcademicTutor = function(input, res) {
 }
 
 exports.sendLaExternalTutor = function(input, res) {
+    let random = parseInt(Math.random()*10000);
     let sourcePDF = "pdf/Template_LA.pdf";
     let destinationPDF = "pdf/Filled_LA_"+random+".pdf";
     var today = new Date();
@@ -561,31 +563,9 @@ exports.sendLaExternalTutor = function(input, res) {
                     data["Is the trainee covered by the accident insurance No"] = "X";
             }
 
-            var pos = data["Contact person name / position"].indexOf(" ");
-            var pos2 = data["Contact person name / position"].indexOf(" ", pos+1);
-            var pos3 = data["Contact person name / position"].lastIndexOf(" ");
-            var tmp;
-            var name;
-            var position = data["Contact person name / position"].substring(pos3);
-
-            if(pos2 == pos3) {
-                tmp = data["Contact person name / position"].substring(0, pos2);
-            }
-            else {
-                tmp = data["Contact person name / position"].substring(0, pos3);
-            }
-
-            if(tmp.indexOf(",") != -1) {
-                var i = tmp.indexOf(",")
-                name = tmp.substring(0, i);
-            }
-            else if(tmp.indexOf("/") != -1) {
-                var i = tmp.indexOf("/")
-                name = tmp.substring(0, i);
-            }
-            else {
-                name = tmp;
-            }
+            var pos = data["Contact person name / position"].indexOf("-");
+            var name = data["Contact person name / position"].substring(0, pos-1);
+            var position = data["Contact person name / position"].substring(pos+2);         
 
             pos = data["Contact person Email / Phone"].indexOf(" ");
             var email = data["Contact person Email / Phone"].substring(0, pos);
@@ -596,31 +576,9 @@ exports.sendLaExternalTutor = function(input, res) {
             data["Responsible person sending Function"] = position;
             data["Responsible person sending E-mail"] = email;
 
-            pos = data["Mentor name / position"].indexOf(" ");
-            pos2 = data["Mentor name / position"].indexOf(" ", pos+1);
-            pos3 = data["Mentor name / position"].lastIndexOf(" ");
-            tmp;
-            name;
-            position = data["Mentor name / position"].substring(pos3);
-
-            if(pos2 == pos3) {
-                tmp = data["Mentor name / position"].substring(0, pos2);
-            }
-            else {
-                tmp = data["Mentor name / position"].substring(0, pos3);
-            }
-
-            if(tmp.indexOf(",") != -1) {
-                var i = tmp.indexOf(",")
-                name = tmp.substring(0, i);
-            }
-            else if(tmp.indexOf("/") != -1) {
-                var i = tmp.indexOf("/")
-                name = tmp.substring(0, i);
-            }
-            else {
-                name = tmp;
-            }
+            pos = data["Mentor name / position"].indexOf("-");
+            name = data["Mentor name / position"].substring(0, pos-1);;
+            position = data["Mentor name / position"].substring(pos+2);
 
             pos = data["Mentor e-mail / phone"].indexOf(" ");
             email = data["Mentor e-mail / phone"].substring(0, pos);
@@ -708,78 +666,6 @@ exports.saveLaExternalTutor = function(input, res) {
                     data["Is the trainee covered by the accident insurance No"] = "X";
             }
 
-            var pos = data["Contact person name / position"].indexOf(" ");
-            var pos2 = data["Contact person name / position"].indexOf(" ", pos+1);
-            var pos3 = data["Contact person name / position"].lastIndexOf(" ");
-            var tmp;
-            var name;
-            var position = data["Contact person name / position"].substring(pos3);
-
-            if(pos2 == pos3) {
-                tmp = data["Contact person name / position"].substring(0, pos2);
-            }
-            else {
-                tmp = data["Contact person name / position"].substring(0, pos3);
-            }
-
-            if(tmp.indexOf(",") != -1) {
-                var i = tmp.indexOf(",")
-                name = tmp.substring(0, i);
-            }
-            else if(tmp.indexOf("/") != -1) {
-                var i = tmp.indexOf("/")
-                name = tmp.substring(0, i);
-            }
-            else {
-                name = tmp;
-            }
-
-            pos = data["Contact person Email / Phone"].indexOf(" ");
-            var email = data["Contact person Email / Phone"].substring(0, pos);
-            var phone = data["Contact person Email / Phone"].substring(pos);
-
-            data["Responsible person sending Name"] = name;
-            data["Responsible person sending Phone number"] = phone;
-            data["Responsible person sending Function"] = position;
-            data["Responsible person sending E-mail"] = email;
-
-            pos = data["Mentor name / position"].indexOf(" ");
-            pos2 = data["Mentor name / position"].indexOf(" ", pos+1);
-            pos3 = data["Mentor name / position"].lastIndexOf(" ");
-            tmp;
-            name;
-            position = data["Mentor name / position"].substring(pos3);
-
-            if(pos2 == pos3) {
-                tmp = data["Mentor name / position"].substring(0, pos2);
-            }
-            else {
-                tmp = data["Mentor name / position"].substring(0, pos3);
-            }
-
-            if(tmp.indexOf(",") != -1) {
-                var i = tmp.indexOf(",")
-                name = tmp.substring(0, i);
-            }
-            else if(tmp.indexOf("/") != -1) {
-                var i = tmp.indexOf("/")
-                name = tmp.substring(0, i);
-            }
-            else {
-                name = tmp;
-            }
-
-            pos = data["Mentor e-mail / phone"].indexOf(" ");
-            email = data["Mentor e-mail / phone"].substring(0, pos);
-            phone = data["Mentor e-mail / phone"].substring(pos);
-
-            data["Responsible person receiving Name"] = name;
-            data["Responsible person receiving Phone number"] = phone;
-            data["Responsible person receiving Function"] = position;
-            data["Responsible person receiving E-mail"] = email;
-            data["The receiving organization sign"] = name;
-            data["The receiving organization date"] = today;
-            
             learningAgreement.setFilling(data);
             learningAgreement.setDocument(null);
             learningAgreement.setStudentID(data["E-mail"]);
@@ -859,6 +745,7 @@ exports.getStatus = function(student) {
 }
 
 exports.getVersion = function(id, email) {
+    let random = parseInt(Math.random()*10000);
     return new Promise(function(fulfill, reject) {
         getPdfPr = LA.getPdf(id, "v.volpicelli4@studenti.unisa.it");
         getPdfPr.then(function(result, err) {
@@ -986,9 +873,9 @@ exports.validateDataStudent = function(data, res) {
             console.log("contact email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])?( ?\/|,)? {1}[A-za-zà-ù]+$/.test(data["Contact person name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+$/.test(data["Contact person name / position"]))) {
             if(res) res.cookie("errContactReciving", "1");
-            console.log("contact person name position wrong!");
+            console.log("contact person name position wrong! "+data["Contact person name / position"]);
             fulfill(false);
         }
         if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]))) {
@@ -1006,7 +893,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("receiving department wrong!");
             fulfill(false);
         }
-        if (!(/^[\w ,\.']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]))) {
+        if (!(/^[\w ,\.()']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]))) {
             if(res) res.cookie("errAddressWebSite", "1");
             console.log("address website wrong!");
             fulfill(false);
@@ -1021,7 +908,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("size of enterprise wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ùà-ù]+ {1}[A-za-zà-ùà-ù]+( {1}[A-za-zà-ùà-ù])?( ?\/|,)? {1}[A-za-zà-ùà-ù]+$/.test(data["Mentor name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+$/.test(data["Mentor name / position"]))) {
             if(res) res.cookie("errMentor", "1");
             console.log("mentor name position wrong!");
             fulfill(false);
