@@ -99,7 +99,7 @@
                         <div class="form-check">
                             Sesso:<br>
                             <label for="radio1">M</label>
-                            <input type="radio" id="M" name="radio1" checked value="M">
+                            <input type="radio" id="M" name="radio1" value="M">
                             <label for="radio1">F</label>
                             <input type="radio" id="F" name="radio1" value="F">
                         </div>
@@ -109,11 +109,15 @@
                         <label for="nationality"><sup>1</sup>Nazionalità</label>
                         <span id="errNationality">Nazionalità non valida</span>
                     </div>
-                    <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputStudyCicle" name="inputStudyCycle" placeholder="Ciclo Di Studi"  >
-                        <label for="inputStudyCicle"><sup>2</sup>Ciclo Di Studi</label>
-                        <span id="errStudyCicle">Ciclo di Studi non valido</span>
-                    </div>
+                    <div class="row">
+                        <div class="form-check">
+                            Ciclo di studi:<br>
+                            <label>1° ciclo (laurea triennale)</label>
+                            <input type="radio" id="1st" name="inputStudyCycle" value="1st Cycle">
+                            <label>2° ciclo (laurea magistrale)</label>
+                            <input type="radio" id="2nd" name="inputStudyCycle" value="2nd Cycle">
+                        </div>
+                    </div>                    
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputAcademicYear1" name="inputAcademicYear1" placeholder="Anno Accademico 1"  >
                         <label for="inputAcademicYear1">Anno Accademico 20...</label>
@@ -151,7 +155,6 @@
                         <label for="inputContactSending">Info Contatto: E-mail e Telefono</label>
                         <span id="errContactSending">Info Contatto non valide</span>
                     </div>
-
                     <hr>
                     <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzazione/Impresa Ricevente</h5><br>
                     <div class="form-label-group">
@@ -165,9 +168,14 @@
                         <span id="errDepartmentReciving">Dipartimento Ricevente non valido</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputAddressWebSite" name="inputAddressWebSite" placeholder="Indirizzo/Sito Web"  >
-                        <label for="inputAddressWebSite">Indrizzo e Sito Web</label>
-                        <span id="errAddressWebSite">Indirizzo/Sito Web non validi</span>
+                        <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="Indirizzo"  >
+                        <label for="inputAddress">Indrizzo</label>
+                        <span id="errAddress">Indirizzo non valido</span>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputWebSite" name="inputWebSite" placeholder="Sito Web"  >
+                        <label for="inputWebSite">Sito Web</label>
+                        <span id="errWebSite">Sito Web non valido</span>
                     </div>
                     <div class="col-auto-my-1">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Paese:</label>
@@ -426,14 +434,24 @@
                         <span id="errSizeEnterprise">Dimensione Organizzazione non valido</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputContactReciving" name="inputContactReciving" placeholder="Contatto Ricevente: Name, Position"  >
-                        <label for="inputContactReciving"><sup>6</sup>Contatto Del Ricevente: Nome, Posizione</label>
-                        <span id="errContactReciving">Contatto del Ricevente non valido</span>
+                        <input type="text" class="form-control" id="inputContactRecivingName" name="inputContactRecivingName" placeholder="Contatto Ricevente: Name"  >
+                        <label for="inputContactRecivingName"><sup>6</sup>Contatto Del Ricevente: Nome</label>
+                        <span id="errContactRecivingName">Contatto del Ricevente non valido</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" class="form-control" id="inputMentor" name="inputMentor" placeholder="Mentore: Nome, Posizione"  >
-                        <label for="inputMentor"><sup>7</sup>Mentore: Nome, Posizione</label>
-                        <span id="errMentor">Mentore non valido</span>
+                        <input type="text" class="form-control" id="inputContactRecivingPosition" name="inputContactRecivingPosition" placeholder="Contatto Ricevente: Position"  >
+                        <label for="inputContactRecivingPosition"><sup>6</sup>Contatto Del Ricevente: Posizione</label>
+                        <span id="errContactRecivingPosition">Contatto del Ricevente non valido</span>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputMentorName" name="inputMentorName" placeholder="Mentore: Nome"  >
+                        <label for="inputMentorName"><sup>7</sup>Mentore: Nome</label>
+                        <span id="errMentorName">Mentore non valido</span>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputMentorPosition" name="inputMentorPosition" placeholder="Mentore: Posizione"  >
+                        <label for="inputMentorPosition"><sup>7</sup>Mentore: Posizione</label>
+                        <span id="errMentorPosition">Mentore non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputMentorInfo" name="inputMentorInfo" placeholder="Mentore: E-mail/Telefono"  >
@@ -503,7 +521,7 @@
                     <div class="row">
                         <div class="form-check">
                             <label for="inputLenguageLevel">A1</label>
-                            <input type="radio" name="inputLenguageLevel" checked id="A1" value="A1">
+                            <input type="radio" name="inputLenguageLevel" id="A1" value="A1">
                             <label for="inputLenguageLevel">A2</label>
                             <input type="radio" name="inputLenguageLevel" id="A2" value="A2">
                             <label for="inputLenguageLevel">B1</label>
@@ -573,7 +591,8 @@
                 if (data["Sex [M/F]"] == "M") document.getElementById("M").checked = true;
                 if (data["Sex [M/F]"] == "F") document.getElementById("F").checked = true;
                 if (data["Nationality"]) document.getElementById("nationality").value = data["Nationality"];
-                if (data["Study cycle"]) document.getElementById("inputStudyCicle").value = data["Study cycle"];
+                if (data["Study cycle"] == "1st Cycle") document.getElementById("1st").checked = true;
+                if (data["Study cycle"] == "2nd Cycle") document.getElementById("2nd").checked = true;
                 if (data["Academic year1"]) document.getElementById("inputAcademicYear1").value = data["Academic year1"];
                 if (data["Academic year2"]) document.getElementById("inputAcademicYear2").value = data["Academic year2"];
                 if (data["Subject area, Code"]) document.getElementById("inputSubjectCode").value = data["Subject area, Code"];
@@ -583,11 +602,26 @@
                 if (data["Contact person Email / Phone"]) document.getElementById("inputContactSending").value = data["Contact person Email / Phone"];
                 if (data["Name Sector"]) document.getElementById("inputNameSector").value = data["Name Sector"];
                 if (data["Receiving Department"]) document.getElementById("inputDepartmentReciving").value = data["Receiving Department"];
-                if (data["Address, website"]) document.getElementById("inputAddressWebSite").value = data["Address, website"];
+                if (data["Address, website"]) {
+                    var address = data["Address, website"].substring(0, data["Address, website"].lastIndexOf(" "));
+                    var website = data["Address, website"].substring(data["Address, website"].lastIndexOf(" "));                    
+                    document.getElementById("inputAddress").value = address;                    
+                    document.getElementById("inputWebSite").value = website;
+                }
                 if (data["Country"]) document.getElementById("inlineFormCustomSelect").value = data["Country"];
                 if (data["Size of enterprise"]) document.getElementById("inputSizeEnterprise").value = data["Size of enterprise"];
-                if (data["Contact person name / position"]) document.getElementById("inputContactReciving").value = data["Contact person name / position"];
-                if (data["Mentor name / position"]) document.getElementById("inputMentor").value = data["Mentor name / position"];
+                if (data["Contact person name / position"]) {
+                    var name = data["Contact person name / position"].substring(0, data["Contact person name / position"].lastIndexOf("-")-1);
+                    var position = data["Contact person name / position"].substring(data["Contact person name / position"].lastIndexOf("-")+2);
+                    document.getElementById("inputContactRecivingName").value = name;
+                    document.getElementById("inputContactRecivingPosition").value = position;
+                }
+                if (data["Mentor name / position"]) {
+                    var name = data["Mentor name / position"].substring(0, data["Mentor name / position"].lastIndexOf("-")-1);
+                    var position = data["Mentor name / position"].substring(data["Mentor name / position"].lastIndexOf("-")+2);
+                    document.getElementById("inputMentorName").value = name;
+                    document.getElementById("inputMentorPosition").value = position;
+                }
                 if (data["Mentor e-mail / phone"]) document.getElementById("inputMentorInfo").value = data["Mentor e-mail / phone"];
                 if (data["from"]) document.getElementById("inputDateFrom").value = data["from"];
                 if (data["till"]) document.getElementById("inputDateTo").value = data["till"];
