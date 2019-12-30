@@ -6,13 +6,21 @@ var learningAgreementControl = require('./app/controllers/learningAgreementContr
 var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
+var messageControl= require('./app/controllers/messageControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
+const io = require('socket.io')(3000)
+app.set('view engine', 'ejs');
+
+var connectedClients={};
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
 app.use(cookieParser());
+
+app.set('views', path.join(__dirname, '/app/views'));
+app.engine('html', require('ejs').renderFile);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -196,6 +204,10 @@ app.get('/signup.html', function (req, res) {
   res.sendFile("/app/views/signup.html",{root:__dirname});
 });
 
+app.get('/index.html', function (req, res) {
+  res.render('index');
+});
+
 app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
 });
@@ -206,4 +218,42 @@ app.post('/login', function(request, response){
 
 app.listen(8080, function () {
   console.log('EasyAgreement Platform listening on port 8080!');
+});
+
+io.on('connection', socket => {
+  socket.on('subscribe', function(sender) {
+    connectedClients[sender]=socket.id;
+    socket.username=sender;
+  });
+  socket.on('send-chat-message', function(message){
+    socket.broadcast.to(connectedClients[message.recipientID]).emit('chat-message', socket.username, message);
+  })
+})
+
+app.post('/getConnectedUser', function (req, res){
+  res.json(req.session.utente); 
+});
+
+app.post('/getContacts', function (req, res){
+  messageControl.getAllContacts(req.body.type, res);
+});
+
+app.post('/getMessages', function(req, res){
+  messageControl.getAllMessages(req.body.sender, req.body.recipient, res);
+});
+
+app.post('/saveMessage', function(req, res){
+  messageControl.saveMessage(req.body.message, res);
+});
+
+app.post('/removeMessage', function(req, res){
+  messageControl.removeMessage(req.body.messageID, res);
+});
+
+app.post('/updateMessage', function(req, res){
+  messageControl.updateMessage(req.body.messageID, req.body.text, res);
+});
+
+app.post('/searchUser', function(req, res){
+  messageControl.searchUser(req.body.type, req.body.search, res);
 });
