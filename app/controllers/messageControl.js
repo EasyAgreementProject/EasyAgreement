@@ -131,19 +131,15 @@ exports.saveMessage= function(message, res){
 exports.updateMessage= function(id, text, res){
     var update= messageModel.updateMessage(id, text);
     update.then(function(result){
-        res.json(true);
+        res.json({boolean: true});
     })
 }
 
 exports.removeMessage= function(messageID, res){
     var remove= messageModel.removeMessage(messageID);
     remove.then(function(result){
-        res.json(true);
+        res.json({boolean: true});
     })
-}
-
-exports.getConnectedUser= function(req){
-    return req.session.utente;
 }
 
 exports.searchUser= function(type, search, res){

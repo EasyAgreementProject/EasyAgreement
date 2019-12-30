@@ -120,8 +120,7 @@ io.on('connection', socket => {
 })
 
 app.post('/getConnectedUser', function (req, res){
-  var user= messageControl.getConnectedUser(req);
-  res.json(user); 
+  res.json(req.session.utente); 
 });
 
 app.post('/getContacts', function (req, res){
