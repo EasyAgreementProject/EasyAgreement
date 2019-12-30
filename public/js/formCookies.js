@@ -51,6 +51,7 @@ $(document).ready(function() {
     var errMonitoring = getCookie("errMonitoring");
     var errEvaluation = getCookie("errEvaluation");
     var errLenguage = getCookie("errLenguage");
+   
 
 
     if (errName == "1") {
@@ -129,8 +130,10 @@ $(document).ready(function() {
         document.cookie = "errDepartmentReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errAddressWebSite == "1") {
-        $('#errAddressWebSite').css('display', 'block');
-        $('#inputAddressWebSite').addClass("errClass");
+        $('#errAddress').css('display', 'block');
+        $('#inputAddress').addClass("errClass");
+        $('#errWebSite').css('display', 'block');
+        $('#inputWebSite').addClass("errClass");
         document.cookie = "errAddressWebSite=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errSizeEnterprise == "1") {
@@ -139,8 +142,10 @@ $(document).ready(function() {
         document.cookie = "errSizeEnterprise=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errContactReciving == "1") {
-        $('#errContactReciving').css('display', 'block');
-        $('#inputContactReciving').addClass("errClass");
+        $('#errContactRecivingName').css('display', 'block');
+        $('#inputContactRecivingName').addClass("errClass");
+        $('#errContactRecivingPosition').css('display', 'block');
+        $('#inputContactRecivingPosition').addClass("errClass");
         document.cookie = "errContactReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errDepartmentReciving == "1") {
@@ -149,8 +154,10 @@ $(document).ready(function() {
         document.cookie = "errDepartmentReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errMentor == "1") {
-        $('#errMentor').css('display', 'block');
-        $('#inputMentor').addClass("errClass");
+        $('#errMentorName').css('display', 'block');
+        $('#inputMentorName').addClass("errClass");
+        $('#errMentorPosition').css('display', 'block');
+        $('#inputMentorPosition').addClass("errClass");
         document.cookie = "errMentor=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errMentorInfo == "1") {

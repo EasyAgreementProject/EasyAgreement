@@ -79,7 +79,7 @@ class Student {
     getDegreeCourse(){
         return this.DegreeCourse;
     }
-    
+
     /**
      * Get Identity cart
      * @returns {File} - return identity cart
@@ -191,7 +191,7 @@ class Student {
  */
 static insertStudent(student) {
     return new Promise(function (fulfill, reject) {
-        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if(err) throw err;
             console.log("Connected successfully to server!");
             var dbo = db.db(dbName);
@@ -225,13 +225,13 @@ static findByMatricola(studentID){
                     fulfill(true);
                 }
                 db.close;
-            
+
             });
         });
     });
 }
 
-/** 
+/**
  * Find student by email
  * @param {String} email- email
  * @returns {boolean} - return true if the object does not exist in database, else false
@@ -255,7 +255,7 @@ static findExistByEmail(email){
     });
 }
 
-/** 
+/**
  * check if exist student by email
  * @param {String} email- email
  * @returns {boolean} - return true if the object does not exist in database, else false
@@ -290,188 +290,24 @@ static findByEmail(email){
     });
 }
 
-static checkCVPresence(email) {   //Check if a CV in pdf format is present in selected student.
-                                  //Search is performed by using email as func argument.
-
+/**
+ * Retrieve all students
+ *
+ * @returns {promise} - return promise
+ */
+static RetrieveAll() {
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
             var dbo= db.db(dbName);
-            dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                if(err) reject(err);
-                if(result!=null && student.CV != null){
-                    
-                    fulfill(true);
-                    
-                }
-                else{
-                    fulfill(false);
-                }
-                db.close();
-            })
-        });
-    });
-
-
-
-
-}
-
-
-static checkIDPresence(email) {   //Check if a ID in pdf or jpeg format is present in selected student.
-                                  //Search is performed by using email as func argument.
-
-    return new Promise(function(fulfill,reject){
-        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-            if(err)  reject(err);
-            var dbo= db.db(dbName);
-            dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                if(err) reject(err);
-                if(result!=null && student.IDCard != null){
-                    
-                    fulfill(true);
-                    
-                }
-                else{
-
-                    fulfill(false);
-                }
-                db.close();
-                })
-            });
-        });
-
-    }
-
-
-static updateStudentCV(email, ObjectCV) {   //Insert/update student CV
-       
-
-    return new Promise(function(fulfill,reject){
-        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-            if(err)  reject(err);
-            var dbo= db.db(dbName);
-            
-                dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                if(err) reject(err);
-                dbo.collection("Student").updateOne(
-                    {"email" : result.email},
-                    {$set:{"CV" : ObjectCV }})
-                fulfill(true);
-                db.close();
-                })
-            });
-        });
-
-    }
-
-
-    static updateStudentID(email, ObjectID) {   //Insert/update student ID
-       
-
-        return new Promise(function(fulfill,reject){
-            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-                if(err)  reject(err);
-                var dbo= db.db(dbName);
-                
-                    dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                    if(err) reject(err);
-                    dbo.collection("Student").updateOne(
-                        {"email" : result.email},
-                        {$set:{"IDCard" : ObjectID }})
-                    fulfill(true);
-                    db.close();
-                    })
-                });
-            });
-    
-        }
-
-        static retrieveStudentCV(email) {   //Insert/update student ID
-       
-
-            return new Promise(function(fulfill,reject){
-                MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-                    if(err)  reject(err);
-                    var dbo= db.db(dbName);
-                    
-                        dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                        if(err) reject(err);
-                        //code here
-                        fulfill(result);
-                        db.close();
-                        })
-                    });
-                });
-        
-            }
-
-
-
-static retrieveStudentID(email) {   //Insert/update student ID
-       
-
-    return new Promise(function(fulfill,reject){
-        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-            if(err)  reject(err);
-            var dbo= db.db(dbName);
-            
-                dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                if(err) reject(err);
-                //code here
+            dbo.collection("Student").find({}).toArray(function(err,result) {
+                if(err) throw err;
                 fulfill(result);
                 db.close();
-                })
             });
         });
-
-    }
-
-
-    static deleteStudentCV(email) {   //Delete student CV
-       
-
-        return new Promise(function(fulfill,reject){
-            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-                if(err)  reject(err);
-                var dbo= db.db(dbName);
-                
-                    dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                    if(err) reject(err);
-                    dbo.collection("Student").updateOne(
-                        {"email" : result.email},
-                        {$set:{"CV" : null }})
-                    fulfill(true);
-                    db.close();
-                    })
-                });
-            });
-    
-        }
-
-
-        static deleteStudentID(email) {   //Delete student ID
-       
-
-            return new Promise(function(fulfill,reject){
-                MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-                    if(err)  reject(err);
-                    var dbo= db.db(dbName);
-                    
-                        dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                        if(err) reject(err);
-                        dbo.collection("Student").updateOne(
-                            {"email" : result.email},
-                            {$set:{"IDCard" : null }})
-                        fulfill(true);
-                        db.close();
-                        })
-                    });
-                });
-        
-            }
-
-
+    });
+}
 }
 
 module.exports= Student;
