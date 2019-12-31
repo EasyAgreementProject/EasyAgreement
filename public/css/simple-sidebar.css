@@ -109,7 +109,7 @@
                          ::before {
                             box-sizing: border-box;
                         }
-                        .form-label-group {
+                        .form-label-group, .form-group {
                             margin-bottom: 1rem;
                             position: relative;
                             margin: 2%;

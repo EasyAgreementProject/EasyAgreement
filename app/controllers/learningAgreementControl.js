@@ -279,7 +279,10 @@ exports.sendLaAcademicTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it");
+        var email;
+        if(!input[9]) email = "v.volpicelli4@studenti.unisa.it";
+        else email = input[9];
+        var getDataPr = exports.getData(email);
         getDataPr.then(function(data) {        
             //Traineeship embedded in the curriculum
             data["Award"] = input[0];
@@ -425,7 +428,10 @@ exports.saveLaAcademicTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it"); //input9
+        var email;
+        if(!input[9]) email = "v.volpicelli4@studenti.unisa.it";
+        else email = input[9];
+        var getDataPr = exports.getData(email); //input9
         getDataPr.then(function(data) {        
             //Traineeship embedded in the curriculum
             data["Award"] = input[0];
@@ -532,7 +538,10 @@ exports.sendLaExternalTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it"); //input[6]
+        var email;
+        if(!input[6]) email = "v.volpicelli4@studenti.unisa.it";
+        else email = input[6];
+        var getDataPr = exports.getData(email); //input[6]
         getDataPr.then(function(data) {        
             switch(input[0]) {
                 case "Si": 
@@ -635,7 +644,10 @@ exports.saveLaExternalTutor = function(input, res) {
     today = dd + "/" + mm + "/" + yyyy;
 
     return new Promise(function(fulfill, reject) {
-        var getDataPr = exports.getData("v.volpicelli4@studenti.unisa.it");
+        var email;
+        if(!input[6]) email = "v.volpicelli4@studenti.unisa.it";
+        else email = input[6];
+        var getDataPr = exports.getData(email);
         getDataPr.then(function(data) {        
             switch(input[0]) {
                 case "Si": 
@@ -682,8 +694,11 @@ exports.saveLaExternalTutor = function(input, res) {
 
 exports.disapproveAcademicTutor = function(student, msg) {
     return new Promise(function(fulfill, reject) {
+        var email;
+        if(!student) email = "v.volpicelli4@studenti.unisa.it";
+        else email = student;
         console.log("Getting data for student: " + student);
-        getLearningAgreementPr = LA.getLearningAgreement("v.volpicelli4@studenti.unisa.it");
+        getLearningAgreementPr = LA.getLearningAgreement(email);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
             console.log("Searching done!");
@@ -702,7 +717,10 @@ exports.disapproveAcademicTutor = function(student, msg) {
 exports.disapproveExternalTutor = function(student, msg) {
     return new Promise(function(fulfill, reject) {
         console.log("Getting data for student: " + student);
-        getLearningAgreementPr = LA.getLearningAgreement("v.volpicelli4@studenti.unisa.it");
+        var email;
+        if(!student) email = "v.volpicelli4@studenti.unisa.it";
+        else email = student;
+        getLearningAgreementPr = LA.getLearningAgreement(email);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
             console.log("Searching done!");
@@ -747,7 +765,7 @@ exports.getStatus = function(student) {
 exports.getVersion = function(id, email) {
     let random = parseInt(Math.random()*10000);
     return new Promise(function(fulfill, reject) {
-        getPdfPr = LA.getPdf(id, "v.volpicelli4@studenti.unisa.it");
+        getPdfPr = LA.getPdf(id, email);
         getPdfPr.then(function(result, err) {
             if (err) throw err;
             console.log("Getting version with id= "+id);
@@ -858,7 +876,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("email student wrong!");
             fulfill(false);
         }
-        if (!(/^\w+$/.test(data["Sending Departement"]))) {
+        if (!(/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Sending Departement"]))) {
             if(res) res.cookie("errDepartmentSending", "1");
             console.log("sending department wrong!");
             fulfill(false);
