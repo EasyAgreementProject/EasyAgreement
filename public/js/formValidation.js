@@ -331,7 +331,7 @@ $("#send").click(function() {
     function testDepartmentSending() {
         var departmentSending = $('#inputDepartmentSending').val();
         if (departmentSending.length >= 4) {
-            if (/^\w+$/.test(departmentSending)) return true;
+            if (/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(departmentSending)) return true;
         }
         return false;
     }
