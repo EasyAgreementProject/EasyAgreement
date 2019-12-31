@@ -96,6 +96,7 @@ class LearningAgreement {
                             });
                         })
                     } else {
+                        learningAgreement._id = new ObjectID();
                         learningAgreement.version = 1;
                         dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                             if (err) throw err;
