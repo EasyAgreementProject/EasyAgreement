@@ -766,7 +766,7 @@ describe('Field test for learningAgreementControl', function(){
 
     it('Testing method getVersion - TC_LAM_4.2', function(){
         var input = ['1'];
-        var getVersion = compileControl.getVersion(input);
+        var getVersion = compileControl.getVersion(input, "v.volpicelli4@studenti.unisa.it");
         getVersion.then(function(la) {
             assert.isNotNull(la);
         });

@@ -17,6 +17,8 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="./js/formValidation.js"></script>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="js/chat.js"></script>
 </head>
 
 <body>
@@ -60,7 +62,7 @@
                             <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
+                            <a class="nav-link" id="open-chat" href="javascript:void(0)"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login.html">Logout</a>
@@ -130,7 +132,7 @@
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputSubjectCode" name="inputSubjectCode" placeholder="Facoltà e Codice Identificativo"  >
-                        <label for="inputSubjectCode"><sup>3</sup>Facoltà e Codice Identificativo</label>
+                        <label for="inputSubjectCode"><sup>3</sup>Facoltà e Codice Identificativo (Informatica, 05121)</label>
                         <span id="errSubjectCode">Facoltà e Codice Identificativo non validi</span>
                     </div>
                     <div class="form-label-group">
@@ -147,12 +149,12 @@
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactName" name="inputContactName" placeholder="Nome Docente"  >
-                        <label for="inputContactName">Nome Contatto</label>
+                        <label for="inputContactName">Nome Cognome Contatto (Persona di riferimento all'interno del dipartimento)</label>
                         <span id="errContactName">Nome Contatto non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactSending" name="inputContactSending" placeholder="Contatto Docente: E-mail/Telefono"  >
-                        <label for="inputContactSending">Info Contatto: E-mail e Telefono</label>
+                        <label for="inputContactSending">Info Contatto: E-mail e Telefono (esempio@gmail.com 123456789)</label>
                         <span id="errContactSending">Info Contatto non valide</span>
                     </div>
                     <hr>
@@ -435,17 +437,17 @@
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactRecivingName" name="inputContactRecivingName" placeholder="Contatto Ricevente: Name"  >
-                        <label for="inputContactRecivingName"><sup>6</sup>Contatto Del Ricevente: Nome</label>
+                        <label for="inputContactRecivingName"><sup>6</sup>Contatto Di Riferimento: Nome Cognome (Persona di riferimento all'interno del dipartimento)</label>
                         <span id="errContactRecivingName">Contatto del Ricevente non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputContactRecivingPosition" name="inputContactRecivingPosition" placeholder="Contatto Ricevente: Position"  >
-                        <label for="inputContactRecivingPosition"><sup>6</sup>Contatto Del Ricevente: Posizione</label>
+                        <label for="inputContactRecivingPosition"><sup>6</sup>Contatto Di Riferimento: Posizione</label>
                         <span id="errContactRecivingPosition">Contatto del Ricevente non valido</span>
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputMentorName" name="inputMentorName" placeholder="Mentore: Nome"  >
-                        <label for="inputMentorName"><sup>7</sup>Mentore: Nome</label>
+                        <label for="inputMentorName"><sup>7</sup>Mentore: Nome Cognome (Persona di riferimento all'interno dell'organizzazione ospitante)</label>
                         <span id="errMentorName">Mentore non valido</span>
                     </div>
                     <div class="form-label-group">
@@ -455,7 +457,7 @@
                     </div>
                     <div class="form-label-group">
                         <input type="text" class="form-control" id="inputMentorInfo" name="inputMentorInfo" placeholder="Mentore: E-mail/Telefono"  >
-                        <label for="inputMentorInfo">Mentore: E-mail e Telefono</label>
+                        <label for="inputMentorInfo">Mentore: E-mail e Telefono (esempio@gmail.com 123456789)</label>
                         <span id="errMentorInfo">Info Mentore non valide</span>
                     </div>
                     <hr>
@@ -550,14 +552,14 @@
                         <p>1) Nazionalità: Paese di appartenenza amministrativa della persona e che rilascia la carta d'identità e / o il passaporto.<br>
                             <hr> 2) Ciclo di studio: ciclo breve (livello 5 EQF) / laurea triennale o equivalente (livello 6 EQF) / secondo ciclo master o equivalente (livello EQF 7) / dottorato o terzo ciclo equivalente (EQF livello 8) - per i neolaureati,
                             specificare l'ultimo ciclo di studio.<br>
-                            <hr> 3) Lo strumento di ricerca ISCED-F 2013 disponibile su http://ec.europa.eu/education/tools/isced-f_en.htm dovrebbe essere utilizzato per trovare il settore dettagliato dell'istruzione e formazione ISCED 2013 più vicino all'argomento
+                            <hr> 3) Lo strumento di ricerca ISCED-F 2013 disponibile su <a href="https://bit.ly/36dvEky">questo link</a> dovrebbe essere utilizzato per trovare il settore dettagliato dell'istruzione e formazione ISCED 2013 più vicino all'argomento
                             del titolo che deve essere assegnato al tirocinante dall'istituto di invio.<br>
-                            <hr> 4) L'elenco dei codici settoriali di alto livello della NACE è disponibile all'indirizzo: http://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2&StrLanguageCode=EN.<br>
+                            <hr> 4) L'elenco dei codici settoriali di alto livello della NACE è disponibile all'indirizzo: <a href="https://bit.ly/2SCvorr">link</a>.<br>
                             <hr> 5) Le dimensioni dell'impresa potrebbero essere, ad esempio, 1-50 / 51-500.<br>
                             <hr> 6) Persona di contatto: una persona che può fornire informazioni nell'ambito di Erasmus tirocinanti.<br>
                             <hr> 7) Mentore: il ruolo del mentore è di fornire supporto, incoraggiamento e informazione al tirocinante sulla vita e sull'esperienza relative all'impresa (cultura dell'impresa, codici e comportamenti informali, ecc.). Normalmente,
                             il mentore dovrebbe essere una persona diversa rispetto al supervisore.<br>
-                            <hr> 8) Per il quadro comune europeo di riferimento per le lingue (QCER), consultare <br>https://europass.cedefop.europa.eu/resources/european-language-levels-cefr</p>
+                            <hr> 8) Per il quadro comune europeo di riferimento per le lingue (QCER), consultare <br><a href="https://bit.ly/2MKb839">link</a></p>
                     </div>
                     <hr>
                     <button class="btn btn-block" type="submit" class="saveButton" id="send">INVIA</button>
@@ -604,7 +606,7 @@
                 if (data["Receiving Department"]) document.getElementById("inputDepartmentReciving").value = data["Receiving Department"];
                 if (data["Address, website"]) {
                     var address = data["Address, website"].substring(0, data["Address, website"].lastIndexOf(" "));
-                    var website = data["Address, website"].substring(data["Address, website"].lastIndexOf(" "));                    
+                    var website = data["Address, website"].substring(data["Address, website"].lastIndexOf(" ")+1);                    
                     document.getElementById("inputAddress").value = address;                    
                     document.getElementById("inputWebSite").value = website;
                 }

@@ -15,8 +15,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src="/./public/js/cookie.js"></script>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="js/chat.js"></script>
 
 </head>
 
@@ -61,7 +61,7 @@
                             <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
+                            <a class="nav-link" id="open-chat" href="javascript:void(0)"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login.html">Logout</a>
