@@ -98,7 +98,7 @@ app.post('/compileStudent', function(req, res) {
 
 app.post('/compileAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.utente.utente.Email //To change with email of student request 
+      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request 
   ];
   var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
   sendTutorPr.then(function(dw) {
@@ -113,7 +113,7 @@ app.post('/compileAcademicTutor', function(req, res) {
 });
 
 app.post('/compileExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.utente.utente.Email]; //To change with email of student request 
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request 
   var sendTutorPr = learningAgreementControl.sendLaExternalTutor(data, res);
   sendTutorPr.then(function(dw) {
       if (dw) {
@@ -127,48 +127,50 @@ app.post('/compileExternalTutor', function(req, res) {
 });
 
 app.post('/saveStudent', function(req, res) {
-    var inputAddressWebSite = req.body.inputAddress+" "+req.body.inputWebSite;
-    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
+  var inputAddressWebSite = req.body.inputAddress+" "+req.body.inputWebSite;
+  var inputContactReciving = req.body.inputContactRecivingName+" - "+req.body.inputContactRecivingPosition;
+  var inputMentor = req.body.inputMentorName+" - "+req.body.inputMentorPosition;
+  var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
       req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactName, req.body.inputContactSending,
-      req.body.inputNameSector, req.body.inputDepartmentReciving, inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, req.body.inputContactReciving,
-      req.body.inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
+      req.body.inputNameSector, req.body.inputDepartmentReciving, inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, inputContactReciving,
+      inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
       req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
-    ];
+  ];
     var saveStudent = learningAgreementControl.saveLaStudent(data);
     saveStudent.then(function() {
-      res.sendFile(path.join(__dirname + "/app/views/index.html"));
+      res.render(path.join(__dirname + "/app/views/index.ejs"));
     });
 });
 
 app.post('/saveAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.utente.utente.Email //To change with email of student request 
+    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request 
   ];
   var saveTutor = learningAgreementControl.saveLaAcademicTutor(data);
   saveTutor.then(function() {
-    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+    res.render(path.join(__dirname + "/app/views/index.ejs"));
   });
 });
 
 app.post('/saveExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.utente.utente.Email]; //To change with email of student request 
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request 
   var saveTutor = learningAgreementControl.saveLaExternalTutor(data);
   saveTutor.then(function() {
-    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+    res.render(path.join(__dirname + "/app/views/index.ejs"));
   });
 });
 
 app.post('/disapproveAcademicTutor', function(req, res) {
   var disapproveTutorPr = learningAgreementControl.disapproveAcademicTutor(req.session.utente.utente.Email, req.body.msg);
   disapproveTutorPr.then(function() {
-    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+    res.render(path.join(__dirname + "/app/views/index.ejs"));
   });
 });
 
 app.post('/disapproveExternalTutor', function(req, res) {
   var disapproveTutorPr = learningAgreementControl.disapproveExternalTutor(req.session.utente.utente.Email, req.body.msg);
   disapproveTutorPr.then(function() {
-    res.sendFile(path.join(__dirname + "/app/views/index.html"));
+    res.render(path.join(__dirname + "/app/views/index.ejs"));
   });
 });
 
