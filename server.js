@@ -41,6 +41,10 @@ app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
 });
 
+app.get('/gestioneDocumenti.html', function(req, res) {
+    res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
+});
+
 app.get('/viewLA.html', function(req, res){
     res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
 });

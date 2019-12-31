@@ -14,10 +14,10 @@ exports.docHandler = function(err,req,res) {
   form.multiples=false;
   form.parse(req, function(err, fields, files) {
     res.writeHead(200, {'content-type': 'text/plain'});
-
+    
 
     studentModel.updateStudentCV(email, req.files);
-
+    
 
 
   });
@@ -52,7 +52,7 @@ exports.docHandler = function(err,req,res) {
   res.sendFile(path.resolve('app/views/index.html'));
   return;
 }
-
+  
 
 
 }
