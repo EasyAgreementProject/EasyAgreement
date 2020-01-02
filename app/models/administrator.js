@@ -79,20 +79,34 @@ static findByEmail(email){
     });
 }
 
-static updatePassword(admin,emailv) {
+static updatePassword(pass,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
-            if(err) throw err;
+            if(err) reject(err);
             console.log("Connected successfully to server!");
             var dbo = db.db(dbName);
             console.log(".");
             var myquery = { Email: emailv };
-            var newvalues = { $set: {Password: admin.Password } };
+            var newvalues = { $set: {Password: pass } };
              dbo.collection("Administrator").updateOne(myquery, newvalues, function(err, res) {
-                 if (err) throw err;
+                 if (err) reject(err);
                      console.log("1 document updated+ name: ");
-                db.close();
              });
+             dbo.collection("Administrator").findOne({email: emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var admin= new Administrator();
+                    admin.setEmail(result.email);
+                    admin.setName(result.name);
+                    admin.setSurname(result.surname);
+                    admin.setPassword(result.password);
+                    fulfill(admin);
+                }
+                else{
+                    fulfill(null);
+                }
+                db.close();
+            })
             });
         });
     

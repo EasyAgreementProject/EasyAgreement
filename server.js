@@ -235,7 +235,15 @@ app.post('/updateProfile', function(req, res) {
 
 app.post('/updatePassword',function(req,res){
 
-var updatePass= studentControl.updatePassword(req,res);
+ 
+  if(req.session.utente.type=="student")
+  var updateS=studentControl.updatePassword(req, res);
+ else
+  if(req.session.utente.type=="academicTutor")
+   var updateE=academicTutorControl.updatePassword(req, res);
+ else
+ if(req.session.utente.type=="externalTutor")
+           var updateE=externalTutorControl.updatePassword(req, res);
 
 });
 
@@ -251,7 +259,7 @@ app.get('/profile',function(request,response){
 app.get('/profile', function (request, response) {
   if(request.session.utente == null)
   
-    response.sendFile("/app/views/login.html",{root:__dirname});
+    res.redirect("/");
   
   else
   {    if(request.session.utente.type=="student") 
@@ -281,7 +289,7 @@ app.get('/logout',function(req,res){
       res.cookie('logoutEff','1');
       console.log("sessione eliminata");
 
-      res.sendFile("/app/views/login.html",{root:__dirname});
+      res.redirect("/");
     }
   });
 });

@@ -8,27 +8,40 @@ exports.update=function(req,res){
         var surname= req.body.inputSurname;
         var organization= req.body.inputOrganization;
         
-
+        var externalTutor=new externalTutorModel();
 
 
 
 //Form validation
 var isRight=true;
 
-if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
-    console.log("errorz");res.cookie('errexternalTutorName','1');
+if(name.length != 0){
+    if(!(/^[A-Za-z]+$/.test(name)) || name.length<=1){
+        res.cookie('errexternalTutorName','1');
+        isRight=false;
+    }
+    else
+        externalTutor.setName(name);
+}
+   
+
+if(surname.length != 0){
+if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=1){
+    res.cookie('errexternalTutorSurname','1');
     isRight=false;
+    }
+    else
+        externalTutor.setSurname(surname);
 }
 
-if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
-    console.log("errorz1");res.cookie('errexternalTutorSurname','1');
+
+if(organization.length != 0){
+    if(!(/^[A-Za-z]+$/.test(organization)) || organization.length<=1){
+    res.cookie('errOrganizationName','1');
     isRight=false;
 }
-
-
-if((organization==null) || (organization.length<=1) || (!/^[A-Za-z]+$/.test(organization))){
-    console.log("errorz3"); res.cookie('errOrganizationName','1');
-    isRight=false;
+else
+    externalTutor.setOrganization(organization);
 }
 
 
@@ -39,32 +52,53 @@ if(!isRight){
     return;
 }
 
-//hashing e salt of password
-       //var passwordHashed=hash.hashPassword(password);
 
-        //Create externalTutor object
-        
-        var externalTutor=new externalTutorModel();
-    
-        
-        externalTutor.setName(name);
-        externalTutor.setSurname(surname);
-        externalTutor.setOrganization(organization);
-
-       console.log(JSON.stringify(req.session));
-       console.log("DATI DELL'EXTERNAL" +JSON.stringify(externalTutor)+"dati sessione: "+JSON.stringify(req.session.utente.utente.email));
         var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.email);
-        req.session.utente.utente.name=externalTutor.getName();
-        req.session.utente.utente.organization=externalTutor.getOrganization();
-        req.session.utente.utente.surname=externalTutor.getSurname();
+ 
+        checkS.then(function(result){
+            if(result!= null)
+            {
+                req.session.utente.utente=result;
+            }
+            res.cookie('updateEff','1');
+
+            res.render('profile');
+        });
         
  
         //res.cookie('updateOK','1');
-        res.render('profile');
         
 
 }
+exports.updatePassword=function(req,res){
 
+    var oldPassword= req.body.oldPassword;
+    var password= req.body.newPassword;
+    var passwordConfirm= req.body.repeatPassword;
+
+    if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
+        res.cookie('errPassword','1');
+    
+        isRight=false;
+    }
+
+    if(passwordConfirm!=password){
+        res.cookie('errPasswordConfirm','1');
+        
+        isRight=false;
+    }
+
+    if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
+        var passwordHashed= hash.hashPassword(password);
+    
+        var checkS=externalTutorModel.updatePassword(passwordHashed,req.session.utente.utente.email);
+        checkS.then(function(result){
+            req.session.utente.utente=result;
+            res.cookie('updatePassEff','1');
+            res.render('profile');
+        })
+    }
+}
     exports.view= function(req, res){
 
 

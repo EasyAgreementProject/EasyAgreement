@@ -70,7 +70,7 @@ exports.login= function(req, res){
                                             
                                             req.session.utente=adminSession;
                                             
-                                            console.log(req.session.utente);
+                                            
                                             redirect(res);
                                         }
                                         else{
@@ -89,7 +89,7 @@ exports.login= function(req, res){
                                         type: "externalTutor"
                                     };
                                     req.session.utente=externalSession;
-                                    console.log(req.session.utente);
+                                
                                     redirect(res);
                                 }
                                 else{
@@ -107,7 +107,7 @@ exports.login= function(req, res){
                                 type: "academicTutor"
                             };
                             req.session.utente=academicSession;
-                            console.log(req.session.utente);
+                           
 
                             redirect(res);
                         }
@@ -126,7 +126,7 @@ exports.login= function(req, res){
                         type: "student"
                     };
                     req.session.utente=studentSession;
-                    console.log(req.session.utente);
+                    
                     redirect(res);
                 }
                 else{
@@ -146,14 +146,6 @@ exports.login= function(req, res){
  */
 function redirect(res){
     res.cookie('logEff','1');
-<<<<<<< HEAD
-    var path = require('path');
-    res.setHeader('Content-Type', 'text/html');
-
-    res.sendFile(path.resolve('app/views/index.ejs'));
-
-=======
     res.redirect('/index.html');
->>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69
     return;
 }

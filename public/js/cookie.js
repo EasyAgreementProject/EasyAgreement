@@ -42,7 +42,9 @@ $(document).ready(function(){
     var errLogin= getCookie("errLogin");
     var logEff=getCookie("logEff");
     var logoutEff=getCookie("logoutEff");
-    
+    var updateEff=getCookie("updateEff");
+    var updatePassEff=getCookie("updatePassEff");
+
    
     if(errName=="1"){
         $('#errName').css('display','block');
@@ -114,10 +116,22 @@ $(document).ready(function(){
         $('#inputDepartmentT').addClass("errClass");
         document.cookie="errTutorDepartment=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+
     if(regEff=="1"){
         swal('Registrazione effettuata', 'Prosegui con l\'accesso','success');
         document.cookie="regEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+
+    if(updateEff=="1"){
+        swal('Modifica effettuata', 'dati anagrafici modificati correttamente','success');
+        document.cookie="updateEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(updatePassEff=="1"){
+        swal('Modifica effettuata', 'password modificata correttamente','success');
+        document.cookie="updatePassEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
     if(alreadyReg=="1"){
         swal('Utente già registrato', 'Prosegui con l\'accesso','info');
         document.cookie="errAlreadyReg=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";

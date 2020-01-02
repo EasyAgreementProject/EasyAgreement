@@ -174,8 +174,6 @@ static RetrieveByEmail(email){
         });
     });
 }
-<<<<<<< HEAD
-=======
 
 /**
  * Retrieve all accademic tutor
@@ -195,8 +193,6 @@ static RetrieveAll() {
         });
     });
 }
-}
->>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69
 
 static updateAcademicTutor(academicTutor,emailv) {
     return new Promise(function (fulfill, reject) {
@@ -206,15 +202,66 @@ static updateAcademicTutor(academicTutor,emailv) {
             var dbo = db.db(dbName);
             console.log(".");
             var myquery = { E_mail: emailv };
-            var newvalues = { $set: {Name: academicTutor.Name, Surname: academicTutor.Surname, Department: academicTutor.Department} };
-             dbo.collection("AcademicTutor").updateOne(myquery, newvalues, function(err, res) {
+            var newvalues={};
+            if( academicTutor.Name    != null) newvalues.Name= academicTutor.Name;
+            if( academicTutor.Surname != null) newvalues.Surname= academicTutor.Surname;
+            if( academicTutor.Department != null) newvalues.Department= academicTutor.Department;
+             dbo.collection("AcademicTutor").updateOne(myquery,{$set: newvalues }, function(err, res) {
                  if (err) throw err;
                      console.log("1 document updated"+ academicTutor.Name + academicTutor.Surname+ academicTutor.Department);
-                db.close();
              });
+             dbo.collection("AcademicTutor").findOne({"E_mail": emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var academicTutor= new AcademicTutor();
+                    academicTutor.setName(result.Name);
+                    academicTutor.setSurname(result.Surname);
+                    academicTutor.setEmail(result.E_mail);
+                    academicTutor.setDepartment(result.Department);
+                    academicTutor.setPassword(result.Password);
+                    fulfill(academicTutor);
+                }
+                else{
+                    fulfill(null);
+                }
+                db.close();
+            })
             });
         });
     
 }
+static updatePassword(password,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) reject(err);
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues = { $set: {Password:password } };
+             dbo.collection("Student").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) reject(err);
+             });
+             dbo.collection("Student").findOne({Email: emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var academicTutor= new AcademicTutor();
+                    academicTutor.setName(result.Name);
+                    academicTutor.setSurname(result.Surname);
+                    academicTutor.setDepartment(result.Department);
+
+                   
+                    db.close();
+                    fulfill(academicTutor);
+                }
+                else{
+                    db.close();
+                    fulfill(null);
+                }
+             })
+            });
+        });
+    }
+    
 }
 module.exports= AcademicTutor;

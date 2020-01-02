@@ -103,8 +103,7 @@ static findByEmail(email){
         });
     });
 }
-<<<<<<< HEAD
-static updateExternalTutor(externalTutor,emailv) {
+static updateExternalTutor(externaltutor,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
             if(err) throw err;
@@ -112,18 +111,36 @@ static updateExternalTutor(externalTutor,emailv) {
             var dbo = db.db(dbName);
             console.log(".");
             var myquery = { E_mail: emailv };
-            var newvalues = { $set: {Name: externalTutor.name, Surname: externalTutor.surname,Organization: externalTutor.organization} };
-             dbo.collection("ExternalTutor").updateOne(myquery, newvalues, function(err, res) {
+            var newvalues={};
+            if(externaltutor.name    != null) newvalues.Name=externaltutor.name;
+            if(externaltutor.surname != null) newvalues.Surname=externaltutor.surname;
+            if(externaltutor.organization != null) newvalues.Organization=externaltutor.organization;
+            
+             dbo.collection("ExternalTutor").updateOne(myquery, {$set: newvalues }, function(err, res) {
                  if (err) throw err;
-                     console.log("1 document updated+ name: "+ externalTutor.organization);
-                db.close();
+                     console.log("1 document updated+ name: "+ externaltutor.organization);
              });
+             dbo.collection("ExternalTutor").findOne({"E_mail": emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var extutor= new externalTutor();
+                    extutor.setEmail(result.E_mail);
+                    extutor.setPassword(result.Password);
+                    extutor.setSurname(result.Surname);
+                    extutor.setName(result.Name);
+                    extutor.setOrganization(result.Organization);
+                    fulfill(extutor);
+                }
+                else{
+                    fulfill(null);
+                }
+                db.close();
+            })
             });
         });
     
 }
 
-=======
 
 /**
  * Retrieve all excternal tutor
@@ -143,6 +160,38 @@ static RetrieveAll() {
         });
     });
 }
->>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69
+static updatePassword(password,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) reject(err);
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues = { $set: {Password:password } };
+             dbo.collection("Student").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) reject(err);
+             });
+             dbo.collection("Student").findOne({Email: emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var externalTutor= new AcademicTutor();
+                    externalTutor.setName(result.name);
+                    externalTutor.setSurname(result.surname);
+                    externalTutor.setOrganization(result.Organization);
+
+                   
+                    db.close();
+                    fulfill(externalTutor);
+                }
+                else{
+                    db.close();
+                    fulfill(null);
+                }
+             })
+            });
+        });
+    }
+    
 }
 module.exports= externalTutor;

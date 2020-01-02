@@ -15,36 +15,68 @@ exports.update=function(req,res){
         var corso= req.body.inputDegree;
         
 
+        var studente=new studentModel();
 
 
 
 //Form validation
 var isRight=true;
-
-if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
-    res.cookie('errStudentName','1');
-    isRight=false;
+if(name.length!=0 ){
+    if(!(/^[A-Za-z]+$/.test(name)) || name.length<=1){
+        res.cookie('errStudentName','1');
+        isRight=false;
+    }
+    else{
+        studente.setName(name);
+    }
 }
 
-if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
-    res.cookie('errStudentSurname','1');
-    isRight=false;
+
+
+if(surname.length!=0){
+    console.log("sono nell if del diverso null cognome: "+ JSON.stringify(surname));
+    if (!(/^[A-Za-z]+$/.test(surname))){
+      console.log("Sono entrato nel cookie cognome");
+        res.cookie('errStudentSurname','1');
+        isRight=false;
+    }
+    else
+    {if(surname.length>1)
+        studente.setSurname(surname);
+
+    }
 }
 
-
-if((citta==null) || (citta.length<=2) || (!/^[A-Za-z\s]+$/.test(citta))){
+if(citta.length!=0){
+ if(!(/^[A-Za-z\s]+$/.test(citta))){
     res.cookie('errStudentCity','1');
     isRight=false;
+    }
+else
+{     if(surname.length>1)
+        studente.setCity(citta);
 }
 
-if((indirizzo==null) || (indirizzo.length<=6) || (!/^[A-Za-z0-9,\s]+$/.test(indirizzo))){
-    res.cookie('errStudentAddress','1');
-    isRight=false;
 }
 
-if((corso==null) || (corso.length<=1) || (!/^[A-Za-z\s]+$/.test(corso))){
-    res.cookie('errStudentCorso','1');
-    isRight=false;
+if(indirizzo.length!=0){
+if (!(/^[A-Za-z0-9,\s]+$/.test(indirizzo))){
+        res.cookie('errStudentAddress','1');
+        isRight=false;
+    }else{
+        if(indirizzo.length>=7)
+    studente.setAddress(indirizzo);
+    }
+}
+
+if(corso.length!=0) {
+    if(!(/^[A-Za-z\s]+$/.test(corso))){
+      res.cookie('errStudentCorso','1');
+     isRight=false;
+    }
+    else{if(corso.length>2)
+        studente.setDegreeCourse(corso);
+    }
 }
 
 
@@ -55,35 +87,24 @@ if(!isRight){
         return;
 }
 
-//hashing e salt of password
-       //var passwordHashed=hash.hashPassword(password);
 
-        //Create student object
-        
-        var studente=new studentModel();
-        studente.setCity(citta);
-        studente.setDegreeCourse(corso);
-        studente.setName(name);
-        studente.setSurname(surname);
-        studente.setAddress(indirizzo);
        
 
-        console.log("STAMPO GET: ", studente.getName());
-        console.log("stampo sessione: "+JSON.stringify(req.session));
         var checkS=studentModel.updateStudent(studente,req.session.utente.utente.Email);
         checkS.then(function(result){
             if(result!=null){
                 req.session.utente.utente=result;
             }
-            //res.cookie('updateOK','1');
+            res.cookie('updateEff','1');
             res.render('profile');
         });
 }
 
 exports.updatePassword=function(req,res){
 
-    var password= req.body.inputNewPassword;
-    var passwordConfirm= req.body.inputRepeatPassword;
+    var oldPassword= req.body.oldPassword;
+    var password= req.body.newPassword;
+    var passwordConfirm= req.body.repeatPassword;
 
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
@@ -97,15 +118,16 @@ exports.updatePassword=function(req,res){
         isRight=false;
     }
 
-    var studente=new studentModel();
-    studente.setPassword(password);
-    console.log("STAMPO GET: ", studente.getPassword());
-    console.log("stampo sessione: "+JSON.stringify(req.session));
-    var checkS=studentModel.updatePassword(studente,req.session.utente.utente.Email);
-    res.render('profile');
-
-
-
+    if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
+        var passwordHashed= hash.hashPassword(password);
+    
+        var checkS=studentModel.updatePassword(passwordHashed,req.session.utente.utente.Email);
+        checkS.then(function(result){
+            req.session.utente.utente=result;
+            res.cookie('updatePassEff','1');
+            res.render('profile');
+        })
+    }
 }
 
     exports.view= function(req, res){

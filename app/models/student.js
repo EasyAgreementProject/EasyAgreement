@@ -301,20 +301,44 @@ static updateStudent(student,emailv) {
             var dbo = db.db(dbName);
             console.log(".");
             var myquery = { Email: emailv };
-            var newvalues = { $set: {Name: student.Name, Surname: student.Surname, Address: student.Address, City: student.City, DegreeCourse: student.DegreeCourse } };
-             dbo.collection("Student").updateOne(myquery, newvalues, function(err, res) {
+            var newvalues={};
+            if(student.Name    != null) newvalues.Name=student.Name;
+            if(student.Surname != null) newvalues.Surname=student.Surname;
+            if(student.Address != null) newvalues.Address=student.Address;
+            if(student.City    != null) newvalues.City=student.City;
+            if(student.DegreeCourse != null) newvalues.DegreeCourse=student.DegreeCourse;
+            dbo.collection("Student").updateOne(myquery, {$set: newvalues }, function(err, res) {
                  if (err) throw err;
                      console.log("1 document updated+ name: "+student.DegreeCourse);
-
-                db.close();
-                fulfill();
              });
+             dbo.collection("Student").findOne({Email: emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var student= new Student();
+                    student.setName(result.Name);
+                    student.setSurname(result.Surname);
+                    student.setDegreeCourse(result.DegreeCourse);
+                    student.setAddress(result.Address);
+                    student.setCity(result.City);
+                    student.setEmail(result.Email);
+                    student.setCurriculumVitae(result.CV);
+                    student.setIdentityCard(result.IDCard);
+                    student.setPassword(result.Password);
+                    student.setStudentID(result.StudentID);
+                    db.close();
+                    fulfill(student);
+                }
+                else{
+                    db.close();
+                    fulfill(null);
+                }
+             })
             });
         });
     
 }
 
-static updatePassword(student,emailv) {
+static updatePassword(password,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
             if(err) reject(err);
@@ -322,14 +346,11 @@ static updatePassword(student,emailv) {
             var dbo = db.db(dbName);
             console.log(".");
             var myquery = { Email: emailv };
-            var newvalues = { $set: {Password: student.Password } };
-            var upsertedId=null;
+            var newvalues = { $set: {Password:password } };
              dbo.collection("Student").updateOne(myquery, newvalues, function(err, res) {
                  if (err) reject(err);
-                     console.log("1 document updated+ name: "+student.DegreeCourse);
-                upsertedId=res.upsertedId;
              });
-             dbo.collection("Student").findOne({_id: ObjectID(upsertedId)}, function(err, result){
+             dbo.collection("Student").findOne({Email: emailv}, function(err, result){
                 if(err) reject(err);
                 if(result!=null){
                     var student= new Student();

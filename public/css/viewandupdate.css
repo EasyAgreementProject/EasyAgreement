@@ -169,42 +169,15 @@
                         #errName,
                         #errSurname,
                         #errEmail,
-<<<<<<< HEAD:public/css/viewandupdate.css
                         #errCity,
                         #errDegree,
                         #errOrganization,
                         #errDepartment,
                         #errAddress,
+                        #errOldPassword,
                         #errNewPassword,
                         #errRepeatPassword
                          {
-=======
-                        #errDepartmentSending,
-                        #errContactName,
-                        #errContactSending,
-                        #errNameSector,
-                        #errDepartmentReciving,
-                        #errDepartmentReciving,
-                        #errAddress,
-                        #errWebSite,
-                        #errCountry,
-                        #errSizeEnterprise,
-                        #errContactRecivingName,
-                        #errContactRecivingPosition,
-                        #errMentorName,
-                        #errMentorPosition,
-                        #errMentorInfo,
-                        #errDateFrom,
-                        #errDateTo,
-                        #errHourWork,
-                        #errTitle,
-                        #errDetailed,
-                        #errKnowledge,
-                        #errMonitoring,
-                        #errEvaluation,
-                        #errLenguage,
-                        #errDateCompilation {
->>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69:public/css/simple-sidebar.css
                             color: red;
                             display: none;
                             margin-top: -5px;

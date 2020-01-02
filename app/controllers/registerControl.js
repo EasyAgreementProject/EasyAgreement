@@ -116,7 +116,7 @@ exports.signup= function(req, res){
 
                         //redirect
                         res.cookie('regEff','1');
-                        res.redirect('/index.html');
+                        res.redirect('/');
                         return;
                     }
                 })
@@ -197,7 +197,7 @@ exports.signup= function(req, res){
 
                 //redirect
                 res.cookie('regEff','1');
-                res.redirect('/index.html');
+                res.redirect('/');
                 return;
             }
         })   
