@@ -1,5 +1,6 @@
 var studentModel= require('../models/student.js');
 var formidable = require('formidable');
+var session = require('express-session');
 console.log("I'm inside");
 
 exports.docHandler = function(err,req,res) {
@@ -21,12 +22,13 @@ exports.docHandler = function(err,req,res) {
 
 
   });
+}
 
+  exports.IDEraser = function(request, response) {
 
-  exports.IDEraser = function(err, request, response) {
-
-    if (err) throw err;
-    var currSess=request.session.utente;
+    
+    
+    console.log(currSess);
     var email = currSess.Email;
     studentModel.deleteStudentID(email);
     redirect(response);
@@ -55,4 +57,4 @@ exports.docHandler = function(err,req,res) {
   
 
 
-}
+
