@@ -315,6 +315,25 @@ static checkCVPresence(email) {   //Check if a CV in pdf format is present in se
 
 
 
+
+/**
+ * Retrieve all students
+ * 
+ * @returns {promise} - return promise
+ */
+static RetrieveAll() {
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("Student").find({}).toArray(function(err,result) {
+                if(err) throw err;
+                fulfill(result);
+                db.close();
+            });
+        });
+    });
+}
 }
 
 
