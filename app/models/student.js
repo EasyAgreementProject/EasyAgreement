@@ -79,7 +79,7 @@ class Student {
     getDegreeCourse(){
         return this.DegreeCourse;
     }
-    
+
     /**
      * Get Identity cart
      * @returns {File} - return identity cart
@@ -191,7 +191,7 @@ class Student {
  */
 static insertStudent(student) {
     return new Promise(function (fulfill, reject) {
-        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if(err) throw err;
             console.log("Connected successfully to server!");
             var dbo = db.db(dbName);
@@ -225,13 +225,13 @@ static findByMatricola(studentID){
                     fulfill(true);
                 }
                 db.close;
-            
+
             });
         });
     });
 }
 
-/** 
+/**
  * Find student by email
  * @param {String} email- email
  * @returns {boolean} - return true if the object does not exist in database, else false
@@ -255,7 +255,7 @@ static findExistByEmail(email){
     });
 }
 
-/** 
+/**
  * check if exist student by email
  * @param {String} email- email
  * @returns {boolean} - return true if the object does not exist in database, else false
@@ -430,6 +430,12 @@ static updateStudentCV(email, ObjectCV) {   //Insert/update student CV
 static retrieveStudentID(email) {   //Insert/update student ID
        
 
+/**
+ * Retrieve all students
+ *
+ * @returns {promise} - return promise
+ */
+static RetrieveAll() {
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
@@ -491,6 +497,14 @@ static retrieveStudentID(email) {   //Insert/update student ID
             }
 
 
+            dbo.collection("Student").find({}).toArray(function(err,result) {
+                if(err) throw err;
+                fulfill(result);
+                db.close();
+            });
+        });
+    });
+}
 }
 
 module.exports= Student;

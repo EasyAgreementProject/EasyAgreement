@@ -28,19 +28,23 @@ app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(session({  
-  secret: 'secret_session',  
-  resave: false,  
-  saveUninitialized: true    
-})); 
+app.use(session({
+  secret: 'secret_session',
+  resave: false,
+  saveUninitialized: true
+}));
 
-app.use(function(req,res,next) {  
-  res.locals.session = req.session;  
-  next();   
-}); 
+app.use(function(req,res,next) {
+  res.locals.session = req.session;
+  next();
+});
 
 app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
+});
+
+app.get('/gestioneDocumenti.html', function(req, res) {
+    res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
 });
 
 app.get('/viewLA.html', function(req, res){
@@ -106,7 +110,7 @@ app.post('/compileStudent', function(req, res) {
 
 app.post('/compileAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request 
+      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request
   ];
   var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
   sendTutorPr.then(function(dw) {
@@ -121,7 +125,7 @@ app.post('/compileAcademicTutor', function(req, res) {
 });
 
 app.post('/compileExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request 
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request
   var sendTutorPr = learningAgreementControl.sendLaExternalTutor(data, res);
   sendTutorPr.then(function(dw) {
       if (dw) {
@@ -152,7 +156,7 @@ app.post('/saveStudent', function(req, res) {
 
 app.post('/saveAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request 
+    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request
   ];
   var saveTutor = learningAgreementControl.saveLaAcademicTutor(data);
   saveTutor.then(function() {
@@ -170,7 +174,7 @@ app.use(function(req,res,next) {
 });
 
 app.post('/saveExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request 
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request
   var saveTutor = learningAgreementControl.saveLaExternalTutor(data);
   saveTutor.then(function() {
     res.render(path.join(__dirname + "/app/views/index.ejs"));
@@ -199,11 +203,11 @@ app.get('/getVersion', function(req, res) {
         var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.utente.utente.Email);
         getVersionPr.then(function(la) {
           res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
-          console.log("Tornato da tutto"); 
+          res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');
+          console.log("Tornato da tutto");
           la.pipe(res);
-        })        
-    } 
+        })
+    }
   })
 });
 
@@ -269,7 +273,7 @@ io.on('connection', socket => {
 })
 
 app.post('/getConnectedUser', function (req, res){
-  res.json(req.session.utente); 
+  res.json(req.session.utente);
 });
 
 app.post('/getContacts', function (req, res){
