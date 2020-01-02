@@ -109,7 +109,7 @@
                          ::before {
                             box-sizing: border-box;
                         }
-                        .form-label-group {
+                        .form-label-group, .form-group {
                             margin-bottom: 1rem;
                             position: relative;
                             margin: 2%;
@@ -169,6 +169,7 @@
                         #errName,
                         #errSurname,
                         #errEmail,
+<<<<<<< HEAD:public/css/viewandupdate.css
                         #errCity,
                         #errDegree,
                         #errOrganization,
@@ -177,6 +178,33 @@
                         #errNewPassword,
                         #errRepeatPassword
                          {
+=======
+                        #errDepartmentSending,
+                        #errContactName,
+                        #errContactSending,
+                        #errNameSector,
+                        #errDepartmentReciving,
+                        #errDepartmentReciving,
+                        #errAddress,
+                        #errWebSite,
+                        #errCountry,
+                        #errSizeEnterprise,
+                        #errContactRecivingName,
+                        #errContactRecivingPosition,
+                        #errMentorName,
+                        #errMentorPosition,
+                        #errMentorInfo,
+                        #errDateFrom,
+                        #errDateTo,
+                        #errHourWork,
+                        #errTitle,
+                        #errDetailed,
+                        #errKnowledge,
+                        #errMonitoring,
+                        #errEvaluation,
+                        #errLenguage,
+                        #errDateCompilation {
+>>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69:public/css/simple-sidebar.css
                             color: red;
                             display: none;
                             margin-top: -5px;
@@ -190,7 +218,6 @@
                         .errClass:focus {
                             border-color: red !important;
                         }
-                        
                     }
                     .btn {
                         font-size: 80%;

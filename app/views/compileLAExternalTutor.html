@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Compilazione LA Tutor Esterno</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/compileLAExternalTutor.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/formValidationExternalTutor.js"></script>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="js/chat.js"></script>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <a href="index.html" style="text-decoration: none; color: black;">
+                <div class=sidebar-logo>
+                    <img src="/img/logoUni.png" style="float: left" width="50px">
+                </div>
+                <div class="sidebar-heading">Home</div>
+            </a>
+            <div class="list-group list-group-flush">
+                <a href="profile.html" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
+                <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background-color: orange;">
+                <button id="menu-toggle"><img src="/img/menu.png" style="height: 20px; width: 20px;"></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="/img/responsive_slide.svg" style="height: 20px; width: 20px;">
+            </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="open-chat" href="javascript:void(0)"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+             <div class="container-fluid">
+                <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+                <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+                <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
+                <hr>
+                <form id="formCompile" method="post" action="/compileExternalTutor"><br>
+                   <ul>
+                       <li>
+                           Il tirocinante riceverà un sostegno finanziario per il suo tirocinio:
+                           <div class="row">
+                               <div class="form-check">
+                                    <label for="inputRadio1">Si</label>
+                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="Si"   onclick='document.getElementById("amount").style.display="initial";'>
+                                    <label for="inputRadio1">No</label>
+                                    <input type="radio" id="inputRadio1" name="inputRadio1" value="No" onclick='document.getElementById("amount").style.display="none"; document.getElementById("inputAmount").required=false;'>
+                                </div>
+                            </div>
+                            <div id="amount">
+                            In caso affermativo, l'importo in EUR/mese è:
+                            <div class="form-label-group">
+                                <input type="text" class="form-control" id="inputAmount"  name="inputAmount" placeholder="Importo Euro/Mese">
+                                <label for="inputAmount">Importo Euro/Mese</label>
+                                <span id="errAmount">Importo non valido</span>
+                            </div>
+                   </div>         
+                        </li>
+                        <li>
+                            Il tirocinante riceverà un contributo per il suo tirocinio:
+                            <div class="row">
+                            <div class="form-check">
+                                <label for="inputRadio2">Si</label>
+                                <input type="radio" id="inputRadio2" name="inputRadio2"  value="Si"   onclick='document.getElementById("contribution").style.display="initial";'>
+                                <label for="inputRadio1">No</label>
+                                <input type="radio" id="inputRadio2" name="inputRadio2" value="No" onclick='document.getElementById("contribution").style.display="none"; document.getElementById("inputContribution").required=false;'>
+                            </div>
+                        </div>
+                         <div id="contribution">  
+                        In caso affermativo, specificare il tipo di contributo:
+                        <div class="form-label-group">
+                            <input type="text" class="form-control" id="inputContribution" name="inputContribution" placeholder="Tipo Di Contributo">
+                            <label for="inputContribution">Tipo Di Contributo</label>
+                            <span id="errContribution">Tipo di contributo non valido</span>
+                        </div>
+                        </div>
+                      </li>
+                      <li>
+                        Il tirocinante è coperto dall'assicurazione contro gli infortuni?
+                       <div class="row">
+                        <div class="form-check">
+                            <label for="inputRadio3">Si</label>
+                            <input type="radio" id="inputRadio3" name="inputRadio3"  value="Si">
+                            <label for="inputRadio3">No</label>
+                            <input type="radio" id="inputRadio3" name="inputRadio3" value="No">
+                        </div>
+                       </div>
+                    </li>
+                 </ul>
+                 <hr>
+                 
+                <p style="margin-left: 10px;">
+                    L'organizzazione / impresa ricevente si impegna a garantire attrezzatura appropriata e supporto necessari al tirocinante.
+                    Al termine del tirocinio, l'organizzazione / impresa ricevente si impegna a rilasciare un
+                    certificato di tirocinio da</p>
+                    
+                    <div class="form-label-group">
+                        <input type="number" class="form-control" id="inputWeeks" name="inputWeeks" min="0" max="5">
+                        <label for="inputWeeks"></label>
+                        <span id="errWeeks">Numero settimane non valido</span>
+                        <br>
+                        <p style="font-style: italic; text-decoration: underline;">[Massimo 5 settimane dopo il tirocinio]</p>
+                    </div>
+                        <hr>
+                        <div class="According" style="margin-left: 10px;">
+                        <h5 style="text-align: justify; font-style: italic; color: darkblue;">Impegno Delle Tre Parti</h5><br>
+                        <p> Firmando questo documento, il tirocinante, l'istituto di invio e il destinatario
+                            organizzazione / impresa confermano di approvare il Learning Agreement proposto e di
+                            rispettare tutte le disposizioni concordate da tutte le parti.
+                            Il tirocinante e l'organizzazione / impresa ricevente comunicheranno all'istituto di invio
+                            qualsiasi problema o modifica relativa al periodo di tirocinio.</p>
+                        </div>
+                            <hr>
+                            <div class="notes">
+                        <h5 style="text-align: justify; font-style: italic; color: darkblue;">Note</h5><br>
+                            
+                                <p>9) Responsabile dell'Istituzione di invio: questa persona è responsabile della firma del Learning Agreement
+                                    , modificandolo se necessario e riconoscendo i crediti e i relativi risultati di apprendimento
+                                    a nome dell'organismo accademico responsabile come stabilito nel Learning Agreement.<br>
+                                    <hr>10) Responsabile dell'organizzazione ricevente (supervisore): questa persona è responsabile
+                                    firmando il Learning Agreement, modificandolo se necessario, supervisionando il tirocinante durante il tirocinio
+                                    e firmando il certificato di tirocinio.</p>
+                            </div>
+                    <hr>
+                    <button class="btn btn-block" type="submit" class="saveButton">APPROVA</button>
+                    <button class="btn btn-block" type="submit" formaction="/saveExternalTutor" class="saveButton">SALVA</button>
+                </form>
+                <form id = "disapproveForm" method ="POST" action = "/disapproveExternalTutor" style = "display: none;">
+                    <div class = "form-label-group">
+                        <input type = "text" class = "form-control" name = "msg">
+                        <label for = "msg">Inserire la motivazione</label>
+                    </div>
+                    <button class="btn btn-block" type="submit" class="saveButton">DISAPPROVA</button>
+                </form>
+                <button class="btn btn-block" type="button" id="disapprove" onclick = "disapprove()" class="saveButton">DISAPPROVA</button>                  
+                                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/jquery/dist/jquery.min.js "></script>
+    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js "></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle ").click(function(e) {
+            e.preventDefault();
+            $("#wrapper ").toggleClass("toggled ");
+        });
+    </script>
+    <script>
+        function disapprove() {
+            document.getElementById("disapproveForm").style.display = "block";
+            document.getElementById("disapprove").style.display = "none";
+        }
+    </script>
+    <script language="text/javascript">
+    $(document).ready(function() {
+        $.get("/fillform", function(data){
+            if (data["financial support Yes"]) document.getElementById("inputRadio1").checked= true;
+            if (data["financial support No"]) document.getElementById("inputRadio1").checked = true;
+            if (data["if financial support Yes"]) document.getElementById("inputAmount").value= data["if financial support Yes"];
+            if (data["The trainee will receive a contribution in kind for his/her traineeship Yes"]) document.getElementById("inputRadio2").checked = true;
+            if (data["The trainee will receive a contribution in kind for his/her traineeship No"]) document.getElementById("inputRadio2").checked = true;
+            if (data["If yes, please specify"]) document.getElementById("inputContribution").value = data["If yes, please specify"];
+            if (data["Traineeship Certificate by"]) document.getElementById("inputWeeks").checked = true;
+        });
+    });
+    </script>
+    
+    <script type="text/javascript" src="./js/externalTutorCookies.js"></script>
+    </body>
+    </html>
+                
+                   
+                
+                   

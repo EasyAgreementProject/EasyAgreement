@@ -29,8 +29,7 @@ exports.login= function(req, res){
         }
 
         if(!isRight){
-            var path = require('path');
-            res.sendFile(path.resolve('app/views/login.html'));
+            res.redirect('/');
             return;
         }
         
@@ -58,8 +57,7 @@ exports.login= function(req, res){
                                 checkAdmin.then(function(resultAd){
                                     if(resultAd==null){
                                         res.cookie('errLogin','1');
-                                        var path = require('path');
-                                        res.sendFile(path.resolve('app/views/login.html'));
+                                        res.redirect('/');
                                         return;
                                     }
                                     else{
@@ -77,8 +75,7 @@ exports.login= function(req, res){
                                         }
                                         else{
                                             res.cookie('errLogin','1');
-                                            var path = require('path');
-                                            res.sendFile(path.resolve('app/views/login.html'));
+                                            res.redirect('/');
                                             return;
                                         }
                                     }
@@ -97,8 +94,7 @@ exports.login= function(req, res){
                                 }
                                 else{
                                     res.cookie('errLogin','1');
-                                    var path = require('path');
-                                    res.sendFile(path.resolve('app/views/login.html'));
+                                    res.redirect('/');
                                     return;
                                 }
                             }
@@ -117,8 +113,7 @@ exports.login= function(req, res){
                         }
                         else{
                             res.cookie('errLogin','1');
-                            var path = require('path');
-                            res.sendFile(path.resolve('app/views/login.html'));
+                            res.redirect('/');
                             return;
                         }
                     }
@@ -136,8 +131,7 @@ exports.login= function(req, res){
                 }
                 else{
                     res.cookie('errLogin','1');
-                    var path = require('path');
-                    res.sendFile(path.resolve('app/views/login.html'));
+                    res.redirect('/');
                     return;
                 }
             }
@@ -152,10 +146,14 @@ exports.login= function(req, res){
  */
 function redirect(res){
     res.cookie('logEff','1');
+<<<<<<< HEAD
     var path = require('path');
     res.setHeader('Content-Type', 'text/html');
 
     res.sendFile(path.resolve('app/views/index.ejs'));
 
+=======
+    res.redirect('/index.html');
+>>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69
     return;
 }

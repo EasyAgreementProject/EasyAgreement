@@ -174,6 +174,29 @@ static RetrieveByEmail(email){
         });
     });
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * Retrieve all accademic tutor
+ * 
+ * @returns {promise} - return promise
+ */
+static RetrieveAll() {
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("AcademicTutor").find({}).toArray(function(err,result) {
+                if(err) reject(err);
+                fulfill(result);
+                db.close();
+            });
+        });
+    });
+}
+}
+>>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69
 
 static updateAcademicTutor(academicTutor,emailv) {
     return new Promise(function (fulfill, reject) {

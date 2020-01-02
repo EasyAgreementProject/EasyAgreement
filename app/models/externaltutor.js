@@ -103,6 +103,7 @@ static findByEmail(email){
         });
     });
 }
+<<<<<<< HEAD
 static updateExternalTutor(externalTutor,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
@@ -122,5 +123,26 @@ static updateExternalTutor(externalTutor,emailv) {
     
 }
 
+=======
+
+/**
+ * Retrieve all excternal tutor
+ * 
+ * @returns {promise} - return promise
+ */
+static RetrieveAll() {
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("ExternalTutor").find({}).toArray(function(err,result) {
+                if(err) throw err;
+                fulfill(result);
+                db.close();
+            });
+        });
+    });
+}
+>>>>>>> 00c8e09d5665fecb7fcc2e5d44d99eb05519ac69
 }
 module.exports= externalTutor;
