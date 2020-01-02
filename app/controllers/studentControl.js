@@ -70,22 +70,42 @@ if(!isRight){
 
         console.log("STAMPO GET: ", studente.getName());
         console.log("stampo sessione: "+JSON.stringify(req.session));
-       var checkS=studentModel.updateStudent(studente,req.session.utente.utente.Email);
-      
-      //after update
-       req.session.utente.utente.Name=studente.getName();
-       req.session.utente.utente.City=studente.getCity();
-       req.session.utente.utente.Surname=studente.getSurname();
-       req.session.utente.utente.Address=studente.getAddress();
-       req.session.utente.utente.DegreeCourse=studente.getDegreeCourse();
+        var checkS=studentModel.updateStudent(studente,req.session.utente.utente.Email);
+        checkS.then(function(result){
+            if(result!=null){
+                req.session.utente.utente=result;
+            }
+            //res.cookie('updateOK','1');
+            res.render('profile');
+        });
+}
 
-       //res.cookie('updateOK','1');
-       res.render('profile');
-       
-        /*
-        
+exports.updatePassword=function(req,res){
 
-    */
+    var password= req.body.inputNewPassword;
+    var passwordConfirm= req.body.inputRepeatPassword;
+
+    if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
+        res.cookie('errPassword','1');
+        console.log("errore pass!!!!");
+        isRight=false;
+    }
+
+    if(passwordConfirm!=password){
+        res.cookie('errPasswordConfirm','1');
+        console.log("password diverse !!!");
+        isRight=false;
+    }
+
+    var studente=new studentModel();
+    studente.setPassword(password);
+    console.log("STAMPO GET: ", studente.getPassword());
+    console.log("stampo sessione: "+JSON.stringify(req.session));
+    var checkS=studentModel.updatePassword(studente,req.session.utente.utente.Email);
+    res.render('profile');
+
+
+
 }
 
     exports.view= function(req, res){

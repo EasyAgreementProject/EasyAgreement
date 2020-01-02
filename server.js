@@ -97,11 +97,7 @@ app.post('/signup', function(req, res) {
 });
 
 app.post('/updateProfile', function(req, res) {
-  
- 
-
-    
-         
+     
      if(req.session.utente.type=="student")
          var updateS=studentControl.update(req, res);
         else
@@ -110,17 +106,22 @@ app.post('/updateProfile', function(req, res) {
         else
         if(req.session.utente.type=="externalTutor")
                   var updateE=externalTutorControl.update(req, res);
-            
+});
 
+app.post('/updatePassword',function(req,res){
 
-  
-   
+var updatePass= studentControl.updatePassword(req,res);
+
 });
 
 app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
 });
 
+app.get('/profile',function(request,response){
+
+  response.render('profile');
+});
 
 app.get('/profile', function (request, response) {
   if(request.session.utente == null)
@@ -141,6 +142,7 @@ app.get('/profile', function (request, response) {
   }
     
 });
+
 
 
 app.get('/logout',function(req,res){

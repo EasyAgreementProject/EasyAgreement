@@ -54,45 +54,15 @@ if(!isRight){
        console.log(JSON.stringify(req.session));
        console.log("DATI DELL'EXTERNAL" +JSON.stringify(externalTutor)+"dati sessione: "+JSON.stringify(req.session.utente.utente.email));
         var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.email);
+        req.session.utente.utente.name=externalTutor.getName();
+        req.session.utente.utente.organization=externalTutor.getOrganization();
+        req.session.utente.utente.surname=externalTutor.getSurname();
         
-        res.render('index');
-        /*
-        checkM.then(function(result){
-            if(!result){
-                console.log("EMAIL UGUALE A QUELLA PRECEDENTE!");
-                res.cookie('errAlreadyReg','1');
-                var path = require('path');
-                res.sendFile(path.resolve('app/views/index.html'));
-                return;
-            }
-            if(result){
-                var checkE=externalTutorModel.findExistByEmail(email);
+ 
+        //res.cookie('updateOK','1');
+        res.render('profile');
+        
 
-                checkE.then(function(result){
-                    if(!result){
-                        //res.cookie('errAlreadyReg','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
-                        return;
-                    }
-                    if(result){
-                        //Save externalTutor in database
-                        externalTutorModel.updateexternalTutor(externalTutore);
-
-                        //redirect
-                        res.cookie('regEff','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
-                        return;
-                    }
-                })
-            }
-        }) 
-
-
-    }
-
-    */
 }
 
     exports.view= function(req, res){

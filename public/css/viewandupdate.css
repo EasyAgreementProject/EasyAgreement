@@ -173,7 +173,9 @@
                         #errDegree,
                         #errOrganization,
                         #errDepartment,
-                        #errAddress
+                        #errAddress,
+                        #errNewPassword,
+                        #errRepeatPassword
                          {
                             color: red;
                             display: none;

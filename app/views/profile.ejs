@@ -191,7 +191,7 @@
               
 
                 <div class="form-label-group">
-                    <input type="text" id="inputDepartment" class="form-control" name="inputDepartment" placeholder="Dipartimento" required>
+                    <input type="text" id="inputDepartment" class="form-control" name="inputDepartment" placeholder="Department" required>
                     <label for="inputDepartment">Department<label>
                     <span id="errDepartment">Dipartimento non valido</span>
                    </div>
@@ -203,26 +203,24 @@
 
                 <% } %>
                <h4 class="mt-4">Modifica password</h4>
+
+<form method="post" action="/updatePassword">
+               
                <div class="form-label-group">
-                <input type="text" id="inputName" class="form-control" name="oldPassword" placeholder="Vecchia Password" required>
-                <label for="inputName">Vecchia Password<label>
-                <span id="errName">Vecchia Password</span>
+                <input type="password" id="inputNewPassword" class="form-control" name="newPassword" placeholder="Nuova Password" required>
+                <label for="inputNewPassword">Nuova Password<label>
+                <span id="errNewPassword">Nuova Password</span>
                </div>
                <div class="form-label-group">
-                <input type="text" id="inputName" class="form-control" name="newPassword" placeholder="Nuova Password" required>
-                <label for="inputName">Nuova Password<label>
-                <span id="errName">Nuova Password</span>
-               </div>
-               <div class="form-label-group">
-                <input type="text" id="inputName" class="form-control" name="repeatPassword" placeholder="Ripeti Password" required>
-                <label for="inputName">Ripeti Password<label>
-                <span id="errName">RIpeti Password</span>
+                <input type="password" id="inputRepeatPassword" class="form-control" name="repeatPassword" placeholder="Ripeti Password" required>
+                <label for="inputRepeatPassword">Ripeti Password<label>
+                <span id="errRepeatPassword">Ripeti Password</span>
                </div>
                                <button class="btn btn-block" type="submit" class="saveButton">Modifica password</button>
-
-               </div>
-            </div>
-        </div>
+            </form>
+               
+           
+    
         <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->

@@ -59,45 +59,13 @@ if(!isRight){
       
         console.log("sono nel accademic: stampo sessione: "+ JSON.stringify(req.session.utente.utente.E_mail)+"stampo academic tutor"+JSON.stringify(academicTutor));
         var checkS=academicTutorModel.updateAcademicTutor(academicTutor,req.session.utente.utente.E_mail);
+        req.session.utente.utente.Name=academicTutor.getName();
+        req.session.utente.utente.Department=academicTutor.getDepartment();
+        req.session.utente.utente.Surname=academicTutor.getSurname();
+        
         res.render('profile');
 
-        /*
-        checkM.then(function(result){
-            if(!result){
-                console.log("EMAIL UGUALE A QUELLA PRECEDENTE!");
-                res.cookie('errAlreadyReg','1');
-                var path = require('path');
-                res.sendFile(path.resolve('app/views/index.html'));
-                return;
-            }
-            if(result){
-                var checkE=academicTutorModel.findExistByEmail(email);
-
-                checkE.then(function(result){
-                    if(!result){
-                        //res.cookie('errAlreadyReg','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
-                        return;
-                    }
-                    if(result){
-                        //Save academicTutor in database
-                        academicTutorModel.updateacademicTutor(academicTutore);
-
-                        //redirect
-                        res.cookie('regEff','1');
-                        var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
-                        return;
-                    }
-                })
-            }
-        }) 
-
-
-    }
-
-    */
+        
 }
 
     exports.view= function(req, res){

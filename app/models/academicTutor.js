@@ -182,7 +182,7 @@ static updateAcademicTutor(academicTutor,emailv) {
             console.log("Connected successfully to server!");
             var dbo = db.db(dbName);
             console.log(".");
-            var myquery = { Email: emailv };
+            var myquery = { E_mail: emailv };
             var newvalues = { $set: {Name: academicTutor.Name, Surname: academicTutor.Surname, Department: academicTutor.Department} };
              dbo.collection("AcademicTutor").updateOne(myquery, newvalues, function(err, res) {
                  if (err) throw err;

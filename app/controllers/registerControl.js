@@ -120,7 +120,7 @@ exports.signup= function(req, res){
                         //redirect
                         res.cookie('regEff','1');
                         var path = require('path');
-                        res.sendFile(path.resolve('app/views/index.html'));
+                        res.sendFile(path.resolve('app/views/login.html'));
                         return;
                     }
                 })
