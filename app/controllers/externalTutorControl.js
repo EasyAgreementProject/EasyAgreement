@@ -3,9 +3,10 @@ var externalTutorModel= require('../models/externaltutor.js');
 var session = require('express-session');
 
 exports.update=function(req,res){
+    return new Promise(function(fulfill, reject){
 
-        var name= req.body.inputName;
-        var surname= req.body.inputSurname;
+        var name= req.body.inputNameE;
+        var surname= req.body.inputSurnameE;
         var organization= req.body.inputOrganization;
         
         var externalTutor=new externalTutorModel();
@@ -16,7 +17,7 @@ exports.update=function(req,res){
 var isRight=true;
 
 if(name.length != 0){
-    if(!(/^[A-Za-z]+$/.test(name)) || name.length<=1){
+    if(!(/^[A-Za-z]+$/.test(name)) || name.length<=2){
         res.cookie('errexternalTutorName','1');
         isRight=false;
     }
@@ -26,7 +27,7 @@ if(name.length != 0){
    
 
 if(surname.length != 0){
-if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=1){
+if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
     res.cookie('errexternalTutorSurname','1');
     isRight=false;
     }
@@ -36,7 +37,7 @@ if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=1){
 
 
 if(organization.length != 0){
-    if(!(/^[A-Za-z]+$/.test(organization)) || organization.length<=1){
+    if(!(/^[A-Za-z]+$/.test(organization)) || organization.length<=2){
     res.cookie('errOrganizationName','1');
     isRight=false;
 }
@@ -59,18 +60,22 @@ if(!isRight){
             if(result!= null)
             {
                 req.session.utente.utente=result;
+                res.cookie('updateEff','1');
+                fulfill();
             }
-            res.cookie('updateEff','1');
-
-            res.render('profile');
+            
+            else
+                reject();
         });
+       
+    });
         
  
-        //res.cookie('updateOK','1');
         
 
 }
 exports.updatePassword=function(req,res){
+    return new Promise(function(fulfill, reject){
 
     var oldPassword= req.body.oldPassword;
     var password= req.body.newPassword;
@@ -93,15 +98,16 @@ exports.updatePassword=function(req,res){
     
         var checkS=externalTutorModel.updatePassword(passwordHashed,req.session.utente.utente.email);
         checkS.then(function(result){
-            req.session.utente.utente=result;
+           if(result !=null) {req.session.utente.utente=result;
             res.cookie('updatePassEff','1');
             res.render('profile');
-        })
+            fulfill();
+           }
+           else
+           reject();
+            });
+         }
+        });
+
     }
-}
-    exports.view= function(req, res){
 
-
-    res.render('profile');
-
-}

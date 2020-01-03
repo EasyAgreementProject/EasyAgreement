@@ -3,11 +3,12 @@ var academicTutorModel= require('../models/academicTutor.js');
 var session = require('express-session');
 
 exports.update=function(req,res){
+    return new Promise(function(fulfill, reject){
+
         
-        
-        var name= req.body.inputName;
-        var surname= req.body.inputSurname;
-        var department= req.body.inputDepartment;
+        var name= req.body.inputNameAc;
+        var surname= req.body.inputSurnameAc;
+        var department= req.body.inputDepartmentT;
         
         var academicTutor=new academicTutorModel();
 
@@ -18,8 +19,8 @@ exports.update=function(req,res){
 var isRight=true;
 
 if(name.length != 0){
-    if(!(/^[A-Za-z]+$/.test(name)) || name.length<=1){
-        res.cookie('errexternalTutorName','1');
+    if(!(/^[A-Za-z]+$/.test(name)) || name.length<=2){
+        res.cookie('erracademicTutorName','1');
         isRight=false;
     }
     else
@@ -28,8 +29,8 @@ if(name.length != 0){
    
 
 if(surname.length != 0){
-if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=1){
-    res.cookie('errexternalTutorSurname','1');
+if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
+    res.cookie('erracademicTutorSurname','1');
     isRight=false;
     }
     else
@@ -38,8 +39,8 @@ if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=1){
 
 
 if( department.length != 0){
-    if(!(/^[A-Za-z]+$/.test(department)) ||  department.length<=1){
-    res.cookie('errDepartmentName','1');
+    if(!(/^[A-Za-z]+$/.test(department)) ||  department.length<=2){
+    res.cookie('errTutorDepartment','1');
     isRight=false;
 }
 else
@@ -61,11 +62,17 @@ if(!isRight){
             if(result!= null)
             {
                 req.session.utente.utente=result;
-            }
-            res.cookie('updateEff','1');
+                res.cookie('updateEff','1');
+                fulfill();
 
-            res.render('profile');
+            }
+            else{
+
+                reject();
+            }
         });
+        
+    });
         
         
 
@@ -73,6 +80,7 @@ if(!isRight){
 }
 
 exports.updatePassword=function(req,res){
+    return new Promise(function(fulfill, reject){
 
     var oldPassword= req.body.oldPassword;
     var password= req.body.newPassword;
@@ -93,13 +101,16 @@ exports.updatePassword=function(req,res){
     
         var checkS=academicTutorModel.updatePassword(passwordHashed,req.session.utente.utente.E_mail);
         checkS.then(function(result){
-            req.session.utente.utente=result;
+            if(result!= null){
+                req.session.utente.utente=result;
             res.cookie('updatePassEff','1');
-            res.render('profile');
-        })
+            fulfill();
+            }
+            else
+                reject();
+             
+          });
+        }
+        });
     }
-}
 
-    exports.view= function(req, res){
-    res.render('profile');
-}

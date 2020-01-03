@@ -222,29 +222,67 @@ app.post('/signup', function(req, res) {
 });
 
 app.post('/updateProfile', function(req, res) {
-     
-     if(req.session.utente.type=="student")
+  if(req.session.utente == null){
+    res.redirect("/");
+  }
+  else{
+     if(req.session.utente.type=="student"){
          var updateS=studentControl.update(req, res);
-        else
-         if(req.session.utente.type=="academicTutor")
-          var updateE=academicTutorControl.update(req, res);
-        else
-        if(req.session.utente.type=="externalTutor")
-                  var updateE=externalTutorControl.update(req, res);
+         updateS.then(function(){
+            res.render('profile');
+         });
+      }else if(req.session.utente.type=="academicTutor"){
+          var updateA=academicTutorControl.update(req, res);
+          updateA.then(function(){
+            res.render('profile');
+          });
+      }else if(req.session.utente.type=="externalTutor"){
+              var updateE=externalTutorControl.update(req, res);
+              updateE.then(function(){
+
+                res.render('profile');
+              });
+           
+      }
+}
 });
 
 app.post('/updatePassword',function(req,res){
 
- 
-  if(req.session.utente.type=="student")
+  if(req.session.utente == null)
+  
+  res.redirect("/");
+else{
+  if(req.session.utente.type=="student"){
   var updateS=studentControl.updatePassword(req, res);
- else
-  if(req.session.utente.type=="academicTutor")
-   var updateE=academicTutorControl.updatePassword(req, res);
- else
- if(req.session.utente.type=="externalTutor")
-           var updateE=externalTutorControl.updatePassword(req, res);
+  updateS.then(function(){
 
+    res.render('profile');
+  });
+}
+ else
+  if(req.session.utente.type=="academicTutor"){
+   var updateA=academicTutorControl.updatePassword(req, res);
+   updateA.then(function(){
+
+    res.render('profile');
+  });
+}
+ else
+ if(req.session.utente.type=="externalTutor"){
+           var updateE=externalTutorControl.updatePassword(req, res);
+           updateE.then(function(){
+            res.render('profile');
+          });
+        }
+  else
+    if(req.session.utente.type=="administrator"){
+          var updateA=administratorControl.updatePassword(req, res);
+          updateA.then(function(){
+           res.render('profile');
+         });
+       }
+}
 });
 
 app.post('/login', function(request, response){
@@ -262,8 +300,9 @@ app.get('/profile', function (request, response) {
     res.redirect("/");
   
   else
-  {    if(request.session.utente.type=="student") 
-             var viewFile= studentControl.view(request,response);
+  {  response.render('profile');
+    /*if(request.session.utente.type=="student") 
+             var viewFile= studentControl.update(request,response);
              else
                 if(request.session.utente.type=="academicTutor")
                { 
@@ -271,7 +310,7 @@ app.get('/profile', function (request, response) {
                  else
                   if(request.session.utente.type=="externalTutor")
                   var updateE=externalTutorControl.view(request, response);
-                  
+                 */ 
   }
     
 });

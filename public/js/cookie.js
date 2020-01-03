@@ -23,7 +23,13 @@
 $(document).ready(function(){
     var cookie=document.cookie;
     var errName=getCookie("errStudentName");
+    var errNameAt=getCookie("erracademicTutorName");
+    var errSurnameAt=getCookie("erracademicTutorSurname");
     var errSurname=getCookie("errStudentSurname");
+    var errNameS=getCookie("errNameS");
+    var errSurnameS=getCookie("errSurnameS");
+    var errNameE=getCookie("errexternalTutorName");
+    var errSurnameE=getCookie("errexternalTutorSurname");
     var errEmail=getCookie("errStudentEmail");
     var errMatricola=getCookie("errStudentMatricola");
     var errCity=getCookie("errStudentCity");
@@ -35,6 +41,7 @@ $(document).ready(function(){
     var errSurnameT=getCookie("errTutorSurname");
     var errEmailT=getCookie("errTutorEmail");
     var errDepartment=getCookie("errTutorDepartment");
+    var errOrganization=getCookie("errOrganizationName");
     var regEff= getCookie("regEff");
     var alreadyReg= getCookie("errAlreadyReg");
     var errUsername=getCookie("errUsername");
@@ -45,12 +52,49 @@ $(document).ready(function(){
     var updateEff=getCookie("updateEff");
     var updatePassEff=getCookie("updatePassEff");
 
-   
+    if(errOrganization=="1"){
+        $('#errOrganization').css('display','block');
+        $('#inputOrganization').addClass("errClass");
+        document.cookie="errOrganizationName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
     if(errName=="1"){
         $('#errName').css('display','block');
         $('#inputName').addClass("errClass");
         document.cookie="errStudentName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+    if(errNameAt=="1"){
+        $('#errNameAc').css('display','block');
+        $('#inputNameAc').addClass("errClass");
+        document.cookie="erracademicTutorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errNameS=="1"){
+        $('#errNameS').css('display','block');
+        $('#inputNameS').addClass("errClass");
+        document.cookie="errNameS=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errSurnameS=="1"){
+        $('#errSurnameS').css('display','block');
+        $('#inputSurnameS').addClass("errClass");
+        document.cookie="errSurnameS=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errNameE=="1"){
+        $('#errNameE').css('display','block');
+        $('#inputNameE').addClass("errClass");
+        document.cookie="errexternalTutorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errSurnameE=="1"){
+        $('#errSurnameE').css('display','block');
+        $('#inputSurnameE').addClass("errClass");
+        document.cookie="errexternalTutorSurname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errSurnameAt=="1"){
+        $('#errSurnameAc').css('display','block');
+        $('#inputSurnameAc').addClass("errClass");
+        document.cookie="erracademicTutorSurname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
     if(errSurname=="1"){
         $('#errSurname').css('display','block');
         $('#inputSurname').addClass("errClass");

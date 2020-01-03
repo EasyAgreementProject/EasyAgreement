@@ -17,8 +17,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/cookie.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link href="/css/viewandupdate.css" rel="stylesheet">
 
     
@@ -77,48 +75,51 @@
             <div class="container-fluid">
                 <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
-                <h1 class="mt-4" id="Title">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
+                <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
                 <hr>
                 <h1 class="mt-4">Riepilogo Dati Anagrafici</h1>
-                
+                <p>In questa pagina puoi visualizzare i tuoi dati anagrafici e modificarli.</p>
+                <div class="logoCenter">
+                    <img src="/img/EasyAgreement_Logo.png" alt="logo Unisa" style="opacity: 0.3; vertical-align: middle; max-width: 300px; max-height: 300px;">
+                </div>
             </div>
             <%if(session.utente.type == "student") {%>
             <div class="container-fluid" id="studentView" >
-                <div class="viewdati">
-               <ul class="list-group" id="viewp">
-                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.Email) %></li>
-                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo: </strong></span>  <%= JSON.stringify(session.utente.utente.Address) %></li>
-                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città: </strong></span>  <%= JSON.stringify(session.utente.utente.City) %></li>
-                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea: </strong></span>  <%= JSON.stringify(session.utente.utente.DegreeCourse) %></li>
-            </div>
+
+               <h4 class="mt-4">Visualizzazione dati anagrafici</h4>
+               
+               <h6 >Nome: <%= JSON.stringify(session.utente.utente.Name) %> </h6> 
+               <h6 >Cognome: <%= JSON.stringify(session.utente.utente.Surname) %>  </h6> 
+               <h6 >Indirizzo: <%= JSON.stringify(session.utente.utente.Address) %>  </h6>
+               <h6 >E-mail:  <%= JSON.stringify(session.utente.utente.Email) %> </h6>
+               <h6 >Città:  <%= JSON.stringify(session.utente.utente.City) %> </h6>
+               <h6 >Corso di laurea: <%= JSON.stringify(session.utente.utente.DegreeCourse) %> </h6>
                <h4 class="mt-4">Modifica dati anagrafici</h4>
                <form id="formUpdate" method="post" action="/updateProfile"><br>
                <div class="form-label-group">
-                <input type="text" id="inputNameS" class="form-control" name="inputNameS" placeholder="Nome" >
-                <span id="errNameS">Nome non valido</span>
+                <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome"  >
+                <label for="inputName">Nome<label>
+                <span id="errName">Nome non valido</span>
                </div>
                <div class="form-label-group">
-                <input type="text" id="inputSurnameS" class="form-control" name="inputSurnameS" placeholder="Cognome"  >
-                
-                <span id="errSurnameS">Cognome non valido</span>
+                <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome"  >
+                <label for="inputSurname">Cognome<label>
+                <span id="errSurname">Cognome non valido</span>
                </div>
                <div class="form-label-group">
                 <input type="text" id="inputAddress" class="form-control" name="inputAddress" placeholder="Indirizzo"  >
-                
+                <label for="inputAddress">Indirizzo<label>
                 <span id="errAddress" >Indirizzo non valido</span>
                </div>
                
                <div class="form-label-group">
                 <input type="text" id="inputCity" class="form-control" name="inputCity" placeholder="Città"  >
-                
+                <label for="inputCity">Città<label>
                 <span id="errCity">Città non valida</span>
                </div>
                <div class="form-label-group">
                 <input type="text" id="inputDegree" class="form-control" name="inputDegree" placeholder="Corso di Laurea"  >
-                
+                <label for="inputDegree">Corso di Laurea<label>
                 <span id="errCourse">Corso di Laurea non valido</span>
                </div>
                 <button class="btn btn-block" type="submit" class="saveButton">Modifica dati</button>
@@ -133,32 +134,28 @@
                <div class="container-fluid" id="externalView">
 
                 <h4 class="mt-4">Visualizzazione dati anagrafici</h4>
-                <ul class="list-group" id="viewp">
-                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.name) %> </li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.surname)%></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.email) %></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span>  <%= JSON.stringify(session.utente.utente.organization) %></li>
-                    
-                   
-        
-                </ul>
+                <h6 >Nome: <%= JSON.stringify(session.utente.utente.name) %> </h6> 
+                <h6 >Cognome: <%= JSON.stringify(session.utente.utente.surname) %>  </h6> 
+                <h6 >E-mail:  <%= JSON.stringify(session.utente.utente.email) %> </h6>
+                <h6 >Organization:  <%= JSON.stringify(session.utente.utente.organization) %> </h6>
                 
                 <h4 class="mt-4">Modifica dati anagrafici</h4>
                 <form id="formUpdate" method="post" action="/updateProfile"><br>
                 <div class="form-label-group">
-                 <input type="text" id="inputNameE" class="form-control" name="inputNameE" placeholder="Nome"  >
-                 <span id="errNameE">Nome non valido</span>
-
+                 <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome"  >
+                 <label for="inputName">Nome<label>
+                 <span id="errName">Nome non valido</span>
                 </div>
                 <div class="form-label-group">
-                 <input type="text" id="inputSurnameE" class="form-control" name="inputSurnameE" placeholder="Cognome"  >
-                 <span id="errSurnameE">Cognome non valido</span>
+                 <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome"  >
+                 <label for="inputSurname">Cognome<label>
+                 <span id="errSurname">Cognome non valido</span>
                 </div>
                
 
                 <div class="form-label-group">
                     <input type="text" id="inputOrganization" class="form-control" name="inputOrganization" placeholder="Organizzazione"  >
+                    <label for="inputOrganization">Organizzazione<label>
                     <span id="errOrganization">Organizzazione non valida</span>
                    </div>
 
@@ -174,34 +171,29 @@
               <div class="container-fluid" id="accademicView">
 
                 <h4 class="mt-4">Visualizzazione dati anagrafici</h4>
-            
-                <ul class="list-group" id="viewp">
-                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.E_mail) %></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento: </strong></span>  <%= JSON.stringify(session.utente.utente.Department) %></li>
-                    
-                   
+                <h6 >Nome: <%= JSON.stringify(session.utente.utente.Name) %> </h6> 
+                <h6 >Cognome: <%= JSON.stringify(session.utente.utente.Surname) %>  </h6> 
+                <h6 >E-mail:  <%= JSON.stringify(session.utente.utente.E_mail) %> </h6>
+                <h6 >Dipartimento:  <%= JSON.stringify(session.utente.utente.Department) %> </h6>
                 
-                </ul>
                 <h4 class="mt-4">Modifica dati anagrafici</h4>
                 <form id="formUpdate" method="post" action="/updateProfile"><br>
                 <div class="form-label-group">
-                 <input type="text" id="inputNameAc" class="form-control" name="inputNameAc" placeholder="Nome" >
-                 <span id="errNameAc">Nome non valido</span>
+                 <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome" >
+                 <label for="inputName">Nome<label>
+                 <span id="errName">Nome non valido</span>
                 </div>
                 <div class="form-label-group">
-                 <input type="text" id="inputSurnameAc" class="form-control" name="inputSurnameAc" placeholder="Cognome">
-                 <span id="errSurnameAc">Cognome non valido</span>
-
+                 <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome">
+                 <label for="inputSurname">Cognome<label>
+                 <span id="errSurname">Cognome non valido</span>
                 </div>
               
 
                 <div class="form-label-group">
-                    <input type="text" id="inputDepartmentT" class="form-control" name="inputDepartmentT" placeholder="Department">
-                    
-                    <span id="errDepartmentT">Dipartimento non valido</span>
+                    <input type="text" id="inputDepartment" class="form-control" name="inputDepartment" placeholder="Department">
+                    <label for="inputDepartment">Dipartimento<label>
+                    <span id="errDepartment">Dipartimento non valido</span>
                    </div>
 
                  <button class="btn btn-block" type="submit" class="saveButton">Modifica dati</button>
@@ -215,14 +207,17 @@
 <form method="post" action="/updatePassword">
                 <div class="form-label-group">
                     <input type="password" id="inputOldPassword" class="form-control" name="oldPassword" placeholder="Vecchia Password"  required>
+                    <label for="inputOldPassword">Vecchia Password<label>
                     <span id="errOldPassword">Vecchia Password errata</span>
                 </div>
                  <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password" required >
+                <input type="password" id="inputNewPassword" class="form-control" name="newPassword" placeholder="Nuova Password" required >
+                <label for="inputNewPassword">Nuova Password<label>
                 <span id="errPassword">Nuova Password non valida</span>
                </div>
                <div class="form-label-group">
-                <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  required>
+                <input type="password" id="inputRepeatPassword" class="form-control" name="repeatPassword" placeholder="Ripeti Password"  required>
+                <label for="inputRepeatPassword">Ripeti Password<label>
                 <span id="errConfirmPassword">Password errata </span>
                </div>
                     <button class="btn btn-block" type="submit" class="saveButton">Modifica password</button>

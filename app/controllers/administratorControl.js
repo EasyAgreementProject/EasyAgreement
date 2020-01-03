@@ -3,6 +3,7 @@ var adminModel= require('../models/administrator.js');
 var session = require('express-session');
 
 exports.update=function(req,res){
+    return new Promise(function(fulfill, reject){
 
     var oldPassword= req.body.oldPassword;
     var password= req.body.NewPassword;
@@ -29,17 +30,20 @@ if(!isRight){
         var passwordHashed= hash.hashPassword(password);
         var checkPass=administratorControl.updatePassword(passwordHashed,req.session.utente.utente.Email);
         checkPass.then(function (result){
-           if(result!= null) req.session.utente.utente=result;
-            res.cookie('updatePassEff','1');
+           if(result!= null){ 
+               req.session.utente.utente=result;
+                res.cookie('updatePassEff','1');
+                fulfill();
 
-            res.render('profile');
-        }) 
+           }
+           else
+            reject();
+
+        });
+        }
+     });   
     }
 
     
-}
 
-    exports.view= function(req, res){
-    res.render('profile');
 
-}
