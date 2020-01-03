@@ -1,6 +1,7 @@
 var pdfFiller = require('pdffiller');
 var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
+var requestControl = require('./requestControl.js');
 var learningAgreement = new LA();
 //const Readable = require('stream').Readable;
 
@@ -127,16 +128,33 @@ exports.sendLaStudent = function(input, res) {
                         fs.unlink('pdf/Filled_LA_'+random+'.pdf', function(err){
                             if (err) throw err;
                         });
-                        learningAgreement.setFilling(data);
-                        learningAgreement.setDocument(file);
-                        learningAgreement.setStudentID(data["E-mail"]);
-                        learningAgreement.setState("Submitted");
-                        learningAgreement.setDate(data["The trainee date"]);
 
-                        var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                        insertLearningAgreementPr.then(function() {
-                            fulfill(download);
-                        });
+                        var pos = data["Contact person Email / Phone"].indexOf(" ");
+                        var email = data["Contact person Email / Phone"].substring(0, pos);
+                        pos = data["Mentor e-mail / phone"].indexOf(" ");
+                        var email2 = data["Mentor e-mail / phone"].substring(0, pos);
+
+                        var generateRequestPr = requestControl.generateRequest(data["E-mail"], email, email2);
+                        generateRequestPr.then(function(result, err) {
+                            if (err) throw err;
+                            if(result) {
+                                learningAgreement.setFilling(data);
+                                learningAgreement.setDocument(file);
+                                learningAgreement.setStudentID(data["E-mail"]);
+                                learningAgreement.setState("Submitted");
+                                learningAgreement.setDate(data["The trainee date"]);
+
+                                var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                                insertLearningAgreementPr.then(function() {
+                                    fulfill(download);
+                                });
+                            }
+                            else {
+                                if(res) res.cookie("errRequest", "1");
+                                console.log("Request already sent!");
+                                fulfill();
+                            }
+                        });                       
 
                     }
                 })
@@ -831,7 +849,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("Name wrong!");
             fulfill(false);
         }
-        if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]))) {
+        if (!(/^(\d{4}(-|\/)((0)?[0-9]|(1)?[0-2]){1}(-|\/)([0-2]?[0-9]|(3)?[0-1]){1}|([0-2]?[0-9]|(3)?[0-1]){1}(-|\/){1}((0)?[0-9]|(1)?[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]))) {
             if(res) res.cookie("errDate", "1");
             console.log("birth date wrong!");
             fulfill(false);
@@ -991,7 +1009,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("trainee signature wrong!");
             fulfill(false);
         }
-        if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["The trainee date"]))) {
+        if (!(/^(\d{4}(-|\/)((0)?[0-9]|(1)?[0-2]){1}(-|\/)([0-2]?[0-9]|(3)?[0-1]){1}|([0-2]?[0-9]|(3)?[0-1]){1}(-|\/){1}((0)?[0-9]|(1)?[0-2]){1}(-|\/){1}\d{4})$/.test(data["The trainee date"]))) {
             if(res) res.cookie("errDate", "1");
             console.log("today date wrong!");
             fulfill(false);

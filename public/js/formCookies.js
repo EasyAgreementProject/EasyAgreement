@@ -51,6 +51,7 @@ $(document).ready(function() {
     var errMonitoring = getCookie("errMonitoring");
     var errEvaluation = getCookie("errEvaluation");
     var errLenguage = getCookie("errLenguage");
+    var errRequest = getCookie("errRequest");
    
 
 
@@ -209,5 +210,9 @@ $(document).ready(function() {
         $('#errLenguage').css('display', 'block');
         $('#inputLenguage').addClass("errClass");
         document.cookie = "errLenguage=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (errRequest == "1") {
+        alert("Richiesta già inviata in precedenza!");
+        document.cookie = "errRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });
