@@ -28,19 +28,16 @@ exports.docHandler = function(err,req,res) {
 
     
     
-    console.log(currSess);
-    var email = currSess.Email;
+    var email = request.session.utente.Utente.Email;
     studentModel.deleteStudentID(email);
     redirect(response);
-
-
 
   }
 
   exports.CVEraser = function(err, request, response) {
 
     if (err) throw err;
-    var currSess=request.session.utente;
+    var currSess=request.session.utente.utente.Email;
     var email = currSess.Email;
     studentModel.deleteStudentCV(email);
     redirect(response);
