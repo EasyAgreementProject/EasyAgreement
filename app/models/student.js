@@ -453,10 +453,9 @@ static RetrieveAll() {
                 
                     dbo.collection("Student").findOne({"Email": email}, function(err, result){
                     if(err) reject(err);
-                    dbo.collection("Student").updateOne(
-                        {"email" : result.email},
-                        {$set:{"CV" : null }})
-                    fulfill(true);
+                    dbo.collection("Student").deleteOne(
+
+                    fulfill(true));
                     db.close();
                     })
                 });

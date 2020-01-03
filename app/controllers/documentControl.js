@@ -1,38 +1,41 @@
 var studentModel= require('../models/student.js');
 var session = require('express-session');
+const fs = require('fs');
 console.log("I'm inside");
 
-exports.idHandler = function(err,req,res) {
+exports.idHandler = function(req,res) {
 
-  if (err) throw err;
+  
   console.log("Starting ID file handler...");
  
 }
 
-exports.cvHandler = function(err,req,res) {
+exports.cvHandler = function(req,res) {
 
-  if (err) throw err;
+  
   console.log("Starting CV file handler...");
   
 }
 
-  exports.IDEraser = function(request, response) {
+  exports.IDEraser = function(req, res) {
 
     
     
-    var email = request.session.utente.Utente.Email;
+    var email = req.session.utente.utente.Email;
+    
     studentModel.deleteStudentID(email);
-    redirect(response);
+    
 
   }
 
-  exports.CVEraser = function(err, request, response) {
+  exports.CVEraser = function(req, res) {
 
-    if (err) throw err;
-    var currSess=request.session.utente.utente.Email;
-    var email = currSess.Email;
-    studentModel.deleteStudentCV(email);
-    redirect(response);
+    
+    var temp=JSON.stringify(req.session.utente);
+    console.log(JSON.stringify(req.session.utente));
+    
+    studentModel.deleteStudentCV(temp.Email);
+    
 
 
 
