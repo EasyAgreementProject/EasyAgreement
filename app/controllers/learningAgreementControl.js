@@ -831,7 +831,7 @@ exports.getAllVersions = function(student) {
 exports.validateDataStudent = function(data, res) {
     return new Promise(function(fulfill, reject) {
         console.log("Begin...");
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Header name"]))) {
             if(res) {
                 res.cookie("errName", "1");
                 res.cookie("errSurname", "1");
@@ -839,12 +839,12 @@ exports.validateDataStudent = function(data, res) {
             console.log("Header Name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+$/.test(data["Last name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+ *$/.test(data["Last name (s)"]))) {
             if(res) res.cookie("errSurname", "1");
             console.log("Last name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["First name (s)"]))) {
             if(res) res.cookie("errName", "1");
             console.log("Name wrong!");
             fulfill(false);
@@ -854,7 +854,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("birth date wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+$/.test(data["Nationality"]))) {
+        if (!(/^[A-za-zà-ù]+ *$/.test(data["Nationality"]))) {
             if(res) res.cookie("errNationality", "1");
             console.log("nationality wrong!");
             fulfill(false);
@@ -864,12 +864,12 @@ exports.validateDataStudent = function(data, res) {
             console.log("sex wrong!");
             fulfill(false);
         }
-        if (!(/^\d{2}$/.test(data["Academic year1"]))) {
+        if (!(/^\d{2} *$/.test(data["Academic year1"]))) {
             if(res) res.cookie("errAcademicYear1", "1");
             console.log("ac1 wrong!");
             fulfill(false);
         }
-        if (!(/^\d{2}$/.test(data["Academic year2"]))) {
+        if (!(/^\d{2} *$/.test(data["Academic year2"]))) {
             if(res) res.cookie("errAcademicYear2", "1");
             console.log("ac2 wrong!");
             fulfill(false);
@@ -879,87 +879,87 @@ exports.validateDataStudent = function(data, res) {
             console.log("study cycle wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+\,{1} ?\d+$/.test(data["Subject area, Code"]))) {
+        if (!(/^[A-za-zà-ù]+\,{1} ?\d+ *$/.test(data["Subject area, Code"]))) {
             if(res) res.cookie("errSubjectCode", "1");
             console.log("subject area code wrong!");
             fulfill(false);
         }
-        if (!(/^\d{1,10}$/.test(data["Phone"]))) {
+        if (!(/^\d{1,10} *$/.test(data["Phone"]))) {
             if(res) res.cookie("errTelephone", "1");
             console.log("phone wrong!");
             fulfill(false);
         }
-        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]))) {
+        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1} *$/.test(data["E-mail"]))) {
             if(res) res.cookie("errEmail", "1");
             console.log("email student wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Sending Departement"]))) {
+        if (!(/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)* *$/.test(data["Sending Departement"]))) {
             if(res) res.cookie("errDepartmentSending", "1");
             console.log("sending department wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Contact person name"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+) *?$/.test(data["Contact person name"]))) {
             if(res) res.cookie("errContactName", "1");
             console.log("contact person name wrong!");
             fulfill(false);
         }
-        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person Email / Phone"]))) {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data["Contact person Email / Phone"]))) {
             if(res) res.cookie("errContactSending", "1");
             console.log("contact email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+$/.test(data["Contact person name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+ *$/.test(data["Contact person name / position"]))) {
             if(res) res.cookie("errContactReciving", "1");
             console.log("contact person name position wrong! "+data["Contact person name / position"]);
             fulfill(false);
         }
-        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]))) {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data["Receiving contact person e-mail phone"]))) {
             if(res) res.cookie("errContactSending", "1");
             console.log("receiving contact person email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Name Sector"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Name Sector"]))) {
             if(res) res.cookie("errNameSector", "1");
             console.log("name sector wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Receiving Department"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Receiving Department"]))) {
             if(res) res.cookie("errDepartmentReciving", "1");
             console.log("receiving department wrong!");
             fulfill(false);
         }
-        if (!(/^[\w ,\.()']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]))) {
+        if (!(/^[\w ,\.()']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3} *$/.test(data["Address, website"]))) {
             if(res) res.cookie("errAddressWebSite", "1");
             console.log("address website wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Country"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Country"]))) {
             if(res) res.cookie("Country wrong", "1");
             console.log("country wrong!");
             fulfill(false);
         }
-        if (!(/^\d+( ?[- \/] ?\d+)?$/.test(data["Size of enterprise"]))) {
+        if (!(/^\d+( ?[- \/] ?\d+)? *$/.test(data["Size of enterprise"]))) {
             if(res) res.cookie("SerrSizeEnterprise", "1");
             console.log("size of enterprise wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+$/.test(data["Mentor name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+ *$/.test(data["Mentor name / position"]))) {
             if(res) res.cookie("errMentor", "1");
             console.log("mentor name position wrong!");
             fulfill(false);
         }
-        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Mentor e-mail / phone"]))) {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data["Mentor e-mail / phone"]))) {
             if(res) res.cookie("errMentorInfo", "1");
             console.log("mentor email phone wrong!");
             fulfill(false);
         }
-        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["from"]))) {
+        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4} *$/.test(data["from"]))) {
             if(res) res.cookie("errDateFrom", "1");
             console.log("from wrong!");
             fulfill(false);
         }
-        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["till"]))) {
+        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4} *$/.test(data["till"]))) {
             if(res) res.cookie("errDateTo", "1");
             console.log("till wrong!");
             fulfill(false);
@@ -969,32 +969,32 @@ exports.validateDataStudent = function(data, res) {
             console.log("working hours wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$/.test(data["Traineeship title"]))) {
+        if (!(/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)* *$/.test(data["Traineeship title"]))) {
             if(res) res.cookie("errTitle", "1");
             console.log("traineeship title wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Detailed programme of the traineeship period"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Detailed programme of the traineeship period"]))) {
             if(res) res.cookie("errDetailed", "1");
             console.log("detailed programme wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]))) {
             if(res) res.cookie("errKnowledge", "1");
             console.log("knowledge wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Monitoring plan"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Monitoring plan"]))) {
             if(res) res.cookie("errMonitoring", "1");
             console.log("monitoring plan wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Evaluation plan"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Evaluation plan"]))) {
             if(res) res.cookie("errEvaluation", "1");
             console.log("evaluation plan wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+$/.test(data["language competence"]))) {
+        if (!(/^[A-za-zà-ù]+ *$/.test(data["language competence"]))) {
             if(res) res.cookie("errLenguage", "1");
             console.log("language wrong! "+data["language competence"]);
             fulfill(false);
@@ -1004,7 +1004,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("language level wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["The trainee signature"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+) *?$/.test(data["The trainee signature"]))) {
             if(res) res.cookie("errName", "1");
             console.log("trainee signature wrong!");
             fulfill(false);
@@ -1045,7 +1045,7 @@ exports.validateDataAcademicTutor = function(data, res) {
             if(data["Award"] || data["Traineeship certificate"] || data["Final report"] || data["Interview"] || data["Europass Mobility Document Yes"] || data["Europass Mobility Document No"]) {
                 if(res) res.cookie("errCompileOnlyOne", "1");
                 console.log("Compile only form two!");
-                if (data["Award ECTS credits Yes"] && !(/^\d{1,2}$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
+                if (data["Award ECTS credits Yes"] && !(/^\d{1,2} *$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
                     if(res) res.cookie("errNumberCredits", "1");
                     console.log("Number of ECTS credits wrong!");
                     fulfill(false);               
@@ -1097,19 +1097,19 @@ exports.validateDataExternalTutor = function(data, res) {
             fulfill(false); 
         }
 
-        if (!(/^\d*(,\d+)?€?$/.test(data["if financial support Yes"]))) {
+        if (!(/^\d*(,\d+)?€? *$/.test(data["if financial support Yes"]))) {
             if(res) res.cookie("errFinancialSupport", "1");
             console.log("Financial support wrong!");
             fulfill(false); 
         }
 
-        if (!(/^[\wà-ù\.,"' ]*$/.test(data["If yes, please specify"]))) {
+        if (!(/^[\wà-ù\.,"' ]* *$/.test(data["If yes, please specify"]))) {
             if(res) res.cookie("errContribution", "1");
             console.log("Contribution wrong!");
             fulfill(false); 
         }
 
-        if (!(/^[0-5]{1}$/.test(data["Traineeship Certificate by"]))) {
+        if (!(/^[0-5]{1} *$/.test(data["Traineeship Certificate by"]))) {
             if(res) res.cookie("errWeeks", "1");
             console.log("Traineeship certificate wrong!");
             fulfill(false); 

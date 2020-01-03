@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
 var messageControl= require('./app/controllers/messageControl');
+var requestControl = require('./app/controllers/requestControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
 const io = require('socket.io')(3000)
@@ -201,6 +202,21 @@ app.get('/compileLAExternalTutor.html', function (req, res) {
 app.get('/compileLAAcademicTutor.html', function (req, res) {
   res.sendFile("/app/views/compileLAAcademicTutor.html",{root:__dirname});
 });
+
+app.get('/viewRequest.html', function (req, res) {
+  res.sendFile("/app/views/viewRequest.html",{root:__dirname});
+});
+
+app.get('/request.html', function (req, res) {
+  res.sendFile("/app/views/request.html",{root:__dirname});
+});
+
+app.get('/getRequests', function(req, res){
+  var getRequestsPr = requestControl.getAllRequests("f.ferrucci@unisa.it");
+  getRequestsPr.then(function(result){
+    res.send(result);
+  })
+})
 
 app.get('/signup.html', function (req, res) {
   res.sendFile("/app/views/signup.html",{root:__dirname});

@@ -21,5 +21,22 @@ exports.generateRequest = function(student, academicTutor, externalTutor) {
             }            
         });
     });
-    
+}
+
+exports.getAllRequests = function (tutor) {
+    return new Promise (function (fulfill, reject){
+        var getRequestsPr = Request.getAllRequests(tutor);
+        getRequestsPr.then(function(result){
+            fulfill(result);
+        })
+    });
+}
+
+exports.getRequest = function (student) {
+    return new Promise (function (fulfill, reject){
+        var getRequestPr = Request.getRequest(student);
+        getRequestPr.then(function(result){
+            fulfill(result);
+        })
+    });
 }

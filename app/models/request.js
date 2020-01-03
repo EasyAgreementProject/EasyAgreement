@@ -79,6 +79,22 @@ class Request {
         });
     }
 
+    static getAllRequests(tutorID) {
+        return new Promise(function(fulfill, reject) {
+            MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+                if (err) throw err;
+                console.log("Connected successfully to server!");
+                var dbo = db.db(dbName);
+                dbo.collection("Request").find({ $or: [{"academicTutorID": tutorID}, {"externalTutorID": tutorID }]}).toArray(function(err, result) {
+                    if (err) throw err;
+                    console.log("Request search completed! " + result + " TutorID = " + tutorID);
+                    db.close();
+                    fulfill(result);
+                });
+            });
+        });
+    }
+
     static deleteRequest(studentID) {
         return new Promise(function(fulfill, reject) {
             MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {

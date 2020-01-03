@@ -101,6 +101,27 @@
             $("#wrapper ").toggleClass("toggled");
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $.get('/getRequests', function(requests){
+                var tbody = document.getElementById('request_list').getElementsByTagName('tbody')[0];
+                for (i = 0; i < requests.length; i++){
+                    var newRow = tbody.insertRow();
+                    for (j = 0; j < 4; j++){
+                        var newCell = newRow.insertCell(j);
+                        switch(j) {
+                            case 0: var newText  = document.createTextNode(requests[i]['_id']); break;
+                            case 1: var newText  = document.createTextNode(requests[i]['studentID']); break;
+                            case 2: var newText  = document.createTextNode(requests[i]['academicTutorID']); break;
+                            case 3: var newText  = document.createTextNode(requests[i]['externalTutorID']); break;
+                        }
+                        
+                        newCell.appendChild(newText);
+                    }
+                }
+            });
+        })
+    </script>
 </body>
 
 </html>
