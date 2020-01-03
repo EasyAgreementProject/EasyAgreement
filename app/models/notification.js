@@ -1,4 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectId;
+
 
 //Database URL
 const url="mongodb://localhost:27017/easyagreement";
@@ -50,7 +52,6 @@ class Notification {
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
                 if(err) reject(err);
-                console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
                 dbo.collection("Notification").insertOne(notification, function(err, result) {
                     if(err) reject(err);
@@ -66,7 +67,6 @@ class Notification {
         return new Promise(function (fulfill, reject) {
             MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
                 if(err) reject(err);
-                console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
                 dbo.collection("Notification").deleteOne({_id: ObjectID(notificationID)}, function(err, result) {
                     if(err) reject(err);
@@ -84,12 +84,42 @@ class Notification {
                 if(err) reject(err);
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
-                dbo.collection("Notification").find({"associateID": associatedID}).toArray(function(err, result) {
+                dbo.collection("Notification").find({"associatedID": associatedID}).toArray(function(err, result) {
                     if(err) reject(err);
-                    fulfill();
+                    fulfill(result);
                     db.close();
                 });
             });
         });
     }
+
+    static changeStateCache(associatedID, value){
+        return new Promise(function(fulfill, reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err) reject(err);
+                var dbo= db.db(dbName);
+                var exValue=null;
+                dbo.collection("Cache").findOne({associatedID: associatedID}, function(err, result){
+                    if(err) reject(err);
+                    if(result!=null){
+                        exValue=result.bool;
+                        dbo.collection("Cache").updateOne({associatedID: associatedID}, {$set: {bool:value}}, function(err, result){
+                            if(err) reject(err);
+                            db.close();
+                            fulfill(exValue);
+                        });
+                    }else{
+                        exValue=false;
+                        dbo.collection("Cache").insertOne({associatedID: associatedID, bool: value}, function(err, result){
+                            if(err) reject(err);
+                            db.close();
+                            fulfill(exValue);
+                        });
+                    }
+                });
+            });
+        });
+    }
 }
+
+module.exports=Notification;

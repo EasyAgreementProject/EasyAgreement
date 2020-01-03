@@ -10,6 +10,8 @@ var academicTutorModel= require('../models/academicTutor.js');
  * @param {Http} res - response
  */
 exports.signup= function(req, res){
+    return new Promise(function(fulfill, reject){
+
     if(req.body.radioAccount=="studente"){
         //Get parameter from form
         var name= req.body.inputName;
@@ -71,8 +73,7 @@ exports.signup= function(req, res){
         }
 
         if(!isRight){
-            res.redirect('/signup.html');
-            return;
+            fulfill(false);
         }
 
         //hashing e salt of password
@@ -96,8 +97,7 @@ exports.signup= function(req, res){
         checkM.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
-                res.redirect('/signup.html');
-                return;
+                fulfill(false);
             }
             if(result){
                 var checkE=studentModel.findExistByEmail(email);
@@ -105,8 +105,7 @@ exports.signup= function(req, res){
                 checkE.then(function(result){
                     if(!result){
                         res.cookie('errAlreadyReg','1');
-                        res.redirect('/signup.html');
-                        return;
+                        fulfill(false);
                     }
                     if(result){
                         //Save student in database
@@ -114,8 +113,7 @@ exports.signup= function(req, res){
 
                         //redirect
                         res.cookie('regEff','1');
-                        res.redirect('/index.html');
-                        return;
+                        fulfill(true);
                     }
                 })
             }
@@ -164,8 +162,7 @@ exports.signup= function(req, res){
         }
 
         if(!isRight){
-            res.redirect('/signup.html');
-            return;
+            fulfill(false);
         }
 
         //hashing e salt of password
@@ -185,8 +182,7 @@ exports.signup= function(req, res){
         check.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
-                res.redirect('/signup.html');
-                return;
+                fulfill(false);
             }
             if(result){
                 //Save academic tutor in database
@@ -194,9 +190,9 @@ exports.signup= function(req, res){
 
                 //redirect
                 res.cookie('regEff','1');
-                res.redirect('/index.html');
-                return;
+                fulfill(true);
             }
         })   
     }
+});
 }
