@@ -34,9 +34,7 @@ if(name.length!=0 ){
 
 
 if(surname.length!=0){
-    console.log("sono nell if del diverso null cognome: "+ JSON.stringify(surname));
     if (!(/^[A-Za-z]+$/.test(surname))){
-      console.log("Sono entrato nel cookie cognome");
         res.cookie('errStudentSurname','1');
         isRight=false;
     }
@@ -108,13 +106,11 @@ exports.updatePassword=function(req,res){
 
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
-        console.log("errore pass!!!!");
         isRight=false;
     }
 
     if(passwordConfirm!=password){
         res.cookie('errPasswordConfirm','1');
-        console.log("password diverse !!!");
         isRight=false;
     }
 

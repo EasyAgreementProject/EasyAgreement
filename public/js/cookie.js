@@ -96,6 +96,14 @@ $(document).ready(function(){
         $('#inputConfirmPassword').addClass("errClass");
         document.cookie="errPasswordConfirm=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+/*
+    if(errOldPassword=="1"){
+        $('#errOldPassword').css('display','block');
+        $('#inputConfirmPassword').addClass("errClass");
+        document.cookie="errPasswordConfirm=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    */
+
     if(errNameT=="1"){
         $('#errNameT').css('display','block');
         $('#inputNameT').addClass("errClass");

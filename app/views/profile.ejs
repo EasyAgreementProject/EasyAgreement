@@ -166,7 +166,7 @@
                 <% } %>
 
 
-                <%if(session.utente.type == "academicTutor") {%>
+                <%if(session.utente.type == "academicTutor"){%>
 
               <div class="container-fluid" id="accademicView">
 
@@ -174,7 +174,7 @@
                 <h6 >Nome: <%= JSON.stringify(session.utente.utente.Name) %> </h6> 
                 <h6 >Cognome: <%= JSON.stringify(session.utente.utente.Surname) %>  </h6> 
                 <h6 >E-mail:  <%= JSON.stringify(session.utente.utente.E_mail) %> </h6>
-                <h6 >Department:  <%= JSON.stringify(session.utente.utente.Department) %> </h6>
+                <h6 >Dipartimento:  <%= JSON.stringify(session.utente.utente.Department) %> </h6>
                 
                 <h4 class="mt-4">Modifica dati anagrafici</h4>
                 <form id="formUpdate" method="post" action="/updateProfile"><br>
@@ -192,7 +192,7 @@
 
                 <div class="form-label-group">
                     <input type="text" id="inputDepartment" class="form-control" name="inputDepartment" placeholder="Department">
-                    <label for="inputDepartment">Department<label>
+                    <label for="inputDepartment">Dipartimento<label>
                     <span id="errDepartment">Dipartimento non valido</span>
                    </div>
 
@@ -208,17 +208,17 @@
                 <div class="form-label-group">
                     <input type="password" id="inputOldPassword" class="form-control" name="oldPassword" placeholder="Vecchia Password"  required>
                     <label for="inputOldPassword">Vecchia Password<label>
-                    <span id="errOldPassword">Vecchia Password</span>
+                    <span id="errOldPassword">Vecchia Password errata</span>
                 </div>
                  <div class="form-label-group">
                 <input type="password" id="inputNewPassword" class="form-control" name="newPassword" placeholder="Nuova Password" required >
                 <label for="inputNewPassword">Nuova Password<label>
-                <span id="errNewPassword">Nuova Password</span>
+                <span id="errPassword">Nuova Password non valida</span>
                </div>
                <div class="form-label-group">
                 <input type="password" id="inputRepeatPassword" class="form-control" name="repeatPassword" placeholder="Ripeti Password"  required>
                 <label for="inputRepeatPassword">Ripeti Password<label>
-                <span id="errRepeatPassword">Ripeti Password</span>
+                <span id="errConfirmPassword">Password errata </span>
                </div>
                     <button class="btn btn-block" type="submit" class="saveButton">Modifica password</button>
             </form>

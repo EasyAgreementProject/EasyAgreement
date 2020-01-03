@@ -309,7 +309,7 @@ static updateStudent(student,emailv) {
             if(student.DegreeCourse != null) newvalues.DegreeCourse=student.DegreeCourse;
             dbo.collection("Student").updateOne(myquery, {$set: newvalues }, function(err, res) {
                  if (err) throw err;
-                     console.log("1 document updated+ name: "+student.DegreeCourse);
+                     console.log("1 document updated");
              });
              dbo.collection("Student").findOne({Email: emailv}, function(err, result){
                 if(err) reject(err);

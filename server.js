@@ -280,10 +280,8 @@ app.get('/profile', function (request, response) {
 
 app.get('/logout',function(req,res){
   var utente = req.session.utente;
-  console.log(utente);
   req.session.destroy(function(err){
     if(err){
-      console.log("ERRORE+ "+utente);
       console.log(err);
     }else{
       res.cookie('logoutEff','1');

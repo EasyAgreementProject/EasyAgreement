@@ -170,13 +170,13 @@
                         #errSurname,
                         #errEmail,
                         #errCity,
-                        #errDegree,
+                        #errCourse,
                         #errOrganization,
                         #errDepartment,
                         #errAddress,
                         #errOldPassword,
-                        #errNewPassword,
-                        #errRepeatPassword
+                        #errPassword,
+                        #errConfirmPassword
                          {
                             color: red;
                             display: none;

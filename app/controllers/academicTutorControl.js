@@ -51,14 +51,10 @@ else
 
 if(!isRight){
     var path = require('path');
-    console.log("errore!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     res.render('profile');
     return;
 }
 
-    
-      
-        console.log("sono nel accademic: stampo sessione: "+ JSON.stringify(req.session.utente.utente.E_mail)+"stampo academic tutor"+JSON.stringify(academicTutor));
         var checkS=academicTutorModel.updateAcademicTutor(academicTutor,req.session.utente.utente.E_mail);
 
         checkS.then(function(result){
@@ -84,13 +80,11 @@ exports.updatePassword=function(req,res){
 
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
-        console.log("errore pass!!!!");
         isRight=false;
     }
 
     if(passwordConfirm!=password){
         res.cookie('errPasswordConfirm','1');
-        console.log("password diverse !!!");
         isRight=false;
     }
 
@@ -107,8 +101,5 @@ exports.updatePassword=function(req,res){
 }
 
     exports.view= function(req, res){
-        console.log("sono nel accademic VIEW: stampo sessione: "+ JSON.stringify(req.session.utente.utente.E_mail));
-
     res.render('profile');
-
 }

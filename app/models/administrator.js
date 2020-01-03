@@ -90,7 +90,7 @@ static updatePassword(pass,emailv) {
             var newvalues = { $set: {Password: pass } };
              dbo.collection("Administrator").updateOne(myquery, newvalues, function(err, res) {
                  if (err) reject(err);
-                     console.log("1 document updated+ name: ");
+                     console.log("1 document updated");
              });
              dbo.collection("Administrator").findOne({email: emailv}, function(err, result){
                 if(err) reject(err);

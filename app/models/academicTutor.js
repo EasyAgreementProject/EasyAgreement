@@ -208,7 +208,7 @@ static updateAcademicTutor(academicTutor,emailv) {
             if( academicTutor.Department != null) newvalues.Department= academicTutor.Department;
              dbo.collection("AcademicTutor").updateOne(myquery,{$set: newvalues }, function(err, res) {
                  if (err) throw err;
-                     console.log("1 document updated"+ academicTutor.Name + academicTutor.Surname+ academicTutor.Department);
+                     console.log("1 document updated");
              });
              dbo.collection("AcademicTutor").findOne({"E_mail": emailv}, function(err, result){
                 if(err) reject(err);
@@ -237,19 +237,20 @@ static updatePassword(password,emailv) {
             console.log("Connected successfully to server!");
             var dbo = db.db(dbName);
             console.log(".");
-            var myquery = { Email: emailv };
+            var myquery = { E_mail: emailv };
             var newvalues = { $set: {Password:password } };
-             dbo.collection("Student").updateOne(myquery, newvalues, function(err, res) {
+             dbo.collection("AcademicTutor").updateOne(myquery, newvalues, function(err, res) {
                  if (err) reject(err);
              });
-             dbo.collection("Student").findOne({Email: emailv}, function(err, result){
-                if(err) reject(err);
+             dbo.collection("AcademicTutor").findOne({E_mail: emailv}, function(err, result){
+                if(err) { reject(err);}
                 if(result!=null){
                     var academicTutor= new AcademicTutor();
                     academicTutor.setName(result.Name);
+                    academicTutor.setEmail(result.E_mail);
                     academicTutor.setSurname(result.Surname);
                     academicTutor.setDepartment(result.Department);
-
+                    academicTutor.setPassword(result.Password);
                    
                     db.close();
                     fulfill(academicTutor);

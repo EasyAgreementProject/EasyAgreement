@@ -19,6 +19,8 @@ $(document).ready(function() {
             $('#errSurnaame').css('display', 'none');
             $('#inputSurname').removeClass("errClass");
         }
+
+
         
         return res;
 
@@ -36,6 +38,16 @@ $(document).ready(function() {
         if (surname.length >= 2) {
             var exp = new RegExp("^[A-Za-z]+$");
             if (/^[A-Za-z]+$/.test(surname)) return true;
+        }
+        return false;
+    }
+
+
+    function testEmail(email) {
+        if (email.length >= 6) {
+            var exp = new RegExp("^[A-Za-z]+$");
+            if (!/^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it/.test(email)) return true;
+            
         }
         return false;
     }
