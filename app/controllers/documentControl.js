@@ -1,48 +1,19 @@
 var studentModel= require('../models/student.js');
-var formidable = require('formidable');
 var session = require('express-session');
 console.log("I'm inside");
 
 exports.idHandler = function(err,req,res) {
 
   if (err) throw err;
-  console.log("Starting handler...");
-  var currSess=json.stringify(req.session.utente);
-  var email = currSess.Email;
-  console.log("Session data retrieval is ok");
-  var form = new formidable.IncomingForm();
-  form.keepExtensions=true;
-  form.multiples=false;
-  form.parse(req, function(err, fields, files) {
-    res.writeHead(200, {'content-type': 'text/plain'});
-    
-
-    studentModel.updateStudentCV(email, req.files);
-    
-
-
-  });
+  console.log("Starting ID file handler...");
+ 
 }
 
 exports.cvHandler = function(err,req,res) {
 
   if (err) throw err;
-  console.log("Starting handler...");
-  var currSess=json.stringify(req.session.utente);
-  var email = currSess.Email;
-  console.log("Session data retrieval is ok");
-  var form = new formidable.IncomingForm();
-  form.keepExtensions=true;
-  form.multiples=false;
-  form.parse(req, function(err, fields, files) {
-    res.writeHead(200, {'content-type': 'text/plain'});
-    
-
-    studentModel.updateStudentCV(email, req.files);
-    
-
-
-  });
+  console.log("Starting CV file handler...");
+  
 }
 
   exports.IDEraser = function(request, response) {

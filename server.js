@@ -240,9 +240,17 @@ app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
 });
 
-app.post('/fileupload', function(request, response){
+app.post('/uploadID', function(request, response){
   console.log("Before documentControl...");
-  var docManager=documentControl.docHandler(request,response);
+  var docManager=documentControl.idHandler(request,response);
+  console.log("After document control, in server...");
+  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
+  console.log("test2");
+});
+
+app.post('/uploadCV', function(request, response){
+  console.log("Before documentControl...");
+  var docManager=documentControl.cvHandler(request,response);
   console.log("After document control, in server...");
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
   console.log("test2");
