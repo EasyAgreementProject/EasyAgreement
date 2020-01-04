@@ -6,8 +6,10 @@ exports.update=function(req,res){
     return new Promise(function(fulfill, reject){
 
     var oldPassword= req.body.oldPassword;
-    var password= req.body.NewPassword;
-    var passwordConfirm= req.body.repeatPassword;
+    var password= req.body.inputPassword;
+    var passwordConfirm= req.body.inputConfirmPassword;
+
+    var isRight=true;
 
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
@@ -20,20 +22,21 @@ exports.update=function(req,res){
     }
 
 if(!isRight){
+
+    console.log("stampa pass"+password+passwordConfirm);
     var path = require('path');
-    res.render('profile');
+    res.redirect("profile");
     return;
 }
 
-
-    if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
-        var passwordHashed= hash.hashPassword(password);
-        var checkPass=administratorControl.updatePassword(passwordHashed,req.session.utente.utente.Email);
-        checkPass.then(function (result){
-           if(result!= null){ 
-               req.session.utente.utente=result;
-                res.cookie('updatePassEff','1');
-                fulfill();
+if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
+    var passwordHashed= hash.hashPassword(password);
+    var checkPass=administratorControl.updatePassword(passwordHashed,req.session.utente.utente.Email);
+    checkPass.then(function (result){
+        if(result!= null){ 
+            req.session.utente.utente=result;
+            res.cookie('updatePassEff','1');
+            fulfill();
 
            }
            else

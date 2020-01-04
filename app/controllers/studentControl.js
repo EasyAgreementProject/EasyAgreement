@@ -106,9 +106,11 @@ if(!isRight){
 exports.updatePassword=function(req,res){
     return new Promise(function(fulfill, reject){
 
+    var isRight=true;
+
     var oldPassword= req.body.oldPassword;
-    var password= req.body.newPassword;
-    var passwordConfirm= req.body.repeatPassword;
+    var password= req.body.inputPassword;
+    var passwordConfirm= req.body.inputConfirmPassword;
 
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
@@ -120,6 +122,14 @@ exports.updatePassword=function(req,res){
         isRight=false;
     }
 
+    if(!isRight){
+
+        console.log("stampa pass"+password+passwordConfirm);
+        var path = require('path');
+        res.redirect("profile");
+        return;
+    }
+
     if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
         var passwordHashed= hash.hashPassword(password);
     
@@ -127,13 +137,15 @@ exports.updatePassword=function(req,res){
         checkS.then(function(result){
             if(result!= null){
               req.session.utente.utente=result;
-                res.cookie('updatePassEff','1');            
-                fulfill();
+              res.cookie('updatePassEff','1');            
+              fulfill();
             }
-            else
-            reject();
+            else{
+              console.log("promise falita");
+              reject();
+            }
 
         });
-        }
+    }
     });
 }

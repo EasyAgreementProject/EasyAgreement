@@ -262,9 +262,8 @@ else{
 }
  else
   if(req.session.utente.type=="academicTutor"){
-   var updateA=academicTutorControl.updatePassword(req, res);
-   updateA.then(function(){
-
+    var updateA=academicTutorControl.updatePassword(req, res);
+    updateA.then(function(){
     res.render('profile');
   });
 }

@@ -78,9 +78,11 @@ exports.updatePassword=function(req,res){
     return new Promise(function(fulfill, reject){
 
     var oldPassword= req.body.oldPassword;
-    var password= req.body.newPassword;
-    var passwordConfirm= req.body.repeatPassword;
-
+    var password= req.body.inputPassword;
+    var passwordConfirm= req.body.inputConfirmPassword;
+    
+    var isRight=true;
+    
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
     
@@ -91,6 +93,14 @@ exports.updatePassword=function(req,res){
         res.cookie('errPasswordConfirm','1');
         
         isRight=false;
+    }
+
+    if(!isRight){
+
+        console.log("stampa pass"+password+passwordConfirm);
+        var path = require('path');
+        res.redirect("profile");
+        return;
     }
 
     if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){

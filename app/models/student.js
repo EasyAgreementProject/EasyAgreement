@@ -326,7 +326,6 @@ static updateStudent(student,emailv) {
                     student.setPassword(result.Password);
                     student.setStudentID(result.StudentID);
                     db.close();
-                    console.log("problema fulfill");
                     fulfill(student);
                 }
                 else{
