@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/EasyAgreementProject/EasyAgreement.svg?branch=master)](https://travis-ci.com/EasyAgreementProject/EasyAgreement)
+[![Build Status](https://travis-ci.org/EasyAgreementProject/EasyAgreement.svg?branch=master)](https://travis-ci.org/EasyAgreementProject/EasyAgreement)
 [![Coverage Status](https://coveralls.io/repos/github/EasyAgreementProject/EasyAgreement/badge.svg?branch=master)](https://coveralls.io/github/EasyAgreementProject/EasyAgreement?branch=master)
 # EasyAgreement
 This project is a meant as a platform for simplify the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of Learning Agreement document.
