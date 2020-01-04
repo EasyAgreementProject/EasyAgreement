@@ -38,11 +38,11 @@ $(document).ready(function() {
         document.cookie = "errNumberCredits=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errMissingFields == "1") {
-        alert("Compila tutti i campi!");
+        swal('Compila tutti i campi!', '', 'warning');
         document.cookie = "errMissingFields=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errCompileOnlyOne == "1") {
-        alert("Compila solo uno dei due form!");
+        swal('Compila solo uno dei due form!!', '', 'warning');
         document.cookie = "errCompileOnlyOne=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });

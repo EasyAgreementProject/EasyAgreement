@@ -35,7 +35,7 @@
             <div class="list-group list-group-flush">
                 <a href="profile.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/profile.svg" style="height: 20px; width: 20px;">Profilo</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">
+                <a href="request.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
                 <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;">Lista Tutor</a>
@@ -68,9 +68,9 @@
             <div class="container-fluid">
                 <h1 class="mt-4">Richiesta</h1>
                 <hr>
-                
-                
-                   
+                <p id="test"></p>
+                </br>
+                <p id ="test2"></p>  
                 </div>
             </div>
         </div>
@@ -87,6 +87,21 @@
         $("#menu-toggle ").click(function(e) {
             e.preventDefault();
             $("#wrapper ").toggleClass("toggled");
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $.get('/getDetails', function(data){
+                var test = document.getElementById("test");
+                var test2 = document.getElementById("test2");
+
+                for(x in data) {
+                    test.appendChild(document.createTextNode(x+" "));
+                    for (y in data["data"]) {
+                        test2.appendChild(document.createTextNode(y+" "));
+                    }
+                }
+            })
         });
     </script>
 </body>

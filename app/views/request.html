@@ -110,13 +110,11 @@
                     for (j = 0; j < 4; j++){
                         var newCell = newRow.insertCell(j);
                         switch(j) {
-                            case 0: var newText  = document.createTextNode(requests[i]['_id']); break;
-                            case 1: var newText  = document.createTextNode(requests[i]['studentID']); break;
-                            case 2: var newText  = document.createTextNode(requests[i]['academicTutorID']); break;
-                            case 3: var newText  = document.createTextNode(requests[i]['externalTutorID']); break;
+                            case 0: newCell.innerHTML = i+1; break;
+                            case 1: newCell.innerHTML = requests[i]['nome']; break;
+                            case 2: newCell.innerHTML = requests[i]['stato']; break;
+                            case 3: newCell.innerHTML = '<a href="/getRequest?student='+requests[i]['studentID']+'">Visualizza</a>'; break;
                         }
-                        
-                        newCell.appendChild(newText);
                     }
                 }
             });

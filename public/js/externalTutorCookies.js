@@ -28,7 +28,7 @@ $(document).ready(function() {
     var errWeeks = getCookie("errWeeks");
 
     if (errMissingFields == "1") {
-        alert("Compila tutti i campi!");
+      swal('Compila tutti i campi!', '', 'warning');
         document.cookie = "errMissingFields=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 

@@ -212,7 +212,7 @@ $(document).ready(function() {
         document.cookie = "errLenguage=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errRequest == "1") {
-        alert("Richiesta già inviata in precedenza!");
+        swal('Richiesta già inviata', "Puoi controllare lo stato della richiesta nell'apposita pagina", 'error');
         document.cookie = "errRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });

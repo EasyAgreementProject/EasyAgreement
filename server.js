@@ -99,7 +99,7 @@ app.post('/compileStudent', function(req, res) {
 
 app.post('/compileAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request 
+      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.data.data["E-mail"] //To change with email of student request 
   ];
   var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
   sendTutorPr.then(function(dw) {
@@ -114,7 +114,7 @@ app.post('/compileAcademicTutor', function(req, res) {
 });
 
 app.post('/compileExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request 
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.data.data["E-mail"]]; 
   var sendTutorPr = learningAgreementControl.sendLaExternalTutor(data, res);
   sendTutorPr.then(function(dw) {
       if (dw) {
@@ -175,7 +175,7 @@ app.post('/disapproveExternalTutor', function(req, res) {
   });
 });
 
-app.get('/getVersion', function(req, res) {
+app.get('/getVersions', function(req, res) {
   var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email);
   getVersionsPr.then(function(data) {
       if (data && req.query.inputVersion) {
@@ -213,10 +213,22 @@ app.get('/request.html', function (req, res) {
 
 app.get('/getRequests', function(req, res){
   var getRequestsPr = requestControl.getAllRequests("f.ferrucci@unisa.it");
-  getRequestsPr.then(function(result){
+  getRequestsPr.then(function(result){    
     res.send(result);
   })
 })
+
+app.get('/getDetails', function(req, res) {
+  res.send(req.session.data);
+});
+
+app.get('/getRequest', function(req, res){
+  var getDetailsPr = requestControl.getRequestDetails(req.query.student);
+  getDetailsPr.then(function(details) {
+    req.session.data = details;
+    res.redirect("viewRequest.html");
+  })
+});
 
 app.get('/signup.html', function (req, res) {
   res.sendFile("/app/views/signup.html",{root:__dirname});
