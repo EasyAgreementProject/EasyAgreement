@@ -51,44 +51,7 @@ exports.sendLaStudent = function(input, res) {
         "The trainee signature": input[0] + " " + input[1],
         "The trainee date": today
     };
-    /*var data = {
-        "Header name" : "Veronica Volpicelli",
-        "Last name (s)" : "Volpicelli",
-        "First name (s)": "Veronica",
-        "Date of birth" : "22/04/1996",
-        "Nationality":"Italiana",
-        "Sex [M/F]" : "F",
-        "Academic year1":"19",
-        "Academic year2":"20",
-        "Study cycle" : "1st cycle",
-        "Subject area, Code":"Informatica, 05121",
-        "Phone" : "123456789",
-        "E-mail" : "v.volpicelli4@studenti.unisa.it",
-        "Sending Departement":"Informatica",
-        "Contact person name":"Filomena Ferrucci",
-        "Contact person Email / Phone": "f.ferrucci@unisa.it 1234456789",
-        "Contact person name / position":"Filomena Ferrucci, Responsabile",
-        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789",
-        "Name Sector":"Non lo so",
-        "Receiving Department":"Boh",
-        "Address, website":"Via non lo so, 12 www.nonoloso.it",
-        "Country":"Nessuna",
-        "Size of enterprise":"250",
-        "Mentor name / position":"Michela Bertolotto Direttrice",
-        "Mentor e-mail / phone":"m.berto@gmail.com 9876543210",
-        "from":"12/2019",
-        "till":"06/2020",
-        "Number of working hours for week":"8",
-        "Traineeship title":"Non ho voglia di fare l'università",
-        "Detailed programme of the traineeship period": "Non ho fatto un c.... per tutto il periodo",
-        "Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship":"Imparare a fare la pizza",
-        "Monitoring plan":"Non so cosa dovrebbe essere",
-        "Evaluation plan":"Come per il monitoring plan",
-        "language competence":"english",
-        "B2":"X",
-        "The trainee signature": "Veronica Volpicelli",
-        "The trainee date":"08/12/2019"
-    };*/
+
     console.log(data["Date of birth"] + "    " + data["The trainee date"]);
     switch (input[31]) {
         case "A1":
@@ -116,6 +79,7 @@ exports.sendLaStudent = function(input, res) {
     return new Promise(function(fulfill, reject) {
         let validatePr = exports.validateDataStudent(data, res);
         validatePr.then(function(result) {
+            console.log(""+data);
             if (result) {
                 pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
                     if (err)
@@ -131,10 +95,8 @@ exports.sendLaStudent = function(input, res) {
 
                         var pos = data["Contact person Email / Phone"].indexOf(" ");
                         var email = data["Contact person Email / Phone"].substring(0, pos);
-                        pos = data["Mentor e-mail / phone"].indexOf(" ");
-                        var email2 = data["Mentor e-mail / phone"].substring(0, pos);
 
-                        var generateRequestPr = requestControl.generateRequest(data["E-mail"], email, email2);
+                        var generateRequestPr = requestControl.generateRequest(data["E-mail"], email);
                         generateRequestPr.then(function(result, err) {
                             if (err) throw err;
                             if(result) {
@@ -209,44 +171,6 @@ exports.saveLaStudent = function(input) {
         "The trainee signature": input[0] + " " + input[1],
         "The trainee date": today
     };
-    /*var data = {
-        "Header name" : "Veronica Volpicelli",
-        "Last name (s)" : "Volpicelli",
-        "First name (s)": "Veronica",
-        "Date of birth" : "22/04/1996",
-        "Nationality":"Italiana",
-        "Sex [M/F]" : "F",
-        "Academic year1":"19",
-        "Academic year2":"20",
-        "Study cycle" : "1st cycle",
-        "Subject area, Code":"Informatica, 05121",
-        "Phone" : "123456789",
-        "E-mail" : "v.volpicelli4@studenti.unisa.it",
-        "Sending Departement":"Informatica",
-        "Contact person name":"Filomena Ferrucci",
-        "Contact person Email / Phone": "f.ferrucci@unisa.it 1234456789",
-        "Contact person name / position":"Filomena Ferrucci, Responsabile",
-        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789",
-        "Name Sector":"Non lo so",
-        "Receiving Department":"Boh",
-        "Address, website":"Via non lo so, 12 www.nonoloso.it",
-        "Country":"Nessuna",
-        "Size of enterprise":"250",
-        "Mentor name / position":"Michela Bertolotto Direttrice",
-        "Mentor e-mail / phone":"m.berto@gmail.com 9876543210",
-        "from":"12/2019",
-        "till":"06/2020",
-        "Number of working hours for week":"8",
-        "Traineeship title":"Non ho voglia di fare l'università",
-        "Detailed programme of the traineeship period": "Non ho fatto un c.... per tutto il periodo",
-        "Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship":"Imparare a fare la pizza",
-        "Monitoring plan":"Non so cosa dovrebbe essere",
-        "Evaluation plan":"Come per il monitoring plan",
-        "language competence":"english",
-        "B2":"X",
-        "The trainee signature": "Veronica Volpicelli",
-        "The trainee date":"08/12/2019"
-    };*/
     console.log(data["Date of birth"] + "    " + data["The trainee date"]);
     switch (input[31]) {
         case "A1":
@@ -378,30 +302,7 @@ exports.sendLaAcademicTutor = function(input, res) {
             data["Academic Tutor date"] = today; 
             data["International Departemental Coordinator sign"] = data["Contact person name"];  
             data["International Departemental Coordinator date"] = today;
-            
-            /*data["Award"] = 12;
-            data["Traineeship certificate"] = "X";
-            data["Final report"] = "X";
-            data["Interview"] = "X";
-            data["Europass Mobility Document Yes"] = "X";
-            data["Europass Mobility Document No"] = "X";
-            data["Award ECTS credits Yes"] = "X";
-            data["Award ECTS credits No"] = "X";
-            data["If yes, please indicate the number of ECTS credits"] = 12;
-            data["Give a grade Yes"] = "X";
-            data["Give a grade No"] = "X";  
-            data["Traineeship certificate1"] = "X";  
-            data["Final report1"] = "X";  
-            data["Interview1"] = "X";  
-            data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";  
-            data["Record the traineeship in the trainee's Transcript of Records No"] = "X";  
-            data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "X";  
-            data["Record the traineeship in the trainee's Europass Mobility Document No"] = "X";
-            data["Academic Tutor sign"] = data["Contact person name"];      
-            data["Academic Tutor date"] = today; 
-            data["International Departemental Coordinator sign"] = data["Contact person name"];  
-            data["International Departemental Coordinator date"] = today;*/
-            
+                        
             let validatePr = exports.validateDataAcademicTutor(data, res);
             validatePr.then(function(result) {
                 if (result) {
@@ -416,17 +317,24 @@ exports.sendLaAcademicTutor = function(input, res) {
                             fs.unlink('pdf/Filled_LA_'+random+'.pdf', function(err){
                                 if (err) throw err;
                             });
-                            learningAgreement.setFilling(data);
-                            learningAgreement.setDocument(file);
-                            learningAgreement.setStudentID(data["E-mail"]);
-                            learningAgreement.setState("Approved from Academic Tutor");
-                            learningAgreement.setDate(data["Academic Tutor date"]);
 
-                            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                            insertLearningAgreementPr.then(function() {
-                                fulfill(download);
-                            });
+                            pos = data["Mentor e-mail / phone"].indexOf(" ");
+                            var email2 = data["Mentor e-mail / phone"].substring(0, pos);
 
+                            var updateTutorPr = requestControl.updateExternalTutor(email, email2);
+                            updateTutorPr.then(function() {
+                                learningAgreement.setFilling(data);
+                                learningAgreement.setDocument(file);
+                                learningAgreement.setStudentID(data["E-mail"]);
+                                learningAgreement.setState("Approved from Academic Tutor");
+                                learningAgreement.setDate(data["Academic Tutor date"]);
+
+                                var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                                insertLearningAgreementPr.then(function() {
+                                    fulfill(download);
+                                });
+                            })
+                            
                         }
                     })
                 } else {
@@ -899,7 +807,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("sending department wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+) *?$/.test(data["Contact person name"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Contact person name"]))) {
             if(res) res.cookie("errContactName", "1");
             console.log("contact person name wrong!");
             fulfill(false);
@@ -1004,7 +912,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("language level wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+) *?$/.test(data["The trainee signature"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["The trainee signature"]))) {
             if(res) res.cookie("errName", "1");
             console.log("trainee signature wrong!");
             fulfill(false);
@@ -1052,7 +960,7 @@ exports.validateDataAcademicTutor = function(data, res) {
                 }
                 if (data["Give a grade Yes"] && (!data["Traineeship certificate1"] && !data["Final report1"] && !data["Interview1"])) {
                     if(res) res.cookie("errMissingFields", "1");
-                    console.log("Missing fields!");
+                    console.log("Missing fields in grade!");
                     fulfill(false);         
                 }              
                 fulfill(false);                
@@ -1065,13 +973,12 @@ exports.validateDataAcademicTutor = function(data, res) {
             fulfill(true);               
         }    
         else if (data["Give a grade No"] && (!data["Traineeship certificate1"] && !data["Final report1"] && !data["Interview1"])) {
-            console.log("NGrade not asked!");
+            console.log("Grade not asked!");
             fulfill(true);               
         }
         else {
-            if(res) res.cookie("errMissingFields", "1");
-            console.log("Missing fields!");
-            fulfill(false); 
+            console.log("All okay");
+            fulfill(true); 
         }
     });
 }

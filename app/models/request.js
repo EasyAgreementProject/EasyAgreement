@@ -110,6 +110,22 @@ class Request {
             });
         });
     }
+
+    static updateExternalTutor(studentID, tutorID) {
+        return new Promise(function(fulfill, reject) {
+            MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+                if (err) throw err;
+                console.log("Connected successfully to server!");
+                var dbo = db.db(dbName);
+                dbo.collection("Request").updateOne({ "studentID": studentID }, {$set: {"externalTutorID": tutorID}}, function(err, result) {
+                    if (err) throw err;
+                    console.log("Request update completed! Tutor = " + tutorID + " StudentID = " + studentID);
+                    db.close();
+                    fulfill();
+                });
+            });
+        });
+    }
 }
 
 module.exports = Request;

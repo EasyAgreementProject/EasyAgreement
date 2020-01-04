@@ -1,11 +1,10 @@
 var Request = require('../models/request.js');
 var request = new Request();
 
-exports.generateRequest = function(student, academicTutor, externalTutor) {
+exports.generateRequest = function(student, academicTutor) {
     return new Promise(function(fulfill, reject) {
         request.setStudentID(student);
         request.setAcademicTutorID(academicTutor);
-        request.setExternalTutorID(externalTutor);
 
         var getRequestPr = Request.getRequest(student);
         getRequestPr.then(function(result) {
@@ -37,6 +36,15 @@ exports.getRequest = function (student) {
         var getRequestPr = Request.getRequest(student);
         getRequestPr.then(function(result){
             fulfill(result);
-        })
+        });
+    });
+}
+
+exports.updateExternalTutor = function(student, tutor) {
+    return new Promise (function (fulfill, reject){
+        var updateTutorPr = Request.updateExternalTutor(student, tutor);
+        updateTutorPr.then(function(){
+            fulfill();
+        });
     });
 }
