@@ -8,6 +8,6 @@ install:
  - npm install
 script:
  - node server.js &
- - source installdb.sh &
+ - source installdb.sh
  - npm test
  - npm run coverage
