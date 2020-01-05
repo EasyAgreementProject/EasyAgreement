@@ -60,14 +60,14 @@ static findByEmail(email){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
             var dbo= db.db(dbName);
-            dbo.collection("Administrator").findOne({"email": email}, function(err, result){
+            dbo.collection("Administrator").findOne({email: email}, function(err, result){
                 if(err) reject(err);
                 if(result!=null){
                     var admin= new Administrator();
                     admin.setEmail(result.email);
                     admin.setName(result.name);
                     admin.setSurname(result.surname);
-                    admin.setPassword(result.password);
+                    admin.setPassword(result.Password);
                     fulfill(admin);
                 }
                 else{

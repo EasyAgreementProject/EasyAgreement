@@ -11,8 +11,8 @@ describe('Field test for registerControl', function(){
             .post('/signup')
             .send({radioAccount: "studente", inputName: "M"})
             .end(function(err, res){
-                if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentName');
+                if(err) return done(err);
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -24,7 +24,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marc*"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentName');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -36,7 +36,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname: "C"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentSurname');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -48,7 +48,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname: "Cian%"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentSurname');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -60,7 +60,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.c@studenti.unisa.it"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentEmail');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -72,7 +72,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@gmail.com"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentEmail');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -81,10 +81,10 @@ describe('Field test for registerControl', function(){
         chai
             .request('http://localhost:8080')
             .post('/signup')
-            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"a.ambruoso1@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98"})
+            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.popovic@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errAlreadyReg');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -96,7 +96,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "123"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentMatricola');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -108,7 +108,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "123456789M"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentMatricola');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -117,10 +117,10 @@ describe('Field test for registerControl', function(){
         chai
             .request('http://localhost:8080')
             .post('/signup')
-            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "0512105439",  inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98"})
+            .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "0512134231",  inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errAlreadyReg');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -132,7 +132,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"Mak"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errPassword');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -144,7 +144,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"Mak&&*a"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errPassword');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -156,7 +156,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Sa"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentCity');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -168,7 +168,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Sa19"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentCity');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -180,7 +180,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Ap"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentAddress');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -192,7 +192,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appi*o"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentAddress');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -204,7 +204,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"I" })
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentCorso');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -216,7 +216,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Infor%ai*" })
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errStudentCorso');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     });
@@ -228,7 +228,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "studente", inputName: "Marco", inputSurname:"Ciano", inputEmail:"m.ciano4@studenti.unisa.it", inputMatricola: "1111111111", inputPassword:"MarcoCiano98", inputCity:"Salerno", inputAddress:"Via Appia, 16", inputCourse:"Informatica", inputConfirmPassword:"MarcoCiano98" })
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('regEff');
+                expect(res).to.redirectTo('http://localhost:8080/');
                 done();
             });
     });
@@ -240,7 +240,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "A"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorName');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -254,7 +254,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Al*ss%o"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorName');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -268,7 +268,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "A"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorSurname');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -282,7 +282,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambr%s!"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorSurname');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -296,7 +296,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.a@unisa.it"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorEmail');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -309,7 +309,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@gmail.com"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorEmail');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -322,7 +322,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "s.risso@unisa.it", inputPassword: "AlessioAmb98", inputDepartmentT: "Informatica", inputConfirmPassword:"AlessioAmb98"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errAlreadyReg');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -335,7 +335,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@unisa.it", inputPassword: "Aless"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errPassword');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -348,7 +348,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@unisa.it", inputPassword: "Alessio&5*"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errPassword');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -361,7 +361,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@unisa.it", inputPassword: "AlessioAmb98", inputDepartmentT: "I"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorDepartment');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -374,7 +374,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@unisa.it", inputPassword: "AlessioAmb98", inputDepartmentT: "Inf98*"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('errTutorDepartment');
+                expect(res).to.redirectTo('http://localhost:8080/signup.html');
                 done();
             });
     
@@ -387,7 +387,7 @@ describe('Field test for registerControl', function(){
             .send({radioAccount: "tutorAccademico", inputNameT: "Alessio", inputSurnameT: "Ambruoso", inputEmailT: "a.ambruoso@unisa.it", inputPassword: "AlessioAmb98", inputDepartmentT: "Informatica", inputConfirmPassword:"AlessioAmb98"})
             .end(function(err,res) {
                 if (err) return done(err);
-                expect(res).to.have.cookie('regEff');
+                expect(res).to.redirectTo('http://localhost:8080/');
                 done();
             });
     

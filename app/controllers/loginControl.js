@@ -61,13 +61,13 @@ exports.login= function(req, res){
                                         return;
                                     }
                                     else{
-                                       // if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
-                                           if(resultAd.getPassword() == password){
+                                       if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
+                                           
                                             var adminSession={
                                                 utente: resultAd,
                                                 type: "admin"
+                                           
                                             };
-                                            
                                             req.session.utente=adminSession;
                                             
                                             
@@ -82,8 +82,8 @@ exports.login= function(req, res){
                                 })
                             }
                             else{
-                                //if(hash.checkPassword(resultE.getPassword().hash, resultE.getPassword().salt, password)){
-                                  if(resultE.getPassword() == password) {
+                                if(hash.checkPassword(resultE.getPassword().hash, resultE.getPassword().salt, password)){
+                                  
                                    var externalSession={
                                         utente: resultE,
                                         type: "externalTutor"

@@ -10,6 +10,8 @@ var academicTutorModel= require('../models/academicTutor.js');
  * @param {Http} res - response
  */
 exports.signup= function(req, res){
+    return new Promise(function(fulfill, reject){
+
     if(req.body.radioAccount=="studente"){
         //Get parameter from form
         var name= req.body.inputName;
@@ -71,7 +73,7 @@ exports.signup= function(req, res){
         }
 
         if(!isRight){
-            res.redirect('/signup.html');
+            fulfill(false);
             return;
         }
 
@@ -98,7 +100,7 @@ exports.signup= function(req, res){
         checkM.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
-                res.redirect('/signup.html');
+                fulfill(false);
                 return;
             }
             if(result){
@@ -107,7 +109,7 @@ exports.signup= function(req, res){
                 checkE.then(function(result){
                     if(!result){
                         res.cookie('errAlreadyReg','1');
-                        res.redirect('/signup.html');
+                        fulfill(false);
                         return;
                     }
                     if(result){
@@ -116,7 +118,11 @@ exports.signup= function(req, res){
 
                         //redirect
                         res.cookie('regEff','1');
+<<<<<<< HEAD
                         res.redirect('/');
+=======
+                        fulfill(true);
+>>>>>>> 976f1e820a7afe9cfc2eee70b3d530d0dcb37f81
                         return;
                     }
                 })
@@ -166,7 +172,7 @@ exports.signup= function(req, res){
         }
 
         if(!isRight){
-            res.redirect('/signup.html');
+            fulfill(false);
             return;
         }
 
@@ -188,7 +194,7 @@ exports.signup= function(req, res){
         check.then(function(result){
             if(!result){
                 res.cookie('errAlreadyReg','1');
-                res.redirect('/signup.html');
+                fulfill(false);
                 return;
             }
             if(result){
@@ -197,9 +203,14 @@ exports.signup= function(req, res){
 
                 //redirect
                 res.cookie('regEff','1');
+<<<<<<< HEAD
                 res.redirect('/');
+=======
+                fulfill(true);
+>>>>>>> 976f1e820a7afe9cfc2eee70b3d530d0dcb37f81
                 return;
             }
         })   
     }
+});
 }

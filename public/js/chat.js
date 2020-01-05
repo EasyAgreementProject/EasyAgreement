@@ -54,6 +54,8 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
   '</div>',
 '</div>'].join('\n'));
 
+var toNotificate=[];
+
 const socket = io('http://localhost:3000');
 const messageContainer = document.getElementById('messages');
 const messageForm = document.getElementById('form-chat');
@@ -79,12 +81,27 @@ else if( connectedUser.type=="externalTutor"){
   senderID=connectedUser.utente.E_mail;
 }
 
+$.ajax({
+  type:"POST",
+  url:'http://localhost:8080/getReceivedMessage',
+  data:{sender: senderID},
+  success: function(result){
+    if(result.length>0){
+      for(var i=0; result[i]!=null; i++)  toNotificate.push(result[i]);
+      if($('.outerContainer').hasClass('chatbox--tray')){
+        $('.chat-notification').css('display', 'block');
+      }
+    }
+  }
+});
+
 socket.emit('subscribe', senderID);
 
 socket.on('chat-message', function(user, message){
   if($('.outerContainer').hasClass('chatbox--tray')){
     $('.chat-notification').css('display', 'block');
   }
+  toNotificate.push(message.senderID);
   appendMessage(message);
 });
 
@@ -369,30 +386,96 @@ function appendSentMessage(message){
   }
 
   function appendStudent(student){
-    $('.contacts').append(['<div class="contact-container">',
-    '<div class="contact" onclick="accessChat(this)">',
-        '<p class="user-info-name">'+student.Name+'</p>',
-        '<p class="user-info-email">'+student.Email+'</p>',
-    '</div>',
-'</div>',].join('\n'));
+    var bool=false;
+    if(toNotificate.length>0){
+      toNotificate.find(function(item){
+        if(item==student.Email){
+          bool=true;
+          $('.contacts').prepend(['<div class="contact-container">',
+            '<div class="contact" onclick="accessChat(this)">',
+              '<img class="user-notification" src="/img/cerchio-notifica.png" style="display:block;">',
+              '<p class="user-info-name">'+student.Name+'</p>',
+              '<p class="user-info-email">'+student.Email+'</p>',
+            '</div>',
+          '</div>',].join('\n'));
+        }else{
+          bool=false;
+        }
+      });
+    }else{
+      bool=false;
+    }
+    if(bool==false){
+      $('.contacts').append(['<div class="contact-container">',
+            '<div class="contact" onclick="accessChat(this)">',
+              '<img class="user-notification" src="/img/cerchio-notifica.png" style="display:none;">',
+              '<p class="user-info-name">'+student.Name+'</p>',
+              '<p class="user-info-email">'+student.Email+'</p>',
+            '</div>',
+          '</div>',].join('\n'));
+    }
   }
 
   function appendAcademic(academic){
-    $('.contacts').append(['<div class="contact-container">',
-    '<div class="contact" onclick="accessChat(this)">',
-        '<p class="user-info-name">'+academic.Name+'</p>',
-        '<p class="user-info-email">'+academic.E_mail+'</p>',
-    '</div>',
-'</div>',].join('\n'));
+    var bool=false;
+    if(toNotificate.length>0){
+      toNotificate.find(function(item){
+        if(item==academic.E_mail){
+          bool=true;
+          $('.contacts').prepend(['<div class="contact-container">',
+            '<div class="contact" onclick="accessChat(this)">',
+              '<img class="user-notification" src="/img/cerchio-notifica.png" style="display:block;">',
+              '<p class="user-info-name">'+academic.Name+'</p>',
+              '<p class="user-info-email">'+academic.E_mail+'</p>',
+            '</div>',
+          '</div>',].join('\n'));
+        }else{
+          bool=false;
+        }
+      });
+    }else{
+      bool=false;
+    }
+    if(bool==false){
+      $('.contacts').append(['<div class="contact-container">',
+            '<div class="contact" onclick="accessChat(this)">',
+              '<img class="user-notification" src="/img/cerchio-notifica.png" style="display:none;">',
+              '<p class="user-info-name">'+academic.Name+'</p>',
+              '<p class="user-info-email">'+academic.E_mail+'</p>',
+            '</div>',
+          '</div>',].join('\n'));
+    }
   }
 
   function appendExternal(external){
-    $('.contacts').append(['<div class="contact-container">',
-    '<div class="contact" onclick="accessChat(this)">',
-        '<p class="user-info-name">'+external.Name+'</p>',
-        '<p class="user-info-email">'+external.E_mail+'</p>',
-    '</div>',
-'</div>',].join('\n'));
+    var bool=false;
+    if(toNotificate.length>0){
+      toNotificate.find(function(item){
+        if(item==external.E_mail){
+          bool=true;
+          $('.contacts').prepend(['<div class="contact-container">',
+            '<div class="contact" onclick="accessChat(this)">',
+              '<img class="user-notification" src="/img/cerchio-notifica.png" style="display:block;">',
+              '<p class="user-info-name">'+external.Name+'</p>',
+              '<p class="user-info-email">'+external.E_mail+'</p>',
+            '</div>',
+          '</div>',].join('\n'));
+        }else{
+          bool=false;
+        }
+      });
+    }else{
+      bool=false;
+    }
+    if(bool==false){
+      $('.contacts').append(['<div class="contact-container">',
+            '<div class="contact" onclick="accessChat(this)">',
+              '<img class="user-notification" src="/img/cerchio-notifica.png" style="display:none;">',
+              '<p class="user-info-name">'+external.Name+'</p>',
+              '<p class="user-info-email">'+external.E_mail+'</p>',
+            '</div>',
+          '</div>',].join('\n'));
+    }
   }
 
   function getReceivers(typeOfUser){
@@ -430,6 +513,19 @@ function appendSentMessage(message){
   function accessChat(item){
     var name=$(item).children('.user-info-name').text();
     emailReceiver=$(item).children('.user-info-email').text();
+    if($(item).children('.user-notification').css('display') == 'block'){
+      $(item).children('.user-notification').css('display', 'none');
+      var index=null;
+      if(toNotificate.length>0){
+        toNotificate.find(function(item){
+          if(item == emailReceiver){
+            index=toNotificate.indexOf(item);
+          }
+        });
+      }
+      if(index!=null) toNotificate.splice(index,1);
+      deleteFromCache(emailReceiver);
+    }
     $('#search-form-chat').css('display', 'none');
     $('.contacts').css('display', 'none');
     $('.choice-user').css('display', 'none');
@@ -556,4 +652,12 @@ function appendSentMessage(message){
 
   function selectThisForm(boolean){
     isSelectedSearch=boolean;
+  }
+
+  function deleteFromCache(receiver){
+    $.ajax({
+      type:"POST",
+      url:"/setReceivedMessage",
+      data:{sender: senderID, receiver: receiver}
+    });
   }
