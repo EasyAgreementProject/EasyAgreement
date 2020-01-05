@@ -61,7 +61,7 @@ app.get('/getAllVersions', function(req, res) {
 });
 
 app.get('/gestioneDocumenti.html', function(req, res) {
-  
+
     res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
 });
 
@@ -218,6 +218,26 @@ app.get('/', function (req, res) {
 
 app.get('/compileLAExternalTutor.html', function (req, res) {
   res.sendFile("/app/views/compileLAExternalTutor.html",{root:__dirname});
+});
+
+app.get('/addExternalTutor.html', function (req, res) {
+  res.sendFile("/app/views/admin/addExternalTutor.html",{root:__dirname});
+});
+
+app.get('/addHost.html', function (req, res) {
+  res.sendFile("/app/views/admin/addHost.html",{root:__dirname});
+});
+
+app.get('/infoHost.html', function (req, res) {
+  res.sendFile("/app/views/admin/infoHost.html",{root:__dirname});
+});
+
+app.get('/infoTutorExternal.html', function (req, res) {
+  res.sendFile("/app/views/admin/infoTutorExternal.html",{root:__dirname});
+});
+
+app.get('/viewExternalTutor&Host.html', function (req, res) {
+  res.sendFile("/app/views/admin/viewExternalTutor&Host.html",{root:__dirname});
 });
 
 app.get('/compileLAAcademicTutor.html', function (req, res) {

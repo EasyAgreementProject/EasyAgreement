@@ -5,11 +5,11 @@ var externalTutorModel= require('../models/externaltutor.js');
 var administratorModel= require('../models/administrator.js');
 
 exports.login= function(req, res){
-    
+
         //take form parameters
         var username= req.body.username;
         var password= req.body.password;
-       
+
 
         //form validation
         var isRight=true;
@@ -22,7 +22,7 @@ exports.login= function(req, res){
             }
         }
 
-        
+
         if((password==null) || (password.length<=7) || (!new RegExp("^[A-Za-z0-9\s]+$").test(password))){
             res.cookie('errPassword','1');
             isRight=false;
@@ -32,12 +32,12 @@ exports.login= function(req, res){
             res.redirect('/');
             return;
         }
-        
+
 
         var checkStudent=studentModel.findByEmail(username);
 
-        
-         /** 
+
+         /**
           * Check the student's email with the emails in the database. If the email is not founded generete a cookie error, else
           * check the password
           * @param {result} resultS - The result of the findByEmail function (about student)
@@ -126,14 +126,12 @@ exports.login= function(req, res){
                     return;
                 }
             }
-        })        
-        
-}
+        })
 
 /**
  * if the login is done, send the user to the index.html page
  * @param {Response} res - The response parameter
- *  
+ *
  */
 function redirect(res){
     res.cookie('logEff','1');

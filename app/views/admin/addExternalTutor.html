@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Aggiunta Tutor Esterno</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/formValidation.js"></script>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="js/chat.js"></script>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <a href="index.html" style="text-decoration: none; color: black;">
+                <div class=sidebar-logo>
+                    <img src="/img/logoUni.png" style="float: left" width="50px">
+                </div>
+                <div class="sidebar-heading">Home</div>
+            </a>
+            <div class="list-group list-group-flush">
+              <a href="addHost.html" class="list-group-item list-group-item-action bg-light">
+                  <img src="/img/compileLA.svg" style="height: 20px; width: 20px;" id="button_hold"> Aggiunta Organizzaione Ospitante</a>
+                  <a href="addExternalTutor.html" class="list-group-item list-group-item-action bg-light">
+                      <img src="/img/compileLA.svg" style="height: 20px; width: 20px;" id="button_hold"> Aggiunta Tutor Esterno</a>
+                      <a href="viewExternalTutor&Host.html" class="list-group-item list-group-item-action bg-light">
+                          <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Organizzazioni Ospitante e Tutor Esterno</a>
+                          <a href="infoTutorExternal.html" class="list-group-item list-group-item-action bg-light">
+                              <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Info Tutor Esterno</a>
+                              <a href="infoHost.html" class="list-group-item list-group-item-action bg-light">
+                                  <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Info Organizzazione Ospitante</a>
+
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background-color: orange;">
+                <button id="menu-toggle"><img src="/img/menu.png" style="height: 20px; width: 20px;"></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="/img/responsive_slide.svg" style="height: 20px; width: 20px;">
+            </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+                <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+                <h1 class="mt-4">Tutor Esterno</h1>
+                <hr>
+                <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Tutor Esterno</h5>
+                <form id="formCompile" method="post" action="/compileStudent"><br>
+                    <div class="form-label-group">
+                        <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome"  >
+                        <label for="inputName">Nome<label>
+                    </div>
+                         <div class="form-label-group">
+                            <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome"  >
+                            <label for="inputSurname">Cognome</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" id="inputEmail" class="form-control" name="inputEmail" placeholder="E-Mail"  >
+                        <label for="inputEmail">E-Mail</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Password"  >
+                        <label for="inputPassword">Password</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="RePassword" id="inputRePassword" class="form-control" name="inputRePassword" placeholder="RepeatPassword"  >
+                        <label for="inputRePassword"> Ripeti Password</label>
+                    </div>
+
+                    <hr>
+                    <button class="btn btn-block" type="submit" class="saveButton" id="send">AGGIUNGI</button>
+
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/jquery/dist/jquery.min.js "></script>
+    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js "></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle ").click(function(e) {
+            e.preventDefault();
+            $("#wrapper ").toggleClass("toggled ");
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $.get("/fillForm", function(data) {
+                if (data["First name (s)"]) document.getElementById("inputName").value = data["First name (s)"];
+                if (data["Last name (s)"]) document.getElementById("inputSurname").value = data["Last name (s)"];
+                if (data["Email (s)"]) document.getElementById("inputEmail").value = data["Email (s)"];
+                if (data["Password"]) document.getElementById("inputPassword").value = data["Password"];
+            });
+        });
+    </script>
+    <script type="text/javascript" src="./js/formCookies.js"></script>
+</body>
+
+</html>
