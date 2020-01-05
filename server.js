@@ -50,7 +50,7 @@ app.get('/compileLAStudent.html', function(req, res) {
 });
 
 app.get('/viewLA.html', function(req, res){
-    res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
+   res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
 });
 
 app.get('/getAllVersions', function(req, res) {

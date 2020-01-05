@@ -118,11 +118,7 @@ exports.signup= function(req, res){
 
                         //redirect
                         res.cookie('regEff','1');
-<<<<<<< HEAD
-                        res.redirect('/');
-=======
                         fulfill(true);
->>>>>>> 976f1e820a7afe9cfc2eee70b3d530d0dcb37f81
                         return;
                     }
                 })
@@ -203,11 +199,7 @@ exports.signup= function(req, res){
 
                 //redirect
                 res.cookie('regEff','1');
-<<<<<<< HEAD
-                res.redirect('/');
-=======
                 fulfill(true);
->>>>>>> 976f1e820a7afe9cfc2eee70b3d530d0dcb37f81
                 return;
             }
         })   
