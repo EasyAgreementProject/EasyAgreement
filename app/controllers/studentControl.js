@@ -21,68 +21,73 @@ exports.update=function(req,res){
 
 //Form validation
 var isRight=true;
-if(name.length!=0 ){
+
+
+if(name==null){
+    res.cookie('errNameS','1');
+    isRight=false;
+}else{
     if(!(/^[A-Za-z]+$/.test(name)) || name.length<=2){
         res.cookie('errNameS','1');
         isRight=false;
-    }
-    else{
+    }else{
         studente.setName(name);
     }
 }
 
-
-
-if(surname.length!=0){
-    if (!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
+if(surname==null){
+    res.cookie('errSurnameS','1');
+    isRight=false;
+}else{
+    if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
         res.cookie('errSurnameS','1');
         isRight=false;
-    }
-    else
-    {
+    }else{
         studente.setSurname(surname);
-
     }
 }
 
-if(citta.length!=0){
- if(!(/^[A-Za-z\s]+$/.test(citta)) || citta.length<=2){
+
+if(citta==null){
     res.cookie('errStudentCity','1');
     isRight=false;
-    }
-else
-{     
-        studente.setCity(citta);
-}
-
-}
-
-if(indirizzo.length!=0){
-if (!(/^[A-Za-z0-9,\s]+$/.test(indirizzo)) || indirizzo.length<=7){
-        res.cookie('errStudentAddress','1');
+}else{
+    if(!(/^[A-Za-z\s]+$/.test(citta)) || citta.length<=2){
+        res.cookie('errStudentCity','1');
         isRight=false;
     }else{
-        
-    studente.setAddress(indirizzo);
+        studente.setCity(citta);
     }
 }
 
-if(corso.length!=0) {
+if(indirizzo==null){
+    res.cookie('errStudentAddress','1');
+    isRight=false;
+}else{
+    if(!(/^[A-Za-z0-9,\s]+$/.test(indirizzo)) || indirizzo.length<=7){
+        res.cookie('errStudentAddress','1');
+        isRight=false; 
+    }else{
+        studente.setAddress(indirizzo);
+    }
+}
+
+if(corso==null){
+    res.cookie('errStudentCorso','1');
+    isRight=false;
+}else{
     if(!(/^[A-Za-z\s]+$/.test(corso)) || corso.length<=2){
       res.cookie('errStudentCorso','1');
-     isRight=false;
-    }
-    else{
+      isRight=false;
+    }else{
         studente.setDegreeCourse(corso);
     }
 }
 
-
-
 if(!isRight){
     var path = require('path');
-    res.render('profile');
-        return;
+    res.redirect("profile");
+    return;
 }
 
 
@@ -106,11 +111,17 @@ if(!isRight){
 exports.updatePassword=function(req,res){
     return new Promise(function(fulfill, reject){
 
-    var isRight=true;
-
-    var oldPassword= req.body.oldPassword;
+    
+    var oldPassword= req.body.inputOldPassword;
     var password= req.body.inputPassword;
     var passwordConfirm= req.body.inputConfirmPassword;
+
+    var isRight=true;
+
+    if((oldPassword==null) || (oldPassword.length<=7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))){
+        res.cookie('errOldPassword','1');
+        isRight=false;
+    }
 
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
@@ -123,8 +134,6 @@ exports.updatePassword=function(req,res){
     }
 
     if(!isRight){
-
-        console.log("stampa pass"+password+passwordConfirm);
         var path = require('path');
         res.redirect("profile");
         return;
@@ -141,7 +150,6 @@ exports.updatePassword=function(req,res){
               fulfill();
             }
             else{
-              console.log("promise falita");
               reject();
             }
 

@@ -35,6 +35,7 @@ $(document).ready(function(){
     var errCity=getCookie("errStudentCity");
     var errAddress=getCookie("errStudentAddress");
     var errCorso=getCookie("errStudentCorso");
+    var errOldPassword=getCookie("errOldPassword");
     var errPassword=getCookie("errPassword");
     var errPasswordConfirm=getCookie("errPasswordConfirm");
     var errNameT=getCookie("errTutorName");
@@ -122,7 +123,7 @@ $(document).ready(function(){
     }
     if(errCorso=="1"){
         $('#errCourse').css('display','block');
-        $('#inputCourse').addClass("errClass");
+        $('#inputDegree').addClass("errClass");
         document.cookie="errStudentCorso=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if(errUsername=="1"){
@@ -140,13 +141,13 @@ $(document).ready(function(){
         $('#inputConfirmPassword').addClass("errClass");
         document.cookie="errPasswordConfirm=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
-/*
+
     if(errOldPassword=="1"){
         $('#errOldPassword').css('display','block');
-        $('#inputConfirmPassword').addClass("errClass");
-        document.cookie="errPasswordConfirm=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        $('#inputOldPassword').addClass("errClass");
+        document.cookie="errOldPassword=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
-    */
+    
 
     if(errNameT=="1"){
         $('#errNameT').css('display','block');

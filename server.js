@@ -300,16 +300,7 @@ app.get('/profile', function (request, response) {
   
   else
   {  response.render('profile');
-    /*if(request.session.utente.type=="student") 
-             var viewFile= studentControl.update(request,response);
-             else
-                if(request.session.utente.type=="academicTutor")
-               { 
-                 var updateA=academicTutorControl.view(request, response);}
-                 else
-                  if(request.session.utente.type=="externalTutor")
-                  var updateE=externalTutorControl.view(request, response);
-                 */ 
+    
   }
     
 });

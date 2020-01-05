@@ -16,40 +16,48 @@ exports.update=function(req,res){
 //Form validation
 var isRight=true;
 
-if(name.length != 0){
+if(name==null){
+    res.cookie('errexternalTutorName','1');
+        isRight=false;
+}else{
     if(!(/^[A-Za-z]+$/.test(name)) || name.length<=2){
         res.cookie('errexternalTutorName','1');
         isRight=false;
-    }
-    else
+    }else{
         externalTutor.setName(name);
+    }
 }
-   
 
-if(surname.length != 0){
-if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
+if(surname==null){
     res.cookie('errexternalTutorSurname','1');
     isRight=false;
-    }
-    else
+    if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
+        res.cookie('errexternalTutorSurname','1');
+    isRight=false;
+    }else{
         externalTutor.setSurname(surname);
+    }
 }
 
 
-if(organization.length != 0){
-    if(!(/^[A-Za-z]+$/.test(organization)) || organization.length<=2){
+if(organization==null){
     res.cookie('errOrganizationName','1');
     isRight=false;
+}else{
+    if(!(/^[A-Za-z]+$/.test(organization)) ||  organization.length<=2){
+        res.cookie('errOrganizationName','1');
+        isRight=false;
+    }else{
+        externalTutor.setOrganization(organization);
+    }
 }
-else
-    externalTutor.setOrganization(organization);
-}
+
 
 
 
 if(!isRight){
     var path = require('path');
-    res.render('profile');
+    res.redirect("profile");
     return;
 }
 
@@ -77,11 +85,16 @@ if(!isRight){
 exports.updatePassword=function(req,res){
     return new Promise(function(fulfill, reject){
 
-    var oldPassword= req.body.oldPassword;
+    var oldPassword= req.body.inputOldPassword;
     var password= req.body.inputPassword;
     var passwordConfirm= req.body.inputConfirmPassword;
     
     var isRight=true;
+
+    if((oldPassword==null) || (oldPassword.length<=7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))){
+        res.cookie('errOldPassword','1');
+        isRight=false;
+    }
     
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');

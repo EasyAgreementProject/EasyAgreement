@@ -5,11 +5,16 @@ var session = require('express-session');
 exports.update=function(req,res){
     return new Promise(function(fulfill, reject){
 
-    var oldPassword= req.body.oldPassword;
+    var oldPassword= req.body.inputOldPassword;
     var password= req.body.inputPassword;
     var passwordConfirm= req.body.inputConfirmPassword;
 
     var isRight=true;
+
+    if((oldPassword==null) || (oldPassword.length<=7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))){
+        res.cookie('errOldPassword','1');
+        isRight=false;
+    }
 
     if((password==null) || (password.length<=7) || (!/^[A-Za-z0-9]+$/.test(password))){
         res.cookie('errPassword','1');
@@ -23,7 +28,6 @@ exports.update=function(req,res){
 
 if(!isRight){
 
-    console.log("stampa pass"+password+passwordConfirm);
     var path = require('path');
     res.redirect("profile");
     return;
