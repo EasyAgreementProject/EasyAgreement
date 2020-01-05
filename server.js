@@ -216,7 +216,7 @@ app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
   signupUser.then(function(result){
     if(result){
-      res.redirect('/index.html');
+      res.redirect('/');
     }
     else{
       res.redirect('/signup.html');
