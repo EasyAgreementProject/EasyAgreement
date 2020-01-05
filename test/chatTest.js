@@ -7,7 +7,7 @@ var messID;
 describe('Field test for messageControl', function() {
     
 
-    it.only('Testing saveMessage', function(done) {
+    it('Testing saveMessage', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/saveMessage')
@@ -21,7 +21,7 @@ describe('Field test for messageControl', function() {
     
     });
 
-    it.only('Testing getMessages', function(done) {
+    it('Testing getMessages', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/getMessages')
@@ -34,7 +34,7 @@ describe('Field test for messageControl', function() {
     
     });
 
-    it.only('Testing updateMessage', function(done) {
+    it('Testing updateMessage', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/updateMessage')
@@ -47,7 +47,7 @@ describe('Field test for messageControl', function() {
     
     });
 
-    it.only('Testing getContacts 1.1', function(done) {
+    it('Testing getContacts 1.1', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/getContacts')
@@ -60,7 +60,7 @@ describe('Field test for messageControl', function() {
     
     });
 
-    it.only('Testing getContacts 1.2', function(done) {
+    it('Testing getContacts 1.2', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/getContacts')
@@ -73,7 +73,7 @@ describe('Field test for messageControl', function() {
     
     });
 
-    it.only('Testing getContacts 1.3', function(done) {
+    it('Testing getContacts 1.3', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/getContacts')
@@ -86,7 +86,7 @@ describe('Field test for messageControl', function() {
     
     });
 
-    it.only('Testing searchUser', function(done) {
+    it('Testing searchUser', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/searchUser')
@@ -99,7 +99,7 @@ describe('Field test for messageControl', function() {
     
     });
 
-    it.only('Testing removeMessage', function(done) {
+    it('Testing removeMessage', function(done) {
         chai
             .request('http://localhost:8080')
             .post('/removeMessage')
