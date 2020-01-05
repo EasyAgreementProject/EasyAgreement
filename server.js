@@ -238,6 +238,22 @@ app.get('/index.html', function (req, res) {
   res.render('index');
 });
 
+app.get('/easyAgreement.html', function (req, res) {
+  res.sendFile("/app/views/easyAgreement.html",{root:__dirname});
+});
+
+app.get('/header.html', function (req, res) {
+  res.sendFile("/app/views/header.html",{root:__dirname});
+});
+
+app.get('/sidebar.html', function (req, res) {
+  res.sendFile("/app/views/sidebar.html",{root:__dirname});
+});
+
+app.get('/footer.html', function (req, res) {
+  res.sendFile("/app/views/footer.html",{root:__dirname});
+});
+
 app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
 });
