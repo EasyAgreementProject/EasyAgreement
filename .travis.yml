@@ -5,8 +5,8 @@ services:
  - mongodb
 install:
  - sudo snap install pdftk
- - npm install
 script:
  - node server.js &
+ - source installdb.sh &
  - npm test
  - npm run coverage
