@@ -807,4 +807,40 @@ describe('Field test for learningAgreementControl', function(){
         });
     });
 
+    it('Testing method getAllVersions', function(){
+        var getAllVersionsPr = compileControl.getAllVersions("v.volpicelli4@studenti.unisa.it");
+        getAllVersionsPr.then(function(la) {
+            assert.isNotNull(la);
+        });
+    });
+
+    it('Testing method getData', function(){
+        var getDataPr = compileControl.getData("v.volpicelli4@studenti.unisa.it");
+        getDataPr.then(function(la) {
+            assert.isNotNull(la);
+        });
+    });
+
+    it('Testing method disapproveAcademicTutor', function(){
+        var input = ['v.volpicelli4@studenti.unisa.it', 'Compilazione errata'];
+        var disapproveAcademicTutorPr = compileControl.disapproveAcademicTutor(input[0], input[1]);
+        disapproveAcademicTutorPr.then(function() {
+            var getStatusPr = compileControl.getStatus(input[0]);
+            getStatusPr.then(function(status){
+                assert.equal(status, "Disapprovato dal Tutor Accademico per il motivo: Compilazione errata");
+            })
+        });
+    });
+
+    it('Testing method disapproveExternalTutor', function(){
+        var input = ['v.volpicelli4@studenti.unisa.it', 'Compilazione errata'];
+        var disapproveExternalTutorPr = compileControl.disapproveExternalTutor(input[0], input[1]);
+        disapproveExternalTutorPr.then(function() {
+            var getStatusPr = compileControl.getStatus(input[0]);
+            getStatusPr.then(function(status){
+                assert.equal(status, "Disapprovato dal Tutor Esterno per il motivo: Compilazione errata");
+            })
+        });
+    });
+
 });
