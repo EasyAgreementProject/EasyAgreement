@@ -7,11 +7,8 @@ var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
 var messageControl= require('./app/controllers/messageControl');
-<<<<<<< HEAD
 var requestControl = require('./app/controllers/requestControl');
-=======
 var notificationControl= require('./app/controllers/notificationControl');
->>>>>>> 976f1e820a7afe9cfc2eee70b3d530d0dcb37f81
 var bodyParser= require('body-parser');
 var session = require('express-session');
 const io = require('socket.io')(3000)
