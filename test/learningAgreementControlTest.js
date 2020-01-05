@@ -520,7 +520,7 @@ describe('Field test for learningAgreementControl', function(){
     }); 
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.1', function(){
-        var input = [''];
+        var input = [];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -536,7 +536,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.3', function(){
-        var input = ['2', null, null, 'Si'];
+        var input = ['2', undefined, undefined, 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -552,7 +552,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.5', function(){
-        var input = ['2', 'Certificato di tirocinio', null, 'Si'];
+        var input = ['2', 'certificate', undefined, 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -560,7 +560,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.6', function(){
-        var input = ['2', 'Certificato di tirocinio', 'SA%$'];
+        var input = ['2', 'certificate', 'SA%$'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -568,7 +568,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.7', function(){
-        var input = ['2', 'Certificato di tirocinio', 'Si', 'Si'];
+        var input = ['2', 'certificate', 'Si', 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -576,7 +576,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.8', function(){
-        var input = ['2', 'Certificato di tirocinio', 'Si'];
+        var input = ['2', 'certificate', 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNotNull(la);
@@ -584,7 +584,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.9', function(){
-        var input = [null, null, null, 'SA%'];
+        var input = [undefined, undefined, undefined, 'SA%'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -592,7 +592,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.10', function(){
-        var input = ['Si', null, null, 'Si'];
+        var input = ['Si', undefined, undefined, 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -600,7 +600,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.11', function(){
-        var input = [null, null, null, 'Si', ''];
+        var input = [undefined, undefined, undefined, 'Si', ''];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -608,7 +608,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.12', function(){
-        var input = [null, null, null, 'Si', 'abc'];
+        var input = [undefined, undefined, undefined, 'Si', 'abc'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -616,7 +616,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.13', function(){
-        var input = ['Si', null, null, 'Si', '3'];
+        var input = ['Si', undefined, undefined, 'Si', '3'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -624,7 +624,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.14', function(){
-        var input = [null, null, null, 'Si', '3', 'SA%'];
+        var input = [undefined, undefined, undefined, 'Si', '3', 'SA%'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -632,7 +632,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.15', function(){
-        var input = ['Si', null, null, 'Si', '3', 'Si'];
+        var input = ['Si', undefined, undefined, 'Si', '3', 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -640,7 +640,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.16', function(){
-        var input = [null, null, null, 'Si', '3', 'Si', 'SA&'];
+        var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'SA&'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -648,7 +648,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.17', function(){
-        var input = ['Si', null, null, 'Si', '3', 'Si', 'Certificato di tirocinio'];
+        var input = ['Si', undefined, undefined, 'Si', '3', 'Si', 'certificate'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -656,7 +656,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.18', function(){
-        var input = [null, null, null, 'Si', '3', 'Si', 'Certificato di tirocinio', 'SA%'];
+        var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'certificate', 'SA%'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -664,7 +664,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.19', function(){
-        var input = ['Si', null, null, 'Si', '3', 'Si', 'Certificato di tirocinio', 'Si'];
+        var input = ['Si', undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -672,7 +672,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.20', function(){
-        var input = [null, null, null, 'Si', '3', 'Si', 'Certificato di tirocinio', 'Si', 'SA&'];
+        var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si', 'SA&'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -680,7 +680,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.21', function(){
-        var input = ['Si', null, null, 'Si', '3', 'Si', 'Certificato di tirocinio', 'Si', 'Si'];
+        var input = ['Si', undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si', 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
@@ -688,15 +688,15 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.22', function(){
-        var input = [null, null, null, 'Si', '3', 'Si', 'Certificato di tirocinio', 'Si', 'Si'];
+        var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si', 'Si'];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNotNull(la);
         });
     });
 
-    it('Testing method saveLaAcademicTutor - TC_LAM_2.22', function(){
-        var input = [null, null, null, 'Si', '3', 'Si', 'Certificato di tirocinio', 'Si', 'Si'];
+    it('Testing method saveLaAcademicTutor ', function(){
+        var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si', 'Si'];
         var sendLaAcademicTutor = compileControl.saveLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isUndefined(la);
@@ -728,7 +728,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.4', function(){
-        var input = ['Si', 300, 'SA'];
+        var input = ['Si', '300', 'SA'];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isNull(la);
@@ -736,7 +736,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.5', function(){
-        var input = ['Si', 300, 'Si', ''];
+        var input = ['Si', '300', 'Si', ''];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isNull(la);
@@ -744,7 +744,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.6', function(){
-        var input = ['Si', 300, 'Si', '&$£'];
+        var input = ['Si', '300', 'Si', '&$£'];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isNull(la);
@@ -752,7 +752,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.7', function(){
-        var input = ['Si', 300, 'Si', 'Buoni Pasto', 'SA'];
+        var input = ['Si', '300', 'Si', 'Buoni Pasto', '10'];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isNull(la);
@@ -760,7 +760,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.8', function(){
-        var input = ['Si', 300, 'Si', 'Buoni Pasto', 'Si', 10];
+        var input = ['Si', '300', 'Si', 'Buoni Pasto', '&%"£'];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isNull(la);
@@ -768,7 +768,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.9', function(){
-        var input = ['Si', 300, 'Si', 'Buoni Pasto', 'Si', '&%"£'];
+        var input = ['Si', '300', 'Si', 'Buoni Pasto', '4', 'SA'];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isNull(la);
@@ -776,7 +776,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.10', function(){
-        var input = ['Si', 300, 'Si', 'Buoni Pasto', 'Si', 4];
+        var input = ['Si', '300', 'Si', 'Buoni Pasto', '4', 'Si'];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isNotNull(la);
@@ -784,7 +784,7 @@ describe('Field test for learningAgreementControl', function(){
     });
 
     it('Testing method saveLaExternalTutor - TC_LAM_3.11', function(){
-        var input = ['Si', 300, 'Si', 'Buoni Pasto', 'Si', 4];
+        var input = ['Si', '300', 'Si', 'Buoni Pasto', '4', 'Si'];
         var sendLaExternalTutor = compileControl.saveLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isUndefined(la);

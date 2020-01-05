@@ -38,11 +38,11 @@ exports.getAllRequests = function (tutor) {
                     x['nome'] = data['Header name'];
                     var getStatePr = learningAgreementControl.getStatus(x['studentID']);
                     getStatePr.then(function(state) {
-                        x['stato'] = state;
+                        /*x['stato'] = state;
                         requests.push(x);
-                        if(result.length == requests.length) {
+                        if(result.length == requests.length) {*/
                             fulfill(requests);
-                        }
+                        //}
                     })
                 })
             });
@@ -76,10 +76,10 @@ exports.updateExternalTutor = function(student, tutor) {
     return new Promise (function (fulfill, reject){
         var updateTutorPr = Request.updateExternalTutor(student, tutor);
         updateTutorPr.then(function(){
-            var d = new Date();
+            /*var d = new Date();
             var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
             socket.emit('send-notification', {associatedID: tutor, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+student+" ha compilato il Learning Agreement"}, date: data});
-
+            */
             fulfill();
         });
     });

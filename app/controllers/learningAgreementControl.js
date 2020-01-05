@@ -305,7 +305,7 @@ exports.sendLaAcademicTutor = function(input, res) {
                         
             let validatePr = exports.validateDataAcademicTutor(data, res);
             validatePr.then(function(result) {
-                if (result) {
+                if (result) {                   
                     pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
                         if (err)
                             throw err;
@@ -937,7 +937,7 @@ exports.validateDataAcademicTutor = function(data, res) {
             data["Traineeship certificate1"] || data["Final report1"] || data["Interview1"] || data["Record the traineeship in the trainee's Transcript of Records Yes"] ||
             data["Record the traineeship in the trainee's Transcript of Records No"] || data["Record the traineeship in the trainee's Europass Mobility Document Yes"] || data["Record the traineeship in the trainee's Europass Mobility Document No"]) {
                 if(res) res.cookie("errCompileOnlyOne", "1");
-                console.log("Compile only form one!");
+                console.log("Compile only form one! "+data["Award"]+" "+data["Traineeship certificate"]+" "+data["Europass Mobility Document Yes"]+" "+data["Award ECTS credits Yes"]);
                 if (!(/^\d{1,2}$/.test(data["Award"]))) {
                     if(res) res.cookie("errAward", "1");
                     console.log("Award wrong!");
@@ -953,14 +953,14 @@ exports.validateDataAcademicTutor = function(data, res) {
             if(data["Award"] || data["Traineeship certificate"] || data["Final report"] || data["Interview"] || data["Europass Mobility Document Yes"] || data["Europass Mobility Document No"]) {
                 if(res) res.cookie("errCompileOnlyOne", "1");
                 console.log("Compile only form two!");
-                if (data["Award ECTS credits Yes"] && !(/^\d{1,2} *$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
+                if (data["Award ECTS credits Yes"] && !(/^\d{1,2}$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
                     if(res) res.cookie("errNumberCredits", "1");
                     console.log("Number of ECTS credits wrong!");
                     fulfill(false);               
                 }
                 if (data["Give a grade Yes"] && (!data["Traineeship certificate1"] && !data["Final report1"] && !data["Interview1"])) {
                     if(res) res.cookie("errMissingFields", "1");
-                    console.log("Missing fields in grade!");
+                    console.log("Missing fields!");
                     fulfill(false);         
                 }              
                 fulfill(false);                
@@ -977,8 +977,9 @@ exports.validateDataAcademicTutor = function(data, res) {
             fulfill(true);               
         }
         else {
-            console.log("All okay");
-            fulfill(true); 
+            if(res) res.cookie("errMissingFields", "1");
+            console.log("Missing fields!");
+            fulfill(false); 
         }
     });
 }
@@ -1018,7 +1019,7 @@ exports.validateDataExternalTutor = function(data, res) {
 
         if (!(/^[0-5]{1} *$/.test(data["Traineeship Certificate by"]))) {
             if(res) res.cookie("errWeeks", "1");
-            console.log("Traineeship certificate wrong!");
+            console.log("Traineeship certificate wrong! = "+data["Traineeship Certificate by"]);
             fulfill(false); 
         }
         else {

@@ -100,7 +100,7 @@ app.post('/compileStudent', function(req, res) {
 });
 
 app.post('/compileAcademicTutor', function(req, res) {
-  var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
+  var data = [req.body.inputCredits, req.body.vote, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
       req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.data.data["E-mail"] //To change with email of student request 
   ];
   var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
@@ -146,7 +146,7 @@ app.post('/saveStudent', function(req, res) {
 });
 
 app.post('/saveAcademicTutor', function(req, res) {
-  var data = [req.body.inputCredits, req.body.inputCheck1, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
+  var data = [req.body.inputCredits, req.body.vote, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
     req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request 
   ];
   var saveTutor = learningAgreementControl.saveLaAcademicTutor(data);
