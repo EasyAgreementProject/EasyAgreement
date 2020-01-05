@@ -515,7 +515,7 @@ describe('Field test for learningAgreementControl', function(){
                     'Knowledge of the tools', 'english', 'A1'];
         var sendStudent = compileControl.saveLaStudent(input);
         sendStudent.then(function(la) {
-            assert.isNull(la);
+            assert.isUndefined(la);
         });
     }); 
 
@@ -699,7 +699,7 @@ describe('Field test for learningAgreementControl', function(){
         var input = [null, null, null, 'Si', '3', 'Si', 'Certificato di tirocinio', 'Si', 'Si'];
         var sendLaAcademicTutor = compileControl.saveLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
-            assert.isNull(la);
+            assert.isUndefined(la);
         });
     });
 
@@ -775,7 +775,7 @@ describe('Field test for learningAgreementControl', function(){
         });
     });
 
-    it('Testing method sendLaExternalTutor - TC_LAM_3.9', function(){
+    it('Testing method sendLaExternalTutor - TC_LAM_3.10', function(){
         var input = ['Si', 300, 'Si', 'Buoni Pasto', 'Si', 4];
         var sendLaExternalTutor = compileControl.sendLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
@@ -783,11 +783,11 @@ describe('Field test for learningAgreementControl', function(){
         });
     });
 
-    it('Testing method saveLaExternalTutor - TC_LAM_3.9', function(){
-        var input = ['Si', 300, 'Si', 'Buoni Pasto', 'Si', '&%"£'];
+    it('Testing method saveLaExternalTutor - TC_LAM_3.11', function(){
+        var input = ['Si', 300, 'Si', 'Buoni Pasto', 'Si', 4];
         var sendLaExternalTutor = compileControl.saveLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
-            assert.isNull(la);
+            assert.isUndefined(la);
         });
     });
 

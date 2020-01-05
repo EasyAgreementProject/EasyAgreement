@@ -817,7 +817,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("contact email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+ *$/.test(data["Contact person name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name / position"]))) {
             if(res) res.cookie("errContactReciving", "1");
             console.log("contact person name position wrong! "+data["Contact person name / position"]);
             fulfill(false);
@@ -852,7 +852,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("size of enterprise wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+ *$/.test(data["Mentor name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Mentor name / position"]))) {
             if(res) res.cookie("errMentor", "1");
             console.log("mentor name position wrong!");
             fulfill(false);
