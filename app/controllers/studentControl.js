@@ -1,8 +1,5 @@
 var hash=require('./hash.js');
 var studentModel= require('../models/student.js');
-var academicTutorModel= require('../models/academicTutor.js');
-var externalTutorModel= require('../models/externaltutor.js');
-var administratorModel= require('../models/administrator.js');
 var session = require('express-session');
 
 exports.update=function(req,res){
@@ -21,7 +18,6 @@ exports.update=function(req,res){
 
 //Form validation
 var isRight=true;
-
 
 if(name.length!=0){
     

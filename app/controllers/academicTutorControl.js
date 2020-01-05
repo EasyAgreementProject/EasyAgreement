@@ -102,7 +102,6 @@ exports.updatePassword=function(req,res){
 
     if(!isRight){
 
-        console.log("stampa pass"+password+passwordConfirm);
         var path = require('path');
         res.redirect("profile");
         return;
