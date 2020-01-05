@@ -15,11 +15,7 @@ exports.update=function(req,res){
 
 //Form validation
 var isRight=true;
-
-if(name==null){
-    res.cookie('errexternalTutorName','1');
-        isRight=false;
-}else{
+if(name.length!=0){
     if(!(/^[A-Za-z]+$/.test(name)) || name.length<=2){
         res.cookie('errexternalTutorName','1');
         isRight=false;
@@ -28,9 +24,7 @@ if(name==null){
     }
 }
 
-if(surname==null){
-    res.cookie('errexternalTutorSurname','1');
-    isRight=false;
+if(surname.length!=0){
     if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
         res.cookie('errexternalTutorSurname','1');
     isRight=false;
@@ -40,10 +34,7 @@ if(surname==null){
 }
 
 
-if(organization==null){
-    res.cookie('errOrganizationName','1');
-    isRight=false;
-}else{
+if(organization.length!=0){
     if(!(/^[A-Za-z]+$/.test(organization)) ||  organization.length<=2){
         res.cookie('errOrganizationName','1');
         isRight=false;

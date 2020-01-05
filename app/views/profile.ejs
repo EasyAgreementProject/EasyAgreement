@@ -25,6 +25,7 @@
 </head>
 
 <body>
+    <%if(session.utente.type == "student") {%>
 
     <div class="d-flex" id="wrapper">
 
@@ -44,12 +45,42 @@
                 <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
                 <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
+                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor/Organizzazioni</a>
                 <a href="dochandler.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
+
+        <% } %>
+        <%if(session.utente.type == "academicTutor") {%>
+
+            <div class="d-flex" id="wrapper">
+        
+                <!-- Sidebar -->
+                <div class="bg-light border-right" id="sidebar-wrapper">
+                    <a href="/index.html" style="text-decoration: none; color: black">
+                        <div class=sidebar-logo>
+                            <img src="/img/logoUni.png" style="float: left" width="50px">
+                        </div>
+                        <div class="sidebar-heading">Home</div>
+                    </a>
+                    <div class="list-group list-group-flush">
+                        <form method="get" action="/profile"><button  type="submit" class="list-group-item list-group-item-action bg-light">
+                            <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</button></form> 
+                        <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
+                            <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Compilazione LA</a>
+                        <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
+                            <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
+                        <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
+                            <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
+                        <a href="dochandler.html" class="list-group-item list-group-item-action bg-light">
+                            <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
+                    </div>
+                </div>
+                <!-- /#sidebar-wrapper -->
+        
+                <% } %>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -127,15 +158,15 @@
                         <form id="formUpdatePass" method="post" action="/updatePassword">
                         <h4 class="mt-4">Modifica password</h4>
                             <div class="form-label-group">
-                                <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  required>
+                                <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                                     <span id="errOldPassword">Vecchia Password errata</span>
                            </div>
                             <div class="form-label-group">
-                                <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password" required >
+                                <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password" >
                                     <span id="errPassword">Nuova Password non valida</span>
                             </div>
                             <div class="form-label-group">
-                                <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  required>
+                                <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                                     <span id="errConfirmPassword">Password errata </span>
                             </div>
                             <button class="btn btn-block" type="submit" class="saveButton">Modifica password</button>
@@ -178,15 +209,15 @@
                 <form id="formUpdatePass" method="post" action="/updatePassword">
                     <h4 class="mt-4">Modifica password</h4>
                         <div class="form-label-group">
-                        <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  required>
+                        <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                             <span id="errOldPassword">Vecchia Password errata</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password" required >
+                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
                             <span id="errPassword">Nuova Password non valida</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  required>
+                        <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password" >
                             <span id="errConfirmPassword">Password errata </span>
                     </div>
                     <button class="btn btn-block" type="submit" class="saveButton">Modifica password</button>
@@ -227,15 +258,15 @@
                     <form id="formUpdatePass" method="post" action="/updatePassword">
                         <h4 class="mt-4">Modifica password</h4>
                         <div class="form-label-group">
-                        <input type="password" id="inputOldPassword" class="form-control" name="inputOSldPassword" placeholder="Vecchia Password"  required>
+                        <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                             <span id="errOldPassword">Vecchia Password errata</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password" required >
+                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
                             <span id="errPassword">Nuova Password non valida</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  required>
+                        <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                             <span id="errConfirmPassword">Password errata </span>
                     </div>
                     <button class="btn btn-block" type="submit" class="saveButton">Modifica password</button>

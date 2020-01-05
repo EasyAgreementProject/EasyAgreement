@@ -34,8 +34,8 @@
                 <div class="sidebar-heading">Home</div>
             </a>
             <div class="list-group list-group-flush">
-                <a href="profile.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
+                <form method="get" action="/profile"><button  type="submit" class="list-group-item list-group-item-action bg-light">
+                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</button></form> 
                 <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/compileLA.svg" style="height: 20px; width: 20px;" id="button_hold"> Compilazione LA</a>
                 <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
@@ -65,7 +65,9 @@
                             <a class="nav-link" id="open-chat" href="javascript:void(0)"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.html">Logout</a>
+                            <form method="get" action="/logout">
+                                <button type="submit" class="nav-link"> Logout </button>
+                                </form>
                         </li>
                     </ul>
                 </div>

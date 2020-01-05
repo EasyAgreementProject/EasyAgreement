@@ -23,10 +23,8 @@ exports.update=function(req,res){
 var isRight=true;
 
 
-if(name==null){
-    res.cookie('errNameS','1');
-    isRight=false;
-}else{
+if(name.length!=0){
+    
     if(!(/^[A-Za-z]+$/.test(name)) || name.length<=2){
         res.cookie('errNameS','1');
         isRight=false;
@@ -35,10 +33,7 @@ if(name==null){
     }
 }
 
-if(surname==null){
-    res.cookie('errSurnameS','1');
-    isRight=false;
-}else{
+if(surname.length!=0){
     if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
         res.cookie('errSurnameS','1');
         isRight=false;
@@ -48,10 +43,7 @@ if(surname==null){
 }
 
 
-if(citta==null){
-    res.cookie('errStudentCity','1');
-    isRight=false;
-}else{
+if(citta.length!=0){
     if(!(/^[A-Za-z\s]+$/.test(citta)) || citta.length<=2){
         res.cookie('errStudentCity','1');
         isRight=false;
@@ -60,10 +52,7 @@ if(citta==null){
     }
 }
 
-if(indirizzo==null){
-    res.cookie('errStudentAddress','1');
-    isRight=false;
-}else{
+if(indirizzo.length!=0){
     if(!(/^[A-Za-z0-9,\s]+$/.test(indirizzo)) || indirizzo.length<=7){
         res.cookie('errStudentAddress','1');
         isRight=false; 
@@ -72,10 +61,7 @@ if(indirizzo==null){
     }
 }
 
-if(corso==null){
-    res.cookie('errStudentCorso','1');
-    isRight=false;
-}else{
+if(corso.length!=0){
     if(!(/^[A-Za-z\s]+$/.test(corso)) || corso.length<=2){
       res.cookie('errStudentCorso','1');
       isRight=false;

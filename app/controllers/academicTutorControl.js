@@ -18,10 +18,7 @@ exports.update=function(req,res){
 //Form validation
 var isRight=true;
 
-if(name==null){
-    res.cookie('erracademicTutorName','1');
-    isRight=false;
-}else{
+if(name.length!=0){
     if(!(/^[A-Za-z]+$/.test(name)) || name.length<=2){
         res.cookie('erracademicTutorName','1');
         isRight=false;
@@ -30,9 +27,7 @@ if(name==null){
     }
 }
 
-if(surname==null){
-    res.cookie('erracademicTutorSurname','1');
-    isRight=false;
+if(surname.length!=0){
     if(!(/^[A-Za-z]+$/.test(surname)) || surname.length<=2){
         res.cookie('erracademicTutorSurname','1');
         isRight=false;
@@ -42,10 +37,7 @@ if(surname==null){
 }
 
 
-if(department==null){
-    res.cookie('errTutorDepartment','1');
-    isRight=false;
-}else{
+if(department.length!=0){
     if(!(/^[A-Za-z]+$/.test(department)) ||  department.length<=2){
         res.cookie('errTutorDepartment','1');
         isRight=false;

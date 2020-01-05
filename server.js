@@ -296,7 +296,7 @@ app.get('/profile',function(request,response){
 app.get('/profile', function (request, response) {
   if(request.session.utente == null)
   
-    res.redirect("/");
+    response.redirect("/");
   
   else
   {  response.render('profile');
