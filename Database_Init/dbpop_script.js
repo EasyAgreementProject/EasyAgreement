@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var hash= require('../app/controllers/hash');
 
 //Database URL
 const url="mongodb://localhost:27017/easyagreement";
@@ -21,12 +22,27 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
     let hostOrgData = fs.readFileSync('Database_Init/JSON/dbpop_hostorg.json');
 
 
-
     let students = JSON.parse(studentData);
     let admin = JSON.parse(adminData);
     let actutor = JSON.parse(actutorData);
     let exttutor = JSON.parse(extTutorData);
     let hostorg = JSON.parse(hostOrgData);
+    
+
+    for(var i=0; students[i]!=null; i++){
+        students[i].Password= hash.hashPassword(students[i].Password);
+    }
+    for(var i=0; admin[i]!=null; i++){
+        admin[i].Password= hash.hashPassword(admin[i].Password);
+    }
+    for(var i=0; actutor[i]!=null; i++){
+        actutor[i].Password= hash.hashPassword(actutor[i].Password);
+    }
+    for(var i=0; exttutor[i]!=null; i++){
+        exttutor[i].Password= hash.hashPassword(exttutor[i].Password);
+    }
+
+
     dbo.collection("Student").insertMany(students,function(err, result) {
 
         if(err) throw err;
@@ -65,16 +81,20 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
     dbo.createCollection("current_LearningAgreement", function(err) {
         if (err) throw err;
         console.log("Succesfully created the collection current_LearningAgrrement.")
-    })
+    });
 
     dbo.createCollection("LearningAgreement_revision", function(err) {
         if (err) throw err;
         console.log("Succesfully created the collection LearningAgrrement_revision.")
-    })
+    });
 
+<<<<<<< HEAD
     dbo.createCollection("Request", function(err) {
         if (err) throw err;
         console.log("Succesfully created the collection Request.")
     })
 
+=======
+    return;
+>>>>>>> 976f1e820a7afe9cfc2eee70b3d530d0dcb37f81
 });
