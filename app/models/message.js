@@ -10,7 +10,6 @@ const dbName = "easyagreement";
 class Message {
     
     constructor(){
-        this.messageID=null;
         this.senderID= null;
         this.recipientID= null;
         this.text= null;
@@ -18,11 +17,6 @@ class Message {
     }
 
     //Getter methods
-
-    getMessageID(){
-        return this.getMessageID;
-    }
-
     getSenderID() {
         return this.senderID;
     }
@@ -42,7 +36,7 @@ class Message {
     //setter method
 
     setText(text) {
-        this.text=test;
+        this.text=text;
     }
 
     setDate(date){
@@ -123,6 +117,50 @@ class Message {
                     recipientMesssages=result;
                     fulfill({sender: senderMessages, recipient: recipientMesssages});
                     db.close();
+                });
+            });
+        });
+    }
+
+    static changeStateCache(receiverID, senderID, value){
+        return new Promise(function(fulfill, reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err) reject(err);
+                var dbo= db.db(dbName);
+                dbo.collection("Cache").findOne({receiverID: receiverID, senderID: senderID}, function(err, result){
+                    if(err) reject(err);
+                    if(result!=null){
+                        dbo.collection("Cache").updateOne({receiverID: receiverID, senderID: senderID}, {$set: {boolean:value}}, function(err, result){
+                            if(err) reject(err);
+                            db.close();
+                            fulfill();
+                        });
+                    }else{
+                        dbo.collection("Cache").insertOne({receiverID: receiverID, senderID: senderID, boolean: value}, function(err, result){
+                            if(err) reject(err);
+                            db.close();
+                            fulfill();
+                        });
+                    }
+                });
+            });
+        });
+    }
+
+    static getAllCache(receiverID){
+        return new Promise(function(fulfill, reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err) reject(err);
+                var dbo= db.db(dbName);
+                dbo.collection("Cache").find({receiverID: receiverID}).toArray(function(err, result){
+                    if(err) reject(err);
+                    var all=[];
+                    if(result!=null){
+                        for(var i=0; result[i]!=null; i++){
+                            if(result[i].boolean)  all.push(result[i]);
+                        }
+                    }
+                    fulfill(all);
                 });
             });
         });

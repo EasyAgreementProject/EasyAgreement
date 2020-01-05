@@ -14,18 +14,12 @@ class Notification {
      * @constructor
      */
     constructor(){
-        this.notificationID=null;
         this.associatedID=null;
         this.text=null;
         this.date=null;
     }
 
     //getter methods
-
-    getNotificationID(){
-        return this.notificationID;
-    }
-
     getAssociateID(){
         return this.associatedID;
     }
@@ -46,6 +40,10 @@ class Notification {
 
     setDate(date) {
         this.date=date;
+    }
+
+    setAssociatedID(associatedID){
+        this.associatedID=associatedID;
     }
 
     static insertNotification(notification) {    
@@ -98,28 +96,40 @@ class Notification {
             MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
                 if(err) reject(err);
                 var dbo= db.db(dbName);
-                var exValue=null;
                 dbo.collection("Cache").findOne({associatedID: associatedID}, function(err, result){
                     if(err) reject(err);
                     if(result!=null){
-                        exValue=result.bool;
                         dbo.collection("Cache").updateOne({associatedID: associatedID}, {$set: {bool:value}}, function(err, result){
                             if(err) reject(err);
                             db.close();
-                            fulfill(exValue);
+                            fulfill();
                         });
                     }else{
-                        exValue=false;
                         dbo.collection("Cache").insertOne({associatedID: associatedID, bool: value}, function(err, result){
                             if(err) reject(err);
                             db.close();
-                            fulfill(exValue);
+                            fulfill();
                         });
                     }
                 });
             });
         });
     }
+
+    static getStateCache(associatedID){
+        return new Promise(function(fulfill, reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err) reject(err);
+                var dbo= db.db(dbName);
+                dbo.collection("Cache").findOne({associatedID: associatedID}, function(err, result){
+                    if(err) reject(err);
+                    if(result!=null)    fulfill(result.bool);
+                    else    fulfill(null);
+                });
+            });
+        });
+    }
+    
 }
 
 module.exports=Notification;

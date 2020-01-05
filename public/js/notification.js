@@ -43,7 +43,7 @@ $.ajax({
   url:'http://localhost:8080/getReceivedNotification',
   data:{sender: senderID},
   success: function(result){
-    if(result.bool){
+    if(result){
       if($('.speech-bubble').hasClass('notification--tray')){
         $('.red-notification').css('display', 'block');
       }
@@ -57,7 +57,6 @@ socket.on('receive-notification', function(user, notification){
   if($('.speech-bubble').hasClass('notification--tray')){
     $('.red-notification').css('display', 'block');
   }
-  socket.emit('notification-received', senderID);
   appendNotification(notification);
 });
 
@@ -69,6 +68,7 @@ $(document).ready(function(){
 
     $('#open-notification').on('click', function(){
       if($('.speech-bubble').hasClass('notification--tray')){
+            setReadNotification(senderID);
             $('.speech-bubble').css('display','block');
             $('.speech-bubble').removeClass('notification--tray');
             $('.red-notification').css('display', 'none');
@@ -148,4 +148,12 @@ function appendNothing(){
   $('.notifications').prepend(['<div class="notification-none">',
           '<p> Al momento non sono presenti notifiche da visualizzare</p>',
       '</div>'].join('\n'));
+}
+
+function setReadNotification(sender){
+  $.ajax({
+    type:"POST",
+    url:'http://localhost:8080/setReceivedNotification',
+    data:{sender: sender}
+  })
 }

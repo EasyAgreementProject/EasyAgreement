@@ -122,7 +122,12 @@ exports.getAllMessages= function(sender, receiver, res){
 }
 
 exports.saveMessage= function(message, res){
-    var save= messageModel.insertMessage(message);
+    var messaggio= new messageModel();
+    messaggio.setSenderID(message.senderID);
+    messaggio.setRecipientID(message.recipientID);
+    messaggio.setText(message.text);
+    messaggio.setDate(message.date);
+    var save= messageModel.insertMessage(messaggio);
     save.then(function(result){
         res.json(result);
     });
@@ -253,4 +258,20 @@ exports.searchUser= function(type, search, res){
             });
         });
     }
+}
+
+exports.refreshMessageCache= function( receiverID, senderID, value){
+    var refresh= messageModel.changeStateCache(receiverID, senderID, value);
+    refresh.then(function(result){
+        return result;
+    });
+}
+
+exports.getAllCache= function(receiverID){
+    return new Promise(function(fulfill, reject){
+        var get=messageModel.getAllCache(receiverID);
+        get.then(function(result){
+            fulfill(result);
+        });
+    })
 }

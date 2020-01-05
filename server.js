@@ -15,7 +15,6 @@ app.set('view engine', 'ejs');
 
 var connectedClients={};
 var notificationClients={};
-var receivedNotification=[];
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
@@ -239,6 +238,7 @@ io.on('connection', socket => {
     socket.username=sender;
   });
   socket.on('send-chat-message', function(message){
+    var result= messageControl.refreshMessageCache(message.recipientID, message.senderID, true);
     socket.broadcast.to(connectedClients[message.recipientID]).emit('chat-message', socket.username, message);
   });
 
@@ -248,15 +248,12 @@ io.on('connection', socket => {
   });
   socket.on('send-notification', function(notification){
     var id=notificationControl.insertNotification(notification);
+    var result=notificationControl.refreshNotificationCache(notification.associatedID, true);
     id.then(function(result){
       notification._id=result;
+      socket.broadcast.to(notificationClients[notification.associatedID]).emit('receive-notification', socket.username, notification);
     });
-    var result=notificationControl.refreshNotificationCache(notification.associatedID, true);
-    socket.broadcast.to(notificationClients[notification.associatedID]).emit('receive-notification', socket.username, notification);
   });
-  socket.on('notification-received', function(associated){
-    var result=notificationControl.refreshNotificationCache(associated, false);
-  })
 })
 
 app.post('/getConnectedUser', function (req, res){
@@ -300,9 +297,28 @@ app.post('/insertNotification', function(req, res){
 });
 
 app.post('/getReceivedNotification', function(req, res){
-  var prom= notificationControl.refreshNotificationCache(req.body.sender, false);
+  var prom= notificationControl.getNotificationCacheState(req.body.sender);
   prom.then(function(result){
-    if(result)  res.json({bool: true});
-    else  res.json({bool:false});
+    if(result)  res.json(true);
+    else  res.json(false);
   });
 });
+
+app.post('/setReceivedNotification', function(req, res){
+  var prom= notificationControl.refreshNotificationCache(req.body.sender, false);
+});
+
+app.post('/getReceivedMessage', function(req, res){
+  var prom= messageControl.getAllCache(req.body.sender);
+  prom.then(function(result){
+    var allSenders=[];
+    for(var i=0; result[i]!=null; i++){
+      allSenders.push(result[i].senderID);
+    }
+    res.json(allSenders);
+  });
+});
+
+app.post('/setReceivedMessage', function(req, res){
+  var prom= messageControl.refreshMessageCache(req.body.sender, req.body.receiver, false);
+})

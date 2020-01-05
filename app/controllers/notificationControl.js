@@ -29,18 +29,29 @@ exports.removeNotification= function(id, res){
 
 exports.insertNotification= function(notifica){
     return new Promise(function(fulfill, reject){
-        var inserted= notificationModel.insertNotification(notifica);
+        var notification= new notificationModel();
+        notification.setAssociatedID(notifica.associatedID);
+        notification.setText(notifica.text);
+        notification.setDate(notifica.date);
+        var inserted= notificationModel.insertNotification(notification);
         inserted.then(function(result){
-            fulfill(result.insertedId);
+            fulfill(result);
         });
     });
 }
 
 exports.refreshNotificationCache= function( associatedId, value){
+    var refresh= notificationModel.changeStateCache(associatedId, value);
+    refresh.then(function(result){
+        return result;
+    });
+}
+
+exports.getNotificationCacheState= function(associatedID){
     return new Promise(function(fulfill, reject){
-        var refresh= notificationModel.changeStateCache(associatedId, value);
-        refresh.then(function(result){
+        var get= notificationModel.getStateCache(associatedID);
+        get.then(function(result){
             fulfill(result);
-        });
+        })
     });
 }
