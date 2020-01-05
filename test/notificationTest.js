@@ -61,4 +61,16 @@ describe('Field test for notificationControl', function() {
             });
     
     });
+
+    it('Testing setReceivedNotification', function(done){
+        chai
+            .request('http://localhost:8080')
+            .post('/setReceivedNotification')
+            .send({sender: "d.devito@studenti.unisa.it"})
+            .end(function(err, res){
+                if(err) return done(err);
+                expect(res).to.be.json;
+                done();
+            });
+    });
 });

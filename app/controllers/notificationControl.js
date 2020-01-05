@@ -41,9 +41,11 @@ exports.insertNotification= function(notifica){
 }
 
 exports.refreshNotificationCache= function( associatedId, value){
-    var refresh= notificationModel.changeStateCache(associatedId, value);
-    refresh.then(function(result){
-        return result;
+    return new Promise(function(fulfill, reject){
+        var refresh= notificationModel.changeStateCache(associatedId, value);
+        refresh.then(function(result){
+            fulfill(result);
+        });
     });
 }
 

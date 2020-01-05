@@ -261,9 +261,11 @@ exports.searchUser= function(type, search, res){
 }
 
 exports.refreshMessageCache= function( receiverID, senderID, value){
-    var refresh= messageModel.changeStateCache(receiverID, senderID, value);
-    refresh.then(function(result){
-        return result;
+    return new Promise(function(fulfill, reject){
+        var refresh= messageModel.changeStateCache(receiverID, senderID, value);
+        refresh.then(function(result){
+            fulfill(result);
+        });
     });
 }
 

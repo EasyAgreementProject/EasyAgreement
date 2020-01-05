@@ -306,6 +306,9 @@ app.post('/getReceivedNotification', function(req, res){
 
 app.post('/setReceivedNotification', function(req, res){
   var prom= notificationControl.refreshNotificationCache(req.body.sender, false);
+  prom.then(function(result){
+    res.json(result);
+  });
 });
 
 app.post('/getReceivedMessage', function(req, res){
@@ -321,4 +324,7 @@ app.post('/getReceivedMessage', function(req, res){
 
 app.post('/setReceivedMessage', function(req, res){
   var prom= messageControl.refreshMessageCache(req.body.sender, req.body.receiver, false);
+  prom.then(function(result){
+    res.json(result);
+  });
 })

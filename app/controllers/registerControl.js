@@ -74,6 +74,7 @@ exports.signup= function(req, res){
 
         if(!isRight){
             fulfill(false);
+            return;
         }
 
         //hashing e salt of password
@@ -98,6 +99,7 @@ exports.signup= function(req, res){
             if(!result){
                 res.cookie('errAlreadyReg','1');
                 fulfill(false);
+                return;
             }
             if(result){
                 var checkE=studentModel.findExistByEmail(email);
@@ -106,6 +108,7 @@ exports.signup= function(req, res){
                     if(!result){
                         res.cookie('errAlreadyReg','1');
                         fulfill(false);
+                        return;
                     }
                     if(result){
                         //Save student in database
@@ -114,6 +117,7 @@ exports.signup= function(req, res){
                         //redirect
                         res.cookie('regEff','1');
                         fulfill(true);
+                        return;
                     }
                 })
             }
@@ -163,6 +167,7 @@ exports.signup= function(req, res){
 
         if(!isRight){
             fulfill(false);
+            return;
         }
 
         //hashing e salt of password
@@ -183,6 +188,7 @@ exports.signup= function(req, res){
             if(!result){
                 res.cookie('errAlreadyReg','1');
                 fulfill(false);
+                return;
             }
             if(result){
                 //Save academic tutor in database
@@ -191,6 +197,7 @@ exports.signup= function(req, res){
                 //redirect
                 res.cookie('regEff','1');
                 fulfill(true);
+                return;
             }
         })   
     }
