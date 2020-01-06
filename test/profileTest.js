@@ -13,7 +13,7 @@ describe('Field test for profileControl', function(){
             .send({inputNameS: "M"})
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errNameS');
+                expect(res).to.redirectTo('http://localhost:8080/');
                 done();
             });
     });
