@@ -40,7 +40,7 @@ app.use(function(req,res,next) {
 }); 
 
 app.get('/compileLAStudent.html', function(req, res) {
-    res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
+    res.render("compileLAStudent.ejs");
 });
 
 app.get('/viewLA.html', function(req, res){
