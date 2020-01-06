@@ -1,0 +1,54 @@
+<%- include ('header') %>
+<%- include ('sidebar') %>
+<link href="/css/simple-sidebar.css" rel="stylesheet">
+    <div class="main-panel">
+        <div class="content">
+            <div class="panel-header bg-primary-gradient">
+                <div class="page-inner py-5">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h2 class="text-white pb-2 fw-bold">Lista richieste</h2>
+                            <h5 class="text-white op-7 mb-2">Easy Agreement</h5>
+                        </div>
+                    </div>
+                </div>	
+            </div>            
+            <table class="table table-striped table-hover table-head-bg-info" id="request_list" width="100px">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome - Cognome</th>
+                    <th scope="col">Stato</th>
+                    <th scope="col">View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+<%- include ('footer') %>
+    
+    <script>
+        $(document).ready(function() {
+            $.get('/getRequests', function(requests){
+                var tbody = document.getElementById('request_list').getElementsByTagName('tbody')[0];
+                for (i = 0; i < requests.length; i++){
+                    var newRow = tbody.insertRow();
+                    for (j = 0; j < 4; j++){
+                        var newCell = newRow.insertCell(j);
+                        switch(j) {
+                            case 0: newCell.innerHTML = i+1; break;
+                            case 1: newCell.innerHTML = requests[i]['nome']; break;
+                            case 2: newCell.innerHTML = requests[i]['stato']; break;
+                            case 3: newCell.innerHTML = '<a href="/getRequest?student='+requests[i]['studentID']+'">Visualizza</a>'; break;
+                        }
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

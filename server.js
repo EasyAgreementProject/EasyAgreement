@@ -166,14 +166,14 @@ app.post('/saveExternalTutor', function(req, res) {
 app.post('/disapproveAcademicTutor', function(req, res) {
   var disapproveTutorPr = learningAgreementControl.disapproveAcademicTutor(req.session.data.studentID, req.body.msg);
   disapproveTutorPr.then(function() {
-    res.render("request.html");
+    res.render("request.ejs");
   });
 });
 
 app.post('/disapproveExternalTutor', function(req, res) {
   var disapproveTutorPr = learningAgreementControl.disapproveExternalTutor(req.session.data.studentID, req.body.msg);
   disapproveTutorPr.then(function() {
-    res.render("request.html");
+    res.render("request.ejs");
   });
 });
 
@@ -210,7 +210,7 @@ app.get('/viewRequest.html', function (req, res) {
 });
 
 app.get('/request.html', function (req, res) {
-  res.sendFile("/app/views/request.html",{root:__dirname});
+  res.render("request.ejs");
 });
 
 app.get('/getRequests', function(req, res){
@@ -228,7 +228,7 @@ app.get('/getRequest', function(req, res){
   var getDetailsPr = requestControl.getRequestDetails(req.query.student);
   getDetailsPr.then(function(details) {
     req.session.data = details;
-    res.redirect("viewRequest.html");
+    res.redirect("viewRequest.ejs");
   })
 });
 
