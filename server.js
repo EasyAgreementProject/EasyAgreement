@@ -110,7 +110,7 @@ app.post('/compileAcademicTutor', function(req, res) {
           res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
           dw.pipe(res)
       } else {
-          res.sendFile(path.join(__dirname + "/app/views/compileLAAcademicTutor.html"));
+          res.render("compileLAAcademicTutor.ejs");
       }
   })
 });
@@ -124,7 +124,7 @@ app.post('/compileExternalTutor', function(req, res) {
           res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
           dw.pipe(res)
       } else {
-          res.sendFile(path.join(__dirname + "/app/views/compileLAExternalTutor.html"));
+        res.render("compileLAExternalTutor.ejs");
       }
   })
 });
@@ -198,11 +198,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/compileLAExternalTutor.html', function (req, res) {
-  res.sendFile("/app/views/compileLAExternalTutor.html",{root:__dirname});
+  res.render("compileLAExternalTutor.ejs");
 });
 
 app.get('/compileLAAcademicTutor.html', function (req, res) {
-  res.sendFile("/app/views/compileLAAcademicTutor.html",{root:__dirname});
+  res.render("compileLAAcademicTutor.ejs");
 });
 
 app.get('/viewRequest.html', function (req, res) {
