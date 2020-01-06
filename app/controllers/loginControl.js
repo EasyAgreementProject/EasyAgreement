@@ -89,7 +89,7 @@ exports.login= function(req, res){
                                         type: "externalTutor"
                                     };
                                     req.session.utente=externalSession;
-                                
+                                    console.log(JSON.stringify(req.session.utente));
                                     redirect(res);
                                 }
                                 else{

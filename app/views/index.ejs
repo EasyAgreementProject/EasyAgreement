@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/viewandupdate.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -105,12 +106,14 @@
                                 <div class="list-group list-group-flush">
                                     <a href="/profile" class="list-group-item list-group-item-action bg-light">
                                         <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
-                                    <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
+                                    <a href="compileLAExternalTutor.html" class="list-group-item list-group-item-action bg-light">
                                         <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Compilazione LA</a>
                                     <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
                                         <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
                                     <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                                        <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
+                                        <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor/Organizzazioni</a>
+                                    <a href="#" class="list-group-item list-group-item-action bg-light">
+                                        <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
                                     <a href="dochandler.html" class="list-group-item list-group-item-action bg-light">
                                         <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
                                 </div>
@@ -134,14 +137,10 @@
                                 <div class="list-group list-group-flush">
                                     <a href="/profile" class="list-group-item list-group-item-action bg-light">
                                         <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Modifica Password</a> 
-                                    <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
-                                        <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Inserimento e Rimozione</a>
-                                    <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
-                                        <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
+                                    <a href="" class="list-group-item list-group-item-action bg-light">
+                                        <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Inserimento/Rimozione</a>
                                     <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                                        <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
-                                    <a href="dochandler.html" class="list-group-item list-group-item-action bg-light">
-                                        <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
+                                        <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor/Organizzazioni</a>
                                 </div>
                             </div>
                             <!-- /#sidebar-wrapper -->

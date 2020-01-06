@@ -33,9 +33,9 @@ if(!isRight){
     return;
 }
 
-if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
+if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)){
     var passwordHashed= hash.hashPassword(password);
-    var checkPass=adminModel.updatePassword(passwordHashed,req.session.utente.utente.Email);
+    var checkPass=adminModel.updatePassword(passwordHashed,req.session.utente.utente.email);
     checkPass.then(function (result){
         if(result!= null){ 
             req.session.utente.utente=result;

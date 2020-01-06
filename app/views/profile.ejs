@@ -20,6 +20,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link href="/css/viewandupdate.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
 
     
 </head>
@@ -102,12 +103,14 @@
                             <div class="list-group list-group-flush">
                                 <a href="/profile" class="list-group-item list-group-item-action bg-light">
                                     <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
-                                <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
+                                <a href="compileLAExternalTutor.html" class="list-group-item list-group-item-action bg-light">
                                     <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Compilazione LA</a>
                                 <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
                                     <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
                                 <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
+                                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor/Organizzazioni</a>
+                                <a href="#" class="list-group-item list-group-item-action bg-light">
+                                    <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
                                 <a href="dochandler.html" class="list-group-item list-group-item-action bg-light">
                                     <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
                             </div>
@@ -134,14 +137,10 @@
                             <div class="list-group list-group-flush">
                                 <a href="/profile" class="list-group-item list-group-item-action bg-light">
                                     <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Modifica Password</a> 
-                                <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
-                                    <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Inserimento e Rimozione</a>
-                                <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
-                                    <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
+                                <a href="" class="list-group-item list-group-item-action bg-light">
+                                    <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Inserimento/Rimozione</a>
                                 <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
-                                <a href="dochandler.html" class="list-group-item list-group-item-action bg-light">
-                                    <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
+                                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor/Organizzazioni</a>
                             </div>
                         </div>
                         <!-- /#sidebar-wrapper -->
@@ -196,24 +195,23 @@
                   
                     <form id="formUpdate" method="post" action="/updateProfile">
                         <h4 class="mt-4">Modifica dati anagrafici</h4>
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="text" id="inputNameS" class="form-control" name="inputNameS" placeholder="Nome" >
                                     <span id="errNameS">Nome non valido</span>
                             </div>
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="text" id="inputSurnameS" class="form-control" name="inputSurnameS" placeholder="Cognome"  >
                                     <span id="errSurnameS">Cognome non valido</span>
                             </div>
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="text" id="inputAddress" class="form-control" name="inputAddress" placeholder="Indirizzo"  >
                                     <span id="errAddress" >Indirizzo non valido</span>
                             </div>
-               
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="text" id="inputCity" class="form-control" name="inputCity" placeholder="Città"  >
                                     <span id="errCity">Città non valida</span>
                             </div>
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="text" id="inputDegree" class="form-control" name="inputDegree" placeholder="Corso di Laurea"  >
                                     <span id="errCourse">Corso di Laurea non valido</span>
                             </div>
@@ -222,15 +220,15 @@
                                                
                         <form id="formUpdatePass" method="post" action="/updatePassword">
                         <h4 class="mt-4">Modifica password</h4>
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                                     <span id="errOldPassword">Vecchia Password errata</span>
                            </div>
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password" >
                                     <span id="errPassword">Nuova Password non valida</span>
                             </div>
-                            <div class="form-label-group">
+                            <div class="form-label-groupS">
                                 <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                                     <span id="errConfirmPassword">Password errata </span>
                             </div>
@@ -258,15 +256,15 @@
                 
                 <form id="formUpdate" method="post" action="/updateProfile">
                 <h4 class="mt-4">Modifica dati anagrafici</h4>
-                     <div class="form-label-group">
+                     <div class="form-label-groupE">
                          <input type="text" id="inputNameE" class="form-control" name="inputNameE" placeholder="Nome">
                             <span id="errNameE">Nome non valido</span>
                     </div>
-                     <div class="form-label-group">
+                     <div class="form-label-groupE">
                         <input type="text" id="inputSurnameE" class="form-control" name="inputSurnameE" placeholder="Cognome"  >
                             <span id="errSurnameE">Cognome non valido</span>
                     </div>
-                    <div class="form-label-group">
+                    <div class="form-label-groupE">
                         <input type="text" id="inputOrganization" class="form-control" name="inputOrganization" placeholder="Organizzazione"  >
                             <span id="errOrganization">Organizzazione non valida</span>
                     </div>
@@ -275,15 +273,15 @@
                             
                 <form id="formUpdatePass" method="post" action="/updatePassword">
                     <h4 class="mt-4">Modifica password</h4>
-                        <div class="form-label-group">
+                        <div class="form-label-groupE">
                         <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                             <span id="errOldPassword">Vecchia Password errata</span>
                     </div>
-                    <div class="form-label-group">
+                    <div class="form-label-groupE">
                         <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
                             <span id="errPassword">Nuova Password non valida</span>
                     </div>
-                    <div class="form-label-group">
+                    <div class="form-label-groupE">
                         <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password" >
                             <span id="errConfirmPassword">Password errata </span>
                     </div>
@@ -309,16 +307,16 @@
                 
                     <form id="formUpdate" method="post" action="/updateProfile">
                         <h4 class="mt-4">Modifica dati anagrafici</h4>
-                        <div class="form-label-group">
+                        <div class="form-label-groupAT">
                             <input type="text" id="inputNameAc" class="form-control" name="inputNameAc" placeholder="Nome">
                             <span id="errNameAc">Nome non valido</span>
                         </div>
-                        <div class="form-label-group">
+                        <div class="form-label-groupAT">
                             <input type="text" id="inputSurnameAc" class="form-control" name="inputSurnameAc" placeholder="Cognome">
                             <span id="errSurnameAc">Cognome non valido</span>
                         </div>
-                        <div class="form-label-group">
-                            <input type="text" id="inputDepartmentT" class="form-control" name="inputDepartmentT" placeholder="Department">
+                        <div class="form-label-groupAT">
+                            <input type="text" id="inputDepartmentT" class="form-control" name="inputDepartmentT" placeholder="Dipartimento">
                             <span id="errDepartmentT">Dipartimento non valido</span>
                         </div>
                         <button class="btn btn-block" type="submit" class="saveButton">Modifica dati</button>
@@ -326,15 +324,15 @@
                         
                     <form id="formUpdatePass" method="post" action="/updatePassword">
                         <h4 class="mt-4">Modifica password</h4>
-                        <div class="form-label-group">
+                        <div class="form-label-groupAT">
                         <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                             <span id="errOldPassword">Vecchia Password errata</span>
                     </div>
-                    <div class="form-label-group">
+                    <div class="form-label-groupAT">
                         <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
                             <span id="errPassword">Nuova Password non valida</span>
                     </div>
-                    <div class="form-label-group">
+                    <div class="form-label-groupAT">
                         <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                             <span id="errConfirmPassword">Password errata </span>
                     </div>
@@ -348,18 +346,18 @@
             <%if(session.utente.type == "admin"){%>
                 <div class="container-fluid" id="adminView">
                     <hr>
-                    <div class="updatedati">
+                    <div class="updatedatiAdmin">
                         <form id="formUpdatePass" method="post" action="/updatePassword">
                             <h4 class="mt-4">Modifica password</h4>
-                            <div class="form-label-group">
+                            <div class="form-label-groupA">
                             <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                                 <span id="errOldPassword">Vecchia Password errata</span>
                         </div>
-                        <div class="form-label-group">
+                        <div class="form-label-groupA">
                             <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
                                 <span id="errPassword">Nuova Password non valida</span>
                         </div>
-                        <div class="form-label-group">
+                        <div class="form-label-groupA">
                             <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                                 <span id="errConfirmPassword">Password errata </span>
                         </div>

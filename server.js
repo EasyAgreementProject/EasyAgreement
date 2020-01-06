@@ -239,18 +239,17 @@ app.post('/updateProfile', function(req, res) {
      if(req.session.utente.type=="student"){
          var updateS=studentControl.update(req, res);
          updateS.then(function(){
-            res.render('profile');
+          res.render('profile');
          });
       }else if(req.session.utente.type=="academicTutor"){
           var updateA=academicTutorControl.update(req, res);
           updateA.then(function(){
-            res.render('profile');
+          res.render('profile');
           });
       }else if(req.session.utente.type=="externalTutor"){
               var updateE=externalTutorControl.update(req, res);
               updateE.then(function(){
-
-                res.render('profile');
+              res.render('profile');
               });
            
       }
@@ -259,7 +258,7 @@ app.post('/updateProfile', function(req, res) {
 
 app.post('/updatePassword',function(req,res){
 
-  if(req.session.utente == null)
+if(req.session.utente == null)
   
   res.redirect("/");
 else{
@@ -285,8 +284,8 @@ else{
           });
         }
   else
-    if(req.session.utente.type=="administrator"){
-          var updateA=administratorControl.updatePassword(req, res);
+    if(req.session.utente.type=="admin"){
+          var updateA=administratorControl.update(req, res);
           updateA.then(function(){
            res.render('profile');
          });

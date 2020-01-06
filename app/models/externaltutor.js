@@ -175,16 +175,15 @@ static updatePassword(password,emailv) {
              dbo.collection("ExternalTutor").findOne({E_mail: emailv}, function(err, result){
                 if(err) reject(err);
                 if(result!=null){
-                    var externalTutor= new externalTutor();
-                    externalTutor.setName(result.Name);
-                    externalTutor.setSurname(result.Surname);
-                    externalTutor.setOrganization(result.Organization);
-                    academicTutor.setEmail(result.E_mail);
-                    academicTutor.setPassword(result.Password);
-
+                    var externaltutor = new externalTutor();
+                    externaltutor.setName(result.Name);
+                    externaltutor.setSurname(result.Surname);
+                    externaltutor.setOrganization(result.Organization);
+                    externaltutor.setEmail(result.E_mail);
+                    externaltutor.setPassword(result.Password);
                    
                     db.close();
-                    fulfill(externalTutor);
+                    fulfill(externaltutor);
                 }
                 else{
                     db.close();

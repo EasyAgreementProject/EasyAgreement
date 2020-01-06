@@ -107,14 +107,17 @@ exports.updatePassword=function(req,res){
         return;
     }
 
-    if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
+    if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)){
         var passwordHashed= hash.hashPassword(password);
     
         var checkS=externalTutorModel.updatePassword(passwordHashed,req.session.utente.utente.email);
         checkS.then(function(result){
-           if(result !=null) {req.session.utente.utente=result;
+           if(result !=null) {
+            console.log("stampo result: "+JSON.stringify(result));
+            console.log("stampo session: "+JSON.stringify(req.session.utente.utente));
+
+            req.session.utente.utente=result;
             res.cookie('updatePassEff','1');
-            res.render('profile');
             fulfill();
            }
            else
