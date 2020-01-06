@@ -247,7 +247,7 @@ app.post('/uploadID', function(req, res){
   var docManager=documentControl.idHandler(req,res);
   console.log("After document control, in server...");
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
-  console.log("test2");
+  
 });
 
 app.post('/uploadCV', function(req, res){
