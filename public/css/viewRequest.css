@@ -1,0 +1,178 @@
+body {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    background-color: orange;
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    background-color: orange;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+    background-color: orange;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 180px) {
+    .mt-4 {
+        text-align: center;
+        color: darkblue;
+    }
+    .logoEA {
+        width: 100px;
+        height: 100px;
+        float: left;
+        margin-top: 1rem;
+    }
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+    .logoCenter {
+        width: 50px;
+        height: 50px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .form-label-group>label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        /* Override default <label> margin */
+        line-height: 1;
+        color: #495057;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        transition: all .1s ease-in-out;
+        padding: 0.75rem 1.5rem;
+    }
+    .form-label-group input::-webkit-input-placeholder {
+        color: transparent;
+    }
+    .form-label-group input:-ms-input-placeholder {
+        color: transparent;
+    }
+    .form-label-group input::-ms-input-placeholder {
+        color: transparent;
+    }
+    .form-label-group input::-moz-placeholder {
+        color: transparent;
+    }
+    .form-label-group input::placeholder {
+        color: transparent;
+    }
+    .form-label-group input:not(:placeholder-shown) {
+        padding-top: calc((.75rem) + .75rem * (2 / 3));
+        padding-bottom: calc(.75rem / 3);
+    }
+    .form-label-group input:not(:placeholder-shown)~label {
+        padding-top: calc(.75rem / 3);
+        padding-bottom: calc(0.75rem / 3);
+        font-size: 12px;
+        color: #777;
+    }
+    *,
+     ::after,
+     ::before {
+        box-sizing: border-box;
+    }
+    .form-label-group {
+        margin-bottom: 1rem;
+        position: relative;
+        margin: 2%;
+    }
+    .form-label-group>input {
+        padding: 0.75rem 1.5rem;
+    }
+    .form-label-group input {
+        height: auto;
+        line-height: .75rem;
+        border-radius: 2rem;
+        overflow: visible;
+        display: block;
+        box-sizing: border-box;
+    }
+    #formCompile {
+        width: 100%;
+    }
+    .form-label-group label {
+        display: inline;
+    }
+    #formCompile::placeholder {
+        color: #6c757d;
+        opacity: 1;
+    }
+    #formCompile::-moz-placeholder {
+        color: #6c757d;
+        opacity: 1;
+    }
+    .form-check {
+        margin-left: .75rem;
+        position: relative;
+        display: block;
+        margin: auto;
+    }
+    div.col-auto-my-1 {
+        position: relative;
+        max-width: 300px;
+        min-width: 100px;
+        margin: 0 auto;
+    }
+    select {
+        max-width: 150px;
+        display: block;
+    }
+    div.btn-block {
+        position: relative;
+        justify-content: center;
+        display: flex;
+    }
+    .saveButton {
+        margin-left: 0.75rem;
+    }
+    
+.btn {
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+    background-color:orange;
+    border:orange;
+    margin-left: 25%;
+    max-width: 50%;
+    margin-bottom: 20px;
+  }
+  div.button{
+      margin-top: 20%;
+      display: absolute;
+  }
+}

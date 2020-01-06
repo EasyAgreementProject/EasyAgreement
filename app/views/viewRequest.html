@@ -14,7 +14,7 @@
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/viewRequest.css" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 
@@ -68,19 +68,30 @@
             <div class="container-fluid">
                 <h1 class="mt-4">Visualizzazione Dettagli Richiesta</h1>
                 <hr>
-                <div id="test" style="width: 100%;">
-                    
+                <div class="infoStudent" style="width: 50%; float: left;">
+                    <p style="font-weight: bold;" id="name">Nome:</p>
+                    <p style="font-weight: bold;" id="surname">Cognome:</p>
+                    <p style="font-weight: bold;" id="address">Indirizzo:</p>
+                    <p style="font-weight: bold;" id="country">Paese:</p>
+                    <p style="font-weight: bold;" id="email">E-mail:</p>
                 </div>
-                <hr>
-                <div id ="test2" style="width: 100%;">
-                </div>  
-                <div id="Button">
-                    <button class="btn btn-flex" type="button" id="approve" onclick="location.href='compileLAAcademicTutor.html'">Approva</button>
-                    <button class="btn btn-flex" type="button" id="visualizza" >Visualizza</button>
-                    <button class="btn btn-flex" type="button" id="idCard">Visualizza carta d'identità</button>
-                    <button class="btn btn flex" type="button" id="cv">Visualizza curriculum Vitae</button>
+                <div class="infoTutor" style="width: 50%; float: right">
+                    <p style="font-weight: bold;" id="academicTutor">Tutor Accademico:</p>
+                    <p style="font-weight: bold;" id="externalTutor">Tutor Esterno:</p>
+                    <br>
+                    <br>
+                    <br>
+                    <p style="font-weight: bold;" id="state">Stato:</p>
                 </div>
-            </div>
+                <br>
+                <div class="button" style="margin-top: 15%;">
+                    <button class="btn" type="button" id="approve" onclick="location.href='compileLAAcademicTutor.html'">Approva</button>
+                    <button class="btn" type="button" id="disapprove">Disapprova</button>
+                    <button class="btn btn-block" type="button" id="view" >Visualizza</button>
+                    <button class="btn btn-block" type="button" id="idCard">Visualizza carta d'identità</button>
+                    <button class="btn btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
+                </div>
+             </div>
         </div>
         <!-- /#page-content-wrapper -->
     </div>
