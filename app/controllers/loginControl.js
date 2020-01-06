@@ -70,7 +70,7 @@ exports.login= function(req, res){
                                             };
                                             req.session.utente=adminSession;
                                             
-                                            
+                                            console.log("sessione admin: "+ JSON.stringify(req.session.utente));
                                             redirect(res);
                                         }
                                         else{
@@ -88,8 +88,10 @@ exports.login= function(req, res){
                                         utente: resultE,
                                         type: "externalTutor"
                                     };
+                                    
+
                                     req.session.utente=externalSession;
-                                
+                                    console.log("sessione extmin: "+ JSON.stringify(req.session.utente));
                                     redirect(res);
                                 }
                                 else{
@@ -126,7 +128,8 @@ exports.login= function(req, res){
                         type: "student"
                     };
                     req.session.utente=studentSession;
-                    
+                    console.log("sessione admssssssssin: "+ JSON.stringify(req.session.utente));
+
                     redirect(res);
                 }
                 else{

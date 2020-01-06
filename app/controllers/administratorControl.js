@@ -28,19 +28,18 @@ exports.update=function(req,res){
 
 if(!isRight){
 
-    var path = require('path');
-    res.redirect("profile");
+    fulfill(false);
     return;
 }
 
-if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
+if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)){
     var passwordHashed= hash.hashPassword(password);
-    var checkPass=adminModel.updatePassword(passwordHashed,req.session.utente.utente.Email);
+    var checkPass=adminModel.updatePassword(passwordHashed,req.session.utente.utente.email);
     checkPass.then(function (result){
         if(result!= null){ 
             req.session.utente.utente=result;
             res.cookie('updatePassEff','1');
-            fulfill();
+            fulfill(true);
 
            }
            else

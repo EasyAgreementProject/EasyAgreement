@@ -86,7 +86,7 @@ static updatePassword(pass,emailv) {
             console.log("Connected successfully to server!");
             var dbo = db.db(dbName);
             console.log(".");
-            var myquery = { Email: emailv };
+            var myquery = { email: emailv };
             var newvalues = { $set: {Password: pass } };
              dbo.collection("Administrator").updateOne(myquery, newvalues, function(err, res) {
                  if (err) reject(err);

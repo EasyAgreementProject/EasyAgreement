@@ -67,8 +67,7 @@ if(corso.length!=0){
 }
 
 if(!isRight){
-    var path = require('path');
-    res.redirect("profile");
+    fulfill(false);
     return;
 }
 
@@ -80,7 +79,7 @@ if(!isRight){
             if(result!=null){
                 req.session.utente.utente=result;
                 res.cookie('updateEff','1');
-                fulfill();
+                fulfill(true);
             }
             else{
                 reject();
@@ -116,8 +115,7 @@ exports.updatePassword=function(req,res){
     }
 
     if(!isRight){
-        var path = require('path');
-        res.redirect("profile");
+        fulfill(false);
         return;
     }
 
@@ -129,7 +127,7 @@ exports.updatePassword=function(req,res){
             if(result!= null){
               req.session.utente.utente=result;
               res.cookie('updatePassEff','1');            
-              fulfill();
+              fulfill(true);
             }
             else{
               reject();
