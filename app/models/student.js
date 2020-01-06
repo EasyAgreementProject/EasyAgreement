@@ -451,17 +451,23 @@ static RetrieveAll() {
                 if(err)  reject(err);
                 var dbo= db.db(dbName);
                 
-                    dbo.collection("Student").findOne({"Email": email}, function(err, result){
-                    if(err) reject(err);
-                    dbo.collection("Student").deleteOne(
+                    dbo.collection("Student").updateOne({Email: email},
+                        {
+                            $set:{CV : null}
 
-                    fulfill(true));
+                        }, function(err, result){
+                    if(err) reject(err);
+                        
+                        
+                        
+                    fulfill();
                     db.close();
                     })
                 });
             });
     
         }
+    
 
 
         static deleteStudentID(email) {   //Delete student ID
@@ -472,12 +478,16 @@ static RetrieveAll() {
                     if(err)  reject(err);
                     var dbo= db.db(dbName);
                     
-                        dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                        dbo.collection("Student").updateOne({Email: email},
+                            {
+                                $set:{IDCard : null}
+
+                            }, function(err, result){
                         if(err) reject(err);
-                        dbo.collection("Student").updateOne(
-                            {"email" : result.email},
-                            {$set:{"IDCard" : null }})
-                        fulfill(true);
+                            
+                            
+                            
+                        fulfill();
                         db.close();
                         })
                     });

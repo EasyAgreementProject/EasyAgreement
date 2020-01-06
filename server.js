@@ -62,6 +62,7 @@ app.get('/getAllVersions', function(req, res) {
 
 app.get('/gestioneDocumenti.html', function(req, res) {
   
+    console.log("Getting doc management... \n"+JSON.stringify(req.session.utente));
     res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
 });
 
@@ -229,6 +230,7 @@ app.get('/signup.html', function (req, res) {
 });
 
 app.get('/index.html', function (req, res) {
+  console.log("Getting the index..."+JSON.stringify(req.session.utente)); //Testing
   res.render('index');
 });
 
@@ -240,29 +242,30 @@ app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
 });
 
-app.post('/uploadID', function(request, response){
+app.post('/uploadID', function(req, res){
   console.log("Before documentControl...");
-  var docManager=documentControl.idHandler(request,response);
+  var docManager=documentControl.idHandler(req,res);
   console.log("After document control, in server...");
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
   console.log("test2");
 });
 
-app.post('/uploadCV', function(request, response){
+app.post('/uploadCV', function(req, res){
   console.log("Before documentControl...");
-  var docManager=documentControl.cvHandler(request,response);
+  var docManager=documentControl.cvHandler(req,res);
   console.log("After document control, in server...");
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
   console.log("test2");
 });
 
-app.post('/deleteCV', function(request, response){
-  var docManager=documentControl.CVEraser(request,response);
+app.post('/deleteCV', function(req, res){
+  var docManager=documentControl.CVEraser(req,res);
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
 });
 
-app.post('/deleteCD', function(request, response){
-  var docManager=documentControl.IDEraser(request, response);
+app.post('/deleteCD', function(req, res){
+  console.log("In server.js: deleteCD summoned");
+  var docManager=documentControl.IDEraser(req, res);
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
 });
 
