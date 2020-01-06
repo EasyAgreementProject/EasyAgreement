@@ -44,7 +44,7 @@ app.get('/compileLAStudent.html', function(req, res) {
 });
 
 app.get('/viewLA.html', function(req, res){
-    res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
+    res.render("viewLA.ejs");
 });
 
 app.get('/getAllVersions', function(req, res) {

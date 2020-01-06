@@ -7,9 +7,9 @@
                     <div class="avatar-sm float-left mr-2">
                         <img class="avatar-img rounded-circle" src="/img/user.png" alt="...">
                     </div>
-                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                    <a data-toggle="collapse" href="#" aria-expanded="true">
                         <span id="nome">
-                            <span id="type" class="user-level"></span>
+                            <span class="user-level"></span>
                         </span>
                     </a>
                     <div class="clearfix"></div>
@@ -55,8 +55,11 @@
 <script>
     $(document).ready(function(){
         $.post('/getConnectedUser', function(user){
-            document.getElementById('nome').innerHTML += user.utente.Name;
-            document.getElementById('type').innerHTML += user.type;
+            var role;
+            if(user.type === 'student') role = 'Studente';
+            if(user.type === 'academicTutor') role = 'Tutor Accademico';
+            if(user.type === 'externalTutor') role = 'Tutor Esterno';
+            document.getElementById('nome').innerHTML += user.utente.Name+'<span class="user-level">'+role+'</span>';
         })
     })
 </script>
