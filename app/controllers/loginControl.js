@@ -138,3 +138,5 @@ function redirect(res){
     res.redirect('/index.html');
     return;
 }
+
+}
