@@ -3,6 +3,8 @@ var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
 var requestControl = require('./requestControl.js');
 var learningAgreement = new LA();
+var io = require('socket.io-client');
+var socket = io.connect('localhost:3000')
 //const Readable = require('stream').Readable;
 
 exports.sendLaStudent = function(input, res) {
@@ -103,11 +105,15 @@ exports.sendLaStudent = function(input, res) {
                                 learningAgreement.setFilling(data);
                                 learningAgreement.setDocument(file);
                                 learningAgreement.setStudentID(data["E-mail"]);
-                                learningAgreement.setState("Submitted");
+                                learningAgreement.setState("Inviato");
                                 learningAgreement.setDate(data["The trainee date"]);
 
                                 var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                                 insertLearningAgreementPr.then(function() {
+                                    var d = new Date();
+                                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                    socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["E-mail"]+" ha compilato il Learning Agreement"}, date: data});
+
                                     fulfill(download);
                                 });
                             }
@@ -322,17 +328,28 @@ exports.sendLaAcademicTutor = function(input, res) {
                             var email2 = data["Mentor e-mail / phone"].substring(0, pos);
 
                             var updateTutorPr = requestControl.updateExternalTutor(email, email2);
-                            updateTutorPr.then(function() {
-                                learningAgreement.setFilling(data);
-                                learningAgreement.setDocument(file);
-                                learningAgreement.setStudentID(data["E-mail"]);
-                                learningAgreement.setState("Approved from Academic Tutor");
-                                learningAgreement.setDate(data["Academic Tutor date"]);
+                            updateTutorPr.then(function(result) {
+                                if(result) {
+                                    learningAgreement.setFilling(data);
+                                    learningAgreement.setDocument(file);
+                                    learningAgreement.setStudentID(data["E-mail"]);
+                                    learningAgreement.setState("Approvato dal Tutor Accademico");
+                                    learningAgreement.setDate(data["Academic Tutor date"]);
 
-                                var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                                insertLearningAgreementPr.then(function() {
-                                    fulfill(download);
-                                });
+                                    var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                                    insertLearningAgreementPr.then(function() {
+                                        var d = new Date();
+                                        var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                        socket.emit('send-notification', {associatedID: email2, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+email+" ha compilato il Learning Agreement"}, date: data});
+                                       
+                                        fulfill(download);
+                                    });
+                                }
+                                else {
+                                    if(res) res.cookie("errRequest", "1");
+                                    console.log("Request already sent!");
+                                    fulfill();
+                                }
                             })
                             
                         }
@@ -543,7 +560,7 @@ exports.sendLaExternalTutor = function(input, res) {
                             learningAgreement.setFilling(data);
                             learningAgreement.setDocument(file);
                             learningAgreement.setStudentID(data["E-mail"]);
-                            learningAgreement.setState("Approved from External Tutor");
+                            learningAgreement.setState("Approvato dal Tutor Esterno");
                             learningAgreement.setDate(data["The receiving organization date"]);
 
                             var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -702,11 +719,6 @@ exports.getVersion = function(id, email) {
                 fs.unlink('pdf/Old_LA_'+random+'.pdf', function(err){
                     if (err) throw err;
                 });
-                /*const s = new Readable();
-                s._read = function noop() {};
-                s.push(result.document.file_data.buffer);
-                s.push(null);
-                console.log(s);*/
                 fulfill(file);
             });            
         });

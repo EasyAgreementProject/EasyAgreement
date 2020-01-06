@@ -9,19 +9,28 @@ exports.generateRequest = function(student, academicTutor) {
 
         var getRequestPr = Request.getRequest(student);
         getRequestPr.then(function(result) {
-            if(!result) {
+            if(result) {
+                getStatusPr = learningAgreementControl.getStatus(student);
+                getStatusPr.then(function(state){
+                    if(state.startsWith("Disapprovato")) {
+                        var deleteRequestPr = Request.deleteRequest(student);
+                        deleteRequestPr.then(function(){
+                            var insertRequestPr = Request.insertRequest(request);
+                            insertRequestPr.then(function(err) {
+                                if (err) throw err;
+                                fulfill(request);
+                            });
+                        });                        
+                    }
+                    else fulfill(null);
+                });       
+            }
+            else {
                 var insertRequestPr = Request.insertRequest(request);
                 insertRequestPr.then(function(err) {
                     if (err) throw err;
-                    var d = new Date();
-                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                    socket.emit('send-notification', {associatedID: academicTutor, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+student+" ha compilato il Learning Agreement"}, date: data});
-
                     fulfill(request);
                 });
-            }
-            else {
-                fulfill(null);
             }            
         });
     });
@@ -38,11 +47,11 @@ exports.getAllRequests = function (tutor) {
                     x['nome'] = data['Header name'];
                     var getStatePr = learningAgreementControl.getStatus(x['studentID']);
                     getStatePr.then(function(state) {
-                        /*x['stato'] = state;
+                        x['stato'] = state;
                         requests.push(x);
-                        if(result.length == requests.length) {*/
+                        if(result.length == requests.length) {
                             fulfill(requests);
-                        //}
+                        }
                     })
                 })
             });
@@ -57,7 +66,11 @@ exports.getRequestDetails = function(student) {
             var getDataPr = learningAgreementControl.getData(student);
             getDataPr.then(function(data) {
                 request['data'] = data;
-                fulfill(request);
+                getStatusPr = learningAgreementControl.getStatus(student);
+                getStatusPr.then(function(state){
+                    request['status'] = state;
+                    fulfill(request);
+                })
             })
         })
     });
@@ -74,13 +87,15 @@ exports.getRequest = function (student) {
 
 exports.updateExternalTutor = function(student, tutor) {
     return new Promise (function (fulfill, reject){
-        var updateTutorPr = Request.updateExternalTutor(student, tutor);
-        updateTutorPr.then(function(){
-            /*var d = new Date();
-            var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-            socket.emit('send-notification', {associatedID: tutor, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+student+" ha compilato il Learning Agreement"}, date: data});
-            */
-            fulfill();
+        var getStatusPr = learningAgreementControl.getStatus(student);
+        getStatusPr.then(function(result) {
+            if(!result.startsWith("Approvato dal Tutor Accademico")) {
+                var updateTutorPr = Request.updateExternalTutor(student, tutor);
+                updateTutorPr.then(function(){
+                    fulfill(true);
+                });
+            }
+            else fulfill(false);
         });
     });
 }

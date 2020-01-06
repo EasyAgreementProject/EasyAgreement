@@ -695,7 +695,7 @@ describe('Field test for learningAgreementControl', function(){
         });
     });
 
-    it('Testing method saveLaAcademicTutor ', function(){
+    it('Testing method saveLaAcademicTutor - TC_LAM_2.22', function(){
         var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si', 'Si'];
         var sendLaAcademicTutor = compileControl.saveLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {

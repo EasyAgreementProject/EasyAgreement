@@ -26,6 +26,7 @@ $(document).ready(function() {
     var errNumberCredits = getCookie("errNumberCredits");
     var errMissingFields = getCookie("errMissingFields");
     var errCompileOnlyOne = getCookie("errCompileOnlyOne");
+    var errRequest = getCookie("errRequest");
 
     if (errAward == "1") {
         $('#errCredits').css('display', 'block');
@@ -44,5 +45,9 @@ $(document).ready(function() {
     if (errCompileOnlyOne == "1") {
         swal('Compila solo uno dei due form!!', '', 'warning');
         document.cookie = "errCompileOnlyOne=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (errRequest == "1") {
+      swal('Richiesta già approvata', "Puoi controllare lo stato della richiesta nell'apposita pagina", 'error');
+      document.cookie = "errRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });

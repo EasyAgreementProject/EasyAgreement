@@ -206,7 +206,7 @@ app.get('/compileLAAcademicTutor.html', function (req, res) {
 });
 
 app.get('/viewRequest.html', function (req, res) {
-  res.sendFile("/app/views/viewRequest.html",{root:__dirname});
+  res.render("viewRequest.ejs");
 });
 
 app.get('/request.html', function (req, res) {
@@ -214,7 +214,7 @@ app.get('/request.html', function (req, res) {
 });
 
 app.get('/getRequests', function(req, res){
-  var getRequestsPr = requestControl.getAllRequests("f.ferrucci@unisa.it");
+  var getRequestsPr = requestControl.getAllRequests('f.ferrucci@unisa.it'); //req.session.utente.utente.Email
   getRequestsPr.then(function(result){    
     res.send(result);
   })
@@ -241,19 +241,19 @@ app.get('/index.html', function (req, res) {
 });
 
 app.get('/easyAgreement.html', function (req, res) {
-  res.sendFile("/app/views/easyAgreement.html",{root:__dirname});
+  res.render("easyAgreement.ejs");
 });
 
 app.get('/header.html', function (req, res) {
-  res.sendFile("/app/views/header.html",{root:__dirname});
+  res.render("header.ejs");
 });
 
 app.get('/sidebar.html', function (req, res) {
-  res.sendFile("/app/views/sidebar.html",{root:__dirname});
+  res.render("sidebar.ejs");
 });
 
 app.get('/footer.html', function (req, res) {
-  res.sendFile("/app/views/footer.html",{root:__dirname});
+  res.render("footer.ejs");
 });
 
 app.post('/signup', function(req, res) {
