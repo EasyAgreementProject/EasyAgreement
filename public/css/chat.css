@@ -339,6 +339,12 @@
     float: right;
   }
 
+  .user-notification{
+    float: right;
+    padding-top: 20px;
+    height: 35px;
+  }
+
   @media (min-width: 320px) and (max-width: 480px) {
     .outerContainer {
       height: 100%;

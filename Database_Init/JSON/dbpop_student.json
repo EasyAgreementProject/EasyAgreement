@@ -11,7 +11,8 @@
      "Surname" : "De Vito",
      "Name" : "Danny",
      "CV"   : "",
-     "IDCard" : ""
+     "IDCard" : "",
+     "Password" :"DannyDeVito1"
     },
 
 
@@ -24,7 +25,8 @@
     "Surname" : "Califano",
     "Name" : "Francesco",
     "CV"   : "",
-    "IDCard" : ""
+    "IDCard" : "",
+    "Password" :"FraCalifano1"
    },
 
 
@@ -37,7 +39,8 @@
    "Surname" : "Marino",
    "Name" : "Domenico",
    "CV"   : "",
-   "IDCard" : ""
+   "IDCard" : "",
+   "Password" :"MarDomenico1"
   },
 
 
@@ -50,7 +53,8 @@
   "Surname" : "De Amicis",
   "Name" : "Lorenzo",
   "CV"   : "",
-  "IDCard" : ""
+  "IDCard" : "",
+  "Password" :"DeLorenzo1"
  },
 
 
@@ -63,7 +67,8 @@
  "Surname" : "Vitolo",
  "Name" : "Fernando",
  "CV"   : "",
- "IDCard" : ""
+ "IDCard" : "",
+ "Password" :"VitoFerdi1"
 },
 
 
@@ -76,7 +81,8 @@
     "Surname" : "Scognamiglio",
     "Name" : "Ugopiero",
     "CV"   : "",
-    "IDCard" : ""
+    "IDCard" : "",
+    "Password" :"ScoUgopiero1"
    },
 
 
@@ -89,7 +95,8 @@
     "Surname" : "Carpentieri",
     "Name" : "Giovanni",
     "CV"   : "",
-    "IDCard" : ""
+    "IDCard" : "",
+    "Password" :"CarpGiovanni1"
    },
 
 
@@ -98,11 +105,12 @@
        "DegreeCourse" : "Computer Science",
        "Address" : "Via delle Vie 128",
        "City" : "Civitanova Marche",
-       "Email" : "g.carpentieri1@studenti.unisa.it",
-       "Surname" : "Carpentieri",
+       "Email" : "g.cantaieri1@studenti.unisa.it",
+       "Surname" : "Cantaieri",
        "Name" : "Giovanni",
        "CV"   : "",
-       "IDCard" : ""
+       "IDCard" : "",
+       "Password" :"CantGiovanni1"
       },
 
 
@@ -115,7 +123,8 @@
           "Surname" : "Mosconi",
           "Name" : "Germano",
           "CV"   : "",
-          "IDCard" : ""
+          "IDCard" : "",
+          "Password" :"MoscGermano1"
          },
 
 
@@ -128,7 +137,8 @@
              "Surname" : "Popovic",
              "Name" : "Mikhail",
              "CV"   : "",
-             "IDCard" : ""
+             "IDCard" : "",
+             "Password" :"PopoMikhail1"
 
 
 

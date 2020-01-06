@@ -7,12 +7,14 @@ var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
 var messageControl= require('./app/controllers/messageControl');
+var notificationControl= require('./app/controllers/notificationControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
 const io = require('socket.io')(3000)
 app.set('view engine', 'ejs');
 
 var connectedClients={};
+var notificationClients={};
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
@@ -212,6 +214,14 @@ app.get('/index.html', function (req, res) {
 
 app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
+  signupUser.then(function(result){
+    if(result){
+      res.redirect('/');
+    }
+    else{
+      res.redirect('/signup.html');
+    }
+  });
 });
 
 app.post('/login', function(request, response){
@@ -228,8 +238,22 @@ io.on('connection', socket => {
     socket.username=sender;
   });
   socket.on('send-chat-message', function(message){
+    var result= messageControl.refreshMessageCache(message.recipientID, message.senderID, true);
     socket.broadcast.to(connectedClients[message.recipientID]).emit('chat-message', socket.username, message);
-  })
+  });
+
+  socket.on('subscribe-notification', function(receiver){
+    notificationClients[receiver]= socket.id;
+    socket.username=receiver;
+  });
+  socket.on('send-notification', function(notification){
+    var id=notificationControl.insertNotification(notification);
+    var result=notificationControl.refreshNotificationCache(notification.associatedID, true);
+    id.then(function(result){
+      notification._id=result;
+      socket.broadcast.to(notificationClients[notification.associatedID]).emit('receive-notification', socket.username, notification);
+    });
+  });
 })
 
 app.post('/getConnectedUser', function (req, res){
@@ -259,3 +283,48 @@ app.post('/updateMessage', function(req, res){
 app.post('/searchUser', function(req, res){
   messageControl.searchUser(req.body.type, req.body.search, res);
 });
+
+app.post('/getAllNotifications', function(req, res){
+  notificationControl.getAllNotification(req.body.email, res);
+});
+
+app.post('/removeNotification', function(req, res){
+  notificationControl.removeNotification(req.body.notificationID, res);
+});
+
+app.post('/insertNotification', function(req, res){
+  notificationControl.insertNotification(req.body.notifica, res);
+});
+
+app.post('/getReceivedNotification', function(req, res){
+  var prom= notificationControl.getNotificationCacheState(req.body.sender);
+  prom.then(function(result){
+    if(result)  res.json(true);
+    else  res.json(false);
+  });
+});
+
+app.post('/setReceivedNotification', function(req, res){
+  var prom= notificationControl.refreshNotificationCache(req.body.sender, false);
+  prom.then(function(result){
+    res.json(result);
+  });
+});
+
+app.post('/getReceivedMessage', function(req, res){
+  var prom= messageControl.getAllCache(req.body.sender);
+  prom.then(function(result){
+    var allSenders=[];
+    for(var i=0; result[i]!=null; i++){
+      allSenders.push(result[i].senderID);
+    }
+    res.json(allSenders);
+  });
+});
+
+app.post('/setReceivedMessage', function(req, res){
+  var prom= messageControl.refreshMessageCache(req.body.sender, req.body.receiver, false);
+  prom.then(function(result){
+    res.json(result);
+  });
+})
