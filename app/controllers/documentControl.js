@@ -38,7 +38,7 @@ exports.cvHandler = function(req,res) {
   });
     
 
-  }
+}
 
   exports.CVEraser = function(req, res) {
 

@@ -11,6 +11,11 @@ var messageControl= require('./app/controllers/messageControl');
 var notificationControl= require('./app/controllers/notificationControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
+const multer= require('multer');
+const Grid = require('gridfs-stream');
+const GridFsStorage = require('multer-grdifs-storage');
+const methodOverride = require('method-override');
+
 const io = require('socket.io')(3000)
 app.set('view engine', 'ejs');
 var formidable = require('formidable');
@@ -40,6 +45,12 @@ app.use(function(req,res,next) {
   res.locals.session = req.session;
   next();
 });
+
+//Middleware for file upload
+
+app.use(methodOverride('_method'));
+
+//End of middleware for file upload
 
 app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
