@@ -164,16 +164,16 @@ app.post('/saveExternalTutor', function(req, res) {
 });
 
 app.post('/disapproveAcademicTutor', function(req, res) {
-  var disapproveTutorPr = learningAgreementControl.disapproveAcademicTutor(req.session.utente.utente.Email, req.body.msg);
+  var disapproveTutorPr = learningAgreementControl.disapproveAcademicTutor(req.session.data.studentID, req.body.msg);
   disapproveTutorPr.then(function() {
-    res.render(path.join(__dirname + "/app/views/index.ejs"));
+    res.render("request.html");
   });
 });
 
 app.post('/disapproveExternalTutor', function(req, res) {
-  var disapproveTutorPr = learningAgreementControl.disapproveExternalTutor(req.session.utente.utente.Email, req.body.msg);
+  var disapproveTutorPr = learningAgreementControl.disapproveExternalTutor(req.session.data.studentID, req.body.msg);
   disapproveTutorPr.then(function() {
-    res.render(path.join(__dirname + "/app/views/index.ejs"));
+    res.render("request.html");
   });
 });
 

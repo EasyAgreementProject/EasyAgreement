@@ -40,16 +40,17 @@
             <br>
             <div class="button" style="margin-top: 15%;">
                 <div class="btn-group">
-                    <button class="btn2" type="button" id="approve">Approva</button>
-                    <button class="btn2" type="button" id="disapprove">Disapprova</button>
-                    <form id = "disapproveForm" method ="POST" action = "#" style = "display: none;">
-                        <div class = "form-label-group">
-                            <input type = "text" class = "form-control" name = "msg">
-                            <label for = "msg">Inserire la motivazione</label>
-                        </div>
-                        <button class="btn" type="submit" class="saveButton">Disapprova</button>
-                    </form>
+                    <button class="btn2" type="button" id="approve1">Approva</button>
+                    <button class="btn2" type="button" id="disapprove">Disapprova</button>                    
                 </div>
+                <form id = "disapproveForm" method ="POST" action = "#" style = "display: none;">
+                    <div class = "form-label-group">
+                        <input type = "text" class = "form-control" name = "msg">
+                        <label for = "msg">Inserire la motivazione</label>
+                    </div>
+                    <button class="btn2 btn-block" type="submit">Disapprova</button>
+                </form>
+                <button class="btn2 btn-block" type="button" id="approve2" style = "display:none">Approva</button>
                 <button class="btn2 btn-block" type="button" id="view" >Visualizza</button>
                 <button class="btn2 btn-block" type="button" id="idCard">Visualizza carta d'identità</button>
                 <button class="btn2 btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
@@ -75,21 +76,45 @@
                     document.getElementById("disapprove").style.display = "none";
                 }
 
-                $.get('/getConnectedUser', function(user) {
+                if(data["status"].startsWith("Disapprovato")) {
+                    document.getElementById("disapprove").style.display = "none";
+                    document.getElementById("approve1").style.display = "none";
+                    document.getElementById("approve2").style.display = "block";
+                }
+
+                $.post('/getConnectedUser', function(user) {
                     if(user.type === 'academicTutor') {
-                        document.getElementById("approve").onclick = "location.href='compileLAAcademicTutor.html'";
-                        document.getElementById("disapprove").onclick = function() {                            
-                            document.getElementById("disapproveForm").style.display = "block";
+                        if(data["status"].startsWith("Approvato dal Tutor Accademico")) {
+                            document.getElementById("approve1").style.display = "none";
                             document.getElementById("disapprove").style.display = "none";
-                            document.getElementById("disapproveForm").action = "/disapproveAcademicTutor"
+                        }
+                        else {
+                            document.getElementById("approve1").onclick = function() {location.href='compileLAAcademicTutor.html';}
+                            document.getElementById("disapprove").onclick = function() {                            
+                                document.getElementById("disapproveForm").style.display = "block";
+                                document.getElementById("disapprove").style.display = "none";
+                                document.getElementById("disapproveForm").action = "/disapproveAcademicTutor";
+                                document.getElementById("approve1").style.display = "none";
+                                document.getElementById("approve2").style.display = "block";
+                                document.getElementById("approve2").onclick = function() {location.href='compileLAAcademicTutor.html';}
+                            }
                         }
                     }
                     else if (user.type === 'externalTutor') {
-                        document.getElementById("approve").onclick = "location.href='compileLAExternalTutor.html'";
-                        document.getElementById("disapprove").onclick = function() {                            
-                            document.getElementById("disapproveForm").style.display = "block";
+                        if(data["status"].startsWith("Approvato dal Tutor Esterno")) {
+                            document.getElementById("approve1").style.display = "none";
                             document.getElementById("disapprove").style.display = "none";
-                            document.getElementById("disapproveForm").action = "/disapproveExternalTutor"
+                        }
+                        else {
+                            document.getElementById("approve1").onclick = location.href='compileLAExternalTutor.html';
+                            document.getElementById("disapprove").onclick = function() {                            
+                                document.getElementById("disapproveForm").style.display = "block";
+                                document.getElementById("disapprove").style.display = "none";
+                                document.getElementById("disapproveForm").action = "/disapproveExternalTutor";
+                                document.getElementById("approve1").style.display = "none";
+                                document.getElementById("approve2").style.display = "block";
+                                document.getElementById("approve2").onclick = location.href='compileLAExternalTutor.html';
+                            }
                         }
                     }
                 });
