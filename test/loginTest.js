@@ -16,7 +16,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errUsername');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -33,7 +33,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errUsername');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -50,7 +50,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -66,7 +66,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -82,7 +82,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -98,7 +98,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -115,7 +115,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errPassword');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -131,7 +131,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errPassword');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -144,11 +144,11 @@ describe('Login  unit testing...', function() {
         chai
         .request('http://localhost:8080')
         .post('/login')
-        .send({username : "a.ambruoso1@studenti.unisa.it", password : "ciaociaoooo" })
+        .send({username : "g.mosconi@studenti.unisa.it", password : "ciaociaoooo" })
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -160,11 +160,11 @@ describe('Login  unit testing...', function() {
         chai
         .request('http://localhost:8080')
         .post('/login')
-        .send({username : "a.ambruoso1@unisa.it", password : "ciaociaoooo" })
+        .send({username : "l.nebiolo@unisa.it", password : "ciaociaoooo" })
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -180,7 +180,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -196,7 +196,7 @@ describe('Login  unit testing...', function() {
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('errLogin');
+            expect(res).to.redirectTo('http://localhost:8080/');
             done();
 
 
@@ -208,11 +208,11 @@ describe('Login  unit testing...', function() {
         chai
         .request('http://localhost:8080')
         .post('/login')
-        .send({username : "a.ambruoso1@studenti.unisa.it", password : "ciaociao" })
+        .send({username : "g.mosconi@studenti.unisa.it", password : "MoscGermano1" })
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('logEff');
+            expect(res).to.redirectTo('http://localhost:8080/index.html');
             done();
 
 
@@ -224,11 +224,11 @@ describe('Login  unit testing...', function() {
         chai
         .request('http://localhost:8080')
         .post('/login')
-        .send({username : "a.ambruoso1@unisa.it", password : "ciaociao" })
+        .send({username : "m.bianco@unisa.it", password : "BiaMarco1" })
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('logEff');
+            expect(res).to.redirectTo('http://localhost:8080/index.html');
             done();
 
 
@@ -240,11 +240,11 @@ describe('Login  unit testing...', function() {
         chai
         .request('http://localhost:8080')
         .post('/login')
-        .send({username : "ambruoso@gmail.com", password : "ciaociao" })
+        .send({username : "s.brignolo@gmail.com", password : "silvia345" })
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('logEff');
+            expect(res).to.redirectTo('http://localhost:8080/index.html');
             done();
 
 
@@ -256,11 +256,11 @@ describe('Login  unit testing...', function() {
         chai
         .request('http://localhost:8080')
         .post('/login')
-        .send({username : "marino@unisa.it", password : "ciaociao" })
+        .send({username : "a.marino@unisa.it", password : "andrea123" })
         .end(function(err,res) {
 
             if(err) return done(err);
-            expect(res).to.have.cookie('logEff');
+            expect(res).to.redirectTo('http://localhost:8080/index.html');
             done();
 
 
