@@ -596,6 +596,26 @@ app.post('/addExtTutorF', function(req, res) {
     }
   });
 });
+
+
+app.get('/toViewInfo', function(req,res) {
+
+res.render('admin/viewInfo');
+
+});
+
+app.get('/toViewOrg', function(req,res) {
+
+res.render('admin/vieworg');
+
+});
+
+app.get('/toViewTutor', function(req,res) {
+
+  res.render('admin/viewtutor');
+  
+  });
+
 /*
 app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
 
