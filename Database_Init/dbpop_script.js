@@ -88,5 +88,10 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
         console.log("Succesfully created the collection LearningAgreement_revision.")
     });
 
+    dbo.createCollection("Request", function(err) {
+        if (err) throw err;
+        console.log("Succesfully created the collection Request.")
+    })
+
     return;
 });

@@ -46,6 +46,34 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
                     console.log("Succesfully deleted "+result.deletedCount+" academic tutors");
                 
                     });
+                    
+                    dbo.collection("current_LearningAgreement").deleteMany({}, function(err,result) {
+
+                        if(err) throw err;
+                        console.log("Succesfully deleted "+result.deletedCount+" current Learning Agreements");
+                    
+                        });
+
+                        dbo.collection("current_LearningAgreement").deleteMany({}, function(err,result) {
+
+                            if(err) throw err;
+                            console.log("Succesfully deleted "+result.deletedCount+" current Learning Agreements");
+                        
+                            });
+
+                            dbo.collection("LearningAgreement_revision").deleteMany({}, function(err,result) {
+
+                                if(err) throw err;
+                                console.log("Succesfully deleted "+result.deletedCount+" versions of Learning Agreements");
+                            
+                                });
+
+                                dbo.collection("Request").deleteMany({}, function(err,result) {
+
+                                    if(err) throw err;
+                                    console.log("Succesfully deleted "+result.deletedCount+" requests");
+                                
+                                    });
 
 
 
