@@ -328,6 +328,15 @@ app.post('/signup', function(req, res) {
 
 app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
+  UserLogin.then(function(result){
+    if(result!=false){
+      request.session.utente=result;
+      response.redirect('/index.html');
+    }
+    else{
+      response.redirect('/');
+    }
+  })
 });
 
 app.post('/uploadID', uploadID('filetoupload'), function(req, res){
@@ -470,39 +479,74 @@ app.post('/getConnectedUser', function (req, res){
 });
 
 app.post('/getContacts', function (req, res){
-  messageControl.getAllContacts(req.body.type, res);
+  var get=messageControl.getAllContacts(req.body.type, res);
+  get.then(function(result){
+    res.json(result);
+  })
 });
 
 app.post('/getMessages', function(req, res){
-  messageControl.getAllMessages(req.body.sender, req.body.recipient, res);
+  var get=messageControl.getAllMessages(req.body.sender, req.body.recipient, res);
+  get.then(function(result){
+    res.json(result);
+  })
 });
 
 app.post('/saveMessage', function(req, res){
-  messageControl.saveMessage(req.body.message, res);
+  var save=messageControl.saveMessage(req.body.message, res);
+  save.then(function(result){
+    res.json(result);
+  })
 });
 
 app.post('/removeMessage', function(req, res){
-  messageControl.removeMessage(req.body.messageID, res);
+  var remove=messageControl.removeMessage(req.body.messageID, res);
+  remove.then(function(result){
+    res.json(result);
+  })
 });
 
 app.post('/updateMessage', function(req, res){
-  messageControl.updateMessage(req.body.messageID, req.body.text, res);
+  var update= messageControl.updateMessage(req.body.messageID, req.body.text, res);
+  update.then(function(result){
+    res.json(result);
+  })
 });
 
 app.post('/searchUser', function(req, res){
-  messageControl.searchUser(req.body.type, req.body.search, res);
+  var search=messageControl.searchUser(req.body.type, req.body.search, res);
+  search.then(function(result){
+    if(result.type=="academicTutor"){
+      res.json({student: users1, external: users2});
+    }
+    else if(result.type=="student"){
+      res.json({academic: users1, external: users2});
+    }
+    else if(result.type=="externalTutor"){
+      res.json({student: users1, academic: users2});
+    }
+  });
 });
 
 app.post('/getAllNotifications', function(req, res){
-  notificationControl.getAllNotification(req.body.email, res);
+  var get= notificationControl.getAllNotification(req.body.email, res);
+  get.then(function(result){
+    res.json(result);
+  })
 });
 
 app.post('/removeNotification', function(req, res){
-  notificationControl.removeNotification(req.body.notificationID, res);
+  var remove=notificationControl.removeNotification(req.body.notificationID, res);
+  remove.then(function(result){
+    res.json(result);
+  })
 });
 
 app.post('/insertNotification', function(req, res){
-  notificationControl.insertNotification(req.body.notifica, res);
+  var id=notificationControl.insertNotification(req.body.notifica, res);
+  id.then(function(result){
+    res.json(id);
+  })
 });
 
 app.post('/getReceivedNotification', function(req, res){
