@@ -129,17 +129,8 @@
             $("#wrapper ").toggleClass("toggled ");
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            $.get("/fillForm", function(data) {
-                if (data["First name (s)"]) document.getElementById("inputName").value = data["First name (s)"];
-                if (data["Last name (s)"]) document.getElementById("inputSurname").value = data["Last name (s)"];
-                if (data["Email (s)"]) document.getElementById("inputEmail").value = data["Email (s)"];
-                if (data["Password"]) document.getElementById("inputPassword").value = data["Password"];
-            });
-        });
-    </script>
-    <script type="text/javascript" src="./js/formCookies.js"></script>
+    
+   
 </body>
 
 </html>

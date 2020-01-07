@@ -71,7 +71,7 @@
                 <h1 class="mt-4">Organizzazione Ospitante</h1>
                 <hr>
                 <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzazione Ospitante</h5>
-                <form id="formCompile" method="post" action="/addExtOrg" name="formCompile"><br>
+                <form id="formCompile" method="post" action="/addHostOrgF" name="formCompile"><br>
                     <div class="form-label-group">
                         <input type="text" id="inputErasmusCode" class="form-control" name="inputErasmusCode" placeholder="Erasmus Code"  >
                         <label for="inputErasmusCode">Erasmus Code<label>
@@ -340,8 +340,8 @@
                                 </select>
                     </div>
                     <div class="form-label-group">
-                        <input type="tel" id="inputTelephone" class="form-control" name="inputTelephone" placeholder="Telefono"  >
-                        <label for="inputTelephone">Telefono</label>
+                        <input type="tel" id="inputContacts" class="form-control" name="inputContacts" placeholder="Contatti"  >
+                        <label for="inputContatti">Contatti</label>
                     </div>
                     <div class="form-label-group">
                         <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome"  >
@@ -366,19 +366,7 @@
             $("#wrapper ").toggleClass("toggled ");
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            $.get("/fillForm", function(data) {
-                if (data["Erasmus Code (s)"]) document.getElementById("inputErasmusCode").value = data["Erasmus Code (s)"];
-                if (data["Facoltà (s)"]) document.getElementById("inputFacolta").value = data["Facoltà (s)"];
-                if (data["Indirizzo (s)"]) document.getElementById("inputIndirizzo").value = data["Indirizzo (s)"];
-                if (data["Size"]) document.getElementById("inputSize").value = data["Size"];
-                if (data["Telefono"]) document.getElementById("inputTelephone").value = data["Telefono"];
-                if (data["Nome (s)"]) document.getElementById("inputName").value = data["Nome (s)"];
-            });
-        });
-    </script>
-    <script type="text/javascript" src="./js/formCookies.js"></script>
+    
 </body>
 
 </html>

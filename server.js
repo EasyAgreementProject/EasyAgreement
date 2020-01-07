@@ -555,13 +555,26 @@ app.post('/setReceivedMessage', function(req, res){
   });
 })
 
-app.get('/addExtOrg', function(req,res){
+app.get('/addHostOrg', function(req,res){
 
 res.render('admin/insorg');
 
 });
 
+app.post('/addHostOrgF', function(req, res) {
+  var administratorAddHost=administratorControl.addHostOrg(req,res);
+  administratorAddHost.then(function(result){
+    if(result== true){
+      console.log("result=true");
+      res.render('admin/insorg');
+    }
+    else{
+      console.log("result=false");
 
+      res.render('admin/insorg');
+    }
+  });
+});
 
 app.get('/addExtTutor', function(req,res) { 
 

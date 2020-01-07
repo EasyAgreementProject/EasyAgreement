@@ -1,6 +1,8 @@
 var hash=require('./hash.js');
 var adminModel= require('../models/administrator.js');
 var extutorModel= require('../models/externaltutor.js');
+var organizationModel= require('../models/hostorganization.js');
+
 var session = require('express-session');
 
 exports.update=function(req,res){
@@ -52,40 +54,96 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
     }
 
     exports.addHostOrg=function(req, res) {
+        return new Promise(function(fulfill, reject){
 
         var erasmusCode = req.body.inputErasmusCode;
         var faculty = req.body.inputFacolta;
         var address = req.body.inputIndirizzo;
         var orgSize = req.body.inputSize;
         var country = req.body.inputCountry;
-        var phone = req.body.inputTelephone;
+        var contact = req.body.inputContacts;
         var name= req.body.inputName;
 
-        var HostOrg= {
 
-            "ErasmusCode"   : erasmusCode,
-            "Faculty"       : faculty,
-            "Address"       : address,
-            "Size"          : orgSize,
-            "Country"       : country,
-            "Contacts"      : phone,
-            "Name"          : name
+         
+        var isRight=true;
 
+        if((erasmusCode==null) || (erasmusCode.length<=5) || (!/^[A-Za-z0-9]+$/.test(erasmusCode))){
+            res.cookie('errErasmusCode','1');
+            isRight=false;
+        }
+     
+    
+        if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
+            res.cookie('errTutorName','1');
+            isRight=false;
         }
 
+        if((faculty==null) || (faculty.length<=1) || (!/^[A-Za-z]+$/.test(faculty))){
+            res.cookie('errTutorName','1');
+            isRight=false;
+        }
 
-        return new Promise(function(fulfill, reject){
-            var added= adminModel.addHostOrg(HostOrg);
-            added.then(function(){
-                fulfill();
-            });
-        });
+        if((address==null) || (address.length<=6) || (!/^[A-Za-z0-9,\s]+$/.test(address))){
+            res.cookie('errStudentAddress','1');
+            isRight=false;
+        }
     
-
-
-
+        if((contact==null) || (contact.length<=7)){
+            res.cookie('errContact','1');
+           
+            isRight=false;
+        }
     
+        if((country==null) || (country.length<=1) || (!/^[A-Za-z0-9\s]+$/.test(country))){
+            res.cookie('errCountryName','1');
+            isRight=false;
+        }
 
+        if((orgSize==null) || (!/^[0-9\s]+$/.test(orgSize))){
+            res.cookie('errCountryName','1');
+            isRight=false;
+        }
+    
+    
+        if(!isRight){
+            fulfill(false);
+            return;
+        }
+    
+       
+        //Create host organization object
+        var organizzazioneEsterna= new organizationModel();
+        organizzazioneEsterna.setContacts(contact);
+        organizzazioneEsterna.setName(name);
+        organizzazioneEsterna.setCountry(country);
+        organizzazioneEsterna.setOrgSize(orgSize);
+        organizzazioneEsterna.setAddress(address);
+        organizzazioneEsterna.setFaculty(faculty);
+        organizzazioneEsterna.setErasmusCode(erasmusCode);
+
+       
+    
+        
+        var checkE=organizationModel.findByName(name);
+    
+                    checkE.then(function(result){
+                        if(!result){
+                            res.cookie('errAlreadyReg','1');
+                            fulfill(false);
+                            return;
+                        }
+                        if(result){
+                            //Save student in database
+                            adminModel.addHostOrg(organizzazioneEsterna);
+    
+                            //redirect
+                            res.cookie('regEff','1');
+                            fulfill(true);
+                            return;
+                        }
+                    })
+                });
 }
 
 exports.deleteHostOrg=function(req,res){
@@ -111,10 +169,11 @@ exports.addExtTutor=function (req,res) {
     var repassword = req.body.inputRePassword;
     var organization = req.body.inputOrganization;
 
+    var isRight=true; 
     if (password != repassword) {
 
         
-        return false;
+        isRight=false;
 
     }
 
@@ -158,7 +217,7 @@ exports.addExtTutor=function (req,res) {
     //hashing e salt of password
     var passwordHashed=hash.hashPassword(password);
 
-    //Create academic tutor object
+    //Create external tutor object
     var tutorEsterno= new extutorModel();
     tutorEsterno.setSurname(surname);
     tutorEsterno.setName(name);
