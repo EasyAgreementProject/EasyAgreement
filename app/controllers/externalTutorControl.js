@@ -47,8 +47,7 @@ if(organization.length!=0){
 
 
 if(!isRight){
-    var path = require('path');
-    res.redirect("profile");
+    fulfill(false);
     return;
 }
 
@@ -60,7 +59,7 @@ if(!isRight){
             {
                 req.session.utente.utente=result;
                 res.cookie('updateEff','1');
-                fulfill();
+                fulfill(true);
             }
             
             else
@@ -101,9 +100,8 @@ exports.updatePassword=function(req,res){
 
     if(!isRight){
 
-        console.log("stampa pass"+password+passwordConfirm);
-        var path = require('path');
-        res.redirect("profile");
+        fulfill(false);
+
         return;
     }
 
@@ -118,7 +116,7 @@ exports.updatePassword=function(req,res){
 
             req.session.utente.utente=result;
             res.cookie('updatePassEff','1');
-            fulfill();
+            fulfill(true);
            }
            else
            reject();

@@ -41,6 +41,9 @@ app.use(session({
   saveUninitialized: true    
 })); 
 
+
+
+
 app.use(function(req,res,next) {  
   res.locals.session = req.session;  
   next();   
@@ -285,7 +288,9 @@ app.post('/updateProfile', function(req, res) {
          updateS.then(function(){
           res.render('profile');
          });
-      }else if(req.session.utente.type=="academicTutor"){
+      }
+     else
+      if(req.session.utente.type=="academicTutor"){
           var updateA=academicTutorControl.update(req, res);
           updateA.then(function(){
           res.render('profile');
@@ -297,7 +302,7 @@ app.post('/updateProfile', function(req, res) {
               });
            
       }
-}
+  }
 });
 
 app.post('/updatePassword',function(req,res){
@@ -308,23 +313,34 @@ if(req.session.utente == null)
 else{
   if(req.session.utente.type=="student"){
   var updateS=studentControl.updatePassword(req, res);
-  updateS.then(function(){
+  updateS.then(function(result){
+    if(result==true)
+     res.render('profile');
+   else
+     res.render('profile');
 
-    res.render('profile');
   });
 }
  else
   if(req.session.utente.type=="academicTutor"){
-    var updateA=academicTutorControl.updatePassword(req, res);
-    updateA.then(function(){
-    res.render('profile');
-  });
+    var updateAc=academicTutorControl.updatePassword(req, res);
+    updateAc.then(function(result){
+      if(result==true)
+       res.render('profile');
+     else
+       res.render('profile');
+
+    });
 }
  else
  if(req.session.utente.type=="externalTutor"){
            var updateE=externalTutorControl.updatePassword(req, res);
-           updateE.then(function(){
-            res.render('profile');
+           updateE.then(function(result){
+            if(result==true)
+             res.render('profile');
+           else
+             res.render('profile');
+ 
           });
         }
   else
@@ -340,23 +356,22 @@ else{
 app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
 });
-
-app.get('/profile',function(request,response){
-
-  response.render('profile');
-});
+/*
+app.get('/profile', function (request, response) {
+    response.render('profile');
+});*/
 
 app.get('/profile', function (request, response) {
-  if(request.session.utente == null)
-  
+  if(request.session.utente == null){
     response.redirect("/");
-  
+  }
   else
   {  response.render('profile');
     
   }
     
 });
+
 
 
 

@@ -28,8 +28,7 @@ exports.update=function(req,res){
 
 if(!isRight){
 
-    var path = require('path');
-    res.redirect("profile");
+    fulfill(false);
     return;
 }
 
@@ -40,7 +39,7 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
         if(result!= null){ 
             req.session.utente.utente=result;
             res.cookie('updatePassEff','1');
-            fulfill();
+            fulfill(true);
 
            }
            else

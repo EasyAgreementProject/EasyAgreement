@@ -1,19 +1,24 @@
 var chai= require('chai');
 var chaiHttp = require('chai-http');
 var app = require('../app/controllers/studentControl');
+var express = require('express');
+
+var appz = express();
 chai.use(chaiHttp);
 var expect=chai.expect;
 
 describe('Field test for profileControl', function(){
 
-    it.only('Testin method profileControl - TC_PM_1.1.1', function(done){
+    it.only('Testin method profileControl - TC_PM_1.1.1', function(done){ 
+        
         chai
             .request('http://localhost:8080')
-            .get('/profile')
+            .get('/updateProfile')
             .send({inputNameS: "M"})
+            
             .end(function(err, res){
                 if(err)   return done(err);
-                expect(res).to.have.cookie('errNameS');
+                expect(res).to.redirectTo('http://localhost:8080/');
                 done();
             });
     });
