@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="./js/formValidation.js"></script>
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script defer src="js/chat.js"></script>
@@ -515,9 +516,84 @@
                     <div class="form-label-group">
                         <p style="font-weight: bold;">Competenza linguistica del tirocinante:</p>
                         <p>Lingua principale sul luogo di lavoro<sup>8</sup>
-                            <input type="text" class="form-control" id="inputLenguage" name="inputLenguage" placeholder="Lingua"  >
-                            <label for="inputLenguage">Lingua</label>
-                            <span id="errLenguage">Lingua non valida</span> 
+                            <div class="col-auto-my-1">
+                                <label class="mr-sm-2" for="inlineFormCustomSelect">Lingua:</label>
+                                <select class="custom-select mr-sm-2" id="inputLenguage" name="inputLenguage">
+                                    <option selected="selected" value="">--Seleziona--</option>
+                                    <option value="AF">Africano</option>
+                                    <option value="SQ">Albanese</option>
+                                    <option value="AR">Arabo</option>
+                                    <option value="HY">Armeno</option>
+                                    <option value="EU">Basco</option>
+                                    <option value="BN">Bengalese</option>
+                                    <option value="BG">Bulgaro</option>
+                                    <option value="CA">Catalano</option>
+                                    <option value="KM">Cambogiano</option>
+                                    <option value="ZH">Cinese</option>
+                                    <option value="HR">Croato</option>
+                                    <option value="CS">Ceco</option>
+                                    <option value="DA">Danese</option>
+                                    <option value="NL">Olandese</option>
+                                    <option value="EN">Inglese</option>
+                                    <option value="ET">Estone</option>
+                                    <option value="FJ">Fiji</option>
+                                    <option value="FI">Finlandese</option>
+                                    <option value="FR">Francese</option>
+                                    <option value="KA">Georgiano</option>
+                                    <option value="DE">Tedesco</option>
+                                    <option value="EL">Greco</option>
+                                    <option value="GU">Gujarati</option>
+                                    <option value="HE">Ebraico</option>
+                                    <option value="HI">Hindi</option>
+                                    <option value="HU">Ungherese</option>
+                                    <option value="IS">Islandese</option>
+                                    <option value="ID">Indonesiano</option>
+                                    <option value="GA">Irlandese</option>
+                                    <option value="IT">Italiano</option>
+                                    <option value="JA">Giapponese</option>
+                                    <option value="JW">Giavanese</option>
+                                    <option value="KO">Coreano</option>
+                                    <option value="LV">Lettone</option>
+                                    <option value="LT">Lituano</option>
+                                    <option value="MK">Macedone</option>
+                                    <option value="MS">Malese</option>
+                                    <option value="ML">Malayalam</option>
+                                    <option value="MT">Maltese</option>
+                                    <option value="MI">Maori</option>
+                                    <option value="MR">Marathi</option>
+                                    <option value="MN">Mongolo</option>
+                                    <option value="NE">Nepali</option>
+                                    <option value="NO">Norvegese</option>
+                                    <option value="FA">Persiano</option>
+                                    <option value="PL">Polacco</option>
+                                    <option value="PT">Portoghese</option>
+                                    <option value="PA">Punjabi</option>
+                                    <option value="QU">Quechua</option>
+                                    <option value="RO">Rumeno</option>
+                                    <option value="RU">Russo</option>
+                                    <option value="SM">Samoan</option>
+                                    <option value="SR">Serbo</option>
+                                    <option value="SK">Slovacco</option>
+                                    <option value="SL">Sloveno</option>
+                                    <option value="ES">Spagnolo</option>
+                                    <option value="SW">Swahili</option>
+                                    <option value="SV">Swedese</option>
+                                    <option value="TA">Tamil</option>
+                                    <option value="TT">Tatar</option>
+                                    <option value="TE">Telugu</option>
+                                    <option value="TH">Tailandese</option>
+                                    <option value="BO">Tibetano</option>
+                                    <option value="TO">Tonga</option>
+                                    <option value="TR">Turco</option>
+                                    <option value="UK">Ucraino</option>
+                                    <option value="UR">Urdu</option>
+                                    <option value="UZ">Uzbek</option>
+                                    <option value="VI">Vietnamita</option>
+                                    <option value="CY">Gallese</option>
+                                    <option value="XH">Xhosa</option>
+                                </select>
+                                
+                            </div>
                     </div><br>
                     <p>[Il livello di competenza linguistica in] che il tirocinante ha già o accetta di acquisire all'inizio del periodo di mobilità è:</p>
                     <div class="row">
@@ -552,14 +628,14 @@
                         <p>1) Nazionalità: Paese di appartenenza amministrativa della persona e che rilascia la carta d'identità e / o il passaporto.<br>
                             <hr> 2) Ciclo di studio: ciclo breve (livello 5 EQF) / laurea triennale o equivalente (livello 6 EQF) / secondo ciclo master o equivalente (livello EQF 7) / dottorato o terzo ciclo equivalente (EQF livello 8) - per i neolaureati,
                             specificare l'ultimo ciclo di studio.<br>
-                            <hr> 3) Lo strumento di ricerca ISCED-F 2013 disponibile su <a href="https://bit.ly/36dvEky">questo link</a> dovrebbe essere utilizzato per trovare il settore dettagliato dell'istruzione e formazione ISCED 2013 più vicino all'argomento
+                            <hr> 3) Lo strumento di ricerca ISCED-F 2013 disponibile su <a href="https://bit.ly/36dvEky" target="_blank">questo link</a> dovrebbe essere utilizzato per trovare il settore dettagliato dell'istruzione e formazione ISCED 2013 più vicino all'argomento
                             del titolo che deve essere assegnato al tirocinante dall'istituto di invio.<br>
-                            <hr> 4) L'elenco dei codici settoriali di alto livello della NACE è disponibile all'indirizzo: <a href="https://bit.ly/2SCvorr">link</a>.<br>
+                            <hr> 4) L'elenco dei codici settoriali di alto livello della NACE è disponibile all'indirizzo: <a href="https://bit.ly/2SCvorr" target="_blank">link</a>.<br>
                             <hr> 5) Le dimensioni dell'impresa potrebbero essere, ad esempio, 1-50 / 51-500.<br>
                             <hr> 6) Persona di contatto: una persona che può fornire informazioni nell'ambito di Erasmus tirocinanti.<br>
                             <hr> 7) Mentore: il ruolo del mentore è di fornire supporto, incoraggiamento e informazione al tirocinante sulla vita e sull'esperienza relative all'impresa (cultura dell'impresa, codici e comportamenti informali, ecc.). Normalmente,
                             il mentore dovrebbe essere una persona diversa rispetto al supervisore.<br>
-                            <hr> 8) Per il quadro comune europeo di riferimento per le lingue (QCER), consultare <br><a href="https://bit.ly/2MKb839">link</a></p>
+                            <hr> 8) Per il quadro comune europeo di riferimento per le lingue (QCER), consultare: <a href="https://bit.ly/2MKb839" target="_blank">link</a></p>
                     </div>
                     <hr>
                     <button class="btn btn-block" type="submit" class="saveButton" id="send">INVIA</button>

@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="/css/compileLAAcademicTutor.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="./js/formValidationAcademicTutor.js"></script>
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script defer src="js/chat.js"></script>
@@ -264,18 +265,24 @@
      if(document.getElementById("inputCredits").value>0){
          document.getElementById("Info1").style.display='initial';
          document.getElementById("Info2").style.display='none';
+         document.getElementById("Info2").required=false;
          if((document.getElementById("inputCredits").value<1)||(document.getElementById("inputCredits").value==null)){
             document.getElementById("Info2").style.display='initial';
+            document.getElementById("Info2").required=true;
          }
      }else if(document.getElementById("inputCredits2").value>0){
         document.getElementById("Info1").style.display='none';
         document.getElementById("Info2").style.display='initial';
+        document.getElementById("Info1").required=false;
         if((document.getElementById("inputCredits2").value<1)||(document.getElementById("inputCredits2").value==null)){
             document.getElementById("Info1").style.display="initial";
+            document.getElementById("Info1").required=true;
         }
      }else{
         document.getElementById("Info1").style.display='initial';
+        document.getElementById("Info1").required=true;
         document.getElementById("Info2").style.display='initial';
+        document.getElementById("Info2").required=true;
      }
    
 }
