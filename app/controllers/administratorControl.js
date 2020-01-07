@@ -58,11 +58,11 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
 
         var erasmusCode = req.body.inputErasmusCode;
         var faculty = req.body.inputFacolta;
-        var address = req.body.inputIndirizzo;
+        var address = req.body.inputAddress;
         var orgSize = req.body.inputSize;
         var country = req.body.inputCountry;
         var contact = req.body.inputContacts;
-        var name= req.body.inputName;
+        var name= req.body.inputNameT;
 
 
          
@@ -80,7 +80,7 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
         }
 
         if((faculty==null) || (faculty.length<=1) || (!/^[A-Za-z]+$/.test(faculty))){
-            res.cookie('errTutorName','1');
+            res.cookie('errFaculty','1');
             isRight=false;
         }
 
@@ -90,8 +90,7 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
         }
     
         if((contact==null) || (contact.length<=7)){
-            res.cookie('errContact','1');
-           
+            res.cookie('errContactName','1');
             isRight=false;
         }
     
@@ -101,7 +100,7 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
         }
 
         if((orgSize==null) || (!/^[0-9\s]+$/.test(orgSize))){
-            res.cookie('errCountryName','1');
+            res.cookie('errSize','1');
             isRight=false;
         }
     

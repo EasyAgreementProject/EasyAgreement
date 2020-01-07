@@ -52,12 +52,40 @@ $(document).ready(function(){
     var logoutEff=getCookie("logoutEff");
     var updateEff=getCookie("updateEff");
     var updatePassEff=getCookie("updatePassEff");
+    var errContactName = getCookie("errContactName");
+    var errSize = getCookie("errSize");
+    var errFacolta = getCookie("errFaculty");
+    var errErasmusCode= getCookie("errErasmusCode");
+
+    if(errErasmusCode=="1"){
+        $('#errErasmusCode').css('display','block');
+        $('#inputErasmusCode').addClass("errClass");
+        document.cookie="errFaculty=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errFacolta=="1"){
+        $('#errFacolta').css('display','block');
+        $('#inputFacolta').addClass("errClass");
+        document.cookie="errFaculty=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
 
     if(errOrganization=="1"){
         $('#errOrganization').css('display','block');
         $('#inputOrganization').addClass("errClass");
         document.cookie="errOrganizationName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+    if(errSize=="1"){
+        $('#errSize').css('display','block');
+        $('#inputSize').addClass("errClass");
+        document.cookie="errOSize=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errContactName=="1"){
+        $('#errContatti').css('display','block');
+        $('#inpuContacts').addClass("errClass");
+        document.cookie="errContactName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
     if(errName=="1"){
         $('#errName').css('display','block');
         $('#inputName').addClass("errClass");

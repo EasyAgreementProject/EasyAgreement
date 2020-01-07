@@ -73,24 +73,32 @@
                 <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzazione Ospitante</h5>
                 <form id="formCompile" method="post" action="/addHostOrgF" name="formCompile"><br>
                     <div class="form-label-group">
-                        <input type="text" id="inputErasmusCode" class="form-control" name="inputErasmusCode" placeholder="Erasmus Code"  >
+                        <input type="text" id="inputErasmusCode" class="form-control" name="inputErasmusCode" placeholder="Erasmus Code"  required>
                         <label for="inputErasmusCode">Erasmus Code<label>
+                        <span id="errErasmusCode">Erasmus Code non valido</span>
+
                     </div>
                          <div class="form-label-group">
-                            <input type="text" id="inputFacolta" class="form-control" name="inputFacolta" placeholder="Facoltà"  >
+                            <input type="text" id="inputFacolta" class="form-control" name="inputFacolta" placeholder="Facoltà"  required>
                             <label for="inputFacolta">Facoltà</label>
+                            <span id="errFacolta">Facolta non valida</span>
+
                     </div>
                     <div class="form-label-group">
-                        <input type="text" id="inputIndirizzo" class="form-control" name="inputIndirizzo" placeholder="Indirizzo"  >
+                        <input type="text" id="inputIndirizzo" class="form-control" name="inputAddress" placeholder="Indirizzo" required >
                         <label for="inputIndirizzo">Indirizzo</label>
+                        <span id="errAddress">Indirizzo non valido</span>
+
                     </div>
                     <div class="form-label-group">
-                        <input type="text" id="inputSize" class="form-control" name="inputSize" placeholder="Size"  >
-                        <label for="inputSize">Size</label>
+                        <input type="text" id="inputSize" class="form-control" name="inputSize" placeholder="Dimensione" required >
+                        <label for="inputSize">Dimensione</label>
+                        <span id="errSize">Dimensione non valida</span>
+
                     </div>
                     <div class="col-auto-my-1">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Paese:</label>
-                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="inputCountry"  >
+                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="inputCountry" required >
                                         <option selected="selected" value="">--Seleziona--</option>
                                         <option value="afghanistan">Afghanistan</option>
                                         <option value="albania">Albania</option>
@@ -340,12 +348,15 @@
                                 </select>
                     </div>
                     <div class="form-label-group">
-                        <input type="tel" id="inputContacts" class="form-control" name="inputContacts" placeholder="Contatti"  >
+                        <input type="tel" id="inputContacts" class="form-control" name="inputContacts" placeholder="Contatti"  required>
                         <label for="inputContatti">Contatti</label>
+                        <span id="errContatti">Contatti non validi</span>
                     </div>
                     <div class="form-label-group">
-                        <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome"  >
+                        <input type="text" id="inputNameT" class="form-control" name="inputNameT" placeholder="Nome" required >
                         <label for="inputName">Nome<label>
+                        <span id="errNameT">Nome non valido</span>
+
                     </div>
 
                     <hr>
