@@ -8,8 +8,8 @@ describe('Field test for notificationControl', function() {
     var idNotifica=null;
     
     it('Testing insertNotification', function(done) {
-        var notification={associatedID: "d.devito@studenti.unisa.it", text: {title: "test", text: "Questo è il testing"}, date:{hour:"12", minutes:"20", seconds:"10", day:"24", months:"12", year:"2019"}};
-        var save=notificationControl.insertNotification(notification);
+        var notifica={associatedID: "d.devito@studenti.unisa.it", text: {title: "test", text: "Questo è il testing"}, date:{hour:"12", minutes:"20", seconds:"10", day:"24", months:"12", year:"2019"}};
+        var save=notificationControl.insertNotification(notifica);
         save.then(function(result){
             expect(result).to.not.be.null;
             idNotifica=result;

@@ -30,7 +30,7 @@ describe('Field test for messageControl', function() {
         });
     });
 
-    it('Testing getContacts 1.1', function(done) {
+    it('Testing getContacts 1', function(done) {
         var res = mockHttp.createResponse();
         var type= "academicTutor";
         var get=messageControl.getAllContacts(type, res);
@@ -40,7 +40,7 @@ describe('Field test for messageControl', function() {
         });
     });
 
-    it('Testing getContacts 1.2', function(done) {
+    it('Testing getContacts 2', function(done) {
         var res = mockHttp.createResponse();
         var type= "student";
         var get=messageControl.getAllContacts(type, res);
@@ -50,7 +50,7 @@ describe('Field test for messageControl', function() {
         });
     });
 
-    it('Testing getContacts 1.3', function(done) {
+    it('Testing getContacts 3', function(done) {
         var res = mockHttp.createResponse();
         var type= "externalTutor";
         var get=messageControl.getAllContacts(type, res);
@@ -60,7 +60,7 @@ describe('Field test for messageControl', function() {
         });
     });
 
-    it('Testing searchUser 1.1', function(done) {
+    it('Testing searchUser 1', function(done) {
         var res = mockHttp.createResponse();
         var type= "externalTutor";
         var string="Francesco";
@@ -71,7 +71,7 @@ describe('Field test for messageControl', function() {
         });
     });
 
-    it('Testing searchUser 1.2', function(done) {
+    it('Testing searchUser 2', function(done) {
         var res = mockHttp.createResponse();
         var type= "academicTutor";
         var string="Sara";
@@ -82,7 +82,7 @@ describe('Field test for messageControl', function() {
         });
     });
 
-    it('Testing searchUser 1.3', function(done) {
+    it('Testing searchUser 3', function(done) {
         var res = mockHttp.createResponse();
         var type= "student";
         var string="Sara";
@@ -129,6 +129,5 @@ describe('Field test for messageControl', function() {
             expect(result).to.not.be.null;
             done();
         });
-    });
-    
+    }); 
 });
