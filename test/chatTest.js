@@ -130,5 +130,4 @@ describe('Field test for messageControl', function() {
             done();
         });
     });
-
 });
