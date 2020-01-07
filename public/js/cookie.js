@@ -23,30 +23,79 @@
 $(document).ready(function(){
     var cookie=document.cookie;
     var errName=getCookie("errStudentName");
+    var errNameAt=getCookie("erracademicTutorName");
+    var errSurnameAt=getCookie("erracademicTutorSurname");
     var errSurname=getCookie("errStudentSurname");
+    var errNameS=getCookie("errNameS");
+    var errSurnameS=getCookie("errSurnameS");
+    var errNameE=getCookie("errexternalTutorName");
+    var errSurnameE=getCookie("errexternalTutorSurname");
     var errEmail=getCookie("errStudentEmail");
     var errMatricola=getCookie("errStudentMatricola");
     var errCity=getCookie("errStudentCity");
     var errAddress=getCookie("errStudentAddress");
     var errCorso=getCookie("errStudentCorso");
+    var errOldPassword=getCookie("errOldPassword");
     var errPassword=getCookie("errPassword");
     var errPasswordConfirm=getCookie("errPasswordConfirm");
     var errNameT=getCookie("errTutorName");
     var errSurnameT=getCookie("errTutorSurname");
     var errEmailT=getCookie("errTutorEmail");
     var errDepartment=getCookie("errTutorDepartment");
+    var errOrganization=getCookie("errOrganizationName");
     var regEff= getCookie("regEff");
     var alreadyReg= getCookie("errAlreadyReg");
     var errUsername=getCookie("errUsername");
     var errPassword=getCookie("errPassword");
     var errLogin= getCookie("errLogin");
     var logEff=getCookie("logEff");
+    var logoutEff=getCookie("logoutEff");
+    var updateEff=getCookie("updateEff");
+    var updatePassEff=getCookie("updatePassEff");
 
+    if(errOrganization=="1"){
+        $('#errOrganization').css('display','block');
+        $('#inputOrganization').addClass("errClass");
+        document.cookie="errOrganizationName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
     if(errName=="1"){
         $('#errName').css('display','block');
         $('#inputName').addClass("errClass");
         document.cookie="errStudentName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+    if(errNameAt=="1"){
+        $('#errNameAc').css('display','block');
+        $('#inputNameAc').addClass("errClass");
+        document.cookie="erracademicTutorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errNameS=="1"){
+        $('#errNameS').css('display','block');
+        $('#inputNameS').addClass("errClass");
+        document.cookie="errNameS=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errSurnameS=="1"){
+        $('#errSurnameS').css('display','block');
+        $('#inputSurnameS').addClass("errClass");
+        document.cookie="errSurnameS=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errNameE=="1"){
+        $('#errNameE').css('display','block');
+        $('#inputNameE').addClass("errClass");
+        document.cookie="errexternalTutorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errSurnameE=="1"){
+        $('#errSurnameE').css('display','block');
+        $('#inputSurnameE').addClass("errClass");
+        document.cookie="errexternalTutorSurname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errSurnameAt=="1"){
+        $('#errSurnameAc').css('display','block');
+        $('#inputSurnameAc').addClass("errClass");
+        document.cookie="erracademicTutorSurname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
     if(errSurname=="1"){
         $('#errSurname').css('display','block');
         $('#inputSurname').addClass("errClass");
@@ -74,7 +123,7 @@ $(document).ready(function(){
     }
     if(errCorso=="1"){
         $('#errCourse').css('display','block');
-        $('#inputCourse').addClass("errClass");
+        $('#inputDegree').addClass("errClass");
         document.cookie="errStudentCorso=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if(errUsername=="1"){
@@ -92,6 +141,14 @@ $(document).ready(function(){
         $('#inputConfirmPassword').addClass("errClass");
         document.cookie="errPasswordConfirm=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+
+    if(errOldPassword=="1"){
+        $('#errOldPassword').css('display','block');
+        $('#inputOldPassword').addClass("errClass");
+        document.cookie="errOldPassword=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    
+
     if(errNameT=="1"){
         $('#errNameT').css('display','block');
         $('#inputNameT').addClass("errClass");
@@ -112,10 +169,22 @@ $(document).ready(function(){
         $('#inputDepartmentT').addClass("errClass");
         document.cookie="errTutorDepartment=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+
     if(regEff=="1"){
         swal('Registrazione effettuata', 'Prosegui con l\'accesso','success');
         document.cookie="regEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+
+    if(updateEff=="1"){
+        swal('Modifica effettuata', 'dati anagrafici modificati correttamente','success');
+        document.cookie="updateEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(updatePassEff=="1"){
+        swal('Modifica effettuata', 'password modificata correttamente','success');
+        document.cookie="updatePassEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
     if(alreadyReg=="1"){
         swal('Utente già registrato', 'Prosegui con l\'accesso','info');
         document.cookie="errAlreadyReg=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
@@ -129,5 +198,13 @@ $(document).ready(function(){
     if(logEff=="1"){
         swal('Benvenuto', 'Login effettuato', 'success');
         document.cookie="logEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+    }   
+
+
+    if(logoutEff=="1"){
+        swal('Arrivederci', 'Logout effettuato', 'success');
+        document.cookie="logEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie="logoutEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }   
 });

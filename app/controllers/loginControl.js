@@ -61,12 +61,16 @@ exports.login= function(req, res){
                                         return;
                                     }
                                     else{
-                                        if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
+                                       if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
+                                           
                                             var adminSession={
                                                 utente: resultAd,
                                                 type: "admin"
+                                           
                                             };
                                             req.session.utente=adminSession;
+                                            
+                                            console.log("sessione admin: "+ JSON.stringify(req.session.utente));
                                             redirect(res);
                                         }
                                         else{
@@ -79,11 +83,15 @@ exports.login= function(req, res){
                             }
                             else{
                                 if(hash.checkPassword(resultE.getPassword().hash, resultE.getPassword().salt, password)){
-                                    var externalSession={
+                                  
+                                   var externalSession={
                                         utente: resultE,
                                         type: "externalTutor"
                                     };
+                                    
+
                                     req.session.utente=externalSession;
+                                    console.log(JSON.stringify(req.session.utente));
                                     redirect(res);
                                 }
                                 else{
@@ -95,12 +103,14 @@ exports.login= function(req, res){
                         })
                     }
                     else{
-                        if(hash.checkPassword(resultA.getPassword().hash, resultA.getPassword().salt, password)){
+                       if(hash.checkPassword(resultA.getPassword().hash, resultA.getPassword().salt, password)){
                             var academicSession={
                                 utente: resultA,
                                 type: "academicTutor"
                             };
                             req.session.utente=academicSession;
+                           
+
                             redirect(res);
                         }
                         else{
@@ -112,12 +122,14 @@ exports.login= function(req, res){
                 })
             }
             else{
-                if(hash.checkPassword(resultS.getPassword().hash, resultS.getPassword().salt, password)){
+               if(hash.checkPassword(resultS.getPassword().hash, resultS.getPassword().salt, password)){
                     var studentSession={
                         utente: resultS,
                         type: "student"
                     };
                     req.session.utente=studentSession;
+                    console.log("sessione admssssssssin: "+ JSON.stringify(req.session.utente));
+
                     redirect(res);
                 }
                 else{
@@ -126,7 +138,13 @@ exports.login= function(req, res){
                     return;
                 }
             }
+<<<<<<< HEAD
         })
+=======
+        })        
+
+}
+>>>>>>> ac23b2ce306c72a38066e7e90089f3eb0d2db8db
 
 /**
  * if the login is done, send the user to the index.html page

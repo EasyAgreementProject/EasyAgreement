@@ -103,6 +103,44 @@ static findByEmail(email){
         });
     });
 }
+static updateExternalTutor(externaltutor,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) throw err;
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { E_mail: emailv };
+            var newvalues={};
+            if(externaltutor.name    != null) newvalues.Name=externaltutor.name;
+            if(externaltutor.surname != null) newvalues.Surname=externaltutor.surname;
+            if(externaltutor.organization != null) newvalues.Organization=externaltutor.organization;
+            
+             dbo.collection("ExternalTutor").updateOne(myquery, {$set: newvalues }, function(err, res) {
+                 if (err) throw err;
+                     console.log("1 document updated");
+             });
+             dbo.collection("ExternalTutor").findOne({"E_mail": emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var extutor= new externalTutor();
+                    extutor.setEmail(result.E_mail);
+                    extutor.setPassword(result.Password);
+                    extutor.setSurname(result.Surname);
+                    extutor.setName(result.Name);
+                    extutor.setOrganization(result.Organization);
+                    fulfill(extutor);
+                }
+                else{
+                    fulfill(null);
+                }
+                db.close();
+            })
+            });
+        });
+    
+}
+
 
 /**
  * Retrieve all excternal tutor
@@ -122,5 +160,39 @@ static RetrieveAll() {
         });
     });
 }
+static updatePassword(password,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) reject(err);
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { E_mail: emailv };
+            var newvalues = { $set: {Password:password } };
+             dbo.collection("ExternalTutor").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) reject(err);
+             });
+             dbo.collection("ExternalTutor").findOne({E_mail: emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var externaltutor = new externalTutor();
+                    externaltutor.setName(result.Name);
+                    externaltutor.setSurname(result.Surname);
+                    externaltutor.setOrganization(result.Organization);
+                    externaltutor.setEmail(result.E_mail);
+                    externaltutor.setPassword(result.Password);
+                   
+                    db.close();
+                    fulfill(externaltutor);
+                }
+                else{
+                    db.close();
+                    fulfill(null);
+                }
+             })
+            });
+        });
+    }
+    
 }
 module.exports= externalTutor;
