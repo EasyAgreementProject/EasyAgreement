@@ -318,5 +318,4 @@ describe('Field test for registerControl', function(){
             done();
         });
     });
-
 });
