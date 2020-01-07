@@ -3,6 +3,7 @@ var adminModel= require('../models/administrator.js');
 var extutorModel= require('../models/externaltutor.js');
 var organizationModel= require('../models/hostorganization.js');
 
+
 var session = require('express-session');
 
 exports.update=function(req,res){
@@ -246,8 +247,33 @@ exports.addExtTutor=function (req,res) {
                 })
             });
 
+
 }
 
+exports.retrieveAllTutor= function(req,res) {
+
+        var retValue = extutorModel.RetrieveAll();
+        retValue.then(function(result){
+
+            fulfill(result);
+            
+        })
+
+
+}
+
+exports.retrieveAllHostOrg = function(req,res) {
+
+    var retValue=organizationModel.retrieveAll();
+
+    retValue.then(function(result){
+
+        fulfill(result);
+        
+    })
+
+
+}
 
     
 

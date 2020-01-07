@@ -179,6 +179,28 @@ static addHostOrg(HostOrg) {
     }
 
 
+
+    static retrieveAll() {
+
+
+        return new Promise(function(fulfill,reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  reject(err);
+                var dbo= db.db(dbName);
+                
+                dbo.collection("HostOrganization").find({}).toArray(function(err,result) {
+                    if(err) throw err;
+                    fulfill(result);
+                    db.close();
+                });
+            });
+        });
+
+
+
+    }
+
+
 }
 
 module.exports= HostOrganization;

@@ -614,6 +614,23 @@ app.get('/toViewTutor', function(req,res) {
   
   });
 
+
+app.get('/retrieveAllTutor', function(req,res) {
+
+console.log("Client requested a list of all Tutor, proceeding...");
+var myRes= administratorControl.retrieveAllTutor();
+res.send(myRes);
+
+});
+
+app.get('/retrieveAllHostOrg', function(req,res) {
+
+console.log("Client requested a list of all host organizations, proceeding...");
+var myRes= administratorControl.retrieveAllHostOrg();
+res.send(myRes);
+
+});
+
 /*
 app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
 
