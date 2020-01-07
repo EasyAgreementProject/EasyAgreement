@@ -13,12 +13,9 @@ var notificationControl= require('./app/controllers/notificationControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
 const multer= require('multer');
-const Grid = require('gridfs-stream');
-const GridFsStorage = require('multer-grdifs-storage');
-const methodOverride = require('method-override');
+var fs=require('fs');
 
 const io = require('socket.io')(3000)
-var multer = require('multer');
 
 
 const uploadID = (file) => {
@@ -81,11 +78,6 @@ app.use(function(req,res,next) {
   next();
 });
 
-//Middleware for file upload
-
-app.use(methodOverride('_method'));
-
-//End of middleware for file upload
 
 app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
