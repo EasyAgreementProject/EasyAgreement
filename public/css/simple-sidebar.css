@@ -167,7 +167,9 @@
                             margin-left: 0.75rem;
                         }
                         #errName,
+                        #errNameT,
                         #errSurname,
+                        #errSurnameT,
                         #errDate,
                         #errTelephone,
                         #errStudyCicle,
@@ -176,6 +178,10 @@
                         #errNationality,
                         #errSubjectCode,
                         #errEmail,
+                        #errEmailT,
+                        #errOrganization,
+                        #errPassword,
+                        #errConfirmPassword,
                         #errDepartmentSending,
                         #errContactName,
                         #errContactSending,

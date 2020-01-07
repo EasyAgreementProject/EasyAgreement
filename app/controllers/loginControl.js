@@ -138,13 +138,7 @@ exports.login= function(req, res){
                     return;
                 }
             }
-<<<<<<< HEAD
         })
-=======
-        })        
-
-}
->>>>>>> ac23b2ce306c72a38066e7e90089f3eb0d2db8db
 
 /**
  * if the login is done, send the user to the index.html page

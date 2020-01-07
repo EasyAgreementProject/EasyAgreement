@@ -9,53 +9,53 @@ const dbName="easyagreement";
 class externalTutor {
 
     constructor (){
-        this.email        = null;
-        this.password     = null;
-        this.surname      = null;
-        this.name         = null;
-        this.organization = null;
+        this.E_mail        = null;
+        this.Password    = null;
+        this.Surname      = null;
+        this.Name         = null;
+        this.Organization = null;
     }
 
     //Getter Methods
     getEmail(){
-        return this.email;
+        return this.E_mail;
     }
 
     getPassword(){
-        return this.password;
+        return this.Password;
     }
 
     getName(){
-        return this.name;
+        return this.Name;
     }
 
     getSurname(){
-        return this.surname;
+        return this.Surname;
     }
 
     getOrganization(){
-        return this.organization;
+        return this.Organization;
     }
 
     //Setter Methods
     setEmail(email){
-        this.email = email;
+        this.E_mail = email;
     }
 
     setPassword(password){
-        this.password = password;
+        this.Password = password;
     }
 
     setName(name){
-        this.name = name;
+        this.Name = name;
     }
 
     setSurname(surname){
-        this.surname = surname;
+        this.Surname = surname;
     }
 
     setOrganization(organization){
-        this.organization = organization;
+        this.Organization = organization;
     }
 
 static insertExternalTutor(externaltutor) {
@@ -79,12 +79,12 @@ static insertExternalTutor(externaltutor) {
  * @param {String} email- email of tutor
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
-static findByEmail(email){
+static findByEmail(emailc){
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
             var dbo= db.db(dbName);
-            dbo.collection("ExternalTutor").findOne({"E_mail": email}, function(err, result){
+            dbo.collection("ExternalTutor").findOne({"E_mail": emailc}, function(err, result){
                 if(err) reject(err);
                 if(result!=null){
                     var extutor= new externalTutor();
@@ -93,10 +93,30 @@ static findByEmail(email){
                     extutor.setSurname(result.Surname);
                     extutor.setName(result.Name);
                     extutor.setOrganization(result.Organization);
+
                     fulfill(extutor);
                 }
                 else{
                     fulfill(null);
+                }
+                db.close();
+            })
+        });
+    });
+}
+
+static findByEmailA(email){
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("ExternalTutor").findOne({"E_mail": email}, function(err, result){
+                if(err) reject(err);
+                if(Boolean(result)){
+                    fulfill(false);
+                }
+                else{
+                    fulfill(true);
                 }
                 db.close();
             })
@@ -112,9 +132,9 @@ static updateExternalTutor(externaltutor,emailv) {
             console.log(".");
             var myquery = { E_mail: emailv };
             var newvalues={};
-            if(externaltutor.name    != null) newvalues.Name=externaltutor.name;
-            if(externaltutor.surname != null) newvalues.Surname=externaltutor.surname;
-            if(externaltutor.organization != null) newvalues.Organization=externaltutor.organization;
+            if(externaltutor.Name    != null) newvalues.Name=externaltutor.Name;
+            if(externaltutor.Surname != null) newvalues.Surname=externaltutor.Surname;
+            if(externaltutor.Organization != null) newvalues.Organization=externaltutor.Organization;
             
              dbo.collection("ExternalTutor").updateOne(myquery, {$set: newvalues }, function(err, res) {
                  if (err) throw err;

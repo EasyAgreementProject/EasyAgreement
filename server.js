@@ -21,7 +21,6 @@ var session = require('express-session');
 const io = require('socket.io')(3000)
 app.set('view engine', 'ejs');
 var formidable = require('formidable');
-var adminControl = require('./app/controllers/admin/adminControl.js');
 var ssn; // Session variable
 
 var connectedClients={};
@@ -75,6 +74,7 @@ app.get('/gestioneDocumenti.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
 });
 
+/*
 app.get('/fillForm', function(req, res) {
     var getData = learningAgreementControl.getData(req.session.utente.utente.Email);
     console.log("Student = "+req.session.utente.utente.Email);
@@ -84,7 +84,7 @@ app.get('/fillForm', function(req, res) {
         }
     })
 });
-
+*/
 app.get('/getStatus', function(req, res) {
   var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email);
   console.log("Student Status = "+req.session.utente.utente.Email);
@@ -555,13 +555,35 @@ app.post('/setReceivedMessage', function(req, res){
   });
 })
 
-app.post('/addExtOrg', function(req,res){
+app.get('/addExtOrg', function(req,res){
 
-var action=adminControl.addHostOrg(req,res);
-res.sendFile('/app/views/admin/addHost.html', {root:__dirname});
+res.render('admin/insorg');
 
 });
 
+
+
+app.get('/addExtTutor', function(req,res) { 
+
+  res.render('admin/instutor');
+
+});
+
+app.post('/addExtTutorF', function(req, res) {
+  var administratorAddTutor=administratorControl.addExtTutor(req,res);
+  administratorAddTutor.then(function(result){
+    if(result== true){
+      console.log("result=true");
+      res.render('admin/instutor');
+    }
+    else{
+      console.log("result=false");
+
+      res.render('admin/instutor');
+    }
+  });
+});
+/*
 app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
 
   var action=adminControl.deleteHostOrg(req,res);
@@ -569,12 +591,7 @@ app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
   
   });
 
-  app.post('/addExtTutor', function(req,res) { 
-
-    var action=adminControl.addExtTutor(req,res);
-    res.redirect(200,'/app/views/admin/addExternalTutor.html');
   
-  });
 
   app.post('/deleteExtTutor', function(req,res){ //waiting for frontend
 
@@ -583,4 +600,4 @@ app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
     
     });
 
-  
+  */

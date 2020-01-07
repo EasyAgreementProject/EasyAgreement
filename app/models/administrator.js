@@ -115,8 +115,7 @@ static addHostOrg(HostOrg) {
 
     }
 
-
-    static deleteHostOrg(name) {
+static deleteHostOrg(name) {
 
         return new Promise(function(fulfill,reject){
             MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
@@ -157,6 +156,7 @@ static addHostOrg(HostOrg) {
         
             }
 
+            
 
     
 

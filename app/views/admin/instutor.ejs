@@ -19,6 +19,9 @@
     <script type="text/javascript" src="./js/formValidation.js"></script>
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script defer src="js/chat.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/cookie.js"></script>
+
 </head>
 
 <body>
@@ -60,7 +63,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="login.html">Logout</a>
+                            <a class="nav-link" href="/logout">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -71,30 +74,41 @@
                 <h1 class="mt-4">Tutor Esterno</h1>
                 <hr>
                 <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Tutor Esterno</h5>
-                <form id="formCompile" method="post" action="/addExtTutor"><br>
+                <form id="formCompile" method="post" action="/addExtTutorF"><br>
                     <div class="form-label-group">
-                        <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome"  >
+                        <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome" required >
                         <label for="inputName">Nome<label>
+                         <span id="errNameT">Nome non valido</span>
                     </div>
                          <div class="form-label-group">
-                            <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome"  >
+                            <input type="text" id="inputSurname" class="form-control" name="inputSurname" placeholder="Cognome"  required >
                             <label for="inputSurname">Cognome</label>
+                            <span id="errSurnameT">Cognome non valido</span>
+
                     </div>
                     <div class="form-label-group">
-                        <input type="text" id="inputEmail" class="form-control" name="inputEmail" placeholder="E-Mail"  >
+                        <input type="text" id="inputEmail" class="form-control" name="inputEmail" placeholder="E-Mail" required >
                         <label for="inputEmail">E-Mail</label>
+                        <span id="errEmailT">E-mail non valida</span>
+
                     </div>
                     <div class="form-label-group">
-                        <input type="text" id="inputOrganizzazione" class="form-control" name="inputOrganization" placeholder="Organizzazione" >
+                        <input type="text" id="inputOrganizzazione" class="form-control" name="inputOrganization" placeholder="Organizzazione" required >
                         <label for="inputPassword">Organizzazione</label>
+                        <span id="errOrganization">Organizzazione non valida</span>
+
                     </div>
                     <div class="form-label-group">
-                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Password"  >
+                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Password"  required >
                         <label for="inputPassword">Password</label>
+                        <span id="errPassword">Password non valida</span>
+
                     </div>
                     <div class="form-label-group">
-                        <input type="password" id="inputRePassword" class="form-control" name="inputRePassword" placeholder="RepeatPassword"  >
+                        <input type="password" id="inputRePassword" class="form-control" name="inputRePassword" placeholder="RipetiPassword"  required >
                         <label for="inputRePassword"> Ripeti Password</label>
+                        <span id="errConfirmPassword">La password non corrisponde</span>
+
                     </div>
 
                     <hr>

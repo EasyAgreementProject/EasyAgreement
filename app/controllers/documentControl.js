@@ -1,7 +1,6 @@
 var studentModel= require('../models/student.js');
 var session = require('express-session');
 const fs = require('fs');
-console.log("I'm inside");
 
 exports.idHandler = function(req,res) {
 
