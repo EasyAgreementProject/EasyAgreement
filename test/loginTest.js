@@ -16,7 +16,6 @@ describe('Login  unit testing...', function() {
         });
     });
 
-
     it( 'testing method loginControl - TC_ARM_1.1.2 & TC_ARM_1.2.2 & TC_ARM_1.3.2 & TC_ARM_1.4.2', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{username : "m?a", password : "" }}
