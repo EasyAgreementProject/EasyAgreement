@@ -138,24 +138,25 @@ static updateExternalTutor(externaltutor,emailv) {
             
              dbo.collection("ExternalTutor").updateOne(myquery, {$set: newvalues }, function(err, res) {
                  if (err) throw err;
-                     console.log("1 document updated");
+                     console.log("1 document updated"+JSON.stringify(newvalues));
+                     dbo.collection("ExternalTutor").findOne({"E_mail": emailv}, function(err, result){
+                        if(err) reject(err);
+                        if(result!=null){
+                            var extutor= new externalTutor();
+                            extutor.setEmail(result.E_mail);
+                            extutor.setPassword(result.Password);
+                            extutor.setSurname(result.Surname);
+                            extutor.setName(result.Name);
+                            extutor.setOrganization(result.Organization);
+                            fulfill(extutor);
+                        }
+                        else{
+                            db.close();
+                            fulfill(null);
+                        }
+                    })
              });
-             dbo.collection("ExternalTutor").findOne({"E_mail": emailv}, function(err, result){
-                if(err) reject(err);
-                if(result!=null){
-                    var extutor= new externalTutor();
-                    extutor.setEmail(result.E_mail);
-                    extutor.setPassword(result.Password);
-                    extutor.setSurname(result.Surname);
-                    extutor.setName(result.Name);
-                    extutor.setOrganization(result.Organization);
-                    fulfill(extutor);
-                }
-                else{
-                    fulfill(null);
-                }
-                db.close();
-            })
+             
             });
         });
     

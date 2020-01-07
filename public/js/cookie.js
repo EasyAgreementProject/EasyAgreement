@@ -44,6 +44,9 @@ $(document).ready(function(){
     var errDepartment=getCookie("errTutorDepartment");
     var errOrganization=getCookie("errOrganizationName");
     var regEff= getCookie("regEff");
+    var insertEff= getCookie("insertEff");
+    var insertHEff= getCookie("insertHEff");
+
     var alreadyReg= getCookie("errAlreadyReg");
     var errUsername=getCookie("errUsername");
     var errPassword=getCookie("errPassword");
@@ -202,6 +205,16 @@ $(document).ready(function(){
         swal('Registrazione effettuata', 'Prosegui con l\'accesso','success');
         document.cookie="regEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+    if(insertEff=="1"){
+        swal('Inserimento effettuato', ' tutor esterno inserito con successo','success');
+        document.cookie="insertEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(insertHEff=="1"){
+        swal('Inserimento effettuato', ' organizzazione esterna inserita con successo','success');
+        document.cookie="insertHEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
 
     if(updateEff=="1"){
         swal('Modifica effettuata', 'dati anagrafici modificati correttamente','success');

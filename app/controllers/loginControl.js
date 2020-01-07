@@ -69,8 +69,6 @@ exports.login= function(req, res){
                                            
                                             };
                                             req.session.utente=adminSession;
-                                            
-                                            console.log("sessione admin: "+ JSON.stringify(req.session.utente));
                                             redirect(res);
                                         }
                                         else{

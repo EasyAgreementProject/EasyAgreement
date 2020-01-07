@@ -58,6 +58,7 @@ if(!isRight){
             if(result!= null)
             {
                 req.session.utente.utente=result;
+                console.log("STAMPO RESULT______"+result);
                 res.cookie('updateEff','1');
                 fulfill(true);
             }

@@ -485,11 +485,12 @@ io.on('connection', socket => {
 app.post('/getConnectedUser', function (req, res){
   res.json(req.session.utente);
 });
-
+/*
 app.post('/getContacts', function (req, res){
   messageControl.getAllContacts(req.body.type, res);
 });
 
+*/
 app.post('/getMessages', function(req, res){
   messageControl.getAllMessages(req.body.sender, req.body.recipient, res);
 });
@@ -585,14 +586,11 @@ app.get('/addExtTutor', function(req,res) {
 app.post('/addExtTutorF', function(req, res) {
   var administratorAddTutor=administratorControl.addExtTutor(req,res);
   administratorAddTutor.then(function(result){
-    if(result== true){
-      console.log("result=true");
-      res.render('admin/instutor');
+    if(result){
+      res.redirect('/addExtTutor');
     }
     else{
-      console.log("result=false");
-
-      res.render('admin/instutor');
+      res.redirect('/addExtTutor');
     }
   });
 });

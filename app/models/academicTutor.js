@@ -209,23 +209,24 @@ static updateAcademicTutor(academicTutor,emailv) {
              dbo.collection("AcademicTutor").updateOne(myquery,{$set: newvalues }, function(err, res) {
                  if (err) throw err;
                      console.log("1 document updated");
+                     dbo.collection("AcademicTutor").findOne({"E_mail": emailv}, function(err, result){
+                        if(err) reject(err);
+                        if(result!=null){
+                            var academicTutor= new AcademicTutor();
+                            academicTutor.setName(result.Name);
+                            academicTutor.setSurname(result.Surname);
+                            academicTutor.setEmail(result.E_mail);
+                            academicTutor.setDepartment(result.Department);
+                            academicTutor.setPassword(result.Password);
+                            fulfill(academicTutor);
+                        }
+                        else{                        
+                            db.close();
+                            fulfill(null);
+                        }
+                    })
              });
-             dbo.collection("AcademicTutor").findOne({"E_mail": emailv}, function(err, result){
-                if(err) reject(err);
-                if(result!=null){
-                    var academicTutor= new AcademicTutor();
-                    academicTutor.setName(result.Name);
-                    academicTutor.setSurname(result.Surname);
-                    academicTutor.setEmail(result.E_mail);
-                    academicTutor.setDepartment(result.Department);
-                    academicTutor.setPassword(result.Password);
-                    fulfill(academicTutor);
-                }
-                else{
-                    fulfill(null);
-                }
-                db.close();
-            })
+            
             });
         });
     

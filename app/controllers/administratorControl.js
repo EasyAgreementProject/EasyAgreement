@@ -137,7 +137,7 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
                             adminModel.addHostOrg(organizzazioneEsterna);
     
                             //redirect
-                            res.cookie('regEff','1');
+                            res.cookie('insertHEff','1');
                             fulfill(true);
                             return;
                         }
@@ -239,9 +239,9 @@ exports.addExtTutor=function (req,res) {
                         adminModel.addExtTutor(tutorEsterno);
 
                         //redirect
-                        res.cookie('regEff','1');
+                        res.cookie('insertEff','1');
                         fulfill(true);
-                        return;
+                        
                     }
                 })
             });
