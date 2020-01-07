@@ -15,6 +15,7 @@ var session = require('express-session');
 const io = require('socket.io')(3000)
 app.set('view engine', 'ejs');
 var formidable = require('formidable');
+var adminControl = require('./app/controllers/admin/adminControl.js');
 var ssn; // Session variable
 
 var connectedClients={};
@@ -319,7 +320,7 @@ app.post('/uploadID', function(request, response){
   var docManager=documentControl.idHandler(request,response);
   console.log("After document control, in server...");
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
-  console.log("test2");
+  
 });
 
 app.post('/uploadCV', function(request, response){
@@ -327,7 +328,7 @@ app.post('/uploadCV', function(request, response){
   var docManager=documentControl.cvHandler(request,response);
   console.log("After document control, in server...");
   res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
-  console.log("test2");
+  
 });
 
 app.post('/deleteCV', function(request, response){
@@ -440,3 +441,31 @@ app.post('/setReceivedMessage', function(req, res){
     res.json(result);
   });
 })
+
+app.post('/addExtOrg', function(req,res){
+
+var action=adminControl.addHostOrg(req,res);
+res.sendFile('/app/views/admin/addHost.html', {root:__dirname});
+
+});
+
+app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
+
+  var action=adminControl.deleteHostOrg(req,res);
+  res.sendFile('');
+  
+  });
+
+  app.post('/addExtTutor', function(req,res) { 
+
+    var action=adminControl.addExtTutor(req,res);
+    res.redirect(200,'/app/views/admin/addExternalTutor.html');
+  
+  });
+
+  app.post('/deleteExtTutor', function(req,res){ //waiting for frontend
+
+    var action=adminControl.deleteExtTutor(req,res);
+    res.sendFile('');
+    
+    });

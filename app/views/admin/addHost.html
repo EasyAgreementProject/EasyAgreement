@@ -70,8 +70,8 @@
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
                 <h1 class="mt-4">Organizzazione Ospitante</h1>
                 <hr>
-                <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzaione Ospitante</h5>
-                <form id="formCompile" method="post" action="/compileStudent"><br>
+                <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Organizzazione Ospitante</h5>
+                <form id="formCompile" method="post" action="/addExtOrg" name="formCompile"><br>
                     <div class="form-label-group">
                         <input type="text" id="inputErasmusCode" class="form-control" name="inputErasmusCode" placeholder="Erasmus Code"  >
                         <label for="inputErasmusCode">Erasmus Code<label>
@@ -350,7 +350,7 @@
 
                     <hr>
                     <button class="btn btn-block" type="submit" class="saveButton" id="send">AGGIUNGI</button>
-
+                    </form>
         <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->

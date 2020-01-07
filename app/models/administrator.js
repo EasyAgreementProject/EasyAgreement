@@ -78,6 +78,88 @@ static findByEmail(email){
         });
     });
 }
-}
+
+
+static RetrieveAll() {
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            
+            dbo.collection("HostOrganization").find({}).toArray(function(err,result) {
+                if(err) throw err;
+                fulfill(result);
+                db.close();
+            });
+        });
+    });
+    }
+
+static addHostOrg(HostOrg) {
+
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("HostOrganization").insertOne(HostOrg, function(err) {
+            
+            if (err) throw err;
+            console.log("Successfully added Host Organization to database!");
+            fulfill();
+            db.close();
+            });
+
+        });
+
+    });
+
+    }
+
+
+    static deleteHostOrg(name) {
+
+        return new Promise(function(fulfill,reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  reject(err);
+                var dbo= db.db(dbName);
+                dbo.collection("HostOrganization").findOneAndDelete({"Name" : name}, function(err) {
+                
+                if (err) throw err;
+                console.log("Successfully deleted Host Organization from database!");
+                fulfill();
+                db.close();
+                });
+    
+            });
+    
+        });
+    
+        }
+
+
+        static addExtTutor(ExtTutor) {
+
+            return new Promise(function(fulfill,reject){
+                MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                    if(err)  reject(err);
+                    var dbo= db.db(dbName);
+                    dbo.collection("ExternalTutor").insertOne(ExtTutor, function(err) {
+                    
+                    if (err) throw err;
+                    console.log("Successfully added an External Tutor to database!");
+                    fulfill();
+                    db.close();
+                    });
+        
+                });
+        
+            });
+        
+            }
+
+
+    
+
+} //end
 
 module.exports= Administrator;

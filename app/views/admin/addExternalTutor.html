@@ -71,7 +71,7 @@
                 <h1 class="mt-4">Tutor Esterno</h1>
                 <hr>
                 <h5 style="text-align: justify; font-style: italic; color: darkblue;">Info Tutor Esterno</h5>
-                <form id="formCompile" method="post" action="/compileStudent"><br>
+                <form id="formCompile" method="post" action="/addExtTutor"><br>
                     <div class="form-label-group">
                         <input type="text" id="inputName" class="form-control" name="inputName" placeholder="Nome"  >
                         <label for="inputName">Nome<label>
@@ -85,17 +85,21 @@
                         <label for="inputEmail">E-Mail</label>
                     </div>
                     <div class="form-label-group">
+                        <input type="text" id="inputOrganizzazione" class="form-control" name="inputOrganization" placeholder="Organizzazione" >
+                        <label for="inputPassword">Organizzazione</label>
+                    </div>
+                    <div class="form-label-group">
                         <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Password"  >
                         <label for="inputPassword">Password</label>
                     </div>
                     <div class="form-label-group">
-                        <input type="RePassword" id="inputRePassword" class="form-control" name="inputRePassword" placeholder="RepeatPassword"  >
+                        <input type="password" id="inputRePassword" class="form-control" name="inputRePassword" placeholder="RepeatPassword"  >
                         <label for="inputRePassword"> Ripeti Password</label>
                     </div>
 
                     <hr>
                     <button class="btn btn-block" type="submit" class="saveButton" id="send">AGGIUNGI</button>
-
+                </form>
         <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
