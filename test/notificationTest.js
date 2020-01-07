@@ -36,19 +36,19 @@ describe('Field test for notificationControl', function() {
         });
     });
 
-    it('Testing getReceivedNotification', function(done) {
-        var associated= "d.devito@studenti.unisa.it";
-        var get=notificationControl.getNotificationCacheState(associated);
-        get.then(function(result){
+    it('Testing setReceivedNotification', function(done){
+        var associated="d.devito@studenti.unisa.it";
+        var set=notificationControl.refreshNotificationCache(associated, false);
+        set.then(function(result){
             expect(result).to.not.be.null;
             done();
         });
     });
 
-    it('Testing setReceivedNotification', function(done){
-        var associated="d.devito@studenti.unisa.it";
-        var set=notificationControl.refreshNotificationCache(associated, false);
-        set.then(function(result){
+    it('Testing getReceivedNotification', function(done) {
+        var associated= "d.devito@studenti.unisa.it";
+        var get=notificationControl.getNotificationCacheState(associated);
+        get.then(function(result){
             expect(result).to.not.be.null;
             done();
         });

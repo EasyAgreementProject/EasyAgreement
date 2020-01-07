@@ -112,20 +112,20 @@ describe('Field test for messageControl', function() {
         });
     });
 
-    it('Testing getReceivedMessage', function(done) {
-        var sender="d.devito@studenti.unisa.it";
-        var get=messageControl.getAllCache(sender);
-        get.then(function(result){
-            expect(result).to.not.be.null;
-            done();
-        });
-    });
-
     it('Testing setReceivedMessage', function(done){
         var sender="d.devito@studenti.unisa.it";
         var receiver="g.musso@unisa.it";
         var set=messageControl.refreshMessageCache(receiver, sender, false)
         set.then(function(result){
+            expect(result).to.not.be.null;
+            done();
+        });
+    });
+
+    it('Testing getReceivedMessage', function(done) {
+        var sender="d.devito@studenti.unisa.it";
+        var get=messageControl.getAllCache(sender);
+        get.then(function(result){
             expect(result).to.not.be.null;
             done();
         });
