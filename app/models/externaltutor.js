@@ -8,54 +8,97 @@ const dbName="easyagreement";
 
 class externalTutor {
 
+    /**
+     * Constructor of external tutor
+     * @constructor
+     */
     constructor (){
-        this.email        = null;
-        this.password     = null;
-        this.surname      = null;
-        this.name         = null;
-        this.organization = null;
+        this.E_mail       = null;
+        this.Password     = null;
+        this.Surname      = null;
+        this.Name         = null;
+        this.Organization = null;
     }
 
-    //Getter Methods
+    /**
+     * Get email
+     * @returns {String} - return email
+     */
     getEmail(){
-        return this.email;
+        return this.E_mail;
     }
 
+    /**
+     * Get password
+     * @returns {Object} - return password
+     */
     getPassword(){
-        return this.password;
+        return this.Password;
     }
 
+    /**
+     * Get name
+     * @returns {String} - return name
+     */
     getName(){
-        return this.name;
+        return this.Name;
     }
 
+    /**
+     * Get surname
+     * @returns {String} - return surname
+     */
     getSurname(){
-        return this.surname;
+        return this.Surname;
     }
 
+    /**
+     * Get organization
+     * @returns {String} - return organization
+     */
     getOrganization(){
-        return this.organization;
+        return this.Organization;
     }
 
-    //Setter Methods
+    
+    /**
+     * Set email
+     * @param {String} email - email
+     */
     setEmail(email){
-        this.email = email;
+        this.E_mail = email;
     }
 
+    /**
+     * Set password
+     * @param {Object} password - password
+     */
     setPassword(password){
-        this.password = password;
+        this.Password = password;
     }
+
+    /**
+     * Set name
+     * @param {String} name - name
+     */
 
     setName(name){
-        this.name = name;
+        this.Name = name;
     }
-
+    /**
+     * Set surname
+     * @param {String} surname - surname
+     */
     setSurname(surname){
-        this.surname = surname;
+        this.Surname = surname;
     }
 
+    /**
+     * Set organization
+     * @param {String} organization - organization
+     */
     setOrganization(organization){
-        this.organization = organization;
+        this.Organization = organization;
     }
 
 static insertExternalTutor(externaltutor) {
@@ -103,6 +146,15 @@ static findByEmail(email){
         });
     });
 }
+
+/**
+ * update params of external tutor
+ * @param {Object} externaltutor - External Tutor's Object
+ * @param {String} emailv - External Tutor's email
+ * @returns {Object} - Returns the updated external tutor if result != null, else it returns null
+ * 
+ */
+
 static updateExternalTutor(externaltutor,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
@@ -112,9 +164,9 @@ static updateExternalTutor(externaltutor,emailv) {
             console.log(".");
             var myquery = { E_mail: emailv };
             var newvalues={};
-            if(externaltutor.name    != null) newvalues.Name=externaltutor.name;
-            if(externaltutor.surname != null) newvalues.Surname=externaltutor.surname;
-            if(externaltutor.organization != null) newvalues.Organization=externaltutor.organization;
+            if(externaltutor.Name    != null) newvalues.Name=externaltutor.Name;
+            if(externaltutor.Surname != null) newvalues.Surname=externaltutor.Surname;
+            if(externaltutor.Organization != null) newvalues.Organization=externaltutor.Organization;
             
              dbo.collection("ExternalTutor").updateOne(myquery, {$set: newvalues }, function(err, res) {
                  if (err) throw err;
@@ -144,7 +196,7 @@ static updateExternalTutor(externaltutor,emailv) {
 
 
 /**
- * Retrieve all excternal tutor
+ * Retrieve all external tutor
  * 
  * @returns {promise} - return promise
  */
@@ -161,6 +213,15 @@ static RetrieveAll() {
         });
     });
 }
+
+/**
+ * update password of external tutor
+ * @param {String} password - External Tutor's password
+ * @param {String} emailv - External tutor's email
+ * @returns {Object} - Returns the updated password of external tutor if result != null, else it returns null
+ * 
+ */
+
 static updatePassword(password,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    

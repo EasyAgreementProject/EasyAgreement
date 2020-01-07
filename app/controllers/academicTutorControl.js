@@ -52,27 +52,25 @@ if(!isRight){
     return;
 }
 
-        var checkS=academicTutorModel.updateAcademicTutor(academicTutor,req.session.utente.utente.E_mail);
+ var checkS=academicTutorModel.updateAcademicTutor(academicTutor,req.session.utente.utente.E_mail);
 
-        checkS.then(function(result){
-            if(result!= null)
-            {
-                req.session.utente.utente=result;
-                res.cookie('updateEff','1');
-                fulfill();
+/** 
+* It checks the result of updateAcademicTutor function and updates the academic tutor session
+* @param  {Object} result - The result of updateAcademicTutor function
+* @returns {Boolean} - It returns true and generates an "edit complete" cookie if result != null, else it returns a reject
+*/
 
-            }
-            else{
-
-                reject();
-            }
-        });
+ checkS.then(function(result){
+    if(result!= null){
+        req.session.utente.utente=result;
+        res.cookie('updateEff','1');
+        fulfill();
+    }else{
+        reject();
+    }
+ });
         
-    });
-        
-        
-
-        
+});
 }
 
 exports.updatePassword=function(req,res){
@@ -82,6 +80,7 @@ exports.updatePassword=function(req,res){
     var password= req.body.inputPassword;
     var passwordConfirm= req.body.inputConfirmPassword;
 
+    //Form Validation
     var isRight=true;
 
     if((oldPassword==null) || (oldPassword.length<=7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))){
@@ -107,19 +106,23 @@ exports.updatePassword=function(req,res){
 
     if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
         var passwordHashed= hash.hashPassword(password);
-    
         var checkS=academicTutorModel.updatePassword(passwordHashed,req.session.utente.utente.E_mail);
+
+        /** 
+        * It checks the result of updatePassword function and updates the academic tutor session
+        * @param  {Object} result - The result of updatePassword function (about Academic Tutor)
+        * @returns {Boolean} - It returns true and generates an "edit password complete" cookie if result != null, else it returns a reject
+        */
         checkS.then(function(result){
             if(result!= null){
                  req.session.utente.utente=result;
                  res.cookie('updatePassEff','1');
                  fulfill(true);
-            }
-            else
+            }else
                 reject();
              
-          });
-        }
         });
     }
+});
+}
 

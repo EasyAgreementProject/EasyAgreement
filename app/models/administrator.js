@@ -7,7 +7,10 @@ const url="mongodb://localhost:27017/easyagreement";
 const dbName="easyagreement";
 
 class Administrator{
-    //Constructor
+    /**
+     * Constructor of administrator
+     * @constructor
+     */
     constructor (){
         this.name     = null;
         this.surname  = null;
@@ -15,36 +18,66 @@ class Administrator{
         this.email    = null;
     }
 
-    //Getter Methods
+    /**
+     * Get name
+     * @returns {String} - return name
+     */
     getName(){
         return this.name;
     }
 
+    /**
+     * Get surname
+     * @returns {String} - return surname
+     */
     getSurname(){
         return this.surname;
     }
 
+    /**
+     * Get password
+     * @returns {Object} - return password
+     */
     getPassword(){
         return this.password;
     }
 
+    /**
+     * Get email
+     * @returns {String} - return email
+     */
     getEmail(){
         return this.email;
     }
 
-    //Setter Methods
+    /**
+     * Set name
+     * @param {String} name - name
+     */
     setName(name){
         this.name = name;
     }
 
+    /**
+     * Set surname
+     * @param {String} surname - surname
+     */
     setSurname(surname){
         this.surname = surname;
     }
 
+    /**
+     * Set password
+     * @param {Object} password - password
+     */
     setPassword(password){
         this.password = password;
     }
 
+    /**
+     * Set email
+     * @param {String} email - email
+     */
     setEmail(email){
         this.email = email;
     }    
@@ -78,6 +111,15 @@ static findByEmail(email){
         });
     });
 }
+
+
+/**
+ * update password of administrator
+ * @param {String} pass - Administrator's password
+ * @param {String} emailv - Administrator's email
+ * @returns {Object} - Returns the updated password of administrator if result != null, else it returns null
+ * 
+ */
 
 static updatePassword(pass,emailv) {
     return new Promise(function (fulfill, reject) {

@@ -53,7 +53,11 @@ if(!isRight){
 
 
         var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.email);
- 
+        /** 
+        * It checks the result of updateExternalTutor function and updates the external tutor session
+        * @param  {Object} result - The result of updateExternalTutor function
+        * @returns {Boolean} - It returns true and generates an "edit complete" cookie if result != null, else it returns a reject
+        */
         checkS.then(function(result){
             if(result!= null)
             {
@@ -67,11 +71,10 @@ if(!isRight){
         });
        
     });
-        
- 
-        
-
 }
+
+
+
 exports.updatePassword=function(req,res){
     return new Promise(function(fulfill, reject){
 
@@ -79,6 +82,7 @@ exports.updatePassword=function(req,res){
     var password= req.body.inputPassword;
     var passwordConfirm= req.body.inputConfirmPassword;
     
+    //Form Validation
     var isRight=true;
 
     if((oldPassword==null) || (oldPassword.length<=7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))){
@@ -99,9 +103,7 @@ exports.updatePassword=function(req,res){
     }
 
     if(!isRight){
-
         fulfill(false);
-
         return;
     }
 
@@ -109,20 +111,21 @@ exports.updatePassword=function(req,res){
         var passwordHashed= hash.hashPassword(password);
     
         var checkS=externalTutorModel.updatePassword(passwordHashed,req.session.utente.utente.email);
+
+        /** 
+        * It checks the result of updatePassword function and updates the external tutor session
+        * @param  {Object} result - The result of updatePassword function (about External Tutor)
+        * @returns {Boolean} - It returns true and generates an "edit password complete" cookie if result != null, else it returns a reject
+        */
         checkS.then(function(result){
            if(result !=null) {
-            console.log("stampo result: "+JSON.stringify(result));
-            console.log("stampo session: "+JSON.stringify(req.session.utente.utente));
-
             req.session.utente.utente=result;
             res.cookie('updatePassEff','1');
             fulfill(true);
-           }
-           else
-           reject();
-            });
-         }
+           }else
+             reject();
         });
-
     }
+});
+}
 

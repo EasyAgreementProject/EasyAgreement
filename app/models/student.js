@@ -293,6 +293,13 @@ static findByEmail(email){
     });
 }
 
+/**
+ * update params of student
+ * @param {Object} student - Student's Object
+ * @param {String} emailv - Student's email
+ * @returns {Object} - Returns the updated student if result != null, else it returns null
+ * 
+ */
 static updateStudent(student,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
@@ -339,6 +346,14 @@ static updateStudent(student,emailv) {
     
 }
 
+
+/**
+ * update password of student
+ * @param {String} password - Student's password
+ * @param {String} emailv - Student's email
+ * @returns {Object} - Returns the updated password of student if result != null, else it returns null
+ * 
+ */
 static updatePassword(password,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    

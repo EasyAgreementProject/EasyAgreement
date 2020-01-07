@@ -194,6 +194,13 @@ static RetrieveAll() {
     });
 }
 
+/**
+ * update params of academic tutor
+ * @param {Object} academicTutor - Academic Tutor's object
+ * @param {String} emailv - Academic Tutor's email
+ * @returns {Object} - Returns the updated academic tutor if result != null, else it returns null
+ * 
+ */
 static updateAcademicTutor(academicTutor,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
@@ -231,6 +238,15 @@ static updateAcademicTutor(academicTutor,emailv) {
         });
     
 }
+
+/**
+ * update password of academic tutor
+ * @param {String} password - Academic Tutor's password
+ * @param {String} emailv - Academic Tutor's email
+ * @returns {Object} - Returns the updated password of academic tutor if result != null, else it returns null
+ * 
+ */
+
 static updatePassword(password,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
