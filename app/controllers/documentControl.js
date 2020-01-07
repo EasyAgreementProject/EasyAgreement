@@ -9,7 +9,7 @@ exports.idHandler = function(e) {
     var email=e;
     var exist= studentModel.retrieveStudentIDCard(email);
     exist.then(function(result){
-      if(result!=null){
+      if(result!=null && result!=""){
         fulfill("2");
         return;
       }
@@ -60,7 +60,7 @@ exports.cvHandler = function(e) {
     var email = e;
     var exist= studentModel.retrieveStudentCV(email);
     exist.then(function(result){
-      if(result!=null){
+      if(result!=null && result!=""){
         fulfill("2");
         return;
       }
