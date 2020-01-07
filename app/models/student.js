@@ -310,29 +310,30 @@ static updateStudent(student,emailv) {
             dbo.collection("Student").updateOne(myquery, {$set: newvalues }, function(err, res) {
                  if (err) throw err;
                      console.log("1 document updated");
+                     dbo.collection("Student").findOne({Email: emailv}, function(err, result){
+                        if(err) reject(err);
+                        if(result!=null){
+                            var student= new Student();
+                            student.setName(result.Name);
+                            student.setSurname(result.Surname);
+                            student.setDegreeCourse(result.DegreeCourse);
+                            student.setAddress(result.Address);
+                            student.setCity(result.City);
+                            student.setEmail(result.Email);
+                            student.setCurriculumVitae(result.CV);
+                            student.setIdentityCard(result.IDCard);
+                            student.setPassword(result.Password);
+                            student.setStudentID(result.StudentID);
+                            db.close();
+                            fulfill(student);
+                        }
+                        else{
+                            db.close();
+                            fulfill(null);
+                        }
+                     })
              });
-             dbo.collection("Student").findOne({Email: emailv}, function(err, result){
-                if(err) reject(err);
-                if(result!=null){
-                    var student= new Student();
-                    student.setName(result.Name);
-                    student.setSurname(result.Surname);
-                    student.setDegreeCourse(result.DegreeCourse);
-                    student.setAddress(result.Address);
-                    student.setCity(result.City);
-                    student.setEmail(result.Email);
-                    student.setCurriculumVitae(result.CV);
-                    student.setIdentityCard(result.IDCard);
-                    student.setPassword(result.Password);
-                    student.setStudentID(result.StudentID);
-                    db.close();
-                    fulfill(student);
-                }
-                else{
-                    db.close();
-                    fulfill(null);
-                }
-             })
+             
             });
         });
     
