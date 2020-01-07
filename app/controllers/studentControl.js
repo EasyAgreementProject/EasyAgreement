@@ -72,22 +72,26 @@ if(!isRight){
 }
 
 
-       
-
-        var checkS=studentModel.updateStudent(studente,req.session.utente.utente.Email);
-        checkS.then(function(result){
-            if(result!=null){
-                req.session.utente.utente=result;
-                res.cookie('updateEff','1');
-                fulfill(true);
-            }
-            else{
-                reject();
-            }
+var checkS=studentModel.updateStudent(studente,req.session.utente.utente.Email);
+/** 
+    * It checks the result of updateStudent function and updates the student session
+    * @param  {Object} result - The result of updateStudent function
+    * @returns {Boolean} - It returns true and generates an "edit complete" cookie if result != null, else it returns a reject
+*/
+    checkS.then(function(result){
+        if(result!=null){
+            req.session.utente.utente=result;
+            res.cookie('updateEff','1');
+            fulfill(true);
+        }
+        else{
+            reject();
+        }
             
-        });
     });
+});
 }
+
 
 exports.updatePassword=function(req,res){
     return new Promise(function(fulfill, reject){
@@ -97,6 +101,7 @@ exports.updatePassword=function(req,res){
     var password= req.body.inputPassword;
     var passwordConfirm= req.body.inputConfirmPassword;
 
+    // Form Validation
     var isRight=true;
 
     if((oldPassword==null) || (oldPassword.length<=7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))){
@@ -123,6 +128,11 @@ exports.updatePassword=function(req,res){
         var passwordHashed= hash.hashPassword(password);
     
         var checkS=studentModel.updatePassword(passwordHashed,req.session.utente.utente.Email);
+        /** 
+        * It checks the result of updatePassword function and updates the student session
+        * @param  {Object} result - The result of updatePassword function (about student)
+        * @returns {Boolean} - It returns true and generates an "edit password complete" cookie if result != null, else it returns a reject
+        */
         checkS.then(function(result){
             if(result!= null){
               req.session.utente.utente=result;

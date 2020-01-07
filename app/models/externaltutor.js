@@ -103,6 +103,15 @@ static findByEmail(email){
         });
     });
 }
+
+/**
+ * update params of external tutor
+ * @param {Object} externaltutor - External Tutor's Object
+ * @param {String} emailv - External Tutor's email
+ * @returns {Object} - Returns the updated external tutor if result != null, else it returns null
+ * 
+ */
+
 static updateExternalTutor(externaltutor,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
@@ -143,7 +152,7 @@ static updateExternalTutor(externaltutor,emailv) {
 
 
 /**
- * Retrieve all excternal tutor
+ * Retrieve all external tutor
  * 
  * @returns {promise} - return promise
  */
@@ -160,6 +169,15 @@ static RetrieveAll() {
         });
     });
 }
+
+/**
+ * update password of external tutor
+ * @param {String} password - External Tutor's password
+ * @param {String} emailv - External tutor's email
+ * @returns {Object} - Returns the updated password of external tutor if result != null, else it returns null
+ * 
+ */
+
 static updatePassword(password,emailv) {
     return new Promise(function (fulfill, reject) {
         MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    

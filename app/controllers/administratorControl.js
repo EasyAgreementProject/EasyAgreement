@@ -9,6 +9,7 @@ exports.update=function(req,res){
     var password= req.body.inputPassword;
     var passwordConfirm= req.body.inputConfirmPassword;
 
+    //Form Validation
     var isRight=true;
 
     if((oldPassword==null) || (oldPassword.length<=7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))){
@@ -32,23 +33,27 @@ if(!isRight){
     return;
 }
 
-if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)){
-    var passwordHashed= hash.hashPassword(password);
-    var checkPass=adminModel.updatePassword(passwordHashed,req.session.utente.utente.email);
-    checkPass.then(function (result){
-        if(result!= null){ 
-            req.session.utente.utente=result;
-            res.cookie('updatePassEff','1');
-            fulfill(true);
+    if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)){
+        var passwordHashed= hash.hashPassword(password);
+        var checkPass=adminModel.updatePassword(passwordHashed,req.session.utente.utente.email);
+        /** 
+        * It checks the result of updatePassword function and updates the administrator session
+        * @param  {Object} result - The result of updatePassword function (about Administrator)
+        * @returns {Boolean} - It returns true and generates an "edit password complete" cookie if result != null, else it returns a reject
+        */
+        checkPass.then(function (result){
+            if(result!= null){ 
+                req.session.utente.utente=result;
+                res.cookie('updatePassEff','1');
+                fulfill(true);
 
-           }
-           else
-            reject();
+            }else
+                reject();
 
         });
-        }
-     });   
     }
+});   
+}
 
     
 
