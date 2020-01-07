@@ -21,6 +21,7 @@
     <script type="text/javascript" src="./js/cookie.js"></script>
     <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script defer src="js/chat.js"></script>
+    <script defer src="js/notification.js"></script>
     
 
 </head>
@@ -45,7 +46,7 @@
                     <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
                 <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
-                <a href="gestioneDocumenti.html" class="list-group-item list-group-item-action bg-light">
+                <a href="/gestioneDocumenti.html" class="list-group-item list-group-item-action bg-light">
                     <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
             </div>
         </div>
@@ -62,7 +63,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
+                            <a class="nav-link" id="open-notification" href="javascript:void(0)"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="open-chat" href="javascript:void(0)"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>

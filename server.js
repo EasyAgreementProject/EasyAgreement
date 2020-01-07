@@ -8,14 +8,50 @@ var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
 var messageControl= require('./app/controllers/messageControl');
+var notificationControl= require('./app/controllers/notificationControl');
 var bodyParser= require('body-parser');
 var session = require('express-session');
 const io = require('socket.io')(3000)
+var multer = require('multer');
+
+
+const uploadID = (file) => {
+  var storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+          cb(null, 'uploads/')
+      },
+      filename: function (req, file, cb) {
+          var ext = '';
+          if(file.originalname.split('.').length >1 ){
+              ext = file.originalname.substring(file.originalname.lastIndexOf('.'));
+          }
+          cb(null, file.fieldname+"-id" + ext);
+      }
+  });
+  return multer({ storage: storage }).array(file);
+};
+
+
+const uploadCV = (file) => {
+  var storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+          cb(null, 'uploads/')
+      },
+      filename: function (req, file, cb) {
+          var ext = '';
+          if(file.originalname.split('.').length >1 ){
+              ext = file.originalname.substring(file.originalname.lastIndexOf('.'));
+          }
+          cb(null, file.fieldname+"-cv" + ext);
+      }
+  });
+  return multer({ storage: storage }).array(file);
+};
+
 app.set('view engine', 'ejs');
-var formidable = require('formidable');
-var ssn; // Session variable
 
 var connectedClients={};
+var notificationClients={};
 
 //Loading static files from CSS and Bootstrap module
 app.use(express.static(__dirname + '/public'));
@@ -43,10 +79,6 @@ app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
 });
 
-app.get('/gestioneDocumenti.html', function(req, res) {
-    res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
-});
-
 app.get('/viewLA.html', function(req, res){
     res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
 });
@@ -61,9 +93,11 @@ app.get('/getAllVersions', function(req, res) {
 });
 
 app.get('/gestioneDocumenti.html', function(req, res) {
-  
-    console.log("Getting doc management... \n"+JSON.stringify(req.session.utente));
-    res.sendFile(path.join(__dirname + "/app/views/gestioneDocumenti.html"))
+  if(req.session.utente==null){
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
+  res.render('gestioneDocumenti');
 });
 
 app.get('/fillForm', function(req, res) {
@@ -230,44 +264,131 @@ app.get('/signup.html', function (req, res) {
 });
 
 app.get('/index.html', function (req, res) {
-  console.log("Getting the index..."+JSON.stringify(req.session.utente)); //Testing
   res.render('index');
 });
 
 app.post('/signup', function(req, res) {
   var signupUser=signupControl.signup(req, res);
+  signupUser.then(function(result){
+    if(result){
+      res.redirect('/');
+    }
+    else{
+      res.redirect('/signup.html');
+    }
+  });
 });
 
 app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
 });
 
-app.post('/uploadID', function(req, res){
-  console.log("Before documentControl...");
-  var docManager=documentControl.idHandler(req,res);
-  console.log("After document control, in server...");
-  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
-  console.log("test2");
+app.post('/uploadID', uploadID('filetoupload'), function(req, res){
+  var upload= documentControl.idHandler(req.session.utente.utente.Email);
+  upload.then(function(result){
+    if(result=="0"){
+      fs.unlink('uploads/filetoupload-id.pdf', function(error){
+        if(error) throw error;
+      });
+      res.cookie('SuccessIDCard','1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+    else if(result=="1"){
+      res.cookie('errorIDUpload','1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+    else if(result=="2"){
+      res.cookie('beforeDelete', '1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
 });
 
-app.post('/uploadCV', function(req, res){
-  console.log("Before documentControl...");
-  var docManager=documentControl.cvHandler(req,res);
-  console.log("After document control, in server...");
-  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
-  console.log("test2");
+app.post('/uploadCV', uploadCV('filetoupload'), function(req, res){
+  var upload=documentControl.cvHandler(req.session.utente.utente.Email, res);
+  upload.then(function(result){
+    if(result=="0"){
+      fs.unlink('uploads/filetoupload-cv.pdf', function(error){
+        if(error) throw error;
+      });
+      res.cookie('SuccessCV','1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+    else if(result=="1"){
+      res.cookie('errorCVUpload','1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+    else if(result=="2"){
+      res.cookie('beforeDelete', '1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
 });
 
 app.post('/deleteCV', function(req, res){
-  var docManager=documentControl.CVEraser(req,res);
-  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
+  var del=documentControl.CVEraser(req.session.utente.utente.Email);
+  del.then(function(result){
+    if(result){
+      res.cookie('DeletedCV','1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
 });
 
-app.post('/deleteCD', function(req, res){
-  console.log("In server.js: deleteCD summoned");
-  var docManager=documentControl.IDEraser(req, res);
-  res.sendFile("/app/views/gestioneDocumenti.html", {root:__dirname});
+app.post('/deleteID', function(req, res){
+  var del=documentControl.IDEraser(req.session.utente.utente.Email);
+  del.then(function(result){
+    if(result){
+      res.cookie('DeletedID','1');
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
 });
+
+app.post('/fileviewID', function(req, res){
+  var view=documentControl.viewID(req.session.utente.utente.Email);
+  view.then(function(result){
+    if(result){
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename = IDCard.pdf');
+      result.pipe(res)
+    }
+    else{
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
+});
+
+app.post('/fileviewCV', function(req, res){
+  var view=documentControl.viewCV(req.session.utente.utente.Email);
+  view.then(function(result){
+    if(result){
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename = CV.pdf');
+      result.pipe(res)
+    }
+    else{
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
+});
+
+app.post('/getIDState', function(req, res){
+  var get=documentControl.getIDState(req.body.email);
+  get.then(function(result){
+    if(result)  res.json(true);
+    else  res.json(false);
+  })
+});
+
+app.post('/getCVState', function(req, res){
+  var get=documentControl.getCVState(req.body.email);
+  get.then(function(result){
+    if(result)  res.json(true);
+    else  res.json(false);
+  })
+});
+
 
 app.listen(8080, function () {
   console.log('EasyAgreement Platform listening on port 8080!');
@@ -279,8 +400,22 @@ io.on('connection', socket => {
     socket.username=sender;
   });
   socket.on('send-chat-message', function(message){
+    var result= messageControl.refreshMessageCache(message.recipientID, message.senderID, true);
     socket.broadcast.to(connectedClients[message.recipientID]).emit('chat-message', socket.username, message);
-  })
+  });
+
+  socket.on('subscribe-notification', function(receiver){
+    notificationClients[receiver]= socket.id;
+    socket.username=receiver;
+  });
+  socket.on('send-notification', function(notification){
+    var id=notificationControl.insertNotification(notification);
+    var result=notificationControl.refreshNotificationCache(notification.associatedID, true);
+    id.then(function(result){
+      notification._id=result;
+      socket.broadcast.to(notificationClients[notification.associatedID]).emit('receive-notification', socket.username, notification);
+    });
+  });
 })
 
 app.post('/getConnectedUser', function (req, res){
@@ -310,3 +445,49 @@ app.post('/updateMessage', function(req, res){
 app.post('/searchUser', function(req, res){
   messageControl.searchUser(req.body.type, req.body.search, res);
 });
+
+app.post('/getAllNotifications', function(req, res){
+  notificationControl.getAllNotification(req.body.email, res);
+});
+
+app.post('/removeNotification', function(req, res){
+  notificationControl.removeNotification(req.body.notificationID, res);
+});
+
+app.post('/insertNotification', function(req, res){
+  notificationControl.insertNotification(req.body.notifica, res);
+});
+
+app.post('/getReceivedNotification', function(req, res){
+  var prom= notificationControl.getNotificationCacheState(req.body.sender);
+  prom.then(function(result){
+    if(result)  res.json(true);
+    else  res.json(false);
+  });
+});
+
+app.post('/setReceivedNotification', function(req, res){
+  var prom= notificationControl.refreshNotificationCache(req.body.sender, false);
+  prom.then(function(result){
+    res.json(result);
+  });
+});
+
+app.post('/getReceivedMessage', function(req, res){
+  var prom= messageControl.getAllCache(req.body.sender);
+  prom.then(function(result){
+    var allSenders=[];
+    for(var i=0; result[i]!=null; i++){
+      allSenders.push(result[i].senderID);
+    }
+    res.json(allSenders);
+  });
+});
+
+app.post('/setReceivedMessage', function(req, res){
+  var prom= messageControl.refreshMessageCache(req.body.sender, req.body.receiver, false);
+  prom.then(function(result){
+    res.json(result);
+  });
+})
+

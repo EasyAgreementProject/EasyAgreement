@@ -10,8 +10,9 @@
      "Email" : "d.devito@studenti.unisa.it",
      "Surname" : "De Vito",
      "Name" : "Danny",
-     "CV"   : "",
-     "IDCard" : ""
+     "CV"   : null,
+     "IDCard" : null,
+     "Password" :"DannyDeVito1"
     },
 
 
@@ -23,8 +24,9 @@
     "Email" : "f.califano@studenti.unisa.it",
     "Surname" : "Califano",
     "Name" : "Francesco",
-    "CV"   : "",
-    "IDCard" : ""
+    "CV"   : null,
+    "IDCard" : null,
+    "Password" :"FraCalifano1"
    },
 
 
@@ -36,8 +38,9 @@
    "Email" : "d.marino@studenti.unisa.it",
    "Surname" : "Marino",
    "Name" : "Domenico",
-   "CV"   : "",
-   "IDCard" : ""
+   "CV"   : null,
+   "IDCard" : null,
+   "Password" :"MarDomenico1"
   },
 
 
@@ -49,8 +52,9 @@
   "Email" : "l.deamicis@studenti.unisa.it",
   "Surname" : "De Amicis",
   "Name" : "Lorenzo",
-  "CV"   : "",
-  "IDCard" : ""
+  "CV"   : null,
+  "IDCard" : null,
+  "Password" :"DeLorenzo1"
  },
 
 
@@ -62,8 +66,9 @@
  "Email" : "f.vitolo@studenti.unisa.it",
  "Surname" : "Vitolo",
  "Name" : "Fernando",
- "CV"   : "",
- "IDCard" : ""
+ "CV"   : null,
+ "IDCard" : null,
+ "Password" :"VitoFerdi1"
 },
 
 
@@ -75,8 +80,9 @@
     "Email" : "u.scognamiglio999@studenti.unisa.it",
     "Surname" : "Scognamiglio",
     "Name" : "Ugopiero",
-    "CV"   : "",
-    "IDCard" : ""
+    "CV"   : null,
+    "IDCard" : null,
+    "Password" :"ScoUgopiero1"
    },
 
 
@@ -88,8 +94,9 @@
     "Email" : "g.carpentieri1@studenti.unisa.it",
     "Surname" : "Carpentieri",
     "Name" : "Giovanni",
-    "CV"   : "",
-    "IDCard" : ""
+    "CV"   : null,
+    "IDCard" : null,
+    "Password" :"CarpGiovanni1"
    },
 
 
@@ -98,11 +105,12 @@
        "DegreeCourse" : "Computer Science",
        "Address" : "Via delle Vie 128",
        "City" : "Civitanova Marche",
-       "Email" : "g.carpentieri1@studenti.unisa.it",
-       "Surname" : "Carpentieri",
+       "Email" : "g.cantaieri1@studenti.unisa.it",
+       "Surname" : "Cantaieri",
        "Name" : "Giovanni",
-       "CV"   : "",
-       "IDCard" : ""
+       "CV"   : null,
+       "IDCard" : null,
+       "Password" :"CantGiovanni1"
       },
 
 
@@ -114,8 +122,9 @@
           "Email" : "g.mosconi@studenti.unisa.it",
           "Surname" : "Mosconi",
           "Name" : "Germano",
-          "CV"   : "",
-          "IDCard" : ""
+          "CV"   : null,
+          "IDCard" : null,
+          "Password" :"MoscGermano1"
          },
 
 
@@ -127,8 +136,9 @@
              "Email" : "m.popovic@studenti.unisa.it",
              "Surname" : "Popovic",
              "Name" : "Mikhail",
-             "CV"   : "",
-             "IDCard" : ""
+             "CV"   : null,
+             "IDCard" : null,
+             "Password" :"PopoMikhail1"
 
 
 
