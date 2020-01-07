@@ -615,6 +615,36 @@ app.get('/toViewTutor', function(req,res) {
   });
 
 
+app.post('/retrieverManager', function(req,res){
+
+var reqRes=req.body.inputType;
+
+if (reqRes === 'Tutor Esterno') {
+
+  console.log("Client requested a list of all Tutor, proceeding...");
+  var myRes= administratorControl.retrieveAllTutor();
+  res.send(myRes);
+
+} else if (reqRes === 'Organizzazione Ospitante') {
+
+  console.log("Client requested a list of all host organizations, proceeding...");
+  var myRes= administratorControl.retrieveAllHostOrg();
+  res.send(myRes);
+
+} else {
+
+  console.log("Client made an illegal request. Returning non-zero...");
+  
+  return false;
+
+}
+
+
+
+});
+
+/*   Obsolete
+
 app.get('/retrieveAllTutor', function(req,res) {
 
 console.log("Client requested a list of all Tutor, proceeding...");
@@ -631,7 +661,10 @@ res.send(myRes);
 
 });
 
-/*
+*/
+
+/* To link in frontend
+
 app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
 
   var action=adminControl.deleteHostOrg(req,res);
