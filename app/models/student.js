@@ -321,7 +321,7 @@ static updateStudentCV(email, id) {
             MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
                 if(err)  reject(err);
                 var dbo= db.db(dbName);    
-                dbo.collection("Student").findOne({"Email": email}, function(err, result){
+                dbo.collection("Student").findOne({Email: email}, function(err, result){
                     if(err) reject(err);
                     fulfill(result.CV);
                     db.close();
@@ -337,7 +337,7 @@ static retrieveStudentIDCard(email) {
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
             var dbo= db.db(dbName);
-            dbo.collection("Student").findOne({"Email": email}, function(err, result){
+            dbo.collection("Student").findOne({Email: email}, function(err, result){
                 if(err) reject(err);
                 fulfill(result.IDCard);
                 db.close();
