@@ -127,7 +127,7 @@ static findByEmail(email){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
             var dbo= db.db(dbName);
-            dbo.collection("ExternalTutor").findOne({"E_mail": email}, function(err, result){
+            dbo.collection("ExternalTutor").findOne({E_mail: email}, function(err, result){
                 if(err) reject(err);
                 if(result!=null){
                     var extutor= new externalTutor();

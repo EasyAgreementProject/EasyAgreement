@@ -126,6 +126,11 @@ exports.updatePassword=function(req,res){
              reject();
         });
     }
+    else{
+        res.cookie('errPassword','1');
+        fulfill(false);
+        
+    }
 });
 }
 
