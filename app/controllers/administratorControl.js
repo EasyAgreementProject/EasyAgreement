@@ -263,7 +263,7 @@ exports.retrieveAllTutor= function(req,res) {
 
 exports.retrieveAllHostOrg = function(req,res) {
 
-    var retValue=organizationModel.retrieveAll();
+    var retValue=organizationModel.retrieveAll;
 
     retValue.then(function(result){
 

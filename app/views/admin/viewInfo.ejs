@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Organizzaione & Tutor Esterni</title>
+    <title>Organizzazione & Tutor Esterni</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -86,24 +86,9 @@
                          </form>
                          </div>
                      </div>
-                     <table class="table table-striped" id="users_list" width="100px">
-                         <thread>
-		                   <tr class="active">
-			                      <th scope="col">Nome</th>
-			                      <th scope="col">Visualizza</th>
-			                      <th scope="col">Elimina</th>
-                          </tr>
-                          </thread>
+                    
                           <tbody>
-
-                          </tbody>
-                         <!--  <tr>
-                      			<td class="text-center" name="nome"></td>
-                      			<td class="text-center" name="visualizza"><form action="/fileviewHost" method="post" name="viewFormHost"><button type="image" style="display:block; margin:0 auto; width:100 px" class="btn btn-primary btn-xs"><img src="/img/spunta-verde.png" width="20px" height="20px" border="0"></button></form></td>
-                      			<td class="text-center" name="elimina"><form action="/deleteHost" method="post" name="deleteFormHost"><button type="image" style="display:block; margin:0 auto; width:100 px" class="btn btn-primary btn-lg"><img src="/img/delete.png" width="20px" height="20px" border="0"></button></form></td>
-                          </tr>-->
-                     </table>
-                    <script>
+                                <script>
                     $(document).ready(function(){
                         let xhr= new XMLHttpRequest;
                         xhr.open('Post', '/retriveManager', true)
@@ -138,6 +123,10 @@
                     });
                     </script>
 
+                          </tbody>
+                            </table>
+                     
+                    
 
 
 
