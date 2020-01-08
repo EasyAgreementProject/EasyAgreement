@@ -27,7 +27,7 @@ describe('Field test for profileControl', function(){
 
   it ('testing method studentControl - TC_PM_1.1.3', function(done) {
         var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "Marco",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
+        var req={body:{inputNameS : "Francesco",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "f.califano@studenti.unisa.it"}}}}
         var updateS=studentControl.update(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
@@ -59,7 +59,7 @@ describe('Field test for profileControl', function(){
 
     it ('testing method studentControl - TC_PM_1.1.6', function(done) {
         var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "Borrelli", inputCity:"", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
+        var req={body:{inputNameS : "",inputSurnameS: "Califano", inputCity:"", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email:"f.califano@studenti.unisa.it"}}}}
         var updateS=studentControl.update(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
@@ -89,7 +89,7 @@ describe('Field test for profileControl', function(){
 
     it ('testing method studentControl - TC_PM_1.1.12', function(done) {
         var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"napolo", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
+        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"Salerno", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "f.califano@studenti.unisa.it"}}}}
         var updateS=studentControl.update(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
@@ -119,7 +119,7 @@ describe('Field test for profileControl', function(){
 
     it( 'testing method studentControl - TC_PM_1.1.15', function(done) {
         var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"via napoli 1", inputDegree:"" },session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
+        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"Via delle Vie 122", inputDegree:"" },session: {utente:{ utente: {Email: "f.califano@studenti.unisa.it"}}}}
         var updateS=studentControl.update(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
@@ -149,7 +149,7 @@ describe('Field test for profileControl', function(){
 
     it( 'testing method studentControl - TC_PM_1.1.18', function(done) {
         var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:"degree course" },session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
+        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:"Computer Science" },session: {utente:{ utente: {Email: "f.califano@studenti.unisa.it"}}}}
         var updateS=studentControl.update(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
@@ -219,7 +219,7 @@ describe('Field test for profileControl', function(){
 
     it( 'testing method studentControl - change passw', function(done) {
         var res = mockHttp.createResponse();
-        var req={body:{inputOldPassword :"Marco1997",inputPassword:"marco97977", inputConfirmPassword:"marco97977" },session: {utente:{ utente: {Email:"m.borrelli18@studenti.unisa.it",Password: { hash:"851eb0d9ad5fff39fedd03239bb7735a320e1cd99d707353931ed9892868561ebc92c8e07fab2d1ed06a8abfd39913584460324c3ae6a8826c439958e9f8f80c1698ef6e520ce8798b3da9aa9ece6ddc86f9da12113c9f5b9eb3bdaac1beed0176ec3d8663da5b85f64c37d7fc39a6bfe157ff70ec68127e165f318fecc23888975eaa8f5a10a2ead04547a671ea4d72ad1187714cc8dd846724ce5bf1076d8993aa9b594b1cfbdc0469f77011350616c4047d5c00e0d84e89e9bbf2d52cfa430494d7b7b15007065bdd628c7bcdaa704936a1c1df742b0a1040327812ae3d598fee8747374213cec2fec7f0b4e996cd641b4063cc9a3329351deb429fd7da6ca5f75b1fde616650f0898144e82d5ea2f1660ecd618aae942a71769a825350195470884e5bfd9b8b47dbeeec2fb926adc5283339fd304ca0578c1461cfda255834392602092cb9aa3983fb677bc03c1b8b7864878cb3a4b196a0c304cf2c13719cacad15b74820611d6909d93d80284b1fa2195d873961aaf23842227fa1c184a4884365400372eb85bd08a04c43ba5dbcbc93fb34a6e3f63ad54b0a78f872620a5a89d650085aa2a9c01a83f962712c1459c918871ace63a9056f54270d459290b108c4f602705dcbb36e8b0f6c33e6d910388d74f5f3ee0ac9efe6c06027c5b14bee6f16fb63a3ea8981dd541dfcfccb04698cc5c4792d971ec7e2eddbea81",salt:"vLrc35dadSCD30EQQ9yk1gm8EnFhT/KcFc21RMmfa0G6ZXq8dA0YbiYWIfj29wePenjvvTdqZcTvp9OHXb6JzYZC4/uM11KGEMX54grRVfJJVgI3RMrz4lBn5eWKhgsRX/ovDinHNPb8CJ/qIc3mNvK/pf/sQz3fBfcmM/uacSwQFqbIlATi7XbCgIikTPyajNepts2NZNuw7ah1pBpNbQ/T9kaSh7opBo6nN4ktv5O0avZeIr9QuxVoPsx580hOb2FwuB1ORtilM2wD9ve5RfwZpD2ZdjEGOBq+fql+CqbrSuZmy5TCv/S1QgzF9zxkFON7PGeyfKsHATQxu0jetA=="}}}}}
+        var req={body:{inputOldPassword :"FraCalifano1",inputPassword:"marco97977", inputConfirmPassword:"marco97977" },session: {utente:{ utente: {Email:"f.califano@studenti.unisa.it",Password: { hash:"00bf23bde715bbc6659bf3167f23de79d2676f08307d66dc36b76e35fe8a5317d209235d864d51092563b388a88ce3023d8e10c86dbab60bbe2509a4a7c3b567d01fb670a0fc723854140ee409b43f29e6cb808ca63d070320c7f45c965cc6b00501df804bc378b9ea2102fd3f4d17e26e78bf52cc28838e9ff67e52d56e19adea05b992bcc9c3914a736e41d0c2a3e77288c91156e88e65d62b58646ec92a3fbacd2e2c0a09ef36d27bc81b9c943a0c784748011fa279997410e7c70f5f8e28b57b78761b6aaacee608807533848f32efbc22aa56ee1957f55e3dcd3e1e298218ad9fc411abe36510b729c86e494ac9fcf4ba11e04167c0c4e5ae7acc58940d815179a6c9423266704aeac73b6f2d6035bb0552a1c92dc796dd4836ad41f3097387220acb5d014f2e995eb6477996989a88e9eb997089e85838ae0b8d987b4de541fd08d3b776a7cb71d14c16798e16f10ba068d0bd0323cd861da9cc2938fb93150871d4fb473f330f68a8b8b63882b5d5208d9f17a3f4387684d19b96b1c9eeab8f65563aa0bd596cc7ba2d5a1ce238c474da3453a2b42ba6d2a767c8e750320034f42399a527558f7bd5970be87428478125412d738c9ce5921e62495bbaea0b28c7e9c682b915ab1799965e7a3a7f0ddaa5329d37bb617e1b7d11627bb4d251d054f6d8886bf888b484f041d1b477f7cf1ae9c91913f4f4e91e4ecc144f",salt:"Owb1eJtTmTR0UWASwmwFv0a3QS9jyWQ0r8SRopqnBLdcQVtJ5n2M4VYwA+1O/CHcpxDJE+eLJxo7U/8JEQlMI6f+7H1l4Qz3wGga6qYlZqz3WIQ+YGBp7+8RAeiErnBCVsMMgqCkpuwSNLU75b3n/A2Xy5M2xZTUONag9fdRyPJlEOsaWrefXg9BFtWXgK1/R1KECeFT1tTfVWO2mtNFnr1gYTnbNrJ7+uaROFhvQFJTZxT/T/NSTYL4vmlMmrTtTea975yah0kEz+5NMz8o/G1swcsq2LiHudJa5dKxNa3FM96BSJ+V574Ls1aALOEKblqp5f5/+r2XpoxuSqRJeg=="}}}}}
         var updateS=studentControl.updatePassword(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
