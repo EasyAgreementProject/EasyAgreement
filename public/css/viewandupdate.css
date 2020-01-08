@@ -1,0 +1,91 @@
+
+                    #viewp{
+                        width: 450px;
+                        border-color: black;
+                        border-style: solid;
+                        margin: 0 auto;
+                    }
+                    
+                    @media (min-width: 180px) {
+                    
+                        .mt-8{
+                            margin-left: 50px;
+                            color:darkblue;
+                            text-align:center;
+                            font-style:italic;
+                        }
+                       
+                        .viewdati{
+                            text-align: center;
+
+                        }
+                       
+                        .form-label-groupS , .form-label-groupAT, .form-label-groupE {
+                            width: 450px;
+                            padding: 5px;
+                            
+                        }
+
+                        .form-label-groupS >input , .form-label-groupAT >input, .form-label-groupE >input, .form-label-groupA >input {
+                            text-align:center;
+                        }
+                        
+                        .list-group{
+                            text-align: left;
+                        }
+                       
+
+                        .updatedati{ 
+                           display: flex;
+                        }
+
+                        .updatedatiAdmin{
+                            width: 700px;
+                            height:800px;
+                           
+                            margin: 0 auto;
+                        }
+
+                        .updatedati{
+                            width: 950px;
+                            height:950px;
+                           
+                            margin: 0 auto;
+                        }
+
+                        h6{
+                            text-align: center;
+                        }
+
+                        #errName,
+                        #errSurname,
+                        #errNameS,
+                        #errSurnameS,
+                        #errNameE,
+                        #errSurnameE,
+                        #errNameAc,
+                        #errSurnameAc,
+                        #errEmail,
+                        #errCity,
+                        #errCourse,
+                        #errOrganization,
+                        #errDepartmentT,
+                        #errAddress,
+                        #errOldPassword,
+                        #errPassword,
+                        #errConfirmPassword
+                         {
+                            color: red;
+                            display: none;
+                            margin-top: -5px;
+                            font-size: 14px;
+                            padding: 5px;
+                            margin-bottom: 5px;
+                        }
+                        .errClass {
+                            border-color: red !important;
+                        }
+                        .errClass:focus {
+                            border-color: red !important;
+                        }
+                    }
