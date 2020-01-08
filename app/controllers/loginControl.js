@@ -62,10 +62,12 @@ exports.login= function(req, res){
                                         return;
                                     }
                                     else{
-                                        if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
+                                       if(hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)){
+                                           
                                             var adminSession={
                                                 utente: resultAd,
                                                 type: "admin"
+                                           
                                             };
                                             res.cookie('logEff','1');
                                             fulfill(adminSession);
@@ -81,7 +83,8 @@ exports.login= function(req, res){
                             }
                             else{
                                 if(hash.checkPassword(resultE.getPassword().hash, resultE.getPassword().salt, password)){
-                                    var externalSession={
+                                  
+                                   var externalSession={
                                         utente: resultE,
                                         type: "externalTutor"
                                     };
@@ -98,7 +101,7 @@ exports.login= function(req, res){
                         })
                     }
                     else{
-                        if(hash.checkPassword(resultA.getPassword().hash, resultA.getPassword().salt, password)){
+                       if(hash.checkPassword(resultA.getPassword().hash, resultA.getPassword().salt, password)){
                             var academicSession={
                                 utente: resultA,
                                 type: "academicTutor"
@@ -116,7 +119,7 @@ exports.login= function(req, res){
                 })
             }
             else{
-                if(hash.checkPassword(resultS.getPassword().hash, resultS.getPassword().salt, password)){
+               if(hash.checkPassword(resultS.getPassword().hash, resultS.getPassword().salt, password)){
                     var studentSession={
                         utente: resultS,
                         type: "student"

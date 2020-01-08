@@ -207,6 +207,8 @@ static insertStudent(student) {
 }
 
 
+
+
 /**
  * Find student by StudentID
  * @param {String} studentID- studentID
@@ -225,8 +227,8 @@ static findByMatricola(studentID){
                 else{
                     fulfill(true);
                 }
-                db.close;
-
+                db.close();
+            
             });
         });
     });
@@ -346,6 +348,105 @@ static retrieveStudentIDCard(email) {
     });
 }
 
+/**
+ * update params of student
+ * @param {Object} student - Student's Object
+ * @param {String} emailv - Student's email
+ * @returns {Object} - Returns the updated student if result != null, else it returns null
+ * 
+ */
+static updateStudent(student,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) reject(err);
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues={};
+            if(student.Name    != null) newvalues.Name=student.Name;
+            if(student.Surname != null) newvalues.Surname=student.Surname;
+            if(student.Address != null) newvalues.Address=student.Address;
+            if(student.City    != null) newvalues.City=student.City;
+            if(student.DegreeCourse != null) newvalues.DegreeCourse=student.DegreeCourse;
+            dbo.collection("Student").updateOne(myquery, {$set: newvalues }, function(err, res) {
+                 if (err) throw err;
+                     console.log("1 document updated");
+                     dbo.collection("Student").findOne({Email: emailv}, function(err, result){
+                        if(err) reject(err);
+                        if(result!=null){
+                            var student= new Student();
+                            student.setName(result.Name);
+                            student.setSurname(result.Surname);
+                            student.setDegreeCourse(result.DegreeCourse);
+                            student.setAddress(result.Address);
+                            student.setCity(result.City);
+                            student.setEmail(result.Email);
+                            student.setCurriculumVitae(result.CV);
+                            student.setIdentityCard(result.IDCard);
+                            student.setPassword(result.Password);
+                            student.setStudentID(result.StudentID);
+                            db.close();
+                            fulfill(student);
+                        }
+                        else{
+                            db.close();
+                            fulfill(null);
+                        }
+                     })
+             });
+             
+            });
+        });
+    
+}
+
+
+/**
+ * update password of student
+ * @param {String} password - Student's password
+ * @param {String} emailv - Student's email
+ * @returns {Object} - Returns the updated password of student if result != null, else it returns null
+ * 
+ */
+static updatePassword(password,emailv) {
+    return new Promise(function (fulfill, reject) {
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+            if(err) reject(err);
+            console.log("Connected successfully to server!");
+            var dbo = db.db(dbName);
+            console.log(".");
+            var myquery = { Email: emailv };
+            var newvalues = { $set: {Password:password } };
+             dbo.collection("Student").updateOne(myquery, newvalues, function(err, res) {
+                 if (err) reject(err);
+             });
+             dbo.collection("Student").findOne({Email: emailv}, function(err, result){
+                if(err) reject(err);
+                if(result!=null){
+                    var student= new Student();
+                    student.setName(result.Name);
+                    student.setSurname(result.Surname);
+                    student.setDegreeCourse(result.DegreeCourse);
+                    student.setAddress(result.Address);
+                    student.setCity(result.City);
+                    student.setEmail(result.Email);
+                    student.setCurriculumVitae(result.CV);
+                    student.setIdentityCard(result.IDCard);
+                    student.setPassword(result.Password);
+                    student.setStudentID(result.StudentID);
+                    db.close();
+                    fulfill(student);
+                }
+                else{
+                    db.close();
+                    fulfill(null);
+                }
+             })
+            });
+        });
+    }
+    
 /**
  * Retrieve all students
  *

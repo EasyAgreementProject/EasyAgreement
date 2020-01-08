@@ -7,6 +7,12 @@ var learningAgreementControl = require('./app/controllers/learningAgreementContr
 var cookieParser = require('cookie-parser');
 var signupControl= require('./app/controllers/registerControl.js');
 var loginControl= require('./app/controllers/loginControl');
+var studentControl= require('./app/controllers/studentControl');
+var academicTutorControl= require('./app/controllers/academicTutorControl');
+var externalTutorControl= require('./app/controllers/externalTutorControl');
+var administratorControl= require('./app/controllers/administratorControl');
+
+
 var messageControl= require('./app/controllers/messageControl');
 var requestControl = require('./app/controllers/requestControl');
 var notificationControl= require('./app/controllers/notificationControl');
@@ -84,7 +90,7 @@ app.get('/compileLAStudent.html', function(req, res) {
 });
 
 app.get('/viewLA.html', function(req, res){
-    res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
+   res.sendFile(path.join(__dirname + "/app/views/viewLA.html"))
 });
 
 app.get('/getAllVersions', function(req, res) {
@@ -326,6 +332,81 @@ app.post('/signup', function(req, res) {
   });
 });
 
+app.post('/updateProfile', function(req, res) {
+  if(req.session.utente == null){
+    res.redirect("/");
+  }
+  else{
+     if(req.session.utente.type=="student"){
+         var updateS=studentControl.update(req, res);
+         updateS.then(function(){
+          res.render('profile');
+         });
+      }
+     else
+      if(req.session.utente.type=="academicTutor"){
+          var updateA=academicTutorControl.update(req, res);
+          updateA.then(function(){
+          res.render('profile');
+          });
+      }else if(req.session.utente.type=="externalTutor"){
+              var updateE=externalTutorControl.update(req, res);
+              updateE.then(function(){
+              res.render('profile');
+              });
+           
+      }
+  }
+});
+
+app.post('/updatePassword',function(req,res){
+
+if(req.session.utente == null)
+  
+  res.redirect("/");
+else{
+  if(req.session.utente.type=="student"){
+  var updateS=studentControl.updatePassword(req, res);
+  updateS.then(function(result){
+    if(result==true)
+     res.render('profile');
+   else
+     res.render('profile');
+
+  });
+}
+ else
+  if(req.session.utente.type=="academicTutor"){
+    var updateAc=academicTutorControl.updatePassword(req, res);
+    updateAc.then(function(result){
+      if(result==true)
+       res.render('profile');
+     else
+       res.render('profile');
+
+    });
+}
+ else
+ if(req.session.utente.type=="externalTutor"){
+           var updateE=externalTutorControl.updatePassword(req, res);
+           updateE.then(function(result){
+            if(result==true)
+             res.render('profile');
+           else
+             res.render('profile');
+ 
+          });
+        }
+  else
+    if(req.session.utente.type=="admin"){
+          var updateA=administratorControl.update(req, res);
+          updateA.then(function(){
+           res.render('profile');
+         });
+       }
+}
+});
+
 app.post('/login', function(request, response){
   var UserLogin= loginControl.login(request,response);
   UserLogin.then(function(result){
@@ -425,6 +506,38 @@ app.post('/fileviewCV', function(req, res){
     }
     else{
       res.redirect('/gestioneDocumenti.html');
+    }
+  });
+});
+/*
+app.get('/profile', function (request, response) {
+    response.render('profile');
+});*/
+
+app.get('/profile', function (request, response) {
+  if(request.session.utente == null){
+    response.redirect("/");
+  }
+  else
+  {  response.render('profile');
+    
+  }
+    
+});
+
+
+
+
+app.get('/logout',function(req,res){
+  var utente = req.session.utente;
+  req.session.destroy(function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.cookie('logoutEff','1');
+      console.log("sessione eliminata");
+
+      res.redirect("/");
     }
   });
 });
