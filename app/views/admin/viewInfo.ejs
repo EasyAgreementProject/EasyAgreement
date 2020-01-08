@@ -78,26 +78,65 @@
                              Scegli se visualizzare Tutor Esterno oppure Organizzazione Ospitante:
                              <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
                                      <option selected="selected" value="">--Seleziona--</option>
-                                     <option value="tutorExternal">Tutor Esterno</option>
-                                     <option value="host">Organizzazione Ospitante</option>
+                                     <option id="externalTutor" value="tutorExternal">Tutor Esterno</option>
+                                     <option id="hostOrganization" value="host">Organizzazione Ospitante</option>
                              </select>
                              </div>
                              <button class="btn" type="submit" class="saveButton" style="text-align: center; display: block; margin-left:0" >SELEZIONA</button>
                          </form>
                          </div>
                      </div>
-
+                     <table class="table table-striped" id="users_list" width="100px">
+                         <thread>
 		                   <tr class="active">
-			                      <th class="text-center">Nome</th>
-			                      <th class="text-center">Visualizza</th>
-			                      <th class="text-center">Elimina</th>
-		                  </tr>
+			                      <th scope="col">Nome</th>
+			                      <th scope="col">Visualizza</th>
+			                      <th scope="col">Elimina</th>
+                          </tr>
+                          </thread>
+                          <tbody>
 
-                      <tr>
+                          </tbody>
+                         <!--  <tr>
                       			<td class="text-center" name="nome"></td>
                       			<td class="text-center" name="visualizza"><form action="/fileviewHost" method="post" name="viewFormHost"><button type="image" style="display:block; margin:0 auto; width:100 px" class="btn btn-primary btn-xs"><img src="/img/spunta-verde.png" width="20px" height="20px" border="0"></button></form></td>
                       			<td class="text-center" name="elimina"><form action="/deleteHost" method="post" name="deleteFormHost"><button type="image" style="display:block; margin:0 auto; width:100 px" class="btn btn-primary btn-lg"><img src="/img/delete.png" width="20px" height="20px" border="0"></button></form></td>
-		                  </tr>
+                          </tr>-->
+                     </table>
+                    <script>
+                    $(document).ready(function(){
+                        let xhr= new XMLHttpRequest;
+                        xhr.open('Post', '/retriveManager', true)
+                         if(document.getElementById("externalTutor").checked==true){
+                             array.forEach(element => {
+                                 var newRow= tbody.insertRow();
+                                 for(i=0;i<4;i++){
+                                     var newCell= newRow.insertCell(i);
+                                     switch(i){
+                                         case 0: newCell.innerHTML = i+1; break;
+                                         case 1: newCell.innerHTML = element[i]['nome']; break;
+                                         case 2: newCell.innerHTML = '<a href="/viewTutor'+element[i]+'">Visualizza</a>'; break;
+                                         case 3: newCell.innerHTML = '<a href="/deleteExtTutor'+ element[i]+ '">Elimina</a>'; break;
+                                     }
+                                 }
+                             });
+                         }
+                         else if(document.getElementById("hostOrganization").checked==true){
+                                array.forEach(element => {
+                                    var newRow= tbody.insertRow();
+                                    for(i=0;i<4;i++){
+                                        var newCell= newRow.insertCell(i);
+                                        switch(i){
+                                            case 0: newCell.innerHTML = i+1; break;
+                                            case 1: newCell.innerHTML = element[i]['nome']; break;
+                                            case 2: newCell.innerHTML = '<a href="/viewOrg'+ elemnt[i]+'">Visualizza</a>'; break;
+                                            case 3: newCell.innerHTML = '<a href="/deleteExtOrg'+ elemnt[i]+'">Elimina</a>'; break;
+                                        }
+                                    }
+                                });
+                         } 
+                    });
+                    </script>
 
 
 
