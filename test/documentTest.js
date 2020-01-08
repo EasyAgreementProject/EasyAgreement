@@ -5,7 +5,7 @@ var documentControl=require('../app/controllers/documentControl');
 describe('Field test for documentControl', function(){
 
     it('Testing insertIDCard', function(done){
-        var check= documentControl.idHandler("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.idHandler("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
@@ -13,7 +13,7 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing insertCV', function(done){
-        var check= documentControl.cvHandler("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.cvHandler("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
@@ -21,7 +21,7 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing viewIDCard', function(done){
-        var check= documentControl.viewID("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.viewID("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
@@ -29,7 +29,7 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing viewCV', function(done){
-        var check= documentControl.viewCV("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.viewCV("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
@@ -37,7 +37,7 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing getIDCard', function(done){
-        var check= documentControl.getIDState("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.getIDState("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
@@ -45,7 +45,7 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing getCV', function(done){
-        var check= documentControl.getCVState("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.getCVState("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
@@ -53,7 +53,7 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing deleteIDCard', function(done){
-        var check= documentControl.IDEraser("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.IDEraser("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
@@ -61,7 +61,7 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing deleteCV', function(done){
-        var check= documentControl.CVEraser("g.cantaieri1@studenti.unisa.it");
+        var check= documentControl.CVEraser("d.devito@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
             done();
