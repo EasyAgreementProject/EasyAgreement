@@ -93,19 +93,8 @@
                 document.getElementById("email").innerHTML = data["data"]["E-mail"];
                 document.getElementById("academicTutor").innerHTML = data["data"]["Contact person name / position"];
                 document.getElementById("externalTutor").innerHTML = data["data"]["Mentor name / position"];
-                document.getElementById("state").innerHTML = data["status"];
-                
-
-                if(data["status"].startsWith("Approvato dal Tutor Accademico") || data["status"].startsWith("Approvato dal Tutor Esterno")) {
-                    document.getElementById("approve").style.display = "none";
-                    document.getElementById("disapprove").style.display = "none";
-                }
-
-                if(data["status"].startsWith("Disapprovato")) {
-                    document.getElementById("disapprove").style.display = "none";
-                    document.getElementById("approve1").style.display = "none";
-                    document.getElementById("approve2").style.display = "block";
-                }
+                document.getElementById("state").innerHTML = data["status"];             
+               
 
                 $.post('/getConnectedUser', function(user) {
                     if(user.type === 'academicTutor') {
@@ -143,6 +132,17 @@
                         }
                     }
                 });
+                
+                if(data["status"].startsWith("Approvato dal Tutor Accademico") || data["status"].startsWith("Approvato dal Tutor Esterno")) {
+                    document.getElementById("approve").style.display = "none";
+                    document.getElementById("disapprove").style.display = "none";
+                }
+
+                if(data["status"].startsWith("Disapprovato")) {
+                    document.getElementById("disapprove").style.display = "none";
+                    document.getElementById("approve1").style.display = "none";
+                    document.getElementById("approve2").style.display = "block";
+                }
             })
         });
     </script>

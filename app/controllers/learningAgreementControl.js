@@ -55,6 +55,12 @@ exports.sendLaStudent = function(input, res) {
     };
 
     console.log(data["Date of birth"] + "    " + data["The trainee date"]);
+    data["A1"] = null;
+    data["A2"] = null;
+    data["B1"] = null;
+    data["B2"] = null;
+    data["C1"] = null;
+    data["C2"] = null;
     switch (input[31]) {
         case "A1":
             data["A1"] = "X";
@@ -83,6 +89,12 @@ exports.sendLaStudent = function(input, res) {
         validatePr.then(function(result) {
             console.log(""+data);
             if (result) {
+                if(!data["A1"]) data["A1"] = "";
+                if(!data["A2"]) data["A2"] = "";
+                if(!data["B1"]) data["B1"] = "";
+                if(!data["B2"]) data["B2"] = "";
+                if(!data["C1"]) data["C1"] = "";
+                if(!data["C2"]) data["C2"] = "";
                 pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
                     if (err)
                         throw err;
@@ -134,7 +146,7 @@ exports.sendLaStudent = function(input, res) {
     })
 }
 
-exports.saveLaStudent = function(input) {
+exports.saveLaStudent = function(input, res) {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -178,6 +190,12 @@ exports.saveLaStudent = function(input) {
         "The trainee date": today
     };
     console.log(data["Date of birth"] + "    " + data["The trainee date"]);
+    data["A1"] = null;
+    data["A2"] = null;
+    data["B1"] = null;
+    data["B2"] = null;
+    data["C1"] = null;
+    data["C2"] = null;
     switch (input[31]) {
         case "A1":
             data["A1"] = "X";
@@ -202,17 +220,25 @@ exports.saveLaStudent = function(input) {
     }
 
     return new Promise(function(fulfill, reject) {
-        //send Filled PDF to Client side
-        learningAgreement.setFilling(data);
-        learningAgreement.setDocument(null);
-        learningAgreement.setStudentID(data["E-mail"]);
-        learningAgreement.setState(null);
-        learningAgreement.setDate(data["The trainee date"]);
+        var getStatusPr = exports.getStatus(data["E-mail"]);
+            getStatusPr.then(function(result){
+            if(!result || result.startsWith("Disapprovato")) {
+                learningAgreement.setFilling(data);
+                learningAgreement.setDocument(null);
+                learningAgreement.setStudentID(data["E-mail"]);
 
-        let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-        insertLearningAgreementPr.then(function() {
-            fulfill();
-        });            
+                let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                insertLearningAgreementPr.then(function() {
+                    if(res) res.cookie("saveSuccess", "1");
+                    fulfill();
+                });     
+            }
+            else {
+                if(res) res.cookie("errRequest", "1");
+                console.log("Request already sent!");
+                fulfill();
+            }
+        })               
     })
 }
 
@@ -234,6 +260,9 @@ exports.sendLaAcademicTutor = function(input, res) {
         getDataPr.then(function(data) {        
             //Traineeship embedded in the curriculum
             data["Award"] = input[0];
+            data["Traineeship certificate"] = null;
+            data["Final report"] = null;
+            data["Interview"] = null;
             switch (input[1]) {
                 case "certificate":
                     data["Traineeship certificate"] = "X";
@@ -254,6 +283,8 @@ exports.sendLaAcademicTutor = function(input, res) {
                     break;
             }
             //Traineeship voluntary
+            data["Award ECTS credits Yes"] = null;
+            data["Award ECTS credits No"] = null;
             switch (input[3]) {
                 case "Si":
                     data["Award ECTS credits Yes"] = "X";
@@ -264,7 +295,8 @@ exports.sendLaAcademicTutor = function(input, res) {
             }
 
             data["If yes, please indicate the number of ECTS credits"] = input[4];
-
+            data["Give a grade Yes"] = null;
+            data["Give a grade No"] = null;
             switch (input[5]) {
                 case "Si":
                     data["Give a grade Yes"] = "X";
@@ -273,7 +305,9 @@ exports.sendLaAcademicTutor = function(input, res) {
                     data["Give a grade No"] = "X";
                     break;
             }
-        
+            data["Traineeship certificate1"] = null;
+            data["Final report1"] = null;
+            data["Interview1"] = null;
             switch (input[6]) {
                 case "certificate":
                     data["Traineeship certificate1"] = "X";
@@ -285,7 +319,8 @@ exports.sendLaAcademicTutor = function(input, res) {
                     data["Interview1"] = "X";
                     break;
             }
-
+            data["Record the traineeship in the trainee's Transcript of Records Yes"] = null;
+            data["Record the traineeship in the trainee's Transcript of Records No"] = null;
             switch (input[7]) {
                 case "Si":
                     data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";
@@ -295,6 +330,8 @@ exports.sendLaAcademicTutor = function(input, res) {
                     break;
             }
 
+            data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = null;
+            data["Record the traineeship in the trainee's Europass Mobility Document No"] = null;
             switch (input[8]) {
                 case "Si":
                     data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "X";
@@ -311,7 +348,24 @@ exports.sendLaAcademicTutor = function(input, res) {
                         
             let validatePr = exports.validateDataAcademicTutor(data, res);
             validatePr.then(function(result) {
-                if (result) {                   
+                if (result) {             
+                    if(!data["Award"]) data["Award"] = "";    
+                    if(!data["Traineeship certificate"]) data["Traineeship certificate"] = "";
+                    if(!data["Final report"]) data["Final report"] = "";
+                    if(!data["Interview"]) data["Interview"] = "";                  
+                    if(!data["Award ECTS credits Yes"]) data["Award ECTS credits Yes"] = "";
+                    if(!data["Award ECTS credits No"]) data["Award ECTS credits No"] = "";            
+                    if(!data["If yes, please indicate the number of ECTS credits"]) data["If yes, please indicate the number of ECTS credits"] = "";
+                    if(!data["Give a grade Yes"]) data["Give a grade Yes"] = "";
+                    if(!data["Give a grade No"]) data["Give a grade No"] = "";                    
+                    if(!data["Traineeship certificate1"]) data["Traineeship certificate1"] = "";
+                    if(!data["Final report1"]) data["Final report1"] = "";
+                    if(!data["Interview1"]) data["Interview1"] = "";                    
+                    if(!data["Record the traineeship in the trainee's Transcript of Records Yes"]) data["Record the traineeship in the trainee's Transcript of Records Yes"] = "";
+                    if(!data["Record the traineeship in the trainee's Transcript of Records No"]) data["Record the traineeship in the trainee's Transcript of Records No"] = "";    
+                    if(!data["Record the traineeship in the trainee's Europass Mobility Document Yes"]) data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "";
+                    if(!data["Record the traineeship in the trainee's Europass Mobility Document No"]) data["Record the traineeship in the trainee's Europass Mobility Document No"] = "";
+            
                     pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
                         if (err)
                             throw err;
@@ -379,6 +433,9 @@ exports.saveLaAcademicTutor = function(input, res) {
         getDataPr.then(function(data) {        
             //Traineeship embedded in the curriculum
             data["Award"] = input[0];
+            data["Traineeship certificate"] = null;
+            data["Final report"] = null;
+            data["Interview"] = null;
             switch (input[1]) {
                 case "certificate":
                     data["Traineeship certificate"] = "X";
@@ -399,6 +456,8 @@ exports.saveLaAcademicTutor = function(input, res) {
                     break;
             }
             //Traineeship voluntary
+            data["Award ECTS credits Yes"] = null;
+            data["Award ECTS credits No"] = null;
             switch (input[3]) {
                 case "Si":
                     data["Award ECTS credits Yes"] = "X";
@@ -409,7 +468,8 @@ exports.saveLaAcademicTutor = function(input, res) {
             }
 
             data["If yes, please indicate the number of ECTS credits"] = input[4];
-
+            data["Give a grade Yes"] = null;
+            data["Give a grade No"] = null;
             switch (input[5]) {
                 case "Si":
                     data["Give a grade Yes"] = "X";
@@ -418,7 +478,9 @@ exports.saveLaAcademicTutor = function(input, res) {
                     data["Give a grade No"] = "X";
                     break;
             }
-        
+            data["Traineeship certificate1"] = null;
+            data["Final report1"] = null;
+            data["Interview1"] = null;
             switch (input[6]) {
                 case "certificate":
                     data["Traineeship certificate1"] = "X";
@@ -430,7 +492,8 @@ exports.saveLaAcademicTutor = function(input, res) {
                     data["Interview1"] = "X";
                     break;
             }
-
+            data["Record the traineeship in the trainee's Transcript of Records Yes"] = null;
+            data["Record the traineeship in the trainee's Transcript of Records No"] = null;
             switch (input[7]) {
                 case "Si":
                     data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";
@@ -440,6 +503,8 @@ exports.saveLaAcademicTutor = function(input, res) {
                     break;
             }
 
+            data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = null;
+            data["Record the traineeship in the trainee's Europass Mobility Document No"] = null;
             switch (input[8]) {
                 case "Si":
                     data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "X";
@@ -455,18 +520,25 @@ exports.saveLaAcademicTutor = function(input, res) {
             data["International Departemental Coordinator date"] = today;
                         
             console.log("PDF create successfully!");
-            //send Filled PDF to Client side                        
-            
-            learningAgreement.setFilling(data);
-            learningAgreement.setDocument(null);
-            learningAgreement.setStudentID(data["E-mail"]);
-            learningAgreement.setState(null);
-            learningAgreement.setDate(data["Academic Tutor date"]);
+            var getStatusPr = exports.getStatus(data["E-mail"]);
+            getStatusPr.then(function(result){
+                if(result.startsWith("Inviato")) {
+                    learningAgreement.setFilling(data);
+                    learningAgreement.setDocument(null);
+                    learningAgreement.setStudentID(data["E-mail"]);
 
-            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-            insertLearningAgreementPr.then(function() {
-                fulfill();
-            });                        
+                    var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                    insertLearningAgreementPr.then(function() {
+                        if(res) res.cookie("saveSuccess", "1");
+                        fulfill();
+                    });           
+                }
+                else {
+                    if(res) res.cookie("errRequest", "1");
+                    console.log("Request already sent!");
+                    fulfill();
+                }
+            })               
         });
     });
 }
@@ -486,7 +558,9 @@ exports.sendLaExternalTutor = function(input, res) {
         if(!input[6]) email = "v.volpicelli4@studenti.unisa.it";
         else email = input[6];
         var getDataPr = exports.getData(email); //input[6]
-        getDataPr.then(function(data) {        
+        getDataPr.then(function(data) {    
+            data["financial support Yes"] = null;    
+            data["financial support No"] = null; 
             switch(input[0]) {
                 case "Si": 
                     data["financial support Yes"] = "X";
@@ -496,7 +570,8 @@ exports.sendLaExternalTutor = function(input, res) {
             }
 
             data["if financial support Yes"] = input[1];
-
+            data["The trainee will receive a contribution in kind for his/her traineeship Yes"] = null;
+            data["The trainee will receive a contribution in kind for his/her traineeship No"] = null;
             switch(input[2]) {
                 case "Si": 
                     data["The trainee will receive a contribution in kind for his/her traineeship Yes"] = "X";
@@ -507,6 +582,8 @@ exports.sendLaExternalTutor = function(input, res) {
  
             data["If yes, please specify"] = input[3];
             data["Traineeship Certificate by"] = input[4];
+            data["Is the trainee covered by the accident insurance Yes"] = null;
+            data["Is the trainee covered by the accident insurance No"] = null;
 
             switch(input[5]) {
                 case "Si": 
@@ -547,6 +624,16 @@ exports.sendLaExternalTutor = function(input, res) {
             let validatePr = exports.validateDataExternalTutor(data, res);
             validatePr.then(function(result) {
                 if (result) {
+                    if(!data["financial support Yes"]) data["financial support Yes"] = "";    
+                    if(!data["financial support No"]) data["financial support No"] = ""; 
+                    if(!data["if financial support Yes"]) data["if financial support Yes"] = "";
+                    if(!data["The trainee will receive a contribution in kind for his/her traineeship Yes"]) data["The trainee will receive a contribution in kind for his/her traineeship Yes"] = "";
+                    if(!data["The trainee will receive a contribution in kind for his/her traineeship No"]) data["The trainee will receive a contribution in kind for his/her traineeship No"] = "";
+                    if(!data["If yes, please specify"]) data["If yes, please specify"] = "";
+                    if(!data["Traineeship Certificate by"]) data["Traineeship Certificate by"] = "";
+                    if(!data["Is the trainee covered by the accident insurance Yes"]) data["Is the trainee covered by the accident insurance Yes"] = "";
+                    if(!data["Is the trainee covered by the accident insurance No"]) data["Is the trainee covered by the accident insurance No"] = "";
+
                     pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
                         if (err)
                             throw err;
@@ -627,16 +714,25 @@ exports.saveLaExternalTutor = function(input, res) {
                     data["Is the trainee covered by the accident insurance No"] = "X";
             }
 
-            learningAgreement.setFilling(data);
-            learningAgreement.setDocument(null);
-            learningAgreement.setStudentID(data["E-mail"]);
-            learningAgreement.setState(null);
-            learningAgreement.setDate(data["Academic Tutor date"]);
+            var getStatusPr = exports.getStatus(data["E-mail"]);
+            getStatusPr.then(function(result){
+                if(result.startsWith("Approvato dal Tutor Accademico")) {
+                    learningAgreement.setFilling(data);
+                    learningAgreement.setDocument(null);
+                    learningAgreement.setStudentID(data["E-mail"]);
 
-            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-            insertLearningAgreementPr.then(function() {
-                fulfill(); 
-            });           
+                    var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                    insertLearningAgreementPr.then(function() {
+                        if(res) res.cookie("saveSuccess", "1");
+                        fulfill(); 
+                    });   
+                }
+                else {
+                    if(res) res.cookie("errRequest", "1");
+                    console.log("Request already sent!");
+                    fulfill();
+                }
+            })                           
         })
     });
 }

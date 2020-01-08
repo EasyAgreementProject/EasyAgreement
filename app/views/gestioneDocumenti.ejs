@@ -1,126 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Gestione Documenti</title>
-
-    <!-- Bootstrap core CSS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/document.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src="js/cookie.js"></script>
-    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script defer src="js/chat.js"></script>
-    <script defer src="js/notification.js"></script>
-
-</head>
-
-<body>
-    <p id="email" style="display:none;"><%=session.utente.utente.Email%></p>
-
-    <div class="d-flex" id="wrapper">
-
-        <!-- Sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <a href="index.html" style="text-decoration: none; color: black">
-                <div class=sidebar-logo>
-                    <img src="/img/logoUni.png" style="float: left" width="50px">
-                </div>
-                <div class="sidebar-heading">Home</div>
-            </a>
-            <div class="list-group list-group-flush">
-                <a href="profile.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
-                <a href="compileLAStudent.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Compilazione LA</a>
-                <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
-                <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor</a>
-                <a href="gestioneDocumenti.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
+<%- include ('header') %>
+<%- include ('sidebar') %>
+<link href="/css/document.css" rel="stylesheet">
+<p id="email" style="display:none;"><%=session.utente.utente.Email%></p>
+    <div class="main-panel">
+        <div class="content">
+            <div class="panel-header bg-primary-gradient">
+                <div class="page-inner py-5">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h2 class="text-white pb-2 fw-bold">Gestione Documenti</h2>
+                            <h5 class="text-white op-7 mb-2">Easy Agreement</h5>
+                        </div>
+                    </div>
+                </div>	
             </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
+            <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-head-bg-info">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Documento</th>
+                                <th class="text-center">Stato</th>
+                                <th class="text-center">Carica</th>
+                                <th class="text-center">Visualizza</th>
+                                <th class="text-center">Elimina</th>
+                            </tr>
+                        </thead>
+                    <tr>
+                            <td class="text-center" name="documento_cd"><p class="text-of-table">Carta Di Identità</p></td>
+                            <td class="text-center" name="stato_cd" id="statoID"></td>
+                        <td class="text-center" name="carica_cd">
+                            <form action="/uploadID" method="post" enctype="multipart/form-data" name="uploadFormCD">
+                            <input type="file" name="filetoupload" id="idfiletoupload" class="input-upload" >
+                            <label for="idfiletoupload" class="input-label-upload">Scegli file</label>
+                            <input type="submit" class="upload-button" value="Upload">
+                            </form>
+                            <td class="text-center" name="visualizza_cd"><form action="/fileviewID" method="post" name="viewFormCD"><button type="image" class="download-image"><img src="/img/download-document.png" ></button></form></td>
+                            <td class="text-center" name="elimina_cd"><form action="/deleteID" method="post" name="deleteFormCD" id="deleteID"><button type="image" class="delete-image"><img src="/img/delete-document.png"></button></form></td>
+                        </tr>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background-color: orange;">
-                <button id="menu-toggle"><img src="/img/menu.png" style="height: 20px; width: 20px;"></button>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="/img/responsive_slide.svg" style="height: 20px; width: 20px;">
-            </button>
+                    <tr>
+                        <td class="text-center" name="documento_cv"><p class="text-of-table">Curriculum Vitae</p></td>
+                        <td class="text-center" name="stato_cv" id="statoCV"></td>
+                        <td class="text-center" name="carica_cv"><a>
+                            <form action="/uploadCV" method="post" enctype="multipart/form-data" id="doc" name="uploadFormCV">
+                            <input type="file" name="filetoupload" id="cvfiletoupload" class="input-upload">
+                            <label for="cvfiletoupload" class="input-label-upload">Scegli file</label>
+                            <input type="submit" value="Upload" class="upload-button">
+                            </form>
+                        <td class="text-center" name="visualizza_cv"><form action="/fileviewCV" method="post" name="viewFormCV"><button type="image" class="download-image"> <img src="/img/download-document.png" ></button></form></td>
+                        <td class="text-center" name="elimina_cv"><form action="/deleteCV" method="post" name="deleteFormCV" id="deleteCV"><button type="image" class="delete-image"> <img src="/img/delete-document.png"></button></form></td>
+                    </tr>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="container-fluid">
-                  <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
-                  <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
-                <h1 class="mt-4">Gestione Documenti</h1>
-                <div class="table-responsive">
-	                 <table class="table table-bordered table-striped">
-
-		                   <tr class="active">
-			                      <th class="text-center">Documento</th>
-			                      <th class="text-center">Stato</th>
-                                  <th class="text-center">Carica</th>
-			                      <th class="text-center">Visualizza</th>
-			                      <th class="text-center">Elimina</th>
-		                  </tr>
-
-                      <tr>
-                      			<td class="text-center" name="documento_cd"><p class="text-of-table">Carta Di Identità</p></td>
-                      			<td class="text-center" name="stato_cd" id="statoID"></td>
-                            <td class="text-center" name="carica_cd">
-                              <form action="/uploadID" method="post" enctype="multipart/form-data" name="uploadFormCD">
-                              <input type="file" name="filetoupload" id="idfiletoupload" class="input-upload" >
-                              <label for="idfiletoupload" class="input-label-upload">Scegli file</label>
-                              <input type="submit" class="upload-button" value="Upload">
-                                </form>
-                      			<td class="text-center" name="visualizza_cd"><form action="/fileviewID" method="post" name="viewFormCD"><button type="image" class="download-image"><img src="/img/download-document.png" ></button></form></td>
-                      			<td class="text-center" name="elimina_cd"><form action="/deleteID" method="post" name="deleteFormCD" id="deleteID"><button type="image" class="delete-image"><img src="/img/delete-document.png"></button></form></td>
-		                  </tr>
-
-                      <tr>
-                            <td class="text-center" name="documento_cv"><p class="text-of-table">Curriculum Vitae</p></td>
-                            <td class="text-center" name="stato_cv" id="statoCV"></td>
-                            <td class="text-center" name="carica_cv"><a>
-                              <form action="/uploadCV" method="post" enctype="multipart/form-data" id="doc" name="uploadFormCV">
-                              <input type="file" name="filetoupload" id="cvfiletoupload" class="input-upload">
-                              <label for="cvfiletoupload" class="input-label-upload">Scegli file</label>
-                              <input type="submit" value="Upload" class="upload-button">
-                              </form>
-                            <td class="text-center" name="visualizza_cv"><form action="/fileviewCV" method="post" name="viewFormCV"><button type="image" class="download-image"> <img src="/img/download-document.png" ></button></form></td>
-                            <td class="text-center" name="elimina_cv"><form action="/deleteCV" method="post" name="deleteFormCV" id="deleteCV"><button type="image" class="delete-image"> <img src="/img/delete-document.png"></button></form></td>
-                      </tr>
-
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
     </div>
-</body>
+<%- include ('footer') %>
 <script>
 
     var email=$('#email').text();

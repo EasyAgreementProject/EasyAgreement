@@ -27,6 +27,7 @@ $(document).ready(function() {
     var errContribution = getCookie("errContribution");
     var errWeeks = getCookie("errWeeks");
     var errRequest = getCookie("errRequest");
+    var saveSuccess = getCookie("saveSuccess");
 
     if (errMissingFields == "1") {
       swal('Compila tutti i campi!', '', 'warning');
@@ -52,7 +53,11 @@ $(document).ready(function() {
     }
 
     if (errRequest == "1") {
-      swal('Richiesta già approvata', "Puoi controllare lo stato della richiesta nell'apposita pagina", 'error');
+      swal('Non è possibile approvare la richiesta', "Puoi controllare lo stato della richiesta nell'apposita pagina", 'error');
       document.cookie = "errRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (saveSuccess == "1") {
+        swal('Salvataggio effettuato', "Puoi continuare la compilazione in un secondo momento.", 'success');
+        document.cookie = "saveSuccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });

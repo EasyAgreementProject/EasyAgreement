@@ -12,7 +12,7 @@ exports.generateRequest = function(student, academicTutor) {
             if(result) {
                 getStatusPr = learningAgreementControl.getStatus(student);
                 getStatusPr.then(function(state){
-                    if(state.startsWith("Disapprovato")) {
+                    if(state && state.startsWith("Disapprovato")) {
                         var deleteRequestPr = Request.deleteRequest(student);
                         deleteRequestPr.then(function(){
                             var insertRequestPr = Request.insertRequest(request);

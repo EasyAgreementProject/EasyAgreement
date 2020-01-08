@@ -151,7 +151,7 @@
 <%- include ('footer') %>    
     <script>
     $(document).ready(function() {
-        $.get("/fillform", function(data){
+        $.get("/fillFormRequest", function(data){
             if (data["Award"]) document.getElementById("inputCredits").value = data["Award"];
             if (data["Traineeship certificate"]) document.getElementById("inputCertificate").checked = true;
             if (data["Final report"]) document.getElementById("inputReport").checked = true;

@@ -114,7 +114,7 @@
 <%- include ('footer') %>
     <script language="text/javascript">
     $(document).ready(function() {
-        $.get("/fillform", function(data){
+        $.get("/fillFormRequest", function(data){
             if (data["financial support Yes"]) document.getElementById("inputRadio1").checked= true;
             if (data["financial support No"]) document.getElementById("inputRadio1").checked = true;
             if (data["if financial support Yes"]) document.getElementById("inputAmount").value= data["if financial support Yes"];

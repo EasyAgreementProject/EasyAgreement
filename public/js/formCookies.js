@@ -52,6 +52,7 @@ $(document).ready(function() {
     var errEvaluation = getCookie("errEvaluation");
     var errLenguage = getCookie("errLenguage");
     var errRequest = getCookie("errRequest");
+    var saveSuccess = getCookie("saveSuccess");
    
 
 
@@ -214,5 +215,9 @@ $(document).ready(function() {
     if (errRequest == "1") {
         swal('Richiesta già inviata', "Puoi controllare lo stato della richiesta nell'apposita pagina", 'error');
         document.cookie = "errRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (saveSuccess == "1") {
+        swal('Salvataggio effettuato', "Puoi continuare la compilazione in un secondo momento.", 'success');
+        document.cookie = "saveSuccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });

@@ -123,6 +123,16 @@ app.get('/fillForm', function(req, res) {
     })
 });
 
+app.get('/fillFormRequest', function(req, res) {
+  var getData = learningAgreementControl.getData(req.session.data.data["E-mail"]);
+  console.log("Student = "+req.session.utente.utente.Email);
+  getData.then(function(data) {
+      if (data) {
+          res.send(data);
+      }
+  })
+});
+
 app.get('/getStatus', function(req, res) {
   var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email);
   console.log("Student Status = "+req.session.utente.utente.Email);
@@ -196,21 +206,22 @@ app.post('/saveStudent', function(req, res) {
       inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
       req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
   ];
-    var saveStudent = learningAgreementControl.saveLaStudent(data);
+    var saveStudent = learningAgreementControl.saveLaStudent(data, res);
     saveStudent.then(function() {
-      res.render(path.join(__dirname + "/app/views/index.ejs"));
+      res.redirect("compileLAStudent.html");
     });
 });
 
 app.post('/saveAcademicTutor', function(req, res) {
   var data = [req.body.inputCredits, req.body.vote, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, null //To change with email of student request 
+    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.data.studentID //To change with email of student request 
   ];
-  var saveTutor = learningAgreementControl.saveLaAcademicTutor(data);
+  var saveTutor = learningAgreementControl.saveLaAcademicTutor(data, res);
   saveTutor.then(function() {
-    res.render(path.join(__dirname + "/app/views/index.ejs"));
+    res.redirect("compileLAAcademicTutor.html");
   });
 });
+
 app.use(session({
   secret: 'secret_session',
   resave: false,
@@ -222,10 +233,10 @@ app.use(function(req,res,next) {
 });
 
 app.post('/saveExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, null]; //To change with email of student request
-  var saveTutor = learningAgreementControl.saveLaExternalTutor(data);
+  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.data.studentID]; //To change with email of student request
+  var saveTutor = learningAgreementControl.saveLaExternalTutor(data, res);
   saveTutor.then(function() {
-    res.render(path.join(__dirname + "/app/views/index.ejs"));
+    res.redirect("compileLAExternalTutor.html");
   });
 });
 
