@@ -80,9 +80,9 @@ A step by step series that tell you how to get a development env running
 
 ## Code Style: ##
 
-1.	`npm install standard --save-dev`
+1.	Go to your project cloned directory 'EasyAgreement’
 
-2.	`npm install -g npx`
+2.	`npm install standard --save-dev`
 
 3.	`npm install -g npx`
 
