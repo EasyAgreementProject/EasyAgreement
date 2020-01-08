@@ -129,7 +129,7 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
     
                     checkE.then(function(result){
                         if(!result){
-                            res.cookie('errAlreadyReg','1');
+                            res.cookie('errAlreadyRegH','1');
                             fulfill(false);
                             return;
                         }
@@ -162,12 +162,12 @@ exports.deleteHostOrg=function(req,res){
 exports.addExtTutor=function (req,res) {
     return new Promise(function(fulfill, reject){
 
-    var name= req.body.inputName;
-    var surname = req.body.inputSurname;
-    var email = req.body.inputEmail;
+    var name= req.body.inputNameEx;
+    var surname = req.body.inputSurnameEx;
+    var email = req.body.inputEmailEx;
     var password = req.body.inputPassword;
     var repassword = req.body.inputRePassword;
-    var organization = req.body.inputOrganization;
+    var organization = req.body.inputOrganizationEx;
 
     var isRight=true; 
     if (password != repassword) {
@@ -179,23 +179,22 @@ exports.addExtTutor=function (req,res) {
 
     isRight=true;
     if((name==null) || (name.length<=1) || (!/^[A-Za-z]+$/.test(name))){
-        res.cookie('errTutorName','1');
+        res.cookie('errExTutorName','1');
         isRight=false;
     }
     
     if((surname==null) || (surname.length<=1) || (!/^[A-Za-z]+$/.test(surname))){
-        res.cookie('errTutorSurname','1');
+        res.cookie('errExTutorSurname','1');
         isRight=false;
     }
 
     if((email==null) || (email.length<=12) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
-        res.cookie('errTutorEmail','1');
-        console.log("HERE");
+        res.cookie('errExTutorEmail','1');
         isRight=false;
     }
 
     if((organization==null) || (organization.length<=1) || (!/^[A-Za-z0-9\s]+$/.test(organization))){
-        res.cookie('errOrganizationName','1');
+        res.cookie('errExOrganizationName','1');
         isRight=false;
     }
 
@@ -231,7 +230,7 @@ exports.addExtTutor=function (req,res) {
 
                 checkE.then(function(result){
                     if(!result){
-                        res.cookie('errAlreadyReg','1');
+                        res.cookie('errAlreadyRegEx','1');
                         fulfill(false);
                         return;
                     }

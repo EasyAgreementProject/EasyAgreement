@@ -566,11 +566,9 @@ app.post('/addHostOrgF', function(req, res) {
   var administratorAddHost=administratorControl.addHostOrg(req,res);
   administratorAddHost.then(function(result){
     if(result== true){
-      console.log("result=true");
       res.render('admin/insorg');
     }
     else{
-      console.log("result=false");
 
       res.render('admin/insorg');
     }
