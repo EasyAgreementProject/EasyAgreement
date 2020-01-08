@@ -149,12 +149,6 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
 exports.deleteHostOrg=function(req,res){
 
 //waiting for frontend
-
-
-
-
-
-
 }
 
 
