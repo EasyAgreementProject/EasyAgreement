@@ -119,6 +119,7 @@ exports.IDEraser = function (e) {
           })
         })
       }
+      else fulfill(false)
     })
   })
 }
@@ -140,6 +141,7 @@ exports.CVEraser = function (e) {
           })
         })
       }
+      else  fulfill(false)
     })
   })
 }
@@ -159,6 +161,7 @@ exports.viewID = function (e) {
           fulfill(downloadStream)
         })
       }
+      else  fulfill(false)
     })
   })
 }
@@ -178,6 +181,7 @@ exports.viewCV = function (e) {
           fulfill(downloadStream)
         })
       }
+      else  fulfill(false)
     })
   })
 }

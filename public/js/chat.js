@@ -2,7 +2,7 @@ var connectedUser = null
 
 $.ajax({
   type: 'POST',
-  url: 'http://localhost:8080/getConnectedUser',
+  url: '/getConnectedUser',
   contentType: 'application/json',
   async: false,
   success: function (user) {
@@ -334,7 +334,7 @@ $(document).ready(function () {
     $('#externalButtonChat').css('display', 'none')
     $('#academicButtonChat').css('border-radius', '24px 0 0 24px')
     $('#studentButtonChat').css('border-radius', '0 24px 24px 0')
-    getReceivers('accademicTutor')
+    getReceivers('academicTutor')
   }
 
   $('#studentButtonChat').on('click', function () {

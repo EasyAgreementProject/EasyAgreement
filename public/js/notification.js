@@ -8,7 +8,7 @@ socket.emit('send-notification', {associatedID: "a.ambruoso1@studenti.unisa.it",
 
 $.ajax({
   type: 'POST',
-  url: 'http://localhost:8080/getConnectedUser',
+  url: '/getConnectedUser',
   contentType: 'application/json',
   async: false,
   success: function (user) {
@@ -138,7 +138,6 @@ function deleteNotification (el) {
 }
 
 function appendNothing () {
-  console.log('niente')
   $('.notifications').prepend(['<div class="notification-none">',
     '<p> Al momento non sono presenti notifiche da visualizzare</p>',
     '</div>'].join('\n'))

@@ -111,7 +111,7 @@ app.get('/gestioneDocumenti.html', function(req, res) {
     res.cookie('cannotAccess', '1');
     res.redirect('/');
   }
-  res.render('gestioneDocumenti');
+  res.render('dochandler');
 });
 
 app.get('/fillForm', function(req, res) {
@@ -482,6 +482,10 @@ app.post('/deleteCV', function (req, res) {
       res.cookie('DeletedCV', '1')
       res.redirect('/gestioneDocumenti.html')
     }
+    else {
+      res.cookie('notDeletedCV', '1')
+      res.redirect('/gestioneDocumenti.html')
+    }
   })
 })
 
@@ -490,6 +494,10 @@ app.post('/deleteID', function (req, res) {
   del.then(function (result) {
     if (result) {
       res.cookie('DeletedID', '1')
+      res.redirect('/gestioneDocumenti.html')
+    }
+    else {
+      res.cookie('notDeletedID', '1')
       res.redirect('/gestioneDocumenti.html')
     }
   })
@@ -503,6 +511,7 @@ app.post('/fileviewID', function (req, res) {
       res.setHeader('Content-Disposition', 'attachment; filename = IDCard.pdf')
       result.pipe(res)
     } else {
+      res.cookie('notViewID', '1')
       res.redirect('/gestioneDocumenti.html')
     }
   });
@@ -530,6 +539,7 @@ app.post('/fileviewCV', function(req, res){
       res.setHeader('Content-Disposition', 'attachment; filename = CV.pdf');
       result.pipe(res)
     } else {
+      res.cookie('notViewCV', '1')
       res.redirect('/gestioneDocumenti.html')
     }
   })
