@@ -5,7 +5,7 @@ var studentControl=require('../app/controllers/studentControl');
 
 describe('Field test for profileControl', function(){
 
-    it( 'testing method studentControl - TC_PM_1.1.1', function(done) {
+    it( 'testing method studentControl - TC_PM_1.2.1', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{inputNameS : "M",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:"" }}
         var updateS=studentControl.update(req, res);
@@ -15,7 +15,7 @@ describe('Field test for profileControl', function(){
         });
     });
 
-    it ('testing method studentControl - TC_PM_1.1.2', function(done) {
+    it ('testing method studentControl - TC_PM_1.2.2', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{inputNameS : "Ma%o",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:"" }}
         var updateS=studentControl.update(req, res);
@@ -25,17 +25,15 @@ describe('Field test for profileControl', function(){
         });
     });
 
-  it ('testing method studentControl - TC_PM_1.1.3', function(done) {
+   it ('testing method studentControl - TC_PM_1.1.3', function(done) {
         var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "Marco",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
+        var req={body:{inputNameS : "Marco",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:"" } , session: {utente:{ utente: {Email: ""}}}}
         var updateS=studentControl.update(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
             done();
         });
     });
-
-    
 
     it( 'testing method studentControl - TC_PM_1.1.4', function(done) {
         var res = mockHttp.createResponse();
@@ -57,16 +55,6 @@ describe('Field test for profileControl', function(){
         });
     });
 
-    it ('testing method studentControl - TC_PM_1.1.6', function(done) {
-        var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "Borrelli", inputCity:"", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
-        var updateS=studentControl.update(req, res);
-        updateS.then(function(result){
-            expect(result).to.not.be.null;
-            done();
-        });
-    }); 
-
     it( 'testing method studentControl - TC_PM_1.1.10', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"N", inputAddress:"", inputDegree:"" }}
@@ -87,16 +75,6 @@ describe('Field test for profileControl', function(){
         });
     });
 
-    it ('testing method studentControl - TC_PM_1.1.12', function(done) {
-        var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"napolo", inputAddress:"", inputDegree:""}, session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
-        var updateS=studentControl.update(req, res);
-        updateS.then(function(result){
-            expect(result).to.not.be.null;
-            done();
-        });
-    }); 
-
     it( 'testing method studentControl - TC_PM_1.1.13', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"V", inputDegree:"" }}
@@ -110,16 +88,6 @@ describe('Field test for profileControl', function(){
     it( 'testing method studentControl - TC_PM_1.1.14', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"V198&2", inputDegree:"" }}
-        var updateS=studentControl.update(req, res);
-        updateS.then(function(result){
-            expect(result).to.not.be.null;
-            done();
-        });
-    });
-
-    it( 'testing method studentControl - TC_PM_1.1.15', function(done) {
-        var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"via napoli 1", inputDegree:"" },session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
         var updateS=studentControl.update(req, res);
         updateS.then(function(result){
             expect(result).to.not.be.null;
@@ -144,16 +112,6 @@ describe('Field test for profileControl', function(){
         updateS.then(function(result){
                 expect(result).to.not.be.null;
                 done();
-        });
-    });
-
-    it( 'testing method studentControl - TC_PM_1.1.18', function(done) {
-        var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:"degree course" },session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
-        var updateS=studentControl.update(req, res);
-        updateS.then(function(result){
-            expect(result).to.not.be.null;
-            done();
         });
     });
 
@@ -197,7 +155,7 @@ describe('Field test for profileControl', function(){
         });
     });
 
-    it( 'testing method studentControl - TC_PM_1.1.23', function(done) {
+    it( 'testing method studentControl - TC_PM_1.1.22', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{inputOldPassword : "",inputPassword: "Marcob%&$!!”", inputConfirmPassword:"" }}
         var updateS=studentControl.updatePassword(req, res);
@@ -207,23 +165,13 @@ describe('Field test for profileControl', function(){
         });
     });
     
-    it( 'testing method studentControl - password do not match', function(done) {
+    it( 'testing method studentControl - TC_PM_1.1.22', function(done) {
         var res = mockHttp.createResponse();
         var req={body:{inputOldPassword : "",inputPassword: "Marco1997", inputConfirmPassword:"Marco1998" }}
         var updateS=studentControl.updatePassword(req, res);
         updateS.then(function(result){
                 expect(result).to.not.be.null;
                 done();
-        });
-    });
-
-    it( 'testing method studentControl - TC_PM_1.1.18', function(done) {
-        var res = mockHttp.createResponse();
-        var req={body:{inputNameS : "",inputSurnameS: "", inputCity:"", inputAddress:"", inputDegree:"degree course" },session: {utente:{ utente: {Email: "m.borrelli18@studenti.unisa.it"}}}}
-        var updateS=studentControl.update(req, res);
-        updateS.then(function(result){
-            expect(result).to.not.be.null;
-            done();
         });
     });
 
