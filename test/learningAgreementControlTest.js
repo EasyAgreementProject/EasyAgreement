@@ -3,7 +3,7 @@ var compileControl = require('../app/controllers/learningAgreementControl');
 
 describe('Field test for learningAgreementControl', function(){
     
-    it('Testing method saveLaStudent - TC_LAM_1.63', function(){
+    /*it('Testing method saveLaStudent - TC_LAM_1.63', function(){
         var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli4@studenti.unisa.it'];
         var sendStudent = compileControl.saveLaStudent(input);
         sendStudent.then(function(la) {
@@ -12,7 +12,7 @@ describe('Field test for learningAgreementControl', function(){
                 assert.isNotNull(la);
             })            
         });
-    });
+    });*/
 
     it('Testing method sendLaStudent - TC_LAM_1.6', function(){
         var input = ['V'];
@@ -521,13 +521,13 @@ describe('Field test for learningAgreementControl', function(){
     });      
 
 
-    it('Testing method saveLaAcademicTutor', function(){
+    /*it('Testing method saveLaAcademicTutor', function(){
         var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si', 'Si'];
         var sendLaAcademicTutor = compileControl.saveLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isUndefined(la);
         });
-    });
+    });*/
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.1', function(){
         var input = [];
@@ -777,13 +777,13 @@ describe('Field test for learningAgreementControl', function(){
         });
     });
 
-    it('Testing method saveLaExternalTutor', function(){
+    /*it('Testing method saveLaExternalTutor', function(){
         var input = ['Si', '300', 'Si', 'Buoni Pasto', '4', 'Si'];
         var sendLaExternalTutor = compileControl.saveLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {
             assert.isUndefined(la);
         });
-    });
+    });*/
 
     it('Testing method sendLaExternalTutor - TC_LAM_3.10', function(){
         var input = ['Si', '300', 'Si', 'Buoni Pasto', '4', 'Si'];
