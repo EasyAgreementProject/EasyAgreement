@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectId;
 
 //Database URL
 const url="mongodb://localhost:27017/easyagreement";
@@ -79,7 +80,7 @@ class Student {
     getDegreeCourse(){
         return this.DegreeCourse;
     }
-    
+
     /**
      * Get Identity cart
      * @returns {File} - return identity cart
@@ -191,7 +192,7 @@ class Student {
  */
 static insertStudent(student) {
     return new Promise(function (fulfill, reject) {
-        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
+        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if(err) throw err;
             console.log("Connected successfully to server!");
             var dbo = db.db(dbName);
@@ -225,13 +226,13 @@ static findByMatricola(studentID){
                     fulfill(true);
                 }
                 db.close;
-            
+
             });
         });
     });
 }
 
-/** 
+/**
  * Find student by email
  * @param {String} email- email
  * @returns {boolean} - return true if the object does not exist in database, else false
@@ -255,7 +256,7 @@ static findExistByEmail(email){
     });
 }
 
-/** 
+/**
  * check if exist student by email
  * @param {String} email- email
  * @returns {boolean} - return true if the object does not exist in database, else false
@@ -290,9 +291,64 @@ static findByEmail(email){
     });
 }
 
+static updateStudentCV(email, id) { 
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  throw err;
+            var dbo= db.db(dbName);
+            dbo.collection("Student").updateOne({Email : email}, {$set:{CV :  ObjectID(id)}}, function(err, result){
+                if(err) throw err;
+                db.close();
+                return;
+            });
+        });
+}
+
+
+    static updateStudentIDCard(email, id) { 
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  throw err;
+                var dbo= db.db(dbName);
+                dbo.collection("Student").updateOne({Email : email}, {$set:{IDCard :  ObjectID(id)}}, function(err, result){
+                    if(err) throw err;
+                    db.close();
+                    return;
+                });
+            });
+    }
+
+    static retrieveStudentCV(email) {
+        return new Promise(function(fulfill,reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  reject(err);
+                var dbo= db.db(dbName);    
+                dbo.collection("Student").findOne({Email: email}, function(err, result){
+                    if(err) reject(err);
+                    fulfill(result.CV);
+                    db.close();
+                });
+            });
+        });
+    }
+
+
+
+static retrieveStudentIDCard(email) { 
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("Student").findOne({Email: email}, function(err, result){
+                if(err) reject(err);
+                fulfill(result.IDCard);
+                db.close();
+            });
+        });
+    });
+}
+
 /**
  * Retrieve all students
- * 
+ *
  * @returns {promise} - return promise
  */
 static RetrieveAll() {
@@ -300,6 +356,7 @@ static RetrieveAll() {
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
             var dbo= db.db(dbName);
+            
             dbo.collection("Student").find({}).toArray(function(err,result) {
                 if(err) throw err;
                 fulfill(result);
@@ -307,7 +364,34 @@ static RetrieveAll() {
             });
         });
     });
+    }
+
+    static deleteStudentCV(email) { 
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  throw err;
+                var dbo= db.db(dbName);
+                dbo.collection("Student").updateOne({Email: email}, {$set: {CV: null}}, function(err, result){
+                    if(err) throw err;
+                    db.close();
+                    return;
+                });
+            });
+    }
+    
+
+    static deleteStudentID(email) { 
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  throw err;
+                var dbo= db.db(dbName);
+                dbo.collection("Student").updateOne({Email: email}, {$set: {IDCard: null}}, function(err, result){
+                    if(err) throw err;
+                    db.close();
+                    return;
+                });
+            });
+    }
+
 }
-}
+
 
 module.exports= Student;
