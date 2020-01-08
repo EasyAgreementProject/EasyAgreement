@@ -126,7 +126,6 @@ exports.updatePassword=function(req,res){
 
     if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
         var passwordHashed= hash.hashPassword(password);
-    
         var checkS=studentModel.updatePassword(passwordHashed,req.session.utente.utente.Email);
         /** 
         * It checks the result of updatePassword function and updates the student session
