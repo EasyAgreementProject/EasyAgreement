@@ -74,6 +74,12 @@ $(document).ready(function(){
         document.cookie="errStudentName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 
+    if(errOrganizationEx=="1"){
+        $('#errOrganizationEx').css('display','block');
+        $('#inputOrganizationEx').addClass("errClass");
+        document.cookie="errExOrganizationName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
     if(errNameEx=="1"){
         $('#errNameEx').css('display','block');
         $('#inputNameEx').addClass("errClass");

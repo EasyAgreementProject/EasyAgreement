@@ -182,7 +182,7 @@ exports.addExtTutor=function (req,res) {
         isRight=false;
     }
 
-    if((email==null) || (email.length<=12) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
+    if((email==null) || (email.length<=6) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))){
         res.cookie('errExTutorEmail','1');
         isRight=false;
     }
