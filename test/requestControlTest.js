@@ -24,7 +24,7 @@ describe('Field test for requestControl', function(){
     });
 
     it('Testing method getRequestDetails', function(){
-        var input = ['v.volpicelli3@studenti.unisa.it'];
+        var input = ['v.volpicelli4@studenti.unisa.it'];
         var getRequestPr = requestControl.getRequestDetails(input);
         getRequestPr.then(function(request) {
             assert.isNotNull(request);
@@ -32,7 +32,7 @@ describe('Field test for requestControl', function(){
     });
 
     it('Testing method getRequest', function(){
-        var input = ['v.volpicelli3@studenti.unisa.it'];
+        var input = ['v.volpicelli4@studenti.unisa.it'];
         var getRequestPr = requestControl.getRequest(input);
         getRequestPr.then(function(request) {
             assert.isNotNull(request);
@@ -40,7 +40,7 @@ describe('Field test for requestControl', function(){
     });
 
     it('Testing method updateExternalTutor', function(){
-        var input = ['v.volpicelli3@studenti.unisa.it', 'm.berto@gmail.com'];
+        var input = ['v.volpicelli4@studenti.unisa.it', 'm.berto@gmail.com'];
         var updateTutorPr = requestControl.updateExternalTutor(input);
         updateTutorPr.then(function(request) {
             assert.isTrue(request);
