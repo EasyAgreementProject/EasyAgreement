@@ -73,22 +73,6 @@ app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-<<<<<<< HEAD
-app.set('view engine', 'ejs');
-app.use(session({  
-  secret: 'secret_session',  
-  resave: false,  
-  saveUninitialized: true    
-})); 
-
-
-
-
-app.use(function(req,res,next) {  
-  res.locals.session = req.session;  
-  next();   
-}); 
-=======
 app.use(session({
   secret: 'secret_session',
   resave: false,
@@ -100,7 +84,6 @@ app.use(function(req,res,next) {
   next();
 });
 
->>>>>>> 83caec2447e51fe515dbc0738214bf150f1160fb
 
 app.get('/compileLAStudent.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"))
