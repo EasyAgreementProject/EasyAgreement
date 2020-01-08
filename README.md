@@ -78,7 +78,7 @@ A step by step series that tell you how to get a development env running
 1.	Follow the installation instructions
 2.	Go to localhost:8080
 
-#### Code Style: ####
+## Code Style: ##
 
 1.	`npm install standard --save-dev`
 
