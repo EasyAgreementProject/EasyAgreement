@@ -9,6 +9,7 @@
     <meta name="author" content="">
     <title>Organizzazione & Tutor Esterni</title>
 
+
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -16,7 +17,7 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="/./public/js/cookie.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body body style = "padding-right: 60px;">
@@ -73,7 +74,7 @@
 	                 <table class="table table-bordered table-striped">
 
                      <div class="form-label-group">
-                         <form action="/retrieverManager" method ="POST">
+                         
                              <div class="list_version">
                              Scegli se visualizzare Tutor Esterno oppure Organizzazione Ospitante:
                              <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
@@ -81,17 +82,64 @@
                                      <option id="externalTutor" value="tutorExternal">Tutor Esterno</option>
                                      <option id="hostOrganization" value="host">Organizzazione Ospitante</option>
                              </select>
+                             <button type="button" onclick="loadRes()">Seleziona</button>
+                             <script>
+
+                             function loadRes() {
+                             
+                             let xhttp = new HXMLHttpRequest();
+                             xhttp.onreadystatechange=function() {
+
+                                    if(this.readyState == 4 && this.status==200) {
+
+                                        responseText.forEach(element => {
+                                 var newRow= tbody.insertRow();
+                                 for(i=0;i<4;i++){
+                                     var newCell= newRow.insertCell(i);
+                                     switch(i){
+                                         case 0: newCell.innerHTML = i+1; break;
+                                         case 1: newCell.innerHTML = element[i]['nome']; break;
+                                         case 2: newCell.innerHTML = '<a href="/viewTutor'+element[i]+'">Visualizza</a>'; break;
+                                         case 3: newCell.innerHTML = '<a href="/deleteExtTutor'+ element[i]+ '">Elimina</a>'; break;
+                                     }
+                                 }
+                             });
+                         }
+                         else if(document.getElementById("hostOrganization").checked==true){
+                                responseText.forEach(element => {
+                                    var newRow= tbody.insertRow();
+                                    for(i=0;i<4;i++){
+                                        var newCell= newRow.insertCell(i);
+                                        switch(i){
+                                            case 0: newCell.innerHTML = i+1; break;
+                                            case 1: newCell.innerHTML = element[i]['nome']; break;
+                                            case 2: newCell.innerHTML = '<a href="/viewOrg'+ element[i]+'">Visualizza</a>'; break;
+                                            case 3: newCell.innerHTML = '<a href="/deleteExtOrg'+ element[i]+'">Elimina</a>'; break;
+                                        }
+                                    }
+                                });
+                         } 
+                    };
+                                    var choice= document.getElementById("tipo");
+                                    xhttp.open('POST','/retrieverManager',true);
+                                    xhttp.setRequestHeader("id", tipo);
+                                    xhttp.send();
+
+                             }
+                             
+                             </script>
                              </div>
-                             <button class="btn" type="submit" class="saveButton" style="text-align: center; display: block; margin-left:0" >SELEZIONA</button>
-                         </form>
+                             
                          </div>
                      </div>
                     
                           <tbody>
                                 <script>
+                                    /*
                     $(document).ready(function(){
-                        let xhr= new XMLHttpRequest;
-                        xhr.open('Post', '/retriveManager', true)
+                        let xhr= new XMLHttpRequest();
+                        xhr.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
                          if(document.getElementById("externalTutor").checked==true){
                              array.forEach(element => {
                                  var newRow= tbody.insertRow();
@@ -114,13 +162,18 @@
                                         switch(i){
                                             case 0: newCell.innerHTML = i+1; break;
                                             case 1: newCell.innerHTML = element[i]['nome']; break;
-                                            case 2: newCell.innerHTML = '<a href="/viewOrg'+ elemnt[i]+'">Visualizza</a>'; break;
-                                            case 3: newCell.innerHTML = '<a href="/deleteExtOrg'+ elemnt[i]+'">Elimina</a>'; break;
+                                            case 2: newCell.innerHTML = '<a href="/viewOrg'+ element[i]+'">Visualizza</a>'; break;
+                                            case 3: newCell.innerHTML = '<a href="/deleteExtOrg'+ element[i]+'">Elimina</a>'; break;
                                         }
                                     }
                                 });
                          } 
-                    });
+                    };
+                
+                }
+            }
+            */
+                
                     </script>
 
                           </tbody>

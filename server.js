@@ -776,7 +776,7 @@ app.get('/toViewTutor', function(req,res) {
 
 app.post('/retrieverManager', function(req,res){
 
-var reqRes=req.body.inputType;
+var reqRes=req.body.id;
 
 if (reqRes === 'tutorExternal') {
 
