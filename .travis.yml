@@ -7,8 +7,6 @@ install:
  - sudo snap install pdftk
  - source installdb.sh &
  - npm install
- - Node node_modules/node-gyp/bin/node-gyp.js configure
- - Node node_modules/node-gyp/bin/node-gyp.js build
 script:
  - node server.js &
  - npm test
