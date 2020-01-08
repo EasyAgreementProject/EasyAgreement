@@ -5,6 +5,7 @@ var externalTutorModel= require('../models/externaltutor.js');
 var administratorModel= require('../models/administrator.js');
 
 exports.login= function(req, res){
+    return new Promise(function(fulfill, reject){
     
         //take form parameters
         var username= req.body.username;
@@ -29,7 +30,7 @@ exports.login= function(req, res){
         }
 
         if(!isRight){
-            res.redirect('/');
+            fulfill(false);
             return;
         }
         
@@ -57,7 +58,7 @@ exports.login= function(req, res){
                                 checkAdmin.then(function(resultAd){
                                     if(resultAd==null){
                                         res.cookie('errLogin','1');
-                                        res.redirect('/');
+                                        fulfill(false);
                                         return;
                                     }
                                     else{
@@ -68,13 +69,13 @@ exports.login= function(req, res){
                                                 type: "admin"
                                            
                                             };
-                                            req.session.utente=adminSession;
-                                            
-                                            redirect(res);
+                                            res.cookie('logEff','1');
+                                            fulfill(adminSession);
+                                            return;
                                         }
                                         else{
                                             res.cookie('errLogin','1');
-                                            res.redirect('/');
+                                            fulfill(false);
                                             return;
                                         }
                                     }
@@ -87,14 +88,13 @@ exports.login= function(req, res){
                                         utente: resultE,
                                         type: "externalTutor"
                                     };
-                                    
-
-                                    req.session.utente=externalSession;
-                                    redirect(res);
+                                    res.cookie('logEff','1');
+                                    fulfill(externalSession);
+                                    return;
                                 }
                                 else{
                                     res.cookie('errLogin','1');
-                                    res.redirect('/');
+                                    fulfill(false);
                                     return;
                                 }
                             }
@@ -106,14 +106,13 @@ exports.login= function(req, res){
                                 utente: resultA,
                                 type: "academicTutor"
                             };
-                            req.session.utente=academicSession;
-                           
-
-                            redirect(res);
+                            res.cookie('logEff','1');
+                            fulfill(academicSession);
+                            return;
                         }
                         else{
                             res.cookie('errLogin','1');
-                            res.redirect('/');
+                            fulfill(false);
                             return;
                         }
                     }
@@ -125,28 +124,17 @@ exports.login= function(req, res){
                         utente: resultS,
                         type: "student"
                     };
-                    req.session.utente=studentSession;
-                    console.log("sessione admssssssssin: "+ JSON.stringify(req.session.utente));
-
-                    redirect(res);
+                    res.cookie('logEff','1');
+                    fulfill(studentSession);
+                    return;
                 }
                 else{
                     res.cookie('errLogin','1');
-                    res.redirect('/');
+                    fulfill(false);
                     return;
                 }
             }
-        })        
-
-}
-
-/**
- * if the login is done, send the user to the index.html page
- * @param {Response} res - The response parameter
- *  
- */
-function redirect(res){
-    res.cookie('logEff','1');
-    res.redirect('/index.html');
-    return;
+        });
+    });        
+        
 }
