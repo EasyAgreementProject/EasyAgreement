@@ -9,7 +9,7 @@
     border-radius: 10px;
     font-family: sans-serif;
     margin: 2em auto; 
-    right: 3px;
+    left: -150px;
     z-index: 10;
     border: 1px solid #2979FF;
 }

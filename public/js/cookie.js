@@ -58,6 +58,10 @@ $(document).ready(function () {
   var errorID = getCookie('errorIDUpload')
   var errorCV = getCookie('errorCVUpload')
   var befDel = getCookie('beforeDelete')
+  var ndelID = getCookie('notDeletedID')
+  var ndelCV = getCookie('notDeletedCV')
+  var nviewID = getCookie('notViewID')
+  var nviewCV = getCookie('notViewCV')
 
   if (errOrganization == '1') {
     $('#errOrganization').css('display', 'block')
@@ -249,5 +253,25 @@ $(document).ready(function () {
   if (befDel == '1') {
     swal('Documento già presente', 'Se lo si vuole aggiornare, eliminare prima il vecchio documento', 'warning')
     document.cookie = 'beforeDelete=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (ndelID == '1') {
+    swal('Impossibile eliminare', 'La carta d\'identità non è presente', 'info')
+    document.cookie = 'notDeletedID=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (ndelCV == '1') {
+    swal('Impossibile eliminare', 'Il curriculum vitae non è presente', 'info')
+    document.cookie = 'notDeletedCV=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (nviewID == '1') {
+    swal('Impossibile visualizzare', 'La carta d\'identità non è presente', 'info')
+    document.cookie = 'notViewID=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (nviewCV == '1') {
+    swal('Impossibile visualizzare', 'Il curriculum vitae non è presente', 'info')
+    document.cookie = 'notViewCV=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 })
