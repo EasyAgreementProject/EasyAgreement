@@ -81,17 +81,17 @@ if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utent
         }
 
         if((faculty==null) || (faculty.length<=1) || (!/^[A-Za-z]+$/.test(faculty))){
-            res.cookie('errFaculty','1');
+            res.cookie('errFacolta','1');
             isRight=false;
         }
 
         if((address==null) || (address.length<=6) || (!/^[A-Za-z0-9,\s]+$/.test(address))){
-            res.cookie('errStudentAddress','1');
+            res.cookie('errHAddress','1');
             isRight=false;
         }
     
         if((contact==null) || (contact.length<=7)){
-            res.cookie('errContactName','1');
+            res.cookie('errContatti','1');
             isRight=false;
         }
     

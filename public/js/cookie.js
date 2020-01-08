@@ -22,6 +22,10 @@
 
 $(document).ready(function(){
     var cookie=document.cookie;
+    var errErasmusCode=getCookie("errErasmusCode");
+    var errFacolta=getCookie("errFacolta");
+    var errContatti=getCookie("errContatti");
+
     var errName=getCookie("errStudentName");
     var errNameEx=getCookie("errExTutorName");
     var errSurnameEx=getCookie("errExTutorSurname");
@@ -37,13 +41,18 @@ $(document).ready(function(){
     var errMatricola=getCookie("errStudentMatricola");
     var errCity=getCookie("errStudentCity");
     var errAddress=getCookie("errStudentAddress");
+    var errAddressH=getCookie("errHAddress");
+
     var errCorso=getCookie("errStudentCorso");
     var errOldPassword=getCookie("errOldPassword");
     var errPassword=getCookie("errPassword");
     var errPasswordConfirm=getCookie("errPasswordConfirm");
     var errNameT=getCookie("errTutorName");
+    var errExTutorName=getCookie("errExTutorName");
     var errSurnameT=getCookie("errTutorSurname");
     var errEmailT=getCookie("errTutorEmail");
+    var errSize=getCookie("errSize");
+
     var errDepartment=getCookie("errTutorDepartment");
     var errOrganization=getCookie("errOrganizationName");
     var errOrganizationEx=getCookie("errExOrganizationName");
@@ -54,7 +63,7 @@ $(document).ready(function(){
     var alreadyReg= getCookie("errAlreadyReg");
     var alreadyRegH= getCookie("errAlreadyRegH");
     var alreadyRegEx= getCookie("errAlreadyRegEx");
-
+    
     var errUsername=getCookie("errUsername");
     var errPassword=getCookie("errPassword");
     var errLogin= getCookie("errLogin");
@@ -72,6 +81,39 @@ $(document).ready(function(){
         $('#errName').css('display','block');
         $('#inputName').addClass("errClass");
         document.cookie="errStudentName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errErasmusCode=="1"){
+
+        $('#errErasmusCode').css('display','block');
+        $('#inputErasmusCode').addClass("errClass");
+        document.cookie="errErasmusCode=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errFacolta=="1"){
+
+        $('#errFacolta').css('display','block');
+        $('#inputFacolta').addClass("errClass");
+        document.cookie="errFacolta=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errExTutorName=="1"){
+        $('#errNameEx').css('display','block');
+        $('#inputNameEx').addClass("errClass");
+        document.cookie="errExTutorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(errContatti=="1"){
+
+        $('#errContatti').css('display','block');
+        $('#inputContacts').addClass("errClass");
+        document.cookie="errContatti=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if(errSize=="1"){
+
+        $('#errSize').css('display','block');
+        $('#inputSize').addClass("errClass");
+        document.cookie="errSize=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 
     if(errOrganizationEx=="1"){
@@ -154,6 +196,13 @@ $(document).ready(function(){
         $('#inputAddress').addClass("errClass");
         document.cookie="errStudentAddress=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
+
+    if(errAddressH=="1"){
+        $('#errAddress').css('display','block');
+        $('#inputAddress').addClass("errClass");
+        document.cookie="errHAddress=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
     if(errCorso=="1"){
         $('#errCourse').css('display','block');
         $('#inputDegree').addClass("errClass");

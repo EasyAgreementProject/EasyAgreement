@@ -1,78 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include ('../header') %>
+<%- include ('../sidebar') %>
 
-<head>
+<link href="/css/simple-sidebar.css" rel="stylesheet">
+<script type="text/javascript" src="./js/formValidation.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="/js/cookie.js"></script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Organizzazione & Tutor Esterni</title>
-
-
-    <!-- Bootstrap core CSS -->
-    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src="/./public/js/cookie.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</head>
-
-<body body style = "padding-right: 60px;">
-
-
-    <div class="d-flex" id="wrapper">
-
-        <!-- Sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <a href="index.html" style="text-decoration: none; color: black;">
-                <div class=sidebar-logo>
-                    <img src="/img/logoUni.png" style="float: left" width="50px">
+           
+<div class="main-panel">
+    <div class="content">
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                    <div>
+                        <h2 class="text-white pb-2 fw-bold">Visualizzazione Lista Organizzazione ospitante/Tutor Esterno</h2>
+                    </div>
                 </div>
-                <div class="sidebar-heading">Home</div>
-            </a>
-            <div class="list-group list-group-flush">
-              <a href="/addHostOrg" class="list-group-item list-group-item-action bg-light">
-                  <img src="/img/compileLA.svg" style="height: 20px; width: 20px;" id="button_hold"> Aggiunta Organizzaione Ospitante</a>
-                  <a href="/addExtTutor" class="list-group-item list-group-item-action bg-light">
-                      <img src="/img/compileLA.svg" style="height: 20px; width: 20px;" id="button_hold"> Aggiunta Tutor Esterno</a>
-                      <a href="/toViewInfo" class="list-group-item list-group-item-action bg-light">
-                          <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Organizzazioni Ospitante e Tutor Esterno</a>
-                          <a href="/toViewTutor" class="list-group-item list-group-item-action bg-light">
-                              <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Info Tutor Esterno</a>
-                              <a href="/toViewOrg" class="list-group-item list-group-item-action bg-light">
-                                  <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Info Organizzazione Ospitante</a>
-
             </div>
         </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background-color: orange;">
-                <button id="menu-toggle"><img src="/img/menu.png" style="height: 20px; width: 20px;"></button>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="/img/responsive_slide.svg" style="height: 20px; width: 20px;">
-            </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="container-fluid">
-                  <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
-                  <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
-                <h1 class="mt-4">Visualizza</h1>
-                <div class="table-responsive"
-	                 style="margin-left: 30px; margin-right: 30px;">
-	                 <table class="table table-bordered table-striped">
-
+        <div class="page-inner py-5">
+            <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+            <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+            <hr>
+            <h5 style="text-align: justify; font-style: italic; color: darkblue;">Visualizza Lista</h5>
                      <div class="form-label-group">
                          
                              <div class="list_version">
@@ -132,6 +82,8 @@
                              
                          </div>
                      </div>
+                </div>
+            </div>
                     
                           <tbody>
                                 <script>
@@ -179,8 +131,12 @@
                           </tbody>
                             </table>
                      
-                    
-
-
-
-</html>
+                            <script>
+                                $("#menu-toggle ").click(function(e) {
+                                    e.preventDefault();
+                                    $("#wrapper ").toggleClass("toggled ");
+                                });
+                            </script>
+                        
+                        <%- include ('../footer') %>
+                        
