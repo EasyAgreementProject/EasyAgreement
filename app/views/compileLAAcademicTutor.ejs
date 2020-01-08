@@ -144,27 +144,11 @@
                     <hr>                    
                     <button class="btn2 btn-block" type="submit" class="saveButton" id="send">APPROVA</button>
                     <button class="btn2 btn-block" type="submit" formaction="/saveAcademicTutor" class="saveButton">SALVA</button> 
-                    
-                </form>
-                <form id = "disapproveForm" method ="POST" action = "/disapproveAcademicTutor" style = "display: none;">
-                    <div class = "form-label-group">
-                        <input type = "text" class = "form-control" name = "msg">
-                        <label for = "msg">Inserire la motivazione</label>
-                    </div>
-                    <button class="btn2 btn-block" type="submit" class="saveButton">DISAPPROVA</button>
-                </form>
-                <button class="btn2 btn-block" type="button" id="disapprove" onclick = "disapprove()" class="saveButton">DISAPPROVA</button>                  
-                    
+                </form>                
             </div>
         </div>
     </div>
-<%- include ('footer') %>
-    <script>
-        function disapprove() {
-            document.getElementById("disapproveForm").style.display = "block";
-            document.getElementById("disapprove").style.display = "none";
-        }
-    </script>
+<%- include ('footer') %>    
     <script>
     $(document).ready(function() {
         $.get("/fillform", function(data){

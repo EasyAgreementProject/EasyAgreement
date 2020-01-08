@@ -178,24 +178,36 @@ class LearningAgreement {
                 if (err) throw err;
                 console.log("Connected successfully to server! Versione = "+v+" Email = "+email);
                 var dbo = db.db(dbName);
-                dbo.collection("LearningAgreement_revision").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
-                    if (err) throw err;
-                    if(result) {
-                        console.log("Sono qui ilvaiovnzodivn "+result)
-                        db.close();
-                        fulfill(result);                        
-                    }
-                    else {
-                        dbo.collection("current_LearningAgreement").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
-                            if (err) throw err;
-                            if(result) {
-                                console.log("Sono qui ilvaiovnzodivn "+result)
-                                db.close();
-                                fulfill(result);                        
-                            }
-                        });
-                    }
-                });
+                if(v) {
+                    dbo.collection("LearningAgreement_revision").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
+                        if (err) throw err;
+                        if(result) {
+                            console.log("Sono qui "+result)
+                            db.close();
+                            fulfill(result);                        
+                        }
+                        else {
+                            dbo.collection("current_LearningAgreement").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
+                                if (err) throw err;
+                                if(result) {
+                                    console.log("Sono qui "+result)
+                                    db.close();
+                                    fulfill(result);                        
+                                }
+                            });
+                        }
+                    });
+                }
+                else {
+                    dbo.collection("current_LearningAgreement").findOne({ "studentID": email }, function(err, result) {
+                        if (err) throw err;
+                        if(result) {
+                            console.log("Sono qui "+result)
+                            db.close();
+                            fulfill(result);                        
+                        }
+                    });
+                }
             });
         });
     }

@@ -34,15 +34,17 @@
                 <br>
                 <br>
                 <br>
+                <br>
                 <span style="font-weight: bold;">Stato:</span>
                 <span id="state"></span><br><br>
             </div>
             <br>
-            <div class="button" style="margin-top: 15%;">
-                <div class="btn-group">
-                    <button class="btn2" type="button" id="approve1">Approva</button>
-                    <button class="btn2" type="button" id="disapprove">Disapprova</button>                    
-                </div>
+            <div class="form-group">
+                <button class="btn2 btn-white2 btn-border" type="button" style="cursor:default"></button>
+                <div class="text-center form-inline">
+                    <button class="btn2" type="button" id="approve1" style="width: 12%;">Approva</button>
+                    <button class="btn2" type="button" id="disapprove" style="width: 13%;">Disapprova</button>  
+                </div>   
                 <form id = "disapproveForm" method ="POST" action = "#" style = "display: none;">
                     <div class = "form-label-group">
                         <input type = "text" class = "form-control" name = "msg">
@@ -51,16 +53,38 @@
                     <button class="btn2 btn-block" type="submit">Disapprova</button>
                 </form>
                 <button class="btn2 btn-block" type="button" id="approve2" style = "display:none">Approva</button>
-                <button class="btn2 btn-block" type="button" id="view" >Visualizza</button>
+                <form id = "viewForm" action ="/getLearningAgreement" style = "display:none"></form>
+                <button class="btn2 btn-block" type="button" id="view">Visualizza</button>
                 <button class="btn2 btn-block" type="button" id="idCard">Visualizza carta d'identità</button>
                 <button class="btn2 btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
-            </div>
+                <form class="text-center" action="/getRequestVersions" method ="GET">
+                    <div class="form-group">
+                        <label>Versioni precedenti:</label><br>
+                        <select class="custom-select"  name="inputVersion" style="width: 20%;" id="versions">
+                        </select>
+                        <button class="btn2" type="submit" class="saveButton" >Seleziona</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>    
     <script>
         $(document).ready(function(){
+            document.getElementById("view").onclick = function() { 
+                document.getElementById("viewForm").submit();
+            }
+            $.get("/getAllRequestVersions", function(array) {
+                if(array) {
+                    var select = document.getElementById("versions");
+                    for(i = 0; i < array.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = array[i].version;
+                        option.value = array[i].version;
+                        select.add(option);
+                    }     
+                }
+            });
             $.get('/getDetails', function(data){
                 document.getElementById("name").innerHTML = data["data"]["First name (s)"];
                 document.getElementById("surname").innerHTML = data["data"]["Last name (s)"];
@@ -70,6 +94,7 @@
                 document.getElementById("academicTutor").innerHTML = data["data"]["Contact person name / position"];
                 document.getElementById("externalTutor").innerHTML = data["data"]["Mentor name / position"];
                 document.getElementById("state").innerHTML = data["status"];
+                
 
                 if(data["status"].startsWith("Approvato dal Tutor Accademico") || data["status"].startsWith("Approvato dal Tutor Esterno")) {
                     document.getElementById("approve").style.display = "none";

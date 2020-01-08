@@ -341,6 +341,7 @@ exports.sendLaAcademicTutor = function(input, res) {
                                         var d = new Date();
                                         var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
                                         socket.emit('send-notification', {associatedID: email2, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+email+" ha compilato il Learning Agreement"}, date: data});
+                                        socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Accademico ha approvato la tua richiesta."}, date: data});
                                        
                                         fulfill(download);
                                     });
@@ -520,26 +521,26 @@ exports.sendLaExternalTutor = function(input, res) {
             var position = data["Contact person name / position"].substring(pos+2);         
 
             pos = data["Contact person Email / Phone"].indexOf(" ");
-            var email = data["Contact person Email / Phone"].substring(0, pos);
+            var email2 = data["Contact person Email / Phone"].substring(0, pos);
             var phone = data["Contact person Email / Phone"].substring(pos);
 
             data["Responsible person sending Name"] = name;
             data["Responsible person sending Phone number"] = phone;
             data["Responsible person sending Function"] = position;
-            data["Responsible person sending E-mail"] = email;
+            data["Responsible person sending E-mail"] = email2;
 
             pos = data["Mentor name / position"].indexOf("-");
             name = data["Mentor name / position"].substring(0, pos-1);;
             position = data["Mentor name / position"].substring(pos+2);
 
             pos = data["Mentor e-mail / phone"].indexOf(" ");
-            email = data["Mentor e-mail / phone"].substring(0, pos);
+            var email3 = data["Mentor e-mail / phone"].substring(0, pos);
             phone = data["Mentor e-mail / phone"].substring(pos);
 
             data["Responsible person receiving Name"] = name;
             data["Responsible person receiving Phone number"] = phone;
             data["Responsible person receiving Function"] = position;
-            data["Responsible person receiving E-mail"] = email;
+            data["Responsible person receiving E-mail"] = email3;
             data["The receiving organization sign"] = name;
             data["The receiving organization date"] = today;
 
@@ -565,6 +566,11 @@ exports.sendLaExternalTutor = function(input, res) {
 
                             var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                             insertLearningAgreementPr.then(function() {
+                                var d = new Date();
+                                var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                socket.emit('send-notification', {associatedID: email3, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la richiesta di "+data["Header name"]+"."}, date: data});
+                                socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la tua richiesta."}, date: data});
+                            
                                 fulfill(download);
                             });
 
@@ -649,6 +655,10 @@ exports.disapproveAcademicTutor = function(student, msg) {
                 var state = "Disapprovato dal Tutor Accademico per il motivo: "+msg;
                 var updateStatePr = LA.updateState(student, state);
                 updateStatePr.then(function() {
+                    var d = new Date();
+                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                    socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta non approvata", text: "Il Tutor Accademico ha disapprovato la tua richiesta."}, date: data});
+                
                     fulfill(); 
                     
                 });
@@ -671,8 +681,12 @@ exports.disapproveExternalTutor = function(student, msg) {
                 var state = "Disapprovato dal Tutor Esterno per il motivo: "+msg;
                 var updateStatePr = LA.updateState(student, state);
                 updateStatePr.then(function() {
-                    fulfill(); 
-
+                    var d = new Date();
+                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                    socket.emit('send-notification', {associatedID: result.data["Responsible person sending E-mail"], text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la richiesta di "+result.data["Header name"]+"."}, date: data});
+                    socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la tua richiesta."}, date: data});
+                
+                    fulfill();
                 });  
             }
         });

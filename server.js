@@ -56,6 +56,15 @@ app.get('/getAllVersions', function(req, res) {
   })
 });
 
+app.get('/getAllRequestVersions', function(req, res) {
+  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID);
+  getVersionsPr.then(function(data) {
+      if (data) {
+          res.send(data);
+      }
+  })
+});
+
 app.get('/fillForm', function(req, res) {
     var getData = learningAgreementControl.getData(req.session.utente.utente.Email);
     console.log("Student = "+req.session.utente.utente.Email);
@@ -94,7 +103,7 @@ app.post('/compileStudent', function(req, res) {
             res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
             dw.pipe(res)
         } else {
-            res.sendFile(path.join(__dirname + "/app/views/compileLAStudent.html"));
+            res.render("compileLAStudent.ejs");
         }
     })
 });
@@ -193,6 +202,32 @@ app.get('/getVersions', function(req, res) {
   })
 });
 
+app.get('/getRequestVersions', function(req, res) {
+  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID);
+  getVersionsPr.then(function(data) {
+      if (data && req.query.inputVersion) {
+        console.log("Version id = "+req.query.number)
+        var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.data.studentID);
+        getVersionPr.then(function(la) {
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
+          console.log("Tornato da tutto"); 
+          la.pipe(res);
+        })        
+    } 
+  })
+});
+
+app.get('/getLearningAgreement', function(req, res) {
+  var getVersionPr = learningAgreementControl.getVersion(null, req.session.data.studentID);
+  getVersionPr.then(function(la) {
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
+    console.log("Tornato da tutto"); 
+    la.pipe(res);
+  })   
+});
+
 app.get('/', function (req, res) {
   res.sendFile("/app/views/login.html",{root:__dirname});
 });
@@ -214,7 +249,7 @@ app.get('/request.html', function (req, res) {
 });
 
 app.get('/getRequests', function(req, res){
-  var getRequestsPr = requestControl.getAllRequests('f.ferrucci@unisa.it'); //req.session.utente.utente.Email
+  var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.Email); //req.session.utente.utente.Email
   getRequestsPr.then(function(result){    
     res.send(result);
   })
@@ -228,7 +263,7 @@ app.get('/getRequest', function(req, res){
   var getDetailsPr = requestControl.getRequestDetails(req.query.student);
   getDetailsPr.then(function(details) {
     req.session.data = details;
-    res.redirect("viewRequest.ejs");
+    res.redirect("/viewRequest.html");
   })
 });
 
