@@ -54,9 +54,11 @@
                 </form>
                 <button class="btn2 btn-block" type="button" id="approve2" style = "display:none">Approva</button>
                 <form id = "viewForm" action ="/getLearningAgreement" style = "display:none"></form>
-                <button class="btn2 btn-block" type="button" id="view">Visualizza</button>
-                <button class="btn2 btn-block" type="button" id="idCard">Visualizza carta d'identità</button>
-                <button class="btn2 btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
+                    <button class="btn2 btn-block" type="button" id="view">Visualizza</button>                
+                <form id = "idForm" method="POST" action ="/fileviewIDRequest" style = "display:none"></form>
+                    <button class="btn2 btn-block" type="button" id="id">Visualizza carta d'identità</button>
+                <form id = "cvForm" method="POST" action ="/fileviewCVRequest" style = "display:none"></form>             
+                    <button class="btn2 btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
                 <form class="text-center" action="/getRequestVersions" method ="GET">
                     <div class="form-group">
                         <label>Versioni precedenti:</label><br>
@@ -73,6 +75,12 @@
         $(document).ready(function(){
             document.getElementById("view").onclick = function() { 
                 document.getElementById("viewForm").submit();
+            }
+            document.getElementById("id").onclick = function() { 
+                document.getElementById("idForm").submit();
+            }
+            document.getElementById("cv").onclick = function() { 
+                document.getElementById("cvForm").submit();
             }
             $.get("/getAllRequestVersions", function(array) {
                 if(array) {

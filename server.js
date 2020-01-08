@@ -461,8 +461,36 @@ app.post('/fileviewID', function(req, res){
   });
 });
 
+app.post('/fileviewIDRequest', function(req, res){
+  var view=documentControl.viewID(req.session.data.studentID);
+  view.then(function(result){
+    if(result){
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename = IDCard.pdf');
+      result.pipe(res)
+    }
+    else{
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
+});
+
 app.post('/fileviewCV', function(req, res){
   var view=documentControl.viewCV(req.session.utente.utente.Email);
+  view.then(function(result){
+    if(result){
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename = CV.pdf');
+      result.pipe(res)
+    }
+    else{
+      res.redirect('/gestioneDocumenti.html');
+    }
+  });
+});
+
+app.post('/fileviewCVRequest', function(req, res){
+  var view=documentControl.viewCV(req.session.data.studentID);
   view.then(function(result){
     if(result){
       res.setHeader('Content-Type', 'application/pdf');
