@@ -51,6 +51,7 @@
             </ul>
             <%} %>
             <%if(session.utente.type == "academicTutor") {%>
+              <ul>
                 <li class="nav-item">
                     <a href="request.html">
                         <i class="fas fa-file-alt"></i>
@@ -66,6 +67,7 @@
             </ul>
             <%} %>
             <%if(session.utente.type == "externalTutor") {%>
+              <ul>
                 <li class="nav-item">
                     <a href="request.html">
                         <i class="fas fa-file-alt"></i>
@@ -81,16 +83,35 @@
             </ul>
             <%} %>
             <%if(session.utente.type == "admin") {%>
+              <ul>
                 <li class="nav-item">
-                    <a href="request.html">
+                    <a href="/addHostOrg">
                         <i class="fas fa-file-alt"></i>
-                        <p>Visualizza Richieste</p>
+                        <p>Aggiunta Organizzaione Ospitante</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="viewtutor.html">
+                    <a href="/addExtTutor">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Lista Tutor e <br>Organizzazioni</p>
+                        <p>Aggiunta Tutor Esterno</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/toViewInfo">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Lista Organizzazioni Ospitante e Tutor Esterno</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/toViewTutor">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Info Tutor Esterno</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/toViewOrg">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Info Organizzazione Ospitante</p>
                     </a>
                 </li>
             </ul>
