@@ -34,7 +34,6 @@ class Message {
     }
 
     //setter method
-
     setText(text) {
         this.text=text;
     }

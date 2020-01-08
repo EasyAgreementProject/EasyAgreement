@@ -41,6 +41,14 @@ $(document).ready(function(){
     var errPassword=getCookie("errPassword");
     var errLogin= getCookie("errLogin");
     var logEff=getCookie("logEff");
+    var successID= getCookie('SuccessIDCard');
+    var successCV= getCookie('SuccessCV');
+    var deletedID= getCookie('DeletedID');
+    var deletedCV= getCookie('DeletedCV');
+    var cannotAccess= getCookie('cannotAccess');
+    var errorID= getCookie('errorIDUpload');
+    var errorCV= getCookie('errorCVUpload');
+    var befDel= getCookie('beforeDelete');
 
     if(errName=="1"){
         $('#errName').css('display','block');
@@ -130,4 +138,44 @@ $(document).ready(function(){
         swal('Benvenuto', 'Login effettuato', 'success');
         document.cookie="logEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }   
+
+    if(successCV=="1"){
+        swal('Documento caricato', 'Il tuo CV è stato caricato con successo', 'success');
+        document.cookie="SuccessCV=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(successID=="1"){
+        swal('Documento caricato', 'La tua carta d\'identità è stata caricata con successo', 'success');
+        document.cookie="SuccessIDCard=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }   
+
+    if(deletedCV=="1"){
+        swal('Documento eliminato', 'Il tuo CV è stato eliminato con successo', 'success');
+        document.cookie="DeletedCV=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(deletedID=="1"){
+        swal('Documento eliminato', 'La tua carta d\'identità è stata elimina con successo', 'success');
+        document.cookie="DeletedID=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }   
+
+    if(cannotAccess=="1"){
+        swal('Effettua l\'accesso', 'Per accedere a questa pagina devi prima effettuare l\'accessso', 'error');
+        document.cookie="cannotAccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    } 
+    
+    if(errorID=="1"){
+        swal('Documento non caricato', 'Controlla il formato del file, accettiamo solo .pdf', 'error');
+        document.cookie="errorIDUpload=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }   
+
+    if(errorCV=="1"){
+        swal('Documento non caricato', 'Controlla il formato del file, accettiamo solo .pdf', 'error');
+        document.cookie="errorCVUpload=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+
+    if(befDel=="1"){
+        swal('Documento già presente', 'Se lo si vuole aggiornare, eliminare prima il vecchio documento', 'warning');
+        document.cookie="beforeDelete=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
 });

@@ -1,7 +1,10 @@
 var pdfFiller = require('pdffiller');
 var fs = require('fs');
 var LA = require('../models/learningAgreement.js');
+var requestControl = require('./requestControl.js');
 var learningAgreement = new LA();
+var io = require('socket.io-client');
+var socket = io.connect('localhost:3000')
 //const Readable = require('stream').Readable;
 
 exports.sendLaStudent = function(input, res) {
@@ -50,44 +53,7 @@ exports.sendLaStudent = function(input, res) {
         "The trainee signature": input[0] + " " + input[1],
         "The trainee date": today
     };
-    /*var data = {
-        "Header name" : "Veronica Volpicelli",
-        "Last name (s)" : "Volpicelli",
-        "First name (s)": "Veronica",
-        "Date of birth" : "22/04/1996",
-        "Nationality":"Italiana",
-        "Sex [M/F]" : "F",
-        "Academic year1":"19",
-        "Academic year2":"20",
-        "Study cycle" : "1st cycle",
-        "Subject area, Code":"Informatica, 05121",
-        "Phone" : "123456789",
-        "E-mail" : "v.volpicelli4@studenti.unisa.it",
-        "Sending Departement":"Informatica",
-        "Contact person name":"Filomena Ferrucci",
-        "Contact person Email / Phone": "f.ferrucci@unisa.it 1234456789",
-        "Contact person name / position":"Filomena Ferrucci, Responsabile",
-        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789",
-        "Name Sector":"Non lo so",
-        "Receiving Department":"Boh",
-        "Address, website":"Via non lo so, 12 www.nonoloso.it",
-        "Country":"Nessuna",
-        "Size of enterprise":"250",
-        "Mentor name / position":"Michela Bertolotto Direttrice",
-        "Mentor e-mail / phone":"m.berto@gmail.com 9876543210",
-        "from":"12/2019",
-        "till":"06/2020",
-        "Number of working hours for week":"8",
-        "Traineeship title":"Non ho voglia di fare l'università",
-        "Detailed programme of the traineeship period": "Non ho fatto un c.... per tutto il periodo",
-        "Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship":"Imparare a fare la pizza",
-        "Monitoring plan":"Non so cosa dovrebbe essere",
-        "Evaluation plan":"Come per il monitoring plan",
-        "language competence":"english",
-        "B2":"X",
-        "The trainee signature": "Veronica Volpicelli",
-        "The trainee date":"08/12/2019"
-    };*/
+
     console.log(data["Date of birth"] + "    " + data["The trainee date"]);
     switch (input[31]) {
         case "A1":
@@ -115,6 +81,7 @@ exports.sendLaStudent = function(input, res) {
     return new Promise(function(fulfill, reject) {
         let validatePr = exports.validateDataStudent(data, res);
         validatePr.then(function(result) {
+            console.log(""+data);
             if (result) {
                 pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
                     if (err)
@@ -127,16 +94,35 @@ exports.sendLaStudent = function(input, res) {
                         fs.unlink('pdf/Filled_LA_'+random+'.pdf', function(err){
                             if (err) throw err;
                         });
-                        learningAgreement.setFilling(data);
-                        learningAgreement.setDocument(file);
-                        learningAgreement.setStudentID(data["E-mail"]);
-                        learningAgreement.setState("Submitted");
-                        learningAgreement.setDate(data["The trainee date"]);
 
-                        var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                        insertLearningAgreementPr.then(function() {
-                            fulfill(download);
-                        });
+                        var pos = data["Contact person Email / Phone"].indexOf(" ");
+                        var email = data["Contact person Email / Phone"].substring(0, pos);
+
+                        var generateRequestPr = requestControl.generateRequest(data["E-mail"], email);
+                        generateRequestPr.then(function(result, err) {
+                            if (err) throw err;
+                            if(result) {
+                                learningAgreement.setFilling(data);
+                                learningAgreement.setDocument(file);
+                                learningAgreement.setStudentID(data["E-mail"]);
+                                learningAgreement.setState("Inviato");
+                                learningAgreement.setDate(data["The trainee date"]);
+
+                                var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                                insertLearningAgreementPr.then(function() {
+                                    var d = new Date();
+                                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                    socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["E-mail"]+" ha compilato il Learning Agreement"}, date: data});
+
+                                    fulfill(download);
+                                });
+                            }
+                            else {
+                                if(res) res.cookie("errRequest", "1");
+                                console.log("Request already sent!");
+                                fulfill();
+                            }
+                        });                       
 
                     }
                 })
@@ -191,44 +177,6 @@ exports.saveLaStudent = function(input) {
         "The trainee signature": input[0] + " " + input[1],
         "The trainee date": today
     };
-    /*var data = {
-        "Header name" : "Veronica Volpicelli",
-        "Last name (s)" : "Volpicelli",
-        "First name (s)": "Veronica",
-        "Date of birth" : "22/04/1996",
-        "Nationality":"Italiana",
-        "Sex [M/F]" : "F",
-        "Academic year1":"19",
-        "Academic year2":"20",
-        "Study cycle" : "1st cycle",
-        "Subject area, Code":"Informatica, 05121",
-        "Phone" : "123456789",
-        "E-mail" : "v.volpicelli4@studenti.unisa.it",
-        "Sending Departement":"Informatica",
-        "Contact person name":"Filomena Ferrucci",
-        "Contact person Email / Phone": "f.ferrucci@unisa.it 1234456789",
-        "Contact person name / position":"Filomena Ferrucci, Responsabile",
-        "Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789",
-        "Name Sector":"Non lo so",
-        "Receiving Department":"Boh",
-        "Address, website":"Via non lo so, 12 www.nonoloso.it",
-        "Country":"Nessuna",
-        "Size of enterprise":"250",
-        "Mentor name / position":"Michela Bertolotto Direttrice",
-        "Mentor e-mail / phone":"m.berto@gmail.com 9876543210",
-        "from":"12/2019",
-        "till":"06/2020",
-        "Number of working hours for week":"8",
-        "Traineeship title":"Non ho voglia di fare l'università",
-        "Detailed programme of the traineeship period": "Non ho fatto un c.... per tutto il periodo",
-        "Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship":"Imparare a fare la pizza",
-        "Monitoring plan":"Non so cosa dovrebbe essere",
-        "Evaluation plan":"Come per il monitoring plan",
-        "language competence":"english",
-        "B2":"X",
-        "The trainee signature": "Veronica Volpicelli",
-        "The trainee date":"08/12/2019"
-    };*/
     console.log(data["Date of birth"] + "    " + data["The trainee date"]);
     switch (input[31]) {
         case "A1":
@@ -360,33 +308,10 @@ exports.sendLaAcademicTutor = function(input, res) {
             data["Academic Tutor date"] = today; 
             data["International Departemental Coordinator sign"] = data["Contact person name"];  
             data["International Departemental Coordinator date"] = today;
-            
-            /*data["Award"] = 12;
-            data["Traineeship certificate"] = "X";
-            data["Final report"] = "X";
-            data["Interview"] = "X";
-            data["Europass Mobility Document Yes"] = "X";
-            data["Europass Mobility Document No"] = "X";
-            data["Award ECTS credits Yes"] = "X";
-            data["Award ECTS credits No"] = "X";
-            data["If yes, please indicate the number of ECTS credits"] = 12;
-            data["Give a grade Yes"] = "X";
-            data["Give a grade No"] = "X";  
-            data["Traineeship certificate1"] = "X";  
-            data["Final report1"] = "X";  
-            data["Interview1"] = "X";  
-            data["Record the traineeship in the trainee's Transcript of Records Yes"] = "X";  
-            data["Record the traineeship in the trainee's Transcript of Records No"] = "X";  
-            data["Record the traineeship in the trainee's Europass Mobility Document Yes"] = "X";  
-            data["Record the traineeship in the trainee's Europass Mobility Document No"] = "X";
-            data["Academic Tutor sign"] = data["Contact person name"];      
-            data["Academic Tutor date"] = today; 
-            data["International Departemental Coordinator sign"] = data["Contact person name"];  
-            data["International Departemental Coordinator date"] = today;*/
-            
+                        
             let validatePr = exports.validateDataAcademicTutor(data, res);
             validatePr.then(function(result) {
-                if (result) {
+                if (result) {                   
                     pdfFiller.fillForm(sourcePDF, destinationPDF, data, function(err) {
                         if (err)
                             throw err;
@@ -398,17 +323,35 @@ exports.sendLaAcademicTutor = function(input, res) {
                             fs.unlink('pdf/Filled_LA_'+random+'.pdf', function(err){
                                 if (err) throw err;
                             });
-                            learningAgreement.setFilling(data);
-                            learningAgreement.setDocument(file);
-                            learningAgreement.setStudentID(data["E-mail"]);
-                            learningAgreement.setState("Approved from Academic Tutor");
-                            learningAgreement.setDate(data["Academic Tutor date"]);
 
-                            var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
-                            insertLearningAgreementPr.then(function() {
-                                fulfill(download);
-                            });
+                            pos = data["Mentor e-mail / phone"].indexOf(" ");
+                            var email2 = data["Mentor e-mail / phone"].substring(0, pos);
 
+                            var updateTutorPr = requestControl.updateExternalTutor(email, email2);
+                            updateTutorPr.then(function(result) {
+                                if(result) {
+                                    learningAgreement.setFilling(data);
+                                    learningAgreement.setDocument(file);
+                                    learningAgreement.setStudentID(data["E-mail"]);
+                                    learningAgreement.setState("Approvato dal Tutor Accademico");
+                                    learningAgreement.setDate(data["Academic Tutor date"]);
+
+                                    var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                                    insertLearningAgreementPr.then(function() {
+                                        var d = new Date();
+                                        var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                        socket.emit('send-notification', {associatedID: email2, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+email+" ha compilato il Learning Agreement"}, date: data});
+                                       
+                                        fulfill(download);
+                                    });
+                                }
+                                else {
+                                    if(res) res.cookie("errRequest", "1");
+                                    console.log("Request already sent!");
+                                    fulfill();
+                                }
+                            })
+                            
                         }
                     })
                 } else {
@@ -617,7 +560,7 @@ exports.sendLaExternalTutor = function(input, res) {
                             learningAgreement.setFilling(data);
                             learningAgreement.setDocument(file);
                             learningAgreement.setStudentID(data["E-mail"]);
-                            learningAgreement.setState("Approved from External Tutor");
+                            learningAgreement.setState("Approvato dal Tutor Esterno");
                             learningAgreement.setDate(data["The receiving organization date"]);
 
                             var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -776,11 +719,6 @@ exports.getVersion = function(id, email) {
                 fs.unlink('pdf/Old_LA_'+random+'.pdf', function(err){
                     if (err) throw err;
                 });
-                /*const s = new Readable();
-                s._read = function noop() {};
-                s.push(result.document.file_data.buffer);
-                s.push(null);
-                console.log(s);*/
                 fulfill(file);
             });            
         });
@@ -813,7 +751,7 @@ exports.getAllVersions = function(student) {
 exports.validateDataStudent = function(data, res) {
     return new Promise(function(fulfill, reject) {
         console.log("Begin...");
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Header name"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Header name"]))) {
             if(res) {
                 res.cookie("errName", "1");
                 res.cookie("errSurname", "1");
@@ -821,22 +759,22 @@ exports.validateDataStudent = function(data, res) {
             console.log("Header Name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+$/.test(data["Last name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+ *$/.test(data["Last name (s)"]))) {
             if(res) res.cookie("errSurname", "1");
             console.log("Last name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["First name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["First name (s)"]))) {
             if(res) res.cookie("errName", "1");
             console.log("Name wrong!");
             fulfill(false);
         }
-        if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]))) {
+        if (!(/^(\d{4}(-|\/)((0)?[0-9]|(1)?[0-2]){1}(-|\/)([0-2]?[0-9]|(3)?[0-1]){1}|([0-2]?[0-9]|(3)?[0-1]){1}(-|\/){1}((0)?[0-9]|(1)?[0-2]){1}(-|\/){1}\d{4})$/.test(data["Date of birth"]))) {
             if(res) res.cookie("errDate", "1");
             console.log("birth date wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+$/.test(data["Nationality"]))) {
+        if (!(/^[A-za-zà-ù]+ *$/.test(data["Nationality"]))) {
             if(res) res.cookie("errNationality", "1");
             console.log("nationality wrong!");
             fulfill(false);
@@ -846,12 +784,12 @@ exports.validateDataStudent = function(data, res) {
             console.log("sex wrong!");
             fulfill(false);
         }
-        if (!(/^\d{2}$/.test(data["Academic year1"]))) {
+        if (!(/^\d{2} *$/.test(data["Academic year1"]))) {
             if(res) res.cookie("errAcademicYear1", "1");
             console.log("ac1 wrong!");
             fulfill(false);
         }
-        if (!(/^\d{2}$/.test(data["Academic year2"]))) {
+        if (!(/^\d{2} *$/.test(data["Academic year2"]))) {
             if(res) res.cookie("errAcademicYear2", "1");
             console.log("ac2 wrong!");
             fulfill(false);
@@ -861,87 +799,87 @@ exports.validateDataStudent = function(data, res) {
             console.log("study cycle wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+\,{1} ?\d+$/.test(data["Subject area, Code"]))) {
+        if (!(/^[A-za-zà-ù]+\,{1} ?\d+ *$/.test(data["Subject area, Code"]))) {
             if(res) res.cookie("errSubjectCode", "1");
             console.log("subject area code wrong!");
             fulfill(false);
         }
-        if (!(/^\d{1,10}$/.test(data["Phone"]))) {
+        if (!(/^\d{1,10} *$/.test(data["Phone"]))) {
             if(res) res.cookie("errTelephone", "1");
             console.log("phone wrong!");
             fulfill(false);
         }
-        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(data["E-mail"]))) {
+        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1} *$/.test(data["E-mail"]))) {
             if(res) res.cookie("errEmail", "1");
             console.log("email student wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)*$/.test(data["Sending Departement"]))) {
+        if (!(/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)* *$/.test(data["Sending Departement"]))) {
             if(res) res.cookie("errDepartmentSending", "1");
             console.log("sending department wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["Contact person name"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Contact person name"]))) {
             if(res) res.cookie("errContactName", "1");
             console.log("contact person name wrong!");
             fulfill(false);
         }
-        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Contact person Email / Phone"]))) {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data["Contact person Email / Phone"]))) {
             if(res) res.cookie("errContactSending", "1");
             console.log("contact email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+$/.test(data["Contact person name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name / position"]))) {
             if(res) res.cookie("errContactReciving", "1");
             console.log("contact person name position wrong! "+data["Contact person name / position"]);
             fulfill(false);
         }
-        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Receiving contact person e-mail phone"]))) {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data["Receiving contact person e-mail phone"]))) {
             if(res) res.cookie("errContactSending", "1");
             console.log("receiving contact person email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Name Sector"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Name Sector"]))) {
             if(res) res.cookie("errNameSector", "1");
             console.log("name sector wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Receiving Department"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Receiving Department"]))) {
             if(res) res.cookie("errDepartmentReciving", "1");
             console.log("receiving department wrong!");
             fulfill(false);
         }
-        if (!(/^[\w ,\.()']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3}$/.test(data["Address, website"]))) {
+        if (!(/^[\w ,\.()']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3} *$/.test(data["Address, website"]))) {
             if(res) res.cookie("errAddressWebSite", "1");
             console.log("address website wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)*$/.test(data["Country"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Country"]))) {
             if(res) res.cookie("Country wrong", "1");
             console.log("country wrong!");
             fulfill(false);
         }
-        if (!(/^\d+( ?[- \/] ?\d+)?$/.test(data["Size of enterprise"]))) {
+        if (!(/^\d+( ?[- \/] ?\d+)? *$/.test(data["Size of enterprise"]))) {
             if(res) res.cookie("SerrSizeEnterprise", "1");
             console.log("size of enterprise wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+$/.test(data["Mentor name / position"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Mentor name / position"]))) {
             if(res) res.cookie("errMentor", "1");
             console.log("mentor name position wrong!");
             fulfill(false);
         }
-        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10}$/.test(data["Mentor e-mail / phone"]))) {
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data["Mentor e-mail / phone"]))) {
             if(res) res.cookie("errMentorInfo", "1");
             console.log("mentor email phone wrong!");
             fulfill(false);
         }
-        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["from"]))) {
+        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4} *$/.test(data["from"]))) {
             if(res) res.cookie("errDateFrom", "1");
             console.log("from wrong!");
             fulfill(false);
         }
-        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4}$/.test(data["till"]))) {
+        if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4} *$/.test(data["till"]))) {
             if(res) res.cookie("errDateTo", "1");
             console.log("till wrong!");
             fulfill(false);
@@ -951,32 +889,32 @@ exports.validateDataStudent = function(data, res) {
             console.log("working hours wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)*$/.test(data["Traineeship title"]))) {
+        if (!(/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)* *$/.test(data["Traineeship title"]))) {
             if(res) res.cookie("errTitle", "1");
             console.log("traineeship title wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Detailed programme of the traineeship period"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Detailed programme of the traineeship period"]))) {
             if(res) res.cookie("errDetailed", "1");
             console.log("detailed programme wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship"]))) {
             if(res) res.cookie("errKnowledge", "1");
             console.log("knowledge wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Monitoring plan"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Monitoring plan"]))) {
             if(res) res.cookie("errMonitoring", "1");
             console.log("monitoring plan wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)*$/.test(data["Evaluation plan"]))) {
+        if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data["Evaluation plan"]))) {
             if(res) res.cookie("errEvaluation", "1");
             console.log("evaluation plan wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+$/.test(data["language competence"]))) {
+        if (!(/^[A-za-zà-ù]+ *$/.test(data["language competence"]))) {
             if(res) res.cookie("errLenguage", "1");
             console.log("language wrong! "+data["language competence"]);
             fulfill(false);
@@ -986,12 +924,12 @@ exports.validateDataStudent = function(data, res) {
             console.log("language level wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)?$/.test(data["The trainee signature"]))) {
+        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["The trainee signature"]))) {
             if(res) res.cookie("errName", "1");
             console.log("trainee signature wrong!");
             fulfill(false);
         }
-        if (!(/^(\d{4}(-|\/)((0)[0-9]|(1)[0-2]){1}(-|\/)([0-2][0-9]|(3)[0-1]){1}|([0-2][0-9]|(3)[0-1]){1}(-|\/){1}((0)[0-9]|(1)[0-2]){1}(-|\/){1}\d{4})$/.test(data["The trainee date"]))) {
+        if (!(/^(\d{4}(-|\/)((0)?[0-9]|(1)?[0-2]){1}(-|\/)([0-2]?[0-9]|(3)?[0-1]){1}|([0-2]?[0-9]|(3)?[0-1]){1}(-|\/){1}((0)?[0-9]|(1)?[0-2]){1}(-|\/){1}\d{4})$/.test(data["The trainee date"]))) {
             if(res) res.cookie("errDate", "1");
             console.log("today date wrong!");
             fulfill(false);
@@ -1011,7 +949,7 @@ exports.validateDataAcademicTutor = function(data, res) {
             data["Traineeship certificate1"] || data["Final report1"] || data["Interview1"] || data["Record the traineeship in the trainee's Transcript of Records Yes"] ||
             data["Record the traineeship in the trainee's Transcript of Records No"] || data["Record the traineeship in the trainee's Europass Mobility Document Yes"] || data["Record the traineeship in the trainee's Europass Mobility Document No"]) {
                 if(res) res.cookie("errCompileOnlyOne", "1");
-                console.log("Compile only form one!");
+                console.log("Compile only form one! "+data["Award"]+" "+data["Traineeship certificate"]+" "+data["Europass Mobility Document Yes"]+" "+data["Award ECTS credits Yes"]);
                 if (!(/^\d{1,2}$/.test(data["Award"]))) {
                     if(res) res.cookie("errAward", "1");
                     console.log("Award wrong!");
@@ -1047,7 +985,7 @@ exports.validateDataAcademicTutor = function(data, res) {
             fulfill(true);               
         }    
         else if (data["Give a grade No"] && (!data["Traineeship certificate1"] && !data["Final report1"] && !data["Interview1"])) {
-            console.log("NGrade not asked!");
+            console.log("Grade not asked!");
             fulfill(true);               
         }
         else {
@@ -1079,21 +1017,21 @@ exports.validateDataExternalTutor = function(data, res) {
             fulfill(false); 
         }
 
-        if (!(/^\d*(,\d+)?€?$/.test(data["if financial support Yes"]))) {
+        if (!(/^\d*(,\d+)?€? *$/.test(data["if financial support Yes"]))) {
             if(res) res.cookie("errFinancialSupport", "1");
             console.log("Financial support wrong!");
             fulfill(false); 
         }
 
-        if (!(/^[\wà-ù\.,"' ]*$/.test(data["If yes, please specify"]))) {
+        if (!(/^[\wà-ù\.,"' ]* *$/.test(data["If yes, please specify"]))) {
             if(res) res.cookie("errContribution", "1");
             console.log("Contribution wrong!");
             fulfill(false); 
         }
 
-        if (!(/^[0-5]{1}$/.test(data["Traineeship Certificate by"]))) {
+        if (!(/^[0-5]{1} *$/.test(data["Traineeship Certificate by"]))) {
             if(res) res.cookie("errWeeks", "1");
-            console.log("Traineeship certificate wrong!");
+            console.log("Traineeship certificate wrong! = "+data["Traineeship Certificate by"]);
             fulfill(false); 
         }
         else {
