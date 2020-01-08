@@ -3,6 +3,17 @@ var compileControl = require('../app/controllers/learningAgreementControl');
 
 describe('Field test for learningAgreementControl', function(){
     
+    it('Testing method saveLaStudent - TC_LAM_1.63', function(){
+        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli5@studenti.unisa.it'];
+        var sendStudent = compileControl.saveLaStudent(input);
+        sendStudent.then(function(la) {
+            var getLAPr = compileControl.getData('v.volpicelli5@studenti.unisa.it')
+            getLAPr.then(function(la) {
+                assert.isNotNull(la);
+            })            
+        });
+    });
+
     it('Testing method sendLaStudent - TC_LAM_1.6', function(){
         var input = ['V'];
         var sendStudent = compileControl.sendLaStudent(input);
@@ -496,17 +507,7 @@ describe('Field test for learningAgreementControl', function(){
             assert.isNull(la);
         });
     });
-
-    it('Testing method saveLaStudent - TC_LAM_1.63', function(){
-        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli4@studenti.unisa.it', 'Informatica', 'Filomena Ferrucci',
-                    'f.ferrucci@unisa.it 123456789', 'Informatica', 'Google', 'Via delle Foglie, 4 www.google.it', 'America', '300-500', 'Filomena Ferrucci - Responsabile', 'Michela Bertolotto - Direttrice',
-                    'm.berto@gmail.com 0987654321', '06/2020', '06/2021', '8', 'Us Academy', 'Learning of Modern and Advanced Technologies', 'Use of MongoDB, Mocha and Chai', 'Weekly meeting',
-                    'Knowledge of the tools', 'english', 'A1'];
-        var sendStudent = compileControl.saveLaStudent(input);
-        sendStudent.then(function(la) {
-            assert.isUndefined(la);
-        });
-    });
+   
 
     it('Testing method sendLaStudent - TC_LAM_1.62', function(){
         var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli4@studenti.unisa.it', 'Informatica', 'Filomena Ferrucci',
@@ -520,17 +521,8 @@ describe('Field test for learningAgreementControl', function(){
     });      
 
 
-    it('Testing method saveLaAcademicTutor - TC_LAM_2.22', function(){
+    it('Testing method saveLaAcademicTutor', function(){
         var input = [undefined, undefined, undefined, 'Si', '3', 'Si', 'certificate', 'Si', 'Si'];
-        var sendLaAcademicTutor = compileControl.saveLaAcademicTutor(input);
-        sendLaAcademicTutor.then(function(la) {
-            assert.isUndefined(la);
-        });
-    });
-
-
-    it('Testing method saveLaAcademicTutor - TC_LAM_2.22', function(){
-        var input = ['2', 'certificate', 'Si', undefined, undefined, undefined, undefined, undefined, undefined];
         var sendLaAcademicTutor = compileControl.saveLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isUndefined(la);
@@ -785,7 +777,7 @@ describe('Field test for learningAgreementControl', function(){
         });
     });
 
-    it('Testing method saveLaExternalTutor - TC_LAM_3.11', function(){
+    it('Testing method saveLaExternalTutor', function(){
         var input = ['Si', '300', 'Si', 'Buoni Pasto', '4', 'Si'];
         var sendLaExternalTutor = compileControl.saveLaExternalTutor(input);
         sendLaExternalTutor.then(function(la) {

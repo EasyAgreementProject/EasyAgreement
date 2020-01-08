@@ -203,6 +203,7 @@ app.post('/compileExternalTutor', function(req, res) {
 });
 
 app.post('/saveStudent', function(req, res) {
+  if (!req.body.inputEmail) req.body.inputEmail = req.session.utente.utente.Email;
   var inputAddressWebSite = req.body.inputAddress+" "+req.body.inputWebSite;
   var inputContactReciving = req.body.inputContactRecivingName+" - "+req.body.inputContactRecivingPosition;
   var inputMentor = req.body.inputMentorName+" - "+req.body.inputMentorPosition;
