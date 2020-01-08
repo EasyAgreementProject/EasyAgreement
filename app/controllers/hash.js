@@ -26,5 +26,5 @@ exports.hashPassword = function (password) {
  * @returns {Boolean}- true if the password correspond, else false
  */
 exports.checkPassword = function (savedHash, savedSalt, passwordAttempt) {
-  return savedHash == crypto.pbkdf2Sync(passwordAttempt, savedSalt, 10000, 512, 'sha512').toString('hex')
+  return savedHash === crypto.pbkdf2Sync(passwordAttempt, savedSalt, 10000, 512, 'sha512').toString('hex')
 }
