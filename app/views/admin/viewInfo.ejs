@@ -33,6 +33,7 @@
                                      <option id="hostOrganization" value="host">Organizzazione Ospitante</option>
                              </select>
                              <button type="button" onclick="loadRes()">Seleziona</button>
+                             
                              <script>
 
                              function loadRes() {
@@ -42,7 +43,9 @@
 
                                     if(this.readyState == 4 && this.status==200) {
 
-                                        responseText.forEach(element => {
+                                        if(document.getElementById("externalTutor").checked==true) {
+
+                                 xhttp.responseText.forEach(element => {
                                  var newRow= tbody.insertRow();
                                  for(i=0;i<4;i++){
                                      var newCell= newRow.insertCell(i);
@@ -55,8 +58,9 @@
                                  }
                              });
                          }
+                    
                          else if(document.getElementById("hostOrganization").checked==true){
-                                responseText.forEach(element => {
+                                xhttp.responseText.forEach(element => {
                                     var newRow= tbody.insertRow();
                                     for(i=0;i<4;i++){
                                         var newCell= newRow.insertCell(i);
@@ -70,12 +74,13 @@
                                 });
                          } 
                     };
-                                    var choice= document.getElementById("tipo");
-                                    xhttp.open('POST','/retrieverManager',true);
-                                    xhttp.setRequestHeader("id", tipo);
-                                    xhttp.send();
+                }
 
-                             }
+                                    var choice= document.getElementById("tipo").value;
+                                    xhttp.open('POST','/retrieverManager');
+                                    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                    xhttp.send(choice);
+         }
                              
                              </script>
                              </div>
@@ -86,47 +91,7 @@
             </div>
                     
                           <tbody>
-                                <script>
-                                    /*
-                    $(document).ready(function(){
-                        let xhr= new XMLHttpRequest();
-                        xhr.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                         if(document.getElementById("externalTutor").checked==true){
-                             array.forEach(element => {
-                                 var newRow= tbody.insertRow();
-                                 for(i=0;i<4;i++){
-                                     var newCell= newRow.insertCell(i);
-                                     switch(i){
-                                         case 0: newCell.innerHTML = i+1; break;
-                                         case 1: newCell.innerHTML = element[i]['nome']; break;
-                                         case 2: newCell.innerHTML = '<a href="/viewTutor'+element[i]+'">Visualizza</a>'; break;
-                                         case 3: newCell.innerHTML = '<a href="/deleteExtTutor'+ element[i]+ '">Elimina</a>'; break;
-                                     }
-                                 }
-                             });
-                         }
-                         else if(document.getElementById("hostOrganization").checked==true){
-                                array.forEach(element => {
-                                    var newRow= tbody.insertRow();
-                                    for(i=0;i<4;i++){
-                                        var newCell= newRow.insertCell(i);
-                                        switch(i){
-                                            case 0: newCell.innerHTML = i+1; break;
-                                            case 1: newCell.innerHTML = element[i]['nome']; break;
-                                            case 2: newCell.innerHTML = '<a href="/viewOrg'+ element[i]+'">Visualizza</a>'; break;
-                                            case 3: newCell.innerHTML = '<a href="/deleteExtOrg'+ element[i]+'">Elimina</a>'; break;
-                                        }
-                                    }
-                                });
-                         } 
-                    };
-                
-                }
-            }
-            */
-                
-                    </script>
+                               
 
                           </tbody>
                             </table>

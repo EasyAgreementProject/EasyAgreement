@@ -776,6 +776,9 @@ app.get('/toViewTutor', function(req,res) {
 
 app.post('/retrieverManager', function(req,res){
 
+console.log('I\'m  inside retriever manager');
+
+bodyParser.json();
 var reqRes=req.body.id;
 
 if (reqRes === 'tutorExternal') {
