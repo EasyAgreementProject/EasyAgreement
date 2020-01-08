@@ -20,8 +20,6 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
     let actutorData = fs.readFileSync('Database_Init/JSON/dbpop_actutor.json');
     let extTutorData = fs.readFileSync('Database_Init/JSON/dbpop_exttutor.json');
     let hostOrgData = fs.readFileSync('Database_Init/JSON/dbpop_hostorg.json');
-    let LAData = fs.readFileSync('Database_Init/JSON/dbpop_learningAgreement.json');
-    let requestData = fs.readFileSync('Database_Init/JSON/dbpop_request.json');
 
 
     let students = JSON.parse(studentData);
@@ -29,8 +27,6 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
     let actutor = JSON.parse(actutorData);
     let exttutor = JSON.parse(extTutorData);
     let hostorg = JSON.parse(hostOrgData);
-    let learningAgreement = JSON.parse(LAData);
-    let requests = JSON.parse(requestData);
     
 
     for(var i=0; students[i]!=null; i++){
@@ -82,18 +78,13 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
 
     });
 
-    dbo.collection("current_LearningAgreement").insertMany(learningAgreement,function(err, result) {
-
-        if(err) throw err;
-        console.log("Succesfully inserted into database "+result.insertedCount+" learning agreements");
-
+    dbo.createCollection("current_LearningAgreement", function(err) {
+        if (err) throw err;
+        console.log("Succesfully created the collection current_LearningAgreement.")
     });
-
-    dbo.collection("Request").insertMany(requests,function(err, result) {
-
-        if(err) throw err;
-        console.log("Succesfully inserted into database "+result.insertedCount+" requests");
-
+    dbo.createCollection("Request", function(err) {
+        if (err) throw err;
+        console.log("Succesfully created the collection Request.")
     });
 
     dbo.createCollection("LearningAgreement_revision", function(err) {

@@ -4,7 +4,7 @@ var compileControl = require('../app/controllers/learningAgreementControl');
 describe('Field test for learningAgreementControl', function(){
     
     it('Testing method saveLaStudent - TC_LAM_1.63', function(){
-        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli1@studenti.unisa.it'];
+        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli4@studenti.unisa.it'];
         var sendStudent = compileControl.saveLaStudent(input);
         sendStudent.then(function(la) {
             var getLAPr = compileControl.getData('v.volpicelli5@studenti.unisa.it')
@@ -510,7 +510,7 @@ describe('Field test for learningAgreementControl', function(){
    
 
     it('Testing method sendLaStudent - TC_LAM_1.62', function(){
-        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli1@studenti.unisa.it', 'Informatica', 'Filomena Ferrucci',
+        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli4@studenti.unisa.it', 'Informatica', 'Filomena Ferrucci',
                     'f.ferrucci@unisa.it 123456789', 'Informatica', 'Google', 'Via delle Foglie, 4 www.google.it', 'America', '300-500', 'Filomena Ferrucci - Responsabile', 'Michela Bertolotto - Direttrice',
                     'm.berto@gmail.com 0987654321', '06/2020', '06/2021', '8', 'Us Academy', 'Learning of Modern and Advanced Technologies', 'Use of MongoDB, Mocha and Chai', 'Weekly meeting',
                     'Knowledge of the tools', 'english', 'A1'];
