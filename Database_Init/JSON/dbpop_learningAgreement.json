@@ -5,4 +5,13 @@
     "state":"Inviato",
     "date":"8/1/2020",
     "version":1
+},
+
+{
+    "filling":{"Header name":"Veronica Volpicelli","Last name (s)":"Volpicelli","First name (s)":"Veronica","Date of birth":"1996-04-22","Nationality":"Italiana","Sex [M/F]":"F","Academic year1":"19","Academic year2":"20","Study cycle":"1st Cycle","Subject area, Code":"Informatica, 05121","Phone":"123456789","E-mail":"v.volpicelli2@studenti.unisa.it","Sending Departement":"Informatica","Contact person name":"Filomena Ferrucci","Contact person Email / Phone":"f.ferrucci@unisa.it 123456789","Contact person name / position":"Filomena Ferrucci - Responsabile","Receiving contact person e-mail phone":"f.ferrucci@unisa.it 123456789","Name Sector":"Informatica","Receiving Department":"Google","Address, website":"Via delle Foglie, 4 www.google.it","Country":"united states of america","Size of enterprise":"300-500","Mentor name / position":"Michela Bertolotto - Direttrice","Mentor e-mail / phone":"m.berto@gmail.com 0987654321","from":"06/2020","till":"06/2021","Number of working hours for week":"8","Traineeship title":"Us Academy","Detailed programme of the traineeship period":"Learning of Modern and Advanced Technologies","Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship":"Use of MongoDB, Mocha and Chai","Monitoring plan":"Weekly meeting","Evaluation plan":"Knowledge of the tools","language competence":"EN","The trainee signature":"Veronica Volpicelli","The trainee date":"8/1/2020","A1":"","A2":"","B1":"","B2":"X","C1":"","C2":""},
+    "document":{"file_data":"JVBERi0xLjUKJ"},
+    "studentID":"v.volpicelli2@studenti.unisa.it",
+    "state":"Disapprovato dal Tutor Accademico per il motivo: Rivedere la date del tirocinio",
+    "date":"8/1/2020",
+    "version":1
 }]

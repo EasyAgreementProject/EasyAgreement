@@ -4,7 +4,7 @@ var compileControl = require('../app/controllers/learningAgreementControl');
 describe('Field test for learningAgreementControl', function(){
     
     it('Testing method saveLaStudent - TC_LAM_1.63', function(){
-        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli5@studenti.unisa.it'];
+        var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli1@studenti.unisa.it'];
         var sendStudent = compileControl.saveLaStudent(input);
         sendStudent.then(function(la) {
             var getLAPr = compileControl.getData('v.volpicelli5@studenti.unisa.it')
