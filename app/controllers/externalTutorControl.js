@@ -52,7 +52,7 @@ if(!isRight){
 }
 
 
-        var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.email);
+        var checkS=externalTutorModel.updateExternalTutor(externalTutor,req.session.utente.utente.E_mail);
         /** 
         * It checks the result of updateExternalTutor function and updates the external tutor session
         * @param  {Object} result - The result of updateExternalTutor function
@@ -107,10 +107,10 @@ exports.updatePassword=function(req,res){
         return;
     }
 
-    if(hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)){
+    if(hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)){
         var passwordHashed= hash.hashPassword(password);
     
-        var checkS=externalTutorModel.updatePassword(passwordHashed,req.session.utente.utente.email);
+        var checkS=externalTutorModel.updatePassword(passwordHashed,req.session.utente.utente.E_mail);
 
         /** 
         * It checks the result of updatePassword function and updates the external tutor session

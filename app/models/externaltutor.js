@@ -181,12 +181,14 @@ static updateExternalTutor(externaltutor,emailv) {
                             extutor.setName(result.Name);
                             extutor.setOrganization(result.Organization);
                             fulfill(extutor);
+
+                
                         }
-                        else{
+                        else{db.close();
                             fulfill(null);
                         }
-                        db.close();
-                    })
+                        
+                    });
              });
             
             });
