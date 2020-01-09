@@ -11,13 +11,13 @@ var studentControl = require('./app/controllers/studentControl')
 var academicTutorControl = require('./app/controllers/academicTutorControl')
 var externalTutorControl = require('./app/controllers/externalTutorControl')
 var administratorControl = require('./app/controllers/administratorControl')
-
 var messageControl = require('./app/controllers/messageControl')
 var requestControl = require('./app/controllers/requestControl')
 var notificationControl = require('./app/controllers/notificationControl')
 var session = require('express-session')
 const multer = require('multer')
 var fs = require('fs')
+module.exports=app
 
 const io = require('socket.io')(3000)
 
