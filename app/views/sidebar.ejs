@@ -7,10 +7,10 @@
                     <div class="avatar-sm float-left mr-2">
                         <img class="avatar-img rounded-circle" src="/img/user.png" alt="...">
                     </div>
-                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-                        <a href="/profile" ><span id="nome">Nome</span>
-                            <span id="type" class="user-level">Ruolo</span>
-                        </a>
+                    <a href="/profile" aria-expanded="true" id="profile">
+                        <span id="nome">
+                            <span class="user-level"></span>
+                        </span>
                     </a>
                     <div class="clearfix"></div>
 
@@ -23,7 +23,7 @@
                     </span>
                     <h4 class="text-section">Opzioni</h4>
                 </li>
-            <%if(session.utente.type == "student") {%>
+            <%if(session.utente.type == "student") {%>            
                 <li class="nav-item">
                     <a href="compileLAStudent.html">
                         <i class="fas fa-file-contract"></i>
@@ -40,7 +40,7 @@
                     <a href="viewtutor.html">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Lista Tutor e <br>Organizzazioni</p>
-                    </a>
+                    </a>							
                 </li>
                 <li class="nav-item">
                     <a href="gestioneDocumenti.html">
@@ -50,8 +50,7 @@
                 </li>
             </ul>
             <%} %>
-            <%if(session.utente.type == "academicTutor") {%>
-              <ul>
+            <%if(session.utente.type == "academicTutor") {%>                
                 <li class="nav-item">
                     <a href="request.html">
                         <i class="fas fa-file-alt"></i>
@@ -62,12 +61,11 @@
                     <a href="viewtutor.html">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Lista Tutor e <br>Organizzazioni</p>
-                    </a>
+                    </a>							
                 </li>
             </ul>
             <%} %>
             <%if(session.utente.type == "externalTutor") {%>
-              <ul>
                 <li class="nav-item">
                     <a href="request.html">
                         <i class="fas fa-file-alt"></i>
@@ -78,32 +76,31 @@
                     <a href="viewtutor.html">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Lista Tutor e <br>Organizzazioni</p>
-                    </a>
+                    </a>							
                 </li>
             </ul>
             <%} %>
             <%if(session.utente.type == "admin") {%>
                 <li class="nav-item">
-                    <a href="/addHostOrg">
+                    <a href="/profile">
                         <i class="fas fa-file-alt"></i>
-                        <p>Aggiunta <br>Organizzazione Ospitante</p>
+                        <p>Modifica Password</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/addExtTutor">
+                    <a href="">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Aggiunta <br>Tutor Esterno</p>
-                    </a>
+                        <p>Inserimento <br>Rimozione</p>
+                    </a>							
                 </li>
                 <li class="nav-item">
-                    <a href="/toViewList">
+                    <a href="viewtutor.html">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Lista Organizzazioni <br> Ospitante e Tutor Esterno</p>
-                    </a>
+                        <p>Lista Tutor e <br>Organizzazioni</p>
+                    </a>							
                 </li>
-               
-                
-            <%} %>
+            </ul>
+            <%} %>    
         </div>
     </div>
 </div>
@@ -111,22 +108,29 @@
 <script>
     $(document).ready(function(){
         $.post('/getConnectedUser', function(user){
-            if(user.type == 'student'){
-                document.getElementById('nome').innerHTML = user.utente.Email;
-                document.getElementById('type').innerHTML = "Studente";
+            var role;
+            var name;
+            if(user.type === 'student') {
+                role = 'Studente';
+                name = user.utente.Name;
             }
-            else if(user.type == 'academicTutor'){
-                document.getElementById('nome').innerHTML = user.utente.E_mail;
-                document.getElementById('type').innerHTML = "Tutor Accademico";
+            if(user.type === 'academicTutor') {
+                role = 'Tutor Accademico';
+                name = user.utente.Name;
             }
-            else if(user.type == 'externalTutor'){
-                document.getElementById('nome').innerHTML = user.utente.E_mail;
-                document.getElementById('type').innerHTML = "Tutor Esterno";
+            if(user.type === 'externalTutor') {
+                role = 'Tutor Esterno';
+                name = user.utente.Name;
             }
-            else if(user.type == 'admin'){
-                document.getElementById('nome').innerHTML = user.utente.email;
-                document.getElementById('type').innerHTML = "Amministratore";
+            if(user.type === 'admin') {
+                name = user.utente.name;
+                role = 'Amministratore';
+                document.getElementById('profile').href = "";
+                document.getElementById('profile').style.cursor = "default";
+                document.getElementById('open-chat').style.display = "none";
+                document.getElementById('open-notification').style.display = "none";
             }
+            document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
         })
     })
 </script>

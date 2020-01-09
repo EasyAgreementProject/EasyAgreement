@@ -101,7 +101,7 @@ class Request {
                 if (err) throw err;
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
-                dbo.collection("Request").insertOne({ "studentID": studentID }, function(err) {
+                dbo.collection("Request").deleteOne({ "studentID": studentID }, function(err) {
                     if (err) throw err;
                     console.log("Request delete completed! StudentID = " + studentID);
                     db.close();
