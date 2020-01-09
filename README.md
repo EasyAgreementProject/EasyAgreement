@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/EasyAgreementProject/EasyAgreement.svg?branch=master)](https://travis-ci.org/EasyAgreementProject/EasyAgreement)
 [![Coverage Status](https://coveralls.io/repos/github/EasyAgreementProject/EasyAgreement/badge.svg?branch=master)](https://coveralls.io/github/EasyAgreementProject/EasyAgreement?branch=master)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 # EasyAgreement
 This project is a meant as a platform for simplify the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of Learning Agreement document.
@@ -77,6 +78,17 @@ A step by step series that tell you how to get a development env running
 1.	Follow the installation instructions
 2.	Go to localhost:8080
 
+## Code Style: ##
+
+1.	Go to your project cloned directory 'EasyAgreement’
+
+2.	`npm install standard --save-dev`
+
+3.	`npm install -g npx`
+
+4.	`npx standard pathFile`, if you want automatically format code run `npx standard pathFile --fix`
+
+It's possible run complex path expressions, see to: https://github.com/standard/standard
 
 ## Authors
 

@@ -7,10 +7,10 @@
                     <div class="avatar-sm float-left mr-2">
                         <img class="avatar-img rounded-circle" src="/img/user.png" alt="...">
                     </div>
-                    <a href="/profile" aria-expanded="true" id="profile">
-                        <span id="nome">
-                            <span class="user-level"></span>
-                        </span>
+                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                        <a href="/profile" ><span id="nome">Nome</span>
+                            <span id="type" class="user-level">Ruolo</span>
+                        </a>
                     </a>
                     <div class="clearfix"></div>
 
@@ -123,16 +123,22 @@
 <script>
     $(document).ready(function(){
         $.post('/getConnectedUser', function(user){
-            var role;
-            if(user.type === 'student') role = 'Studente';
-            if(user.type === 'academicTutor') role = 'Tutor Accademico';
-            if(user.type === 'externalTutor') role = 'Tutor Esterno';
-            if(user.type === 'admin') {
-                role = 'Amministratore';
-                document.getElementById('profile').href = "";
-                document.getElementById('profile').style.cursor = "default";
+            if(user.type == 'student'){
+                document.getElementById('nome').innerHTML = user.utente.Email;
+                document.getElementById('type').innerHTML = "Studente";
             }
-            document.getElementById('nome').innerHTML += user.utente.Name+'<span class="user-level">'+role+'</span>';
+            else if(user.type == 'academicTutor'){
+                document.getElementById('nome').innerHTML = user.utente.E_mail;
+                document.getElementById('type').innerHTML = "Tutor Accademico";
+            }
+            else if(user.type == 'externalTutor'){
+                document.getElementById('nome').innerHTML = user.utente.E_mail;
+                document.getElementById('type').innerHTML = "Tutor Esterno";
+            }
+            else if(user.type == 'admin'){
+                document.getElementById('nome').innerHTML = user.utente.email;
+                document.getElementById('type').innerHTML = "Amministratore";
+            }
         })
     })
 </script>
