@@ -329,7 +329,6 @@ class Student {
         var dbo = db.db(dbName)
         dbo.collection('Student').findOne({ Email: email }, function (err, result) {
           if (err) reject(err)
-          console.log(result)
           fulfill(result.IDCard)
           db.close()
         })

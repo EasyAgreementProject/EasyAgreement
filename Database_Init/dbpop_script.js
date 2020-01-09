@@ -96,5 +96,5 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
     });
 
 
-    return;
+    return 0;
 });
