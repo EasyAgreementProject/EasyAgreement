@@ -1,84 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Compilazione LA Tutor Esterno</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/compileLAExternalTutor.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src="./js/formValidationExternalTutor.js"></script>
-    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script defer src="js/chat.js"></script>
-</head>
-
-<body>
-
-    <div class="d-flex" id="wrapper">
-
-        <!-- Sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <a href="index.html" style="text-decoration: none; color: black;">
-                <div class=sidebar-logo>
-                    <img src="/img/logoUni.png" style="float: left" width="50px">
-                </div>
-                <div class="sidebar-heading">Home</div>
-            </a>
-            <div class="list-group list-group-flush">
-                <a href="/profile" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/profile.svg" style="height: 20px; width: 20px;"> Profilo</a>
-                <a href="compileLAExternalTutor.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/compileLA.svg" style="height: 20px; width: 20px;"> Compilazione LA</a>
-                <a href="viewLA.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/ViewLA.svg" style="height: 20px; width: 20px;"> Visualizzazione LA</a>
-                <a href="viewtutor.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/tutor_list.svg" style="height: 20px; width: 20px;"> Lista Tutor/Organizzazioni</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/request_list.svg" style="height: 20px; width: 20px;" id="button_hold"> Lista Richieste</a>
-                <a href="dochandler.html" class="list-group-item list-group-item-action bg-light">
-                    <img src="/img/documents.svg" style="height: 20px; width: 20px;"> Gestione Documenti</a>
+<%- include ('header') %>
+<%- include ('sidebar') %>
+<link href="/css/simple-sidebar.css" rel="stylesheet"> 
+<script type="text/javascript" src="./js/formValidationExternalTutor.js"></script>
+    <div class="main-panel">
+        <div class="content">
+            <div class="panel-header bg-primary-gradient">
+                <div class="page-inner py-5">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h2 class="text-white pb-2 fw-bold">Compilazione Learning Agreement</h2>
+                            <h5 class="text-white op-7 mb-2">Tutor Esterno</h5>
+                        </div>
+                    </div>
+                </div>	
             </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background-color: orange;">
-                <button id="menu-toggle"><img src="/img/menu.png" style="height: 20px; width: 20px;"></button>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="/img/responsive_slide.svg" style="height: 20px; width: 20px;">
-            </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img src="/img/notification.svg" style="height: 20px; width: 20px;"></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="open-chat" href="javascript:void(0)"><img src="/img/chat.svg" style="height: 20px; width: 20px;"></a>
-                        </li>
-                        <li>
-                            <a href="/logout" class="nav-link"> Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-             <div class="container-fluid">
+            <div class="page-inner py-5">
                 <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
-                <h1 class="mt-4">LEARNING AGREEMENT FOR TRAINEESHIPS</h1>
-                <hr>
+                <hr><br><br>
                 <form id="formCompile" method="post" action="/compileExternalTutor"><br>
                    <ul>
                        <li>
@@ -166,44 +105,16 @@
                                     e firmando il certificato di tirocinio.</p>
                             </div>
                     <hr>
-                    <button class="btn btn-block" type="submit" class="saveButton">APPROVA</button>
-                    <button class="btn btn-block" type="submit" formaction="/saveExternalTutor" class="saveButton">SALVA</button>
-                </form>
-                <form id = "disapproveForm" method ="POST" action = "/disapproveExternalTutor" style = "display: none;">
-                    <div class = "form-label-group">
-                        <input type = "text" class = "form-control" name = "msg">
-                        <label for = "msg">Inserire la motivazione</label>
-                    </div>
-                    <button class="btn btn-block" type="submit" class="saveButton">DISAPPROVA</button>
-                </form>
-                <button class="btn btn-block" type="button" id="disapprove" onclick = "disapprove()" class="saveButton">DISAPPROVA</button>                  
-                                
+                    <button class="btn2 btn-block" type="submit" class="saveButton">APPROVA</button>
+                    <button class="btn2 btn-block" type="submit" formaction="/saveExternalTutor" class="saveButton">SALVA</button>
+                </form>                   
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#wrapper -->
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/jquery/dist/jquery.min.js "></script>
-    <script src="/bootstrap/dist/js/bootstrap.bundle.min.js "></script>
-
-    <!-- Menu Toggle Script -->
-    <script>
-        $("#menu-toggle ").click(function(e) {
-            e.preventDefault();
-            $("#wrapper ").toggleClass("toggled ");
-        });
-    </script>
-    <script>
-        function disapprove() {
-            document.getElementById("disapproveForm").style.display = "block";
-            document.getElementById("disapprove").style.display = "none";
-        }
-    </script>
+<%- include ('footer') %>
     <script language="text/javascript">
     $(document).ready(function() {
-        $.get("/fillform", function(data){
+        $.get("/fillFormRequest", function(data){
             if (data["financial support Yes"]) document.getElementById("inputRadio1").checked= true;
             if (data["financial support No"]) document.getElementById("inputRadio1").checked = true;
             if (data["if financial support Yes"]) document.getElementById("inputAmount").value= data["if financial support Yes"];
