@@ -14,6 +14,7 @@ var tutorControl = require('./app/controllers/tutorControl')
 
 
 var administratorControl = require('./app/controllers/administratorControl')
+var viewListControl = require ('./app/controllers/viewListControl')
 
 var messageControl = require('./app/controllers/messageControl')
 var requestControl = require('./app/controllers/requestControl')
@@ -745,21 +746,24 @@ app.post('/retrieverManager', function(req,res){
 
 console.log('I\'m  inside retriever manager');
 
-bodyParser.json();
 var reqRes=req.body.id;
 console.log("req:"+ reqRes);
 
-if (reqRes === 'externalTutor') {
+if (reqRes == 'tutorExternal') {
 
   console.log("Client requested a list of all Tutor, proceeding...");
-  var myRes= administratorControl.retrieveAllTutor();
-  res.send(myRes);
 
-} else if (reqRes === 'host') {
+  var myRes= viewListControl.retrieveAllTutor();
+  myRes.then(function(result){
+    res.json(result);
+  })
+
+} else if (reqRes == 'host') {
 
   console.log("Client requested a list of all host organizations, proceeding...");
-  var myRes= administratorControl.retrieveAllHostOrg();
-  res.send(myRes);
+  var myRes= viewListControl.retrieveAllHostOrg;
+  res.json(myRes);
+
 
 } else {
 
