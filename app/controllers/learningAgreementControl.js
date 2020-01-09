@@ -220,25 +220,42 @@ exports.saveLaStudent = function(input, res) {
     }
 
     return new Promise(function(fulfill, reject) {
-        var getStatusPr = exports.getStatus(data["E-mail"]);
-            getStatusPr.then(function(result){
-            if(!result || result.startsWith("Disapprovato")) {
+        var getLearningAgreementPr = LA.getLearningAgreement(data["E-mail"])
+        getLearningAgreementPr.then(function(result) {
+            if(result) {
+                var getStatusPr = exports.getStatus(data["E-mail"]);
+                getStatusPr.then(function(result){
+                    if(!result || result.startsWith("Disapprovato")) {
+                        learningAgreement.setFilling(data);
+                        learningAgreement.setDocument(null);
+                        learningAgreement.setStudentID(input[10]);
+
+                        let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
+                        insertLearningAgreementPr.then(function() {
+                            if(res) res.cookie("saveSuccess", "1");
+                            fulfill();
+                        });     
+                    }
+                    else {
+                        if(res) res.cookie("errRequest", "1");
+                        console.log("Request already sent!");
+                        fulfill();
+                    }
+                })               
+            }
+            else {
                 learningAgreement.setFilling(data);
                 learningAgreement.setDocument(null);
-                learningAgreement.setStudentID(data["E-mail"]);
+                learningAgreement.setStudentID(input[10]);
 
                 let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                 insertLearningAgreementPr.then(function() {
                     if(res) res.cookie("saveSuccess", "1");
                     fulfill();
-                });     
+                });  
             }
-            else {
-                if(res) res.cookie("errRequest", "1");
-                console.log("Request already sent!");
-                fulfill();
-            }
-        })               
+        })        
+        
     })
 }
 

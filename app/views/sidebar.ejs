@@ -82,10 +82,16 @@
             <%} %>
             <%if(session.utente.type == "admin") {%>
                 <li class="nav-item">
-                    <a href="request.html">
+                    <a href="/profile">
                         <i class="fas fa-file-alt"></i>
-                        <p>Visualizza Richieste</p>
+                        <p>Modifica Password</p>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Inserimento <br>Rimozione</p>
+                    </a>							
                 </li>
                 <li class="nav-item">
                     <a href="viewtutor.html">
@@ -103,15 +109,26 @@
     $(document).ready(function(){
         $.post('/getConnectedUser', function(user){
             var role;
-            if(user.type === 'student') role = 'Studente';
-            if(user.type === 'academicTutor') role = 'Tutor Accademico';
-            if(user.type === 'externalTutor') role = 'Tutor Esterno';
+            var name;
+            if(user.type === 'student') {
+                role = 'Studente';
+                name = user.utente.Name;
+            }
+            if(user.type === 'academicTutor') {
+                role = 'Tutor Accademico';
+                name = user.utente.Name;
+            }
+            if(user.type === 'externalTutor') {
+                role = 'Tutor Esterno';
+                name = user.utente.Name;
+            }
             if(user.type === 'admin') {
+                name = user.utente.name;
                 role = 'Amministratore';
                 document.getElementById('profile').href = "";
                 document.getElementById('profile').style.cursor = "default";
             }
-            document.getElementById('nome').innerHTML += user.utente.Name+'<span class="user-level">'+role+'</span>';
+            document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
         })
     })
 </script>
