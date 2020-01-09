@@ -81,7 +81,7 @@ $(document).ready(function () {
 function appendNotification (notifica) {
   if (senderID == notifica.associatedID) {
     var date = notifica.date.hour + ':' + notifica.date.minutes + ', ' + notifica.date.day + '/' + notifica.date.month + '/' + notifica.date.year
-    $('.notifications').prepend(['<div class="notification">',
+    $('.notifications').prepend(['<div class="notification-div">',
       '<a href="javascript:void(0)"><img id="delete-notification" src="/img/delete-notification-icon.png" alt="delete" onclick="deleteNotification(this)"/></a>',
       '<h5 class="notification-title">' + notifica.text.title + '</h5>',
       '<p class="notification-text">' + notifica.text.text + '</p>',

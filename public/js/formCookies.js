@@ -165,7 +165,7 @@ $(document).ready(function() {
     if (errMentorInfo == "1") {
         $('#errDepartmentReciving').css('display', 'block');
         $('#inputDepartmentReciving').addClass("errClass");
-        document.cookie = "errDepartmentReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie = "errMentorInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errDateFrom == "1") {
         $('#errDateFrom').css('display', 'block');
