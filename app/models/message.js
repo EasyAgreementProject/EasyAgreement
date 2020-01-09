@@ -53,11 +53,9 @@ class Message {
     return new Promise(function (fulfill, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Message').insertOne(message, function (err, result) {
           if (err) reject(err)
-          console.log('Message inserted correctly!')
           fulfill(result.insertedId)
           db.close()
         })
@@ -69,11 +67,9 @@ class Message {
     return new Promise(function (fulfill, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Message').deleteOne({ _id: ObjectID(messageID) }, function (err) {
           if (err) reject(err)
-          console.log('Message deleted')
           db.close()
           fulfill()
         })
@@ -85,11 +81,9 @@ class Message {
     return new Promise(function (fulfill, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Message').updateOne({ _id: ObjectID(id) }, { $set: { text: value } }, function (err, result) {
           if (err) reject(err)
-          console.log('Message updated')
           db.close()
           fulfill()
         })
@@ -101,7 +95,6 @@ class Message {
     return new Promise(function (fulfill, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         var senderMessages = null
         var recipientMesssages = null
