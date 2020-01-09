@@ -741,3 +741,5 @@ app.post('/setReceivedMessage', function (req, res) {
     res.json(result)
   })
 })
+
+module.exports = app;
