@@ -4,7 +4,7 @@ var LA = require('../models/learningAgreement.js');
 var requestControl = require('./requestControl.js');
 var learningAgreement = new LA();
 var io = require('socket.io-client');
-var socket = io.connect('localhost:3000')
+var socket = io.connect('http://localhost:3000')
 //const Readable = require('stream').Readable;
 
 exports.sendLaStudent = function(input, res) {
@@ -122,9 +122,13 @@ exports.sendLaStudent = function(input, res) {
 
                                 var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                                 insertLearningAgreementPr.then(function() {
+                                    console.log("si ora la mando")
                                     var d = new Date();
                                     var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                                    socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["E-mail"]+" ha compilato il Learning Agreement"}, date: data});
+                                    console.log("la data è tutto apposto")
+                                    console.log("l'email è =  "+ data["E-mail"])
+                                    console.log("l'email del tutor è = "+ email)
+                                    socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente ha compilato il Learning Agreement"}, date: data});
 
                                     fulfill(download);
                                 });
