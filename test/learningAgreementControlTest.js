@@ -659,7 +659,7 @@ describe('Field test for learningAgreementControl', function(){
             assert.isNull(la);
             done();
         });
-    });
+    }).timeout(4000);
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.11', (done) => {
         var input = [undefined, undefined, undefined, 'Si', ''];
