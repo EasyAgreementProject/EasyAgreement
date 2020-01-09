@@ -4,7 +4,7 @@ var LA = require('../models/learningAgreement.js');
 var requestControl = require('./requestControl.js');
 var learningAgreement = new LA();
 var io = require('socket.io-client');
-var socket = io.connect('localhost:3000')
+var socket = io.connect('http://localhost:3000')
 //const Readable = require('stream').Readable;
 
 exports.sendLaStudent = function(input, res) {

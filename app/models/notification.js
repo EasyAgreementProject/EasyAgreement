@@ -52,7 +52,6 @@ class Notification {
         var dbo = db.db(dbName)
         dbo.collection('Notification').insertOne(notification, function (err, result) {
           if (err) reject(err)
-          console.log('Notification inserted correctly!')
           fulfill(result.insertedId)
           db.close()
         })
@@ -67,7 +66,6 @@ class Notification {
         var dbo = db.db(dbName)
         dbo.collection('Notification').deleteOne({ _id: ObjectID(notificationID) }, function (err, result) {
           if (err) reject(err)
-          console.log('Notification removed correctly!')
           fulfill()
           db.close()
         })
@@ -79,7 +77,6 @@ class Notification {
     return new Promise(function (fulfill, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Notification').find({ associatedID: associatedID }).toArray(function (err, result) {
           if (err) reject(err)
