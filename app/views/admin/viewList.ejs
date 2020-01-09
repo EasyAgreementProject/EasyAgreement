@@ -4,6 +4,8 @@
 <link href="/css/simple-sidebar.css" rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="/js/cookie.js"></script>
+<link rel="stylesheet" href="/css/atlantis.min.css">
+
 
            
 <div class="main-panel">
@@ -23,10 +25,15 @@
             <hr>
             <h5 style="text-align: justify; font-style: italic; color: darkblue;">Visualizza Lista</h5>
                      <div class="form-label-group">
-                        <a href="/deleteHostOrg" class="btn btn-white btn-border btn-round mr-2">Delete</a>
-
+                        
                              <div class="list_version">
-                             Scegli se visualizzare Tutor Esterno oppure Organizzazione Ospitante:
+                                <div class="ml-md-auto py-2 py-md-0">
+                                    <a href="/deleteHostOrg" class="">Delete</a>
+                                </div>
+                                <div class="ml-md-auto py-2 py-md-0">
+                                    <a href="/deleteExTutor" class="">Delete T</a>
+                                </div>
+                             Scegli se visualizzare Tutor Estderno oppure Organizzazione Ospitante:
                              <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
                                      <option selected="selected" value="">--Seleziona--</option>
                                      <option id="externalTutor" value="tutorExternal">Tutor Esterno</option>
@@ -36,11 +43,11 @@
                              
                              <script>
 
-                             function loadRes() {
+                             /*function loadRes() {
 
                                 var choice= document.getElementById("tipo").value;
 
-                               /* $.ajax({
+                               $.ajax({
                                     type: 'POST',
                                     url: '/retrieverManager',
                                     data: {choice}
@@ -91,7 +98,7 @@
                                     xhttp.open('POST','/retrieverManager');
                                     xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                                     xhttp.send(choice);
-         }
+            }
          */
                              
                              </script>

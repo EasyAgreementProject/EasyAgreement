@@ -10,6 +10,8 @@ var loginControl = require('./app/controllers/loginControl')
 var studentControl = require('./app/controllers/studentControl')
 var academicTutorControl = require('./app/controllers/academicTutorControl')
 var externalTutorControl = require('./app/controllers/externalTutorControl')
+var tutorControl = require('./app/controllers/tutorControl')
+
 
 var administratorControl = require('./app/controllers/administratorControl')
 
@@ -730,15 +732,11 @@ res.render('admin/viewList');
 
 });
 
-app.get('/toViewOrg', function(req,res) {
 
-res.render('admin/vieworg');
 
-});
+app.get('/toViewInfo', function(req,res) {
 
-app.get('/toViewTutor', function(req,res) {
-
-  res.render('admin/viewtutor');
+  res.render('admin/viewInfo');
 
   });
 
@@ -774,36 +772,41 @@ if (reqRes === 'externalTutor') {
 
 
 });
+/*
+app.get('/getHost'){
 
+var externalTutorControl
 
-app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
+}
+*/
+  app.get('/deleteHostOrg', function(req, res) {
 
-  var action=adminControl.deleteHostOrg(req,res);
-  res.sendFile('');
-
-  });
-
-  app.post('/deleteHostOrg', function(req, res) {
-
-    var deleteHost=administratorControl.deleteHostOrg("051papap1",res);
+    //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
+    var deleteHost=tutorControl.deleteHostOrg("AlessioRe10",res);
     deleteHost.then(function(result){
       if(result== true){
-        res.render('admin/view');
+        res.render('admin/viewList');
       }
       else{
   
-        res.render('admin/insorg');
+        res.render('admin/viewList');
       }
     });
   });
+
+  app.get('/deleteExTutor', function(req, res) {
+
+    //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
+    var deleteHost=tutorControl.deleteExTutor("a.borrelli9@unisa.it",res);
+    deleteHost.then(function(result){
+      if(result== true){
+        res.render('admin/viewList');
+      }
+      else{
   
-
-
-  app.post('/deleteExtTutor', function(req,res){ //waiting for frontend
-
-    var action=adminControl.deleteExtTutor(req,res);
-    res.sendFile('');
-
+        res.render('admin/viewList');
+      }
     });
+  });
 
   

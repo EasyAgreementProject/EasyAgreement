@@ -74,12 +74,14 @@ $(document).ready(function () {
   var alreadyRegH = getCookie('errAlreadyRegH')
   var alreadyRegEx = getCookie('errAlreadyRegEx')
   var insertHEff = getCookie('insertHEff')
+  var insertEff = getCookie('insertEff')
+
   var errOrganizationEx= getCookie('errExOrganizationName');
   var errdelHost= getCookie('errDelHost');
   var succHost= getCookie('delHostSucc');
 
   if (errdelHost == '1') {
-    swal('Errore cancellazione Organizzazione ospitante', 'errore', 'error')
+    swal('Errore', 'Errore cancellazione Organizzazione ospitante', 'error')
     document.cookie = 'errDelHost=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
@@ -96,18 +98,23 @@ $(document).ready(function () {
     document.cookie = 'errHAddress=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
+  if (insertEff == '1') {
+    swal('Inserimento effettuato', 'tutor esterno inserito con successo', 'success')
+    document.cookie = 'insertEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
   if (insertHEff == '1') {
     swal('Inserimento effettuato', 'organizzazione ospitante inserita con successo', 'success')
     document.cookie = 'insertHEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
   if (alreadyRegH == '1') {
-    swal('Organizzazione ospitante già presente', 'errore', 'error')
+    swal('Errore', 'organizzazione ospitante già presente', 'error')
     document.cookie = 'errAlreadyRegH=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
   if (alreadyRegEx == '1') {
-    swal('Tutor esterno già presente', 'errore', 'error')
+    swal('Errore', 'tutor esterno già presente', 'error')
     document.cookie = 'errAlreadyRegEx=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
   if (errErasmusCode == '1') {

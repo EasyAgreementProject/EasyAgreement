@@ -84,7 +84,7 @@ exports.addHostOrg = function (req, res) {
       isRight = false
     }
 
-    if ((contact == null) || (contact.length <= 7)) {
+    if ((contact == null) || (contact.length <= 7) || (!/^[A-Za-z0-9,\s]+$/.test(contact))){
       res.cookie('errContatti', '1')
       isRight = false
     }
@@ -134,26 +134,6 @@ exports.addHostOrg = function (req, res) {
   })
 }
 
-exports.deleteHostOrg = function (erasmuscode, res) {
-
-return new Promise(function(fulfill, reject){
-
-  var delHost=organizationModel.deleteHostOrg(erasmuscode);
-  delHost.then(function(result){
-    if(!result){
-
-      res.cookie('errDelHost','1')
-      fulfill(false)
-      return
-      
-    }else{
-
-      res.cookie('delHostSucc','1')
-      fulfill(true)
-      }
-    })
-  })
-}
 
 exports.addExtTutor = function (req, res) {
   return new Promise(function (fulfill, reject) {
@@ -180,7 +160,7 @@ exports.addExtTutor = function (req, res) {
       isRight = false
     }
 
-    if ((email == null) || (email.length <= 6) || (!/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email))) {
+    if ((email == null) || (email.length <= 6) || (!/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9]){1,}?/.test(email))) {
       res.cookie('errExTutorEmail', '1')
       isRight = false
     }
@@ -226,7 +206,7 @@ exports.addExtTutor = function (req, res) {
       }
       if (result) {
         // Save student in database
-        adminModel.addExtTutor(tutorEsterno)
+        extutorModel.addExtTutor(tutorEsterno)
 
         // redirect
         res.cookie('insertEff', '1')

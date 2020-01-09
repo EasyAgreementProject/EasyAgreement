@@ -287,5 +287,24 @@ static addExtTutor(ExtTutor) {
   });
 
   }
+
+  static deleteExTutor (email) {
+    return new Promise(function (fulfill, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection("ExternalTutor").findOneAndDelete({ E_mail: email }, function (err, result) {
+          if (err) throw err
+          if (result.value != null) {
+            fulfill(true)
+          } else {
+            fulfill(false)
+          }
+          db.close()
+        })
+      })
+    })
+  }
+
 }
 module.exports = externalTutor
