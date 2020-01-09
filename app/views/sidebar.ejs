@@ -1,5 +1,5 @@
-<!-- Sidebar -->	
-<div id ="sidebar" class="sidebar sidebar-style-2">	
+<!-- Sidebar -->
+<div id ="sidebar" class="sidebar sidebar-style-2">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <div class="user">
@@ -28,7 +28,7 @@
                     <a href="compileLAStudent.html">
                         <i class="fas fa-file-contract"></i>
                         <p>Compila LA</p>
-                    </a>							
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="viewLA.html">
@@ -82,25 +82,26 @@
             <%} %>
             <%if(session.utente.type == "admin") {%>
                 <li class="nav-item">
-                    <a href="/profile">
+                    <a href="/addHostOrg">
                         <i class="fas fa-file-alt"></i>
-                        <p>Modifica Password</p>
+                        <p>Aggiunta <br>Organizzazione Ospitante</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="">
+                    <a href="/addExtTutor">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Inserimento <br>Rimozione</p>
-                    </a>							
+                        <p>Aggiunta <br>Tutor Esterno</p>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a href="viewtutor.html">
+                    <a href="/toViewList">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Lista Tutor e <br>Organizzazioni</p>
-                    </a>							
+                        <p>Lista Organizzazioni <br> Ospitante e Tutor Esterno</p>
+                    </a>
                 </li>
-            </ul>
-            <%} %>    
+               
+                
+            <%} %>
         </div>
     </div>
 </div>

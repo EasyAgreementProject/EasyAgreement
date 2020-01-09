@@ -1,0 +1,79 @@
+<%- include ('../header') %>
+<%- include ('../sidebar') %>
+
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <script type="text/javascript" src="./js/formValidation.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="/js/cookie.js"></script>
+
+    <div class="main-panel">
+        <div class="content">
+            <div class="panel-header bg-primary-gradient">
+                <div class="page-inner py-5">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h2 class="text-white pb-2 fw-bold">Inserimento Tutor Esterno</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-inner py-5">
+                <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+                <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+                <hr>
+                <h5 style="text-align: justify; font-style: italic; color: darkblue;">Inserisci Tutor Esterno</h5>
+                <form id="formCompile" method="post" action="/addExtTutorF"><br>
+                    <div class="form-label-group">
+                        <input type="text" id="inputNameEx" class="form-control" name="inputNameEx" placeholder="Nome" required >
+                        <label for="inputNameEx">Nome<label>
+                         <span id="errNameEx">Nome non valido</span>
+                    </div>
+                         <div class="form-label-group">
+                            <input type="text" id="inputSurnameEx" class="form-control" name="inputSurnameEx" placeholder="Cognome"  required >
+                            <label for="inputSurnameEx">Cognome</label>
+                            <span id="errSurnameEx">Cognome non valido</span>
+
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" id="inputEmailEx" class="form-control" name="inputEmailEx" placeholder="E-Mail" required >
+                        <label for="inputEmailEx">E-Mail</label>
+                        <span id="errEmailEx">E-mail non valida</span>
+
+                    </div>
+                    <div class="form-label-group">
+                        <input type="text" id="inputOrganizzazioneEx" class="form-control" name="inputOrganizationEx" placeholder="Organizzazione" required >
+                        <label for="inputOrganizzazioneEx">Organizzazione</label>
+                        <span id="errOrganizationEx">Organizzazione non valida</span>
+
+                    </div>
+                    <div class="form-label-group">
+                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Password"  required >
+                        <label for="inputPassword">Password</label>
+                        <span id="errPassword">Password non valida</span>
+
+                    </div>
+                    <div class="form-label-group">
+                        <input type="password" id="inputRePassword" class="form-control" name="inputRePassword" placeholder="Ripeti Password"  required >
+                        <label for="inputRePassword"> Ripeti Password</label>
+                        <span id="errConfirmPassword">La password non corrisponde</span>
+
+                    </div>
+
+                    <hr>
+                    <button class="btna btn-block" type="submit" class="saveButton" id="send">AGGIUNGI</button>
+                </form>
+        <!-- /#page-content-wrapper -->
+    </div>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle ").click(function(e) {
+            e.preventDefault();
+            $("#wrapper ").toggleClass("toggled ");
+        });
+    </script>
+
+  
+
+
+<%- include ('../footer') %>

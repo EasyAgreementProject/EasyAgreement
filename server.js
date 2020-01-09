@@ -10,6 +10,9 @@ var loginControl = require('./app/controllers/loginControl')
 var studentControl = require('./app/controllers/studentControl')
 var academicTutorControl = require('./app/controllers/academicTutorControl')
 var externalTutorControl = require('./app/controllers/externalTutorControl')
+var tutorControl = require('./app/controllers/tutorControl')
+
+
 var administratorControl = require('./app/controllers/administratorControl')
 
 var messageControl = require('./app/controllers/messageControl')
@@ -304,6 +307,26 @@ app.get('/', function (req, res) {
 
 app.get('/compileLAExternalTutor.html', function (req, res) {
   res.render("compileLAExternalTutor.ejs");
+});
+
+app.get('/addExternalTutor.html', function (req, res) {
+  res.sendFile("/app/views/admin/addExternalTutor.html",{root:__dirname});
+});
+
+app.get('/addHost.html', function (req, res) {
+  res.sendFile("/app/views/admin/addHost.html",{root:__dirname});
+});
+
+app.get('/infoHost.html', function (req, res) {
+  res.sendFile("/app/views/admin/infoHost.html",{root:__dirname});
+});
+
+app.get('/infoTutorExternal.html', function (req, res) {
+  res.sendFile("/app/views/admin/infoTutorExternal.html",{root:__dirname});
+});
+
+app.get('/viewExternalTutor&Host.html', function (req, res) {
+  res.sendFile("/app/views/admin/viewExternalTutor&Host.html",{root:__dirname});
 });
 
 app.get('/compileLAAcademicTutor.html', function (req, res) {
@@ -741,3 +764,134 @@ app.post('/setReceivedMessage', function (req, res) {
     res.json(result)
   })
 })
+
+
+app.get('/addHostOrg', function(req,res){
+
+  res.render('admin/insorg');
+
+});
+
+
+
+app.post('/addHostOrgF', function(req, res) {
+  var administratorAddHost=tutorControl.addHostOrg(req,res);
+  administratorAddHost.then(function(result){
+    if(result== true){
+      res.render('admin/insorg');
+    }
+    else{
+
+      res.render('admin/insorg');
+    }
+  });
+});
+
+
+app.get('/addExtTutor', function(req,res) {
+
+  res.render('admin/instutor');
+
+});
+
+app.post('/addExtTutorF', function(req, res) {
+  var administratorAddTutor=tutorControl.addExtTutor(req,res);
+  administratorAddTutor.then(function(result){
+    if(result){
+      res.redirect('/addExtTutor');
+    }
+    else{
+      res.redirect('/addExtTutor');
+    }
+  });
+});
+
+
+app.get('/toViewList', function(req,res) {
+
+res.render('viewList');
+
+});
+
+
+
+app.get('/toViewInfo', function(req,res) {
+
+  res.render('viewInfo');
+
+  });
+
+
+app.post('/retrieverManager', function(req,res){
+
+console.log('I\'m  inside retriever manager');
+
+bodyParser.json();
+var reqRes=req.body.id;
+console.log("req:"+ reqRes);
+
+if (reqRes === 'externalTutor') {
+
+  console.log("Client requested a list of all Tutor, proceeding...");
+  var myRes= administratorControl.retrieveAllTutor();
+  res.send(myRes);
+
+} else if (reqRes === 'host') {
+
+  console.log("Client requested a list of all host organizations, proceeding...");
+  var myRes= administratorControl.retrieveAllHostOrg();
+  res.send(myRes);
+
+} else {
+
+  console.log("Client made an illegal request. Returning non-zero...");
+
+  return false;
+
+}
+
+
+
+});
+/*
+app.get('/getHost', function(req, res)){
+//cise a cazzi
+}) */
+
+app.get('/toviewInfo',function(req,res){
+
+  //res.json({choice: req.body.scelta, parametro: req.body.param});
+  res.render('viewInfo')
+})
+
+  app.get('/deleteHostOrg', function(req, res) {
+
+    //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
+    var deleteHost=tutorControl.deleteHostOrg("01010101",res);
+    deleteHost.then(function(result){
+      if(result== true){
+        res.render('viewList');
+      }
+      else{
+  
+        res.render('viewList');
+      }
+    });
+  });
+
+  app.get('/deleteExTutor', function(req, res) {
+
+    //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
+    var deleteHost=tutorControl.deleteExTutor("a.borrelli9@unisa.it",res);
+    deleteHost.then(function(result){
+      if(result== true){
+        res.render('viewList');
+      }
+      else{
+  
+        res.render('viewList');
+      }
+    });
+  });
+
+  
