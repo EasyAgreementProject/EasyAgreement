@@ -7,6 +7,13 @@ const url="mongodb://localhost:27017/easyagreement";
 //Database name
 const dbName="easyagreement";
 
+var ins=insert();
+ins.then(function(result){
+    process.exit();
+})
+
+function insert(){
+return new Promise(function(fulfill, reject){
 MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
    
     if(err) throw err;
@@ -47,54 +54,42 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
 
         if(err) throw err;
         console.log("Succesfully inserted into database "+result.insertedCount+" students");
+        dbo.collection("Administrator").insertMany(admin,function(err, result) {
+
+            if(err) throw err;
+            console.log("Succesfully inserted into database "+result.insertedCount+" admins");
+            dbo.collection("AcademicTutor").insertMany(actutor,function(err, result) {
+
+                if(err) throw err;
+                console.log("Succesfully inserted into database "+result.insertedCount+" academic tutors");
+                dbo.collection("ExternalTutor").insertMany(exttutor,function(err, result) {
+
+                    if(err) throw err;
+                    console.log("Succesfully inserted into database "+result.insertedCount+" external tutors");
+                    dbo.collection("HostOrganization").insertMany(hostorg,function(err, result) {
+
+                        if(err) throw err;
+                        console.log("Succesfully inserted into database "+result.insertedCount+" host organizations");
+                        dbo.createCollection("current_LearningAgreement", function(err) {
+                            if(err) throw err;
+                            console.log("Succesfully created the collection current_LearningAgreement");
+                            dbo.createCollection("Request", function(err, result) {
+
+                                if(err) throw err;
+                                console.log("Succesfully created the collection Request");
+                                dbo.createCollection("LearningAgreement_revision", function(err) {
+                                    if (err) throw err;
+                                    console.log("Succesfully created the collection LearningAgreement_revision.")
+                                    fulfill()
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
 
     });
-
-    dbo.collection("Administrator").insertMany(admin,function(err, result) {
-
-        if(err) throw err;
-        console.log("Succesfully inserted into database "+result.insertedCount+" admins");
-
-    });
-
-    dbo.collection("AcademicTutor").insertMany(actutor,function(err, result) {
-
-        if(err) throw err;
-        console.log("Succesfully inserted into database "+result.insertedCount+" academic tutors");
-
-    });
-
-    dbo.collection("ExternalTutor").insertMany(exttutor,function(err, result) {
-
-        if(err) throw err;
-        console.log("Succesfully inserted into database "+result.insertedCount+" external tutors");
-
-    });
-
-    dbo.collection("HostOrganization").insertMany(hostorg,function(err, result) {
-
-        if(err) throw err;
-        console.log("Succesfully inserted into database "+result.insertedCount+" host organizations");
-
-    });
-
-    dbo.createCollection("current_LearningAgreement", function(err) {
-        if(err) throw err;
-        console.log("Succesfully created the collection current_LearningAgreement");
-    });
-
-    dbo.createCollection("Request", function(err, result) {
-
-        if(err) throw err;
-        console.log("Succesfully created the collection Request");
-
-    });
-
-    dbo.createCollection("LearningAgreement_revision", function(err) {
-        if (err) throw err;
-        console.log("Succesfully created the collection LearningAgreement_revision.")
-    });
-
-
-    return 0;
 });
+});
+}
