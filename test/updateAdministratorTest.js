@@ -13,7 +13,7 @@ describe('Field test for administratorControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method administratorControl - TC_PM_1.3.14', function (done) {
     var res = mockHttp.createResponse()
@@ -23,7 +23,7 @@ describe('Field test for administratorControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method administratorControl - TC_PM_1.3.15', function (done) {
     var res = mockHttp.createResponse()
@@ -33,7 +33,7 @@ describe('Field test for administratorControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method administratorControl - TC_PM_1.3.16', function (done) {
     var res = mockHttp.createResponse()
@@ -43,7 +43,7 @@ describe('Field test for administratorControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method administratorControl - TC_PM_1.3.17', function (done) {
     var res = mockHttp.createResponse()
@@ -53,7 +53,7 @@ describe('Field test for administratorControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method administratorControl - change passw', function (done) {
     var res = mockHttp.createResponse()
@@ -66,5 +66,5 @@ describe('Field test for administratorControl', function () {
         done()
       })
     })
-  })
+  }).timeout(4000);
 })

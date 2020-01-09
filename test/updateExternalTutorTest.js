@@ -13,7 +13,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.2', function (done) {
     var res = mockHttp.createResponse()
@@ -23,7 +23,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.3', function (done) {
     var res = mockHttp.createResponse()
@@ -33,7 +33,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.4', function (done) {
     var res = mockHttp.createResponse()
@@ -43,7 +43,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.5', function (done) {
     var res = mockHttp.createResponse()
@@ -53,7 +53,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.6', function (done) {
     var res = mockHttp.createResponse()
@@ -63,7 +63,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.10', function (done) {
     var res = mockHttp.createResponse()
@@ -73,7 +73,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.11', function (done) {
     var res = mockHttp.createResponse()
@@ -83,7 +83,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.12', function (done) {
     var res = mockHttp.createResponse()
@@ -93,7 +93,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.13', function (done) {
     var res = mockHttp.createResponse()
@@ -103,7 +103,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.14', function (done) {
     var res = mockHttp.createResponse()
@@ -113,7 +113,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.15', function (done) {
     var res = mockHttp.createResponse()
@@ -123,7 +123,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.16', function (done) {
     var res = mockHttp.createResponse()
@@ -133,7 +133,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - TC_PM_1.3.17', function (done) {
     var res = mockHttp.createResponse()
@@ -143,7 +143,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  })
+  }).timeout(4000);
 
   it('testing method externalTutorControl - change passw', function (done) {
     var res = mockHttp.createResponse()
@@ -156,5 +156,5 @@ describe('Field test for profileControl', function () {
         done()
       })
     })
-  })
+  }).timeout(4000);
 })
