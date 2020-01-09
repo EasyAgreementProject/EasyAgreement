@@ -1,0 +1,61 @@
+<%- include ('header') %>
+<%- include ('sidebar') %>
+<div class="main-panel">
+    <div class="content">
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                    <div>
+                        <h2 class="text-white pb-2 fw-bold">Learning Agreement</h2>
+                        <h5 class="text-white op-7 mb-2" id = "status">Stato: </h5>
+                    </div>
+                </div>
+            </div>	
+        </div>
+        <div class="page-inner py-5">
+            <form action="/getVersions" method ="GET">
+                <div class="form-group">
+                <label>Versione:</label><br>
+                <select class="custom-select"  name="inputVersion" style="width: 20%;" id="versions">
+                </select>
+                </div>
+                <br>
+                <button class="btn btn-round btn-secondary" type="submit" class="saveButton" style="text-align: center; display: block; margin: 0 auto; margin-left: 1rem; margin-top: 1rem;" >SELEZIONA</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include ('footer') %>
+    <script>
+        $(document).ready(function() {
+            $.get("/getStatus", function(status) {
+                if(status) document.getElementById("status").innerHTML += "<b>"+status+"</b>";
+                else document.getElementById("status").innerHTML += "<b>Non ancora compilato</b>";
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $.get("/getAllVersions", function(array) {
+                if(array) {
+                    var select = document.getElementById("versions");
+                    for(i = 0; i < array.length; i++) {
+                        var option = document.createElement("option");
+                        if(i == 0) {
+                            option.text = array[i].version+" (corrente)";
+                            option.value = array[i].version;
+                            select.add(option);
+                        }
+                        else {
+                            option.text = array[i].version;
+                            option.value = array[i].version;
+                            select.add(option);
+                        }
+                    }     
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
