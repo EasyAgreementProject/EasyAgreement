@@ -605,7 +605,6 @@ io.on('connection', socket => {
     socket.username = receiver
   })
   socket.on('send-notification', function (notification) {
-    console.log("Arrivata");
     var id = notificationControl.insertNotification(notification)
     notificationControl.refreshNotificationCache(notification.associatedID, true)
     id.then(function (result) {
