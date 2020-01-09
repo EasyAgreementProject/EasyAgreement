@@ -26,5 +26,4 @@ describe('Field test for requestControl', function(){
             done();
         })
     });
-
 });
