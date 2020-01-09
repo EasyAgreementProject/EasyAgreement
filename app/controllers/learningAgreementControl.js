@@ -274,6 +274,8 @@ exports.sendLaAcademicTutor = function(input, res) {
                     data["Interview"] = "X";
                     break;
             }
+            data["Europass Mobility Document Yes"] = null;
+            data["Europass Mobility Document No"] = null;
             switch (input[2]) {
                 case "Si":
                     data["Europass Mobility Document Yes"] = "X";
@@ -352,9 +354,11 @@ exports.sendLaAcademicTutor = function(input, res) {
                     if(!data["Award"]) data["Award"] = "";    
                     if(!data["Traineeship certificate"]) data["Traineeship certificate"] = "";
                     if(!data["Final report"]) data["Final report"] = "";
-                    if(!data["Interview"]) data["Interview"] = "";                  
+                    if(!data["Interview"]) data["Interview"] = "";        
+                    if(!data["Europass Mobility Document Yes"]) data["Europass Mobility Document Yes"] = "";
+                    if(!data["Europass Mobility Document No"]) data["Europass Mobility Document No"] = "";          
                     if(!data["Award ECTS credits Yes"]) data["Award ECTS credits Yes"] = "";
-                    if(!data["Award ECTS credits No"]) data["Award ECTS credits No"] = "";            
+                    if(!data["Award ECTS credits No"]) data["Award ECTS credits No"] = "";        
                     if(!data["If yes, please indicate the number of ECTS credits"]) data["If yes, please indicate the number of ECTS credits"] = "";
                     if(!data["Give a grade Yes"]) data["Give a grade Yes"] = "";
                     if(!data["Give a grade No"]) data["Give a grade No"] = "";                    
@@ -779,7 +783,7 @@ exports.disapproveExternalTutor = function(student, msg) {
                 updateStatePr.then(function() {
                     var d = new Date();
                     var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                    socket.emit('send-notification', {associatedID: result.data["Responsible person sending E-mail"], text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la richiesta di "+result.data["Header name"]+"."}, date: data});
+                    socket.emit('send-notification', {associatedID: result.filling["Responsible person sending E-mail"], text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la richiesta di "+result.filling["Header name"]+"."}, date: data});
                     socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la tua richiesta."}, date: data});
                 
                     fulfill();
@@ -818,6 +822,7 @@ exports.getStatus = function(student) {
 exports.getVersion = function(id, email) {
     let random = parseInt(Math.random()*10000);
     return new Promise(function(fulfill, reject) {
+        if(!/^\d$/.test(id)) fulfill(null);
         getPdfPr = LA.getPdf(id, email);
         getPdfPr.then(function(result, err) {
             if (err) throw err;
@@ -1074,7 +1079,7 @@ exports.validateDataAcademicTutor = function(data, res) {
         data["Record the traineeship in the trainee's Transcript of Records No"]) && (data["Record the traineeship in the trainee's Europass Mobility Document Yes"] || data["Record the traineeship in the trainee's Europass Mobility Document No"])) {
             if(data["Award"] || data["Traineeship certificate"] || data["Final report"] || data["Interview"] || data["Europass Mobility Document Yes"] || data["Europass Mobility Document No"]) {
                 if(res) res.cookie("errCompileOnlyOne", "1");
-                console.log("Compile only form two!");
+                console.log("Compile only form two!"+data["Award"]+" "+data["Traineeship certificate"] +" "+data["Final report"] +" "+data["Interview"] +" "+data["Europass Mobility Document Yes"]+" "+data["Europass Mobility Document No"]);
                 if (data["Award ECTS credits Yes"] && !(/^\d{1,2}$/.test(data["If yes, please indicate the number of ECTS credits"]))) {
                     if(res) res.cookie("errNumberCredits", "1");
                     console.log("Number of ECTS credits wrong!");
@@ -1121,7 +1126,7 @@ exports.validateDataExternalTutor = function(data, res) {
             fulfill(false); 
         }
 
-        if ((!data["financial support Yes"] && !data["financial support No"]) || (!data["The trainee will receive a contribution in kind for his/her traineeship Yes"] && !data["The trainee will receive a contribution in kind for his/her traineeship No"])) {
+        if ((!data["financial support Yes"] && !data["financial support No"]) || (!data["The trainee will receive a contribution in kind for his/her traineeship Yes"] && !data["The trainee will receive a contribution in kind for his/her traineeship No"]) || !(data["Is the trainee covered by the accident insurance Yes"] && !data["Is the trainee covered by the accident insurance No"])) {
             if(res) res.cookie("errMissingFields", "1");
             console.log("Missing fields!");
             fulfill(false); 
@@ -1144,6 +1149,7 @@ exports.validateDataExternalTutor = function(data, res) {
             console.log("Traineeship certificate wrong! = "+data["Traineeship Certificate by"]);
             fulfill(false); 
         }
+
         else {
             console.log("All okay");
             fulfill(true);
