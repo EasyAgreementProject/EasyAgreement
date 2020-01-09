@@ -7,6 +7,7 @@ exports.idHandler = function (e) {
   return new Promise(function (fulfill, reject) {
     var id = null
     var email = e
+    console.log(email)
     var exist = studentModel.retrieveStudentIDCard(email)
     exist.then(function (result) {
       if (result != null && result != '') {
