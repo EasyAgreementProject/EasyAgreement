@@ -33,7 +33,7 @@ describe('Field test for profileControl', function () {
       expect(result).to.not.be.null
       done()
     })
-  }).timeout(4000);
+  }).timeout(10000);
 
   it('testing method academicTutorControl - TC_PM_1.2.4', function (done) {
     var res = mockHttp.createResponse()

@@ -66,5 +66,5 @@ describe('Field test for administratorControl', function () {
         done()
       })
     })
-  }).timeout(4000);
+  }).timeout(10000);
 })
