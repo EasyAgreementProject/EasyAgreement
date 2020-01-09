@@ -127,6 +127,8 @@
                 role = 'Amministratore';
                 document.getElementById('profile').href = "";
                 document.getElementById('profile').style.cursor = "default";
+                document.getElementById('open-chat').style.display = "none";
+                document.getElementById('open-notification').style.display = "none";
             }
             document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
         })
