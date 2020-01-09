@@ -773,23 +773,27 @@ if (reqRes === 'externalTutor') {
 
 });
 /*
-app.get('/getHost'){
+app.get('/getHost', function(req, res)){
+//cise a cazzi
+}) */
 
-var externalTutorControl
+app.get('/toviewInfo',function(req,res){
 
-}
-*/
+  res.json({choice: req.body.scelta, parametro: req.body.param});
+  res.render('viewInfo')
+})
+
   app.get('/deleteHostOrg', function(req, res) {
 
     //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
     var deleteHost=tutorControl.deleteHostOrg("AlessioRe10",res);
     deleteHost.then(function(result){
       if(result== true){
-        res.render('admin/viewList');
+        res.render('viewList');
       }
       else{
   
-        res.render('admin/viewList');
+        res.render('viewList');
       }
     });
   });
@@ -800,11 +804,11 @@ var externalTutorControl
     var deleteHost=tutorControl.deleteExTutor("a.borrelli9@unisa.it",res);
     deleteHost.then(function(result){
       if(result== true){
-        res.render('admin/viewList');
+        res.render('viewList');
       }
       else{
   
-        res.render('admin/viewList');
+        res.render('viewList');
       }
     });
   });
