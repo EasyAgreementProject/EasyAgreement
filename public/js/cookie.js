@@ -74,7 +74,7 @@ $(document).ready(function () {
   var alreadyRegH = getCookie('errAlreadyRegH')
   var alreadyRegEx = getCookie('errAlreadyRegEx')
   var insertHEff = getCookie('insertHEff')
-  var errOrganizationEx= getCookie('errOrganizationEx');
+  var errOrganizationEx= getCookie('errExOrganizationName');
   if (errAddressH == '1') {
     $('#errAddress').css('display', 'block')
     $('#inputAddress').addClass('errClass')
@@ -126,7 +126,7 @@ $(document).ready(function () {
 
   if (errOrganizationEx == '1') {
     $('#errOrganizationEx').css('display', 'block')
-    $('#inputOrganizationEx').addClass('errClass')
+    $('#inputOrganizzazioneEx').addClass('errClass')
     document.cookie = 'errExOrganizationName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 

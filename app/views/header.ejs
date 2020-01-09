@@ -66,6 +66,8 @@
 								<i class="fa fa-search"></i>
 							</a>
 						</li>
+						<%if(session.utente.type != "admin") {%>
+
 						<li class="nav-item dropdown hidden-caret">
 							<a class="nav-link" id="open-chat" href="javascript:void(0)">
 								<i class="fa fa-comment"></i>
@@ -76,7 +78,7 @@
 								<i class="fa fa-bell"></i>
 							</a>
 						</li>
-
+						<% } %>
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="ml-md-auto py-2 py-md-0">
