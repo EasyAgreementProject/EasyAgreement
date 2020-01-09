@@ -139,12 +139,12 @@ class HostOrganization{
     }
 
 
-static findByName(contacts){
+static findByEcode(erasmuscode){
     return new Promise(function(fulfill,reject){
         MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
             if(err)  reject(err);
             var dbo= db.db(dbName);
-            dbo.collection("HostOrganization").findOne({"Name": contacts}, function(err, result){
+            dbo.collection("HostOrganization").findOne({ErasmusCode: erasmuscode}, function(err, result){
                 if(err) reject(err);
                 if(Boolean(result)){
                     fulfill(false);
@@ -177,6 +177,26 @@ static addHostOrg(HostOrg) {
     });
 
     }
+
+static deleteHostOrg(erasmuscode) {
+
+        return new Promise(function(fulfill,reject){
+            MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+                if(err)  reject(err);
+                var dbo= db.db(dbName);
+                dbo.collection("HostOrganization").findOneAndDelete({ErasmusCode : erasmuscode}, function(err) {
+                
+                if (err) throw err;
+                console.log("Successfully deleted Host Organization from database!");
+                fulfill();
+                db.close();
+                });
+    
+            });
+    
+        });
+    
+        }
 
 
 

@@ -2,6 +2,7 @@
 <%- include ('../sidebar') %>
 
 <link href="/css/simple-sidebar.css" rel="stylesheet">
+<script type="text/javascript" src="./js/formValidation.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="/js/cookie.js"></script>
 
@@ -12,7 +13,7 @@
             <div class="page-inner py-5">
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
-                        <h2 class="text-white pb-2 fw-bold">Visualizzazione Lista Organizzazione ospitante/Tutor Esterno</h2>
+                        <h2 class="text-white pb-2 fw-bold">Visualizzazione informazioni Organizzazione ospitante</h2>
                     </div>
                 </div>
             </div>
@@ -21,98 +22,28 @@
             <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
             <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
             <hr>
-            <h5 style="text-align: justify; font-style: italic; color: darkblue;">Visualizza Lista</h5>
+            <h5 style="text-align: justify; font-style: italic; color: darkblue;">Informazioni Organizzazione ospitante</h5>
                      <div class="form-label-group">
                          
-                             <div class="list_version">
-                             Scegli se visualizzare Tutor Esterno oppure Organizzazione Ospitante:
-                             <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
-                                     <option selected="selected" value="">--Seleziona--</option>
-                                     <option id="externalTutor" value="tutorExternal">Tutor Esterno</option>
-                                     <option id="hostOrganization" value="host">Organizzazione Ospitante</option>
-                             </select>
-                             <button type="button" onclick="loadRes()">Seleziona</button>
-                             
-                             <script>
-
-                             function loadRes() {
-
-                                var choice= document.getElementById("tipo").value;
-
-                               /* $.ajax({
-                                    type: 'POST',
-                                    url: '/retrieverManager',
-                                    data: {choice}
-                                    success: 
 
 
-                                })*/
-                             /*
-                             let xhttp = new HXMLHttpRequest();
-                             xhttp.onreadystatechange=function() {
-
-                                    if(this.readyState == 4 && this.status==200) {
-
-                                        if(document.getElementById("externalTutor").checked==true) {
-
-                                 xhttp.responseText.forEach(element => {
-                                 var newRow= tbody.insertRow();
-                                 for(i=0;i<4;i++){
-                                     var newCell= newRow.insertCell(i);
-                                     switch(i){
-                                         case 0: newCell.innerHTML = i+1; break;
-                                         case 1: newCell.innerHTML = element[i]['nome']; break;
-                                         case 2: newCell.innerHTML = '<a href="/viewTutor'+element[i]+'">Visualizza</a>'; break;
-                                         case 3: newCell.innerHTML = '<a href="/deleteExtTutor'+ element[i]+ '">Elimina</a>'; break;
-                                     }
-                                 }
-                             });
-                         }
-                    
-                         else if(document.getElementById("hostOrganization").checked==true){
-                                xhttp.responseText.forEach(element => {
-                                    var newRow= tbody.insertRow();
-                                    for(i=0;i<4;i++){
-                                        var newCell= newRow.insertCell(i);
-                                        switch(i){
-                                            case 0: newCell.innerHTML = i+1; break;
-                                            case 1: newCell.innerHTML = element[i]['nome']; break;
-                                            case 2: newCell.innerHTML = '<a href="/viewOrg'+ element[i]+'">Visualizza</a>'; break;
-                                            case 3: newCell.innerHTML = '<a href="/deleteExtOrg'+ element[i]+'">Elimina</a>'; break;
-                                        }
-                                    }
-                                });
-                         } 
-                    };
-                }
-
-                                    var choice= document.getElementById("tipo").value;
-                                    xhttp.open('POST','/retrieverManager');
-                                    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                    xhttp.send(choice);
-         }
-         */
-                             
-                             </script>
-                             </div>
                              
                          </div>
                      </div>
                 </div>
             </div>
-                    
-                          <tbody>
-                               
-
-                          </tbody>
-                            </table>
-                     
-                            <script>
+                
+                     <script>
                                 $("#menu-toggle ").click(function(e) {
                                     e.preventDefault();
                                     $("#wrapper ").toggleClass("toggled ");
-                                });
-                            </script>
+                      });
+                     </script>
                         
                         <%- include ('../footer') %>
                         
+                
+
+
+
+

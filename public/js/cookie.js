@@ -75,6 +75,21 @@ $(document).ready(function () {
   var alreadyRegEx = getCookie('errAlreadyRegEx')
   var insertHEff = getCookie('insertHEff')
   var errOrganizationEx= getCookie('errExOrganizationName');
+  var errdelHost= getCookie('errDelHost');
+  var succHost= getCookie('delHostSucc');
+
+  if (errdelHost == '1') {
+    swal('Errore cancellazione Organizzazione ospitante', 'errore', 'error')
+    document.cookie = 'errDelHost=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (succHost== '1') {
+    swal('Organizzazione ospitante cancellata', 'cancellazione effettuata', 'success')
+    document.cookie = 'delHostSucc=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+
+
   if (errAddressH == '1') {
     $('#errAddress').css('display', 'block')
     $('#inputAddress').addClass('errClass')
@@ -82,12 +97,12 @@ $(document).ready(function () {
   }
 
   if (insertHEff == '1') {
-    swal('Inserimento effettuato', 'organizzazione esterna inserita con successo', 'success')
+    swal('Inserimento effettuato', 'organizzazione ospitante inserita con successo', 'success')
     document.cookie = 'insertHEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
   if (alreadyRegH == '1') {
-    swal('Organizzazione esterna già presente', 'errore', 'error')
+    swal('Organizzazione ospitante già presente', 'errore', 'error')
     document.cookie = 'errAlreadyRegH=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 

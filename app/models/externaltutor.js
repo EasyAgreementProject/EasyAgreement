@@ -267,5 +267,25 @@ class externalTutor {
         });
     });
 }
+
+static addExtTutor(ExtTutor) {
+
+  return new Promise(function(fulfill,reject){
+      MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+          if(err)  reject(err);
+          var dbo= db.db(dbName);
+          dbo.collection("ExternalTutor").insertOne(ExtTutor, function(err) {
+          
+          if (err) throw err;
+          console.log("Successfully added an External Tutor to database!");
+          fulfill();
+          db.close();
+          });
+
+      });
+
+  });
+
+  }
 }
 module.exports = externalTutor

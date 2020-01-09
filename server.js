@@ -10,6 +10,7 @@ var loginControl = require('./app/controllers/loginControl')
 var studentControl = require('./app/controllers/studentControl')
 var academicTutorControl = require('./app/controllers/academicTutorControl')
 var externalTutorControl = require('./app/controllers/externalTutorControl')
+
 var administratorControl = require('./app/controllers/administratorControl')
 
 var messageControl = require('./app/controllers/messageControl')
@@ -688,6 +689,8 @@ app.get('/addHostOrg', function(req,res){
 
 });
 
+
+
 app.post('/addHostOrgF', function(req, res) {
   var administratorAddHost=administratorControl.addHostOrg(req,res);
   administratorAddHost.then(function(result){
@@ -700,6 +703,7 @@ app.post('/addHostOrgF', function(req, res) {
     }
   });
 });
+
 
 app.get('/addExtTutor', function(req,res) {
 
@@ -720,9 +724,9 @@ app.post('/addExtTutorF', function(req, res) {
 });
 
 
-app.get('/toViewInfo', function(req,res) {
+app.get('/toViewList', function(req,res) {
 
-res.render('admin/viewInfo');
+res.render('admin/viewList');
 
 });
 
@@ -779,6 +783,20 @@ app.post('/deleteExtOrg', function(req,res){ //waiting for frontend
 
   });
 
+  app.post('/deleteHostOrg', function(req, res) {
+
+    var deleteHost=administratorControl.deleteHostOrg("051papap1",res);
+    deleteHost.then(function(result){
+      if(result== true){
+        res.render('admin/view');
+      }
+      else{
+  
+        res.render('admin/insorg');
+      }
+    });
+  });
+  
 
 
   app.post('/deleteExtTutor', function(req,res){ //waiting for frontend

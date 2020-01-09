@@ -114,7 +114,7 @@ exports.addHostOrg = function (req, res) {
     organizzazioneEsterna.setFaculty(faculty)
     organizzazioneEsterna.setErasmusCode(erasmusCode)
 
-    var checkE = organizationModel.findByName(name)
+    var checkE = organizationModel.findByEcode(erasmusCode)
 
     checkE.then(function (result) {
       if (!result) {
@@ -124,7 +124,7 @@ exports.addHostOrg = function (req, res) {
       }
       if (result) {
         // Save student in database
-        adminModel.addHostOrg(organizzazioneEsterna)
+        organizationModel.addHostOrg(organizzazioneEsterna)
 
         // redirect
         res.cookie('insertHEff', '1')
@@ -134,9 +134,25 @@ exports.addHostOrg = function (req, res) {
   })
 }
 
-exports.deleteHostOrg = function (req, res) {
+exports.deleteHostOrg = function (erasmuscode, res) {
 
-// waiting for frontend
+return new Promise(function(fulfill, reject){
+
+  var delHost=organizationModel.deleteHostOrg(erasmuscode);
+  delHost.then(function(result){
+    if(!result){
+
+      res.cookie('errDelHost','1')
+      fulfill(false)
+      return
+      
+    }else{
+
+      res.cookie('delHostSucc','1')
+      fulfill(true)
+      }
+    })
+  })
 }
 
 exports.addExtTutor = function (req, res) {
