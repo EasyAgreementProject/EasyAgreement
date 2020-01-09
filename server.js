@@ -694,7 +694,7 @@ app.get('/addHostOrg', function(req,res){
 
 
 app.post('/addHostOrgF', function(req, res) {
-  var administratorAddHost=administratorControl.addHostOrg(req,res);
+  var administratorAddHost=tutorControl.addHostOrg(req,res);
   administratorAddHost.then(function(result){
     if(result== true){
       res.render('admin/insorg');
@@ -714,7 +714,7 @@ app.get('/addExtTutor', function(req,res) {
 });
 
 app.post('/addExtTutorF', function(req, res) {
-  var administratorAddTutor=administratorControl.addExtTutor(req,res);
+  var administratorAddTutor=tutorControl.addExtTutor(req,res);
   administratorAddTutor.then(function(result){
     if(result){
       res.redirect('/addExtTutor');
@@ -728,7 +728,7 @@ app.post('/addExtTutorF', function(req, res) {
 
 app.get('/toViewList', function(req,res) {
 
-res.render('admin/viewList');
+res.render('viewList');
 
 });
 
@@ -736,7 +736,7 @@ res.render('admin/viewList');
 
 app.get('/toViewInfo', function(req,res) {
 
-  res.render('admin/viewInfo');
+  res.render('viewInfo');
 
   });
 
@@ -786,7 +786,7 @@ app.get('/toviewInfo',function(req,res){
   app.get('/deleteHostOrg', function(req, res) {
 
     //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
-    var deleteHost=tutorControl.deleteHostOrg("AlessioRe10",res);
+    var deleteHost=tutorControl.deleteHostOrg("01010101",res);
     deleteHost.then(function(result){
       if(result== true){
         res.render('viewList');
