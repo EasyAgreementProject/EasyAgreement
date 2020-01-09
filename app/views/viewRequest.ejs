@@ -52,19 +52,17 @@
                     </div>
                     <button class="btn2 btn-block" type="submit">Disapprova</button>
                 </form>
-                <button class="btn2 btn-block" type="button" id="approve2" style = "display:none">Approva</button>
-                <form id = "viewForm" action ="/getLearningAgreement" style = "display:none"></form>
-                    <button class="btn2 btn-block" type="button" id="view">Visualizza</button>                
+                <button class="btn2 btn-block" type="button" id="approve2" style = "display:none">Approva</button>  
                 <form id = "idForm" method="POST" action ="/fileviewIDRequest" style = "display:none"></form>
                     <button class="btn2 btn-block" type="button" id="id">Visualizza carta d'identità</button>
                 <form id = "cvForm" method="POST" action ="/fileviewCVRequest" style = "display:none"></form>             
                     <button class="btn2 btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
                 <form class="text-center" action="/getRequestVersions" method ="GET">
                     <div class="form-group">
-                        <label>Versioni precedenti:</label><br>
+                        <label>Versioni:</label><br>
                         <select class="custom-select"  name="inputVersion" style="width: 20%;" id="versions">
                         </select>
-                        <button class="btn2" type="submit" class="saveButton" >Seleziona</button>
+                        <button class="btn2" type="submit" class="saveButton" >Visualizza</button>
                     </div>
                 </form>
             </div>
@@ -73,9 +71,6 @@
 </div>    
     <script>
         $(document).ready(function(){
-            document.getElementById("view").onclick = function() { 
-                document.getElementById("viewForm").submit();
-            }
             document.getElementById("id").onclick = function() { 
                 document.getElementById("idForm").submit();
             }
@@ -87,9 +82,16 @@
                     var select = document.getElementById("versions");
                     for(i = 0; i < array.length; i++) {
                         var option = document.createElement("option");
-                        option.text = array[i].version;
-                        option.value = array[i].version;
-                        select.add(option);
+                        if(i == 0) {
+                            option.text = array[i].version+" (corrente)";
+                            option.value = array[i].version;
+                            select.add(option);
+                        }
+                        else {
+                            option.text = array[i].version;
+                            option.value = array[i].version;
+                            select.add(option);
+                        }
                     }     
                 }
             });
@@ -128,7 +130,7 @@
                             document.getElementById("disapprove").style.display = "none";
                         }
                         else {
-                            document.getElementById("approve1").onclick = location.href='compileLAExternalTutor.html';
+                            document.getElementById("approve1").onclick = function() {location.href='compileLAExternalTutor.html'};
                             document.getElementById("disapprove").onclick = function() {                            
                                 document.getElementById("disapproveForm").style.display = "block";
                                 document.getElementById("disapprove").style.display = "none";
