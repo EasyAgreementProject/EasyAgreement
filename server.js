@@ -293,7 +293,7 @@ app.get('/getLearningAgreement', function(req, res) {
   getVersionPr.then(function(la) {
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
-    console.log("Tornato da tutto"); 
+    console.log("Tornato da tutto "+la); 
     la.pipe(res);
   })   
 });
@@ -319,8 +319,9 @@ app.get('/request.html', function (req, res) {
 });
 
 app.get('/getRequests', function(req, res){
-  var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.Email); //req.session.utente.utente.Email
+  var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.E_mail); //req.session.utente.utente.Email
   getRequestsPr.then(function(result){    
+    console.log(req.session.utente.utente.Email);
     res.send(result);
   })
 })
@@ -526,7 +527,7 @@ app.post('/fileviewIDRequest', function(req, res){
       result.pipe(res)
     }
     else{
-      res.redirect('/gestioneDocumenti.html');
+      res.redirect('/viewRequest.html');
     }
   });
 });
@@ -622,7 +623,7 @@ app.post('/fileviewCVRequest', function(req, res){
       result.pipe(res)
     }
     else{
-      res.redirect('/gestioneDocumenti.html');
+      res.redirect('/viewRequest.html');
     }
   });
 });

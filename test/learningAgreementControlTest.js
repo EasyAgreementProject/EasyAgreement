@@ -628,13 +628,13 @@ describe('Field test for learningAgreementControl', function(){
      
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.1', (done) => {
-        var input = [];
+        var input = [null];
         var sendLaAcademicTutor = compileControl.sendLaAcademicTutor(input);
         sendLaAcademicTutor.then(function(la) {
             assert.isNull(la);
             done();
         });
-    }).timeout(15000);
+    }).timeout(20000);
 
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.2', (done) => {
