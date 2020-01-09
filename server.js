@@ -779,7 +779,7 @@ app.get('/getHost', function(req, res)){
 
 app.get('/toviewInfo',function(req,res){
 
-  res.json({choice: req.body.scelta, parametro: req.body.param});
+  //res.json({choice: req.body.scelta, parametro: req.body.param});
   res.render('viewInfo')
 })
 
