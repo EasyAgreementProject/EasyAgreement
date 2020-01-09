@@ -123,8 +123,8 @@ exports.sendLaStudent = function(input, res) {
                                 var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                                 insertLearningAgreementPr.then(function() {
                                     var d = new Date();
-                                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                                    socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["E-mail"]+" ha compilato il Learning Agreement"}, date: data});
+                                    var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                    socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["Header name"]+" ha compilato il Learning Agreement"}, date: date});
 
                                     fulfill(download);
                                 });
@@ -414,9 +414,9 @@ exports.sendLaAcademicTutor = function(input, res) {
                                     var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                                     insertLearningAgreementPr.then(function() {
                                         var d = new Date();
-                                        var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                                        socket.emit('send-notification', {associatedID: email2, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+email+" ha compilato il Learning Agreement"}, date: data});
-                                        socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Accademico ha approvato la tua richiesta."}, date: data});
+                                        var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                        socket.emit('send-notification', {associatedID: email2, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["Header name"]+" ha compilato il Learning Agreement"}, date: date});
+                                        socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Accademico ha approvato la tua richiesta."}, date: date});
                                        
                                         fulfill(download);
                                     });
@@ -675,9 +675,9 @@ exports.sendLaExternalTutor = function(input, res) {
                             var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
                             insertLearningAgreementPr.then(function() {
                                 var d = new Date();
-                                var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                                socket.emit('send-notification', {associatedID: email3, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la richiesta di "+data["Header name"]+"."}, date: data});
-                                socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la tua richiesta."}, date: data});
+                                var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                                socket.emit('send-notification', {associatedID: email3, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la richiesta di "+data["Header name"]+"."}, date: date});
+                                socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la tua richiesta."}, date: date});
                             
                                 fulfill(download);
                             });
@@ -773,8 +773,8 @@ exports.disapproveAcademicTutor = function(student, msg) {
                 var updateStatePr = LA.updateState(student, state);
                 updateStatePr.then(function() {
                     var d = new Date();
-                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                    socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta non approvata", text: "Il Tutor Accademico ha disapprovato la tua richiesta."}, date: data});
+                    var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                    socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta non approvata", text: "Il Tutor Accademico ha disapprovato la tua richiesta."}, date: date});
                 
                     fulfill(); 
                     
@@ -799,9 +799,9 @@ exports.disapproveExternalTutor = function(student, msg) {
                 var updateStatePr = LA.updateState(student, state);
                 updateStatePr.then(function() {
                     var d = new Date();
-                    var data = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
-                    socket.emit('send-notification', {associatedID: result.filling["Responsible person sending E-mail"], text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la richiesta di "+result.filling["Header name"]+"."}, date: data});
-                    socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la tua richiesta."}, date: data});
+                    var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
+                    socket.emit('send-notification', {associatedID: result.filling["Responsible person sending E-mail"], text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la richiesta di "+result.filling["Header name"]+"."}, date: date});
+                    socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta non approvata", text: "Il Tutor Esterno ha disapprovato la tua richiesta."}, date: date});
                 
                     fulfill();
                 });  
