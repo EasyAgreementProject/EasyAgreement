@@ -7,11 +7,12 @@ exports.idHandler = function (e) {
   return new Promise(function (fulfill, reject) {
     var id = null
     var email = e
-    console.log(email)
     var exist = studentModel.retrieveStudentIDCard(email)
     exist.then(function (result) {
-      if (result != null && result != '') {
+      if (result != null && result != "") {
         fulfill('2')
+        db.close()
+        return
       } else {
         mongo.MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
           if (err) reject(err)
