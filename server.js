@@ -780,8 +780,9 @@ console.log('I\'m  inside retriever manager');
 
 bodyParser.json();
 var reqRes=req.body.id;
+console.log("req:"+ reqRes);
 
-if (reqRes === 'tutorExternal') {
+if (reqRes === 'externalTutor') {
 
   console.log("Client requested a list of all Tutor, proceeding...");
   var myRes= administratorControl.retrieveAllTutor();
