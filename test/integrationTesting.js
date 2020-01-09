@@ -77,4 +77,47 @@ describe('Field test for server.js', function() {
             .expect('Content-Type', 'application/pdf')
             done();
     });
+
+    it.only('Testing get compileLAExternalTutor.html' , function(done) {
+        request(app).get("/compileLAExternalTutor.html")
+
+            .expect(200)
+            .expect(/Compilazione Learning Agreement/)
+            done();
+    });
+
+    it.only('Testing get compileLAAcademicTutor.html' , function(done) {
+        request(app).get("/compileLAAcademicTutor.html")
+            .expect(200)
+            .expect(/Compilazione Learning Agreement/)
+            done();
+    });
+
+    it.only('Testing get viewRequest.html' , function(done) {
+        request(app).get("/viewRequest.html")
+            .expect(200)
+            .expect(/Dettagli Richiesta/)
+            done();
+    });
+
+    it.only('Testing get request.html' , function(done) {
+        request(app).get("/request.html")
+
+            .expect(200)
+            .expect(/Richiesta/)
+            done();
+    });
+
+
+    it.only('Testing getRequest.html' , function(done) {
+        request(app).get("/getRequest.html")
+            
+            .expect('Location', /\/viewRequest.html/, done)
+            
+    });
+
+
+
+    
+
 });
