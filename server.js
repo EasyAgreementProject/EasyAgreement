@@ -11,13 +11,11 @@ var studentControl = require('./app/controllers/studentControl')
 var academicTutorControl = require('./app/controllers/academicTutorControl')
 var externalTutorControl = require('./app/controllers/externalTutorControl')
 var tutorControl = require('./app/controllers/tutorControl')
-
-
 var administratorControl = require('./app/controllers/administratorControl')
-
 var messageControl = require('./app/controllers/messageControl')
 var requestControl = require('./app/controllers/requestControl')
 var notificationControl = require('./app/controllers/notificationControl')
+var viewListControl = require('./app/controllers/viewListControl')
 var session = require('express-session')
 const multer = require('multer')
 var fs = require('fs')
@@ -568,10 +566,6 @@ app.post('/fileviewCV', function(req, res){
     }
   })
 })
-/*
-app.get('/profile', function (request, response) {
-    response.render('profile');
-}); */
 
 app.get('/profile', function (request, response) {
   if (request.session.utente == null) {
@@ -767,131 +761,128 @@ app.post('/setReceivedMessage', function (req, res) {
 
 
 app.get('/addHostOrg', function(req,res){
-
-  res.render('admin/insorg');
-
+  if(req.session.utente.type == "admin"){
+    res.render('admin/insorg');
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
 });
 
 
 
 app.post('/addHostOrgF', function(req, res) {
-  var administratorAddHost=tutorControl.addHostOrg(req,res);
-  administratorAddHost.then(function(result){
-    if(result== true){
-      res.render('admin/insorg');
-    }
-    else{
-
-      res.render('admin/insorg');
-    }
-  });
+  if(req.session.utente.type == "admin"){
+    var administratorAddHost=tutorControl.addHostOrg(req,res);
+    administratorAddHost.then(function(result){
+      if(result){
+        res.cookie('insertHEff', '1')
+        res.render('admin/insorg');
+      }
+      else{
+        res.cookie('errAlreadyRegH', '1')
+        res.render('admin/insorg');
+      }
+    });
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
 });
 
 
 app.get('/addExtTutor', function(req,res) {
-
-  res.render('admin/instutor');
-
+  if(req.session.utente.type == "admin"){
+    res.render('admin/instutor');
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
 });
 
 app.post('/addExtTutorF', function(req, res) {
-  var administratorAddTutor=tutorControl.addExtTutor(req,res);
-  administratorAddTutor.then(function(result){
-    if(result){
-      res.redirect('/addExtTutor');
-    }
-    else{
-      res.redirect('/addExtTutor');
-    }
-  });
+  if(req.session.utente.type == "admin"){
+    var administratorAddTutor=tutorControl.addExtTutor(req,res);
+    administratorAddTutor.then(function(result){
+      if(result){
+        res.cookie('insertEff', '1')
+        res.redirect('/addExtTutor');
+      }
+      else{
+        res.cookie('errAlreadyRegEx', '1')
+        res.redirect('/addExtTutor');
+      }
+    });
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
 });
 
 
 app.get('/toViewList', function(req,res) {
-
-res.render('viewList');
-
+  res.render('viewList');
 });
 
-
-
-app.get('/toViewInfo', function(req,res) {
-
-  res.render('viewInfo');
-
-  });
-
-
-app.post('/retrieverManager', function(req,res){
-
-console.log('I\'m  inside retriever manager');
-
-bodyParser.json();
-var reqRes=req.body.id;
-console.log("req:"+ reqRes);
-
-if (reqRes === 'externalTutor') {
-
-  console.log("Client requested a list of all Tutor, proceeding...");
-  var myRes= administratorControl.retrieveAllTutor();
-  res.send(myRes);
-
-} else if (reqRes === 'host') {
-
-  console.log("Client requested a list of all host organizations, proceeding...");
-  var myRes= administratorControl.retrieveAllHostOrg();
-  res.send(myRes);
-
-} else {
-
-  console.log("Client made an illegal request. Returning non-zero...");
-
-  return false;
-
-}
-
-
-
-});
-/*
-app.get('/getHost', function(req, res)){
-//cise a cazzi
-}) */
-
-app.get('/toviewInfo',function(req,res){
-
-  //res.json({choice: req.body.scelta, parametro: req.body.param});
-  res.render('viewInfo')
+app.post('/getUserList', function(req,res){
+  var get = viewListControl.retrieveAll(req.body.type)
+  get.then(function(result){
+    res.json(result)
+  })
 })
 
-  app.get('/deleteHostOrg', function(req, res) {
+app.post('/toviewInfo',function(req,res){
+  var get;
+  if(req.query.type == "host"){
+    get=tutorControl.getHostOrganization(req.query.id)
+  }
+  else if(req.query.type == "academicTutor"){
+    get=academicTutorControl.getByEmail(req.query.id)
+  }
+  else if(req.query.type == "externalTutor"){
+    get=externalTutorControl.getByEmail(req.query.id)
+  }
+  get.then(function(result){
+    res.render('viewInfo', {type:req.query.type, user: result})
+  })
+})
 
-    //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
-    var deleteHost=tutorControl.deleteHostOrg("01010101",res);
+app.post('/deleteHostOrg', function(req, res) {
+  if(req.session.utente.type == "admin"){
+    var deleteHost=tutorControl.deleteHostOrg(req.body.erasmus,res);
     deleteHost.then(function(result){
-      if(result== true){
-        res.render('viewList');
+      if(result){
+        res.json(true)
       }
       else{
-  
-        res.render('viewList');
+        res.json(false)
       }
     });
-  });
+  }
+  else{
+    res.json("no")
+  }
+});
 
-  app.get('/deleteExTutor', function(req, res) {
-
-    //quando clicco sull delete nella lista, parte la richiesta ajax con erasmus code(preso dall'html) che chiama questo /deletehostorg
-    var deleteHost=tutorControl.deleteExTutor("a.borrelli9@unisa.it",res);
+app.post('/deleteExTutor', function(req, res) {
+  if(req.session.utente.type == "admin"){
+    var deleteHost=tutorControl.deleteExTutor(req.body.email,res);
     deleteHost.then(function(result){
-      if(result== true){
-        res.render('viewList');
+      if(result){
+        res.json(true)
       }
       else{
-  
-        res.render('viewList');
+        res.json(false)
       }
     });
-  });
+  }
+  else{
+    res.json("no")
+  }
+});
 
   

@@ -69,16 +69,12 @@ exports.addHostOrg = function (req, res) {
   
       checkE.then(function (result) {
         if (!result) {
-          res.cookie('errAlreadyRegH', '1')
           fulfill(false)
           return
         }
         if (result) {
           // Save student in database
           organizationModel.addHostOrg(organizzazioneEsterna)
-  
-          // redirect
-          res.cookie('insertHEff', '1')
           fulfill(true)
         }
       })
@@ -150,16 +146,12 @@ exports.addHostOrg = function (req, res) {
       var checkE = externalTutorModel.findByEmailA(email)
       checkE.then(function (result) {
         if (!result) {
-          res.cookie('errAlreadyRegEx', '1')
           fulfill(false)
           return
         }
         if (result) {
           // Save student in database
           externalTutorModel.addExtTutor(tutorEsterno)
-  
-          // redirect
-          res.cookie('insertEff', '1')
           fulfill(true)
         }
       })
@@ -173,14 +165,10 @@ exports.deleteHostOrg = function (erasmuscode, res) {
       var delHost=organizationModel.deleteHostOrg(erasmuscode);
       delHost.then(function(result){
         if(!result){
-    
-          res.cookie('errDelHost','1')
           fulfill(false)
           return
     
         }else{
-    
-          res.cookie('delHostSucc','1')
           fulfill(true)
           }
         })
@@ -194,16 +182,20 @@ exports.deleteExTutor = function (email, res) {
         var delExTutor=externalTutorModel.deleteExTutor(email);
         delExTutor.then(function(result){
           if(!result){
-      
-            res.cookie('errDelHost','1')
             fulfill(false)
             return
-            
           }else{
-      
-            res.cookie('delHostSucc','1')
             fulfill(true)
             }
           })
         })
       }
+
+exports.getHostOrganization= function(id){
+  return new Promise(function(fulfill, reject){
+    var get = organizationModel.retrieveOne(id)
+    get.then(function(result){
+      fulfill({ErasmusCode:result.getErasmusCode(), Faculty: result.getFaculty(), Address: result.getAddress(), Size: result.getOrgSize(), Country: result.getCountry(), Contacts: result.getContacts(), Name: result.getName()})
+    })
+  })
+}

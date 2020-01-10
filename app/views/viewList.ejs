@@ -5,6 +5,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="/js/cookie.js"></script>
 <link rel="stylesheet" href="/css/atlantis.min.css">
+<link rel="stylesheet" href="/css/list.css">
 
 
            
@@ -14,7 +15,7 @@
             <div class="page-inner py-5">
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
-                        <h2 class="text-white pb-2 fw-bold">Visualizzazione Lista Organizzazione ospitante/Tutor Esterno</h2>
+                        <h2 class="text-white pb-2 fw-bold">Visualizzazione Lista Organizzazioni ospitanti/Tutor Esterni/Tutor Accademici</h2>
                     </div>
                 </div>
             </div>
@@ -24,106 +25,220 @@
             <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
             <hr>
             <h5 style="text-align: justify; font-style: italic; color: darkblue;">Visualizza Lista</h5>
-                     <div class="form-label-group">
-                        
-                             <div class="list_version">
-                                <div class="ml-md-auto py-2 py-md-0">
-                                    <a href="/deleteHostOrg" class="">Delete</a>
-                                </div>
-                                <div class="ml-md-auto py-2 py-md-0">
-                                    <a href="/deleteExTutor" class="">Delete T</a>
-                                </div>
-                             Scegli se visualizzare Tutor Estderno oppure Organizzazione Ospitante:
-                             <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
-                                     <option selected="selected" value="">--Seleziona--</option>
-                                     <option id="externalTutor" value="tutorExternal">Tutor Esterno</option>
-                                     <option id="hostOrganization" value="host">Organizzazione Ospitante</option>
-                             </select>
-                             <button type="button" onclick="loadRes()">Seleziona</button>
-                             
-                             <script>
-
-                             /*function loadRes() {
-
-                                var choice= document.getElementById("tipo").value;
-
-                               $.ajax({
-                                    type: 'POST',
-                                    url: '/retrieverManager',
-                                    data: {choice}
-                                    success: 
-
-
-                                })*/
-                             /*
-                             let xhttp = new HXMLHttpRequest();
-                             xhttp.onreadystatechange=function() {
-
-                                    if(this.readyState == 4 && this.status==200) {
-
-                                        if(document.getElementById("externalTutor").checked==true) {
-
-                                 xhttp.responseText.forEach(element => {
-                                 var newRow= tbody.insertRow();
-                                 for(i=0;i<4;i++){
-                                     var newCell= newRow.insertCell(i);
-                                     switch(i){
-                                         case 0: newCell.innerHTML = i+1; break;
-                                         case 1: newCell.innerHTML = element[i]['nome']; break;
-                                         case 2: newCell.innerHTML = '<a href="/viewTutor'+element[i]+'">Visualizza</a>'; break;
-                                         case 3: newCell.innerHTML = '<a href="/deleteExtTutor'+ element[i]+ '">Elimina</a>'; break;
-                                     }
-                                 }
-                             });
-                         }
-                    
-                         else if(document.getElementById("hostOrganization").checked==true){
-                                xhttp.responseText.forEach(element => {
-                                    var newRow= tbody.insertRow();
-                                    for(i=0;i<4;i++){
-                                        var newCell= newRow.insertCell(i);
-                                        switch(i){
-                                            case 0: newCell.innerHTML = i+1; break;
-                                            case 1: newCell.innerHTML = element[i]['nome']; break;
-                                            case 2: newCell.innerHTML = '<a href="/viewOrg'+ element[i]+'">Visualizza</a>'; break;
-                                            case 3: newCell.innerHTML = '<a href="/deleteExtOrg'+ element[i]+'">Elimina</a>'; break;
-                                        }
-                                    }
-                                });
-                         } 
-                    };
-                }
-
-                                    var choice= document.getElementById("tipo").value;
-                                    xhttp.open('POST','/retrieverManager');
-                                    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                    xhttp.send(choice);
-            }
-         */
-                             
-                             </script>
-
-
-                             </div>
-                             
-                         </div>
-                     </div>
-                </div>
+            <div class="form-label-group">           
+                <div class="list_version">
+                    Scegli la lista di utenti da visualizzare:
+                    <%if(session.utente.type=="student"){%>
+                        <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
+                            <option selected id="selected" value="">--Seleziona--</option>
+                            <option id="externalTutor" value="externalTutor">Tutor Esterni</option>
+                            <option id="hostOrganization" value="host">Organizzazioni Ospitanti</option>
+                            <option id="academicTutor" value="academicTutor">Tutor Accademici</option>
+                        </select>
+                    <%}
+                    else if(session.utente.type=="academicTutor"){%>
+                        <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
+                            <option selected id="selected" value="">--Seleziona--</option>
+                            <option id="externalTutor" value="externalTutor">Tutor Esterni</option>
+                            <option id="hostOrganization" value="host">Organizzazioni Ospitanti</option>
+                        </select>
+                    <%}
+                    else if(session.utente.type=="externalTutor"){%>
+                        <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
+                            <option selected id="selected" value="">--Seleziona--</option>
+                            <option id="externalTutor" value="academicTutor">Tutor Accademici</option>
+                            <option id="hostOrganization" value="host">Organizzazioni Ospitanti</option>
+                        </select>
+                    <%}
+                    else if(session.utente.type=="admin"){%>
+                        <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
+                            <option selected id="selected" value="">--Seleziona--</option>
+                            <option id="externalTutor" value="externalTutor">Tutor Esterni</option>
+                            <option id="hostOrganization" value="host">Organizzazioni Ospitanti</option>
+                            <option id="academicTutor" value="academicTutor">Tutor Accademici</option>
+                        </select>
+                    <%}%>
+                </div>       
             </div>
-                    
-                          <tbody>
-                               
+            <div class="elements"></div>
+        </div>
+    </div>
+</div>
+<script>
+    function appendAcademicList(academic){
+        $('.elements').append([
+            '<div class="card">',
+		        '<div class="card__image"></div>',
+		            '<div class="card__copy">',
+				        '<h3>'+academic.Name+' '+academic.Surname+'</h3>',
+					    '<h4 class="toPass">'+academic.E_mail+'</h4>',
+                        '<form method="POST" action="/toViewInfo?type=academicTutor&id='+academic.E_mail+'">',
+                            '<button class="btn2 btn-block" class="infoUserButton" id="infoUser" type="submit">Visualizza info</button>',
+                        '</form>',
+			        '</div>',
+		        '</div>',
+	    '</div>'].join('\n'))
 
-                          </tbody>
-                            </table>
-                     
-                            <script>
-                                $("#menu-toggle ").click(function(e) {
-                                    e.preventDefault();
-                                    $("#wrapper ").toggleClass("toggled ");
-                                });
-                            </script>
-                        
-                        <%- include ('footer') %>
+    }
+
+    function appendHostList(host){
+        $('.elements').append([
+		    '<div class="card">',
+		        '<div class="card__image"></div>',
+			        '<div class="card__copy">',
+				        '<h3>'+host.Name+'</h3>',
+					    '<h4 class="toPass">'+host.ErasmusCode+'</h4>',
+                        '<form method="POST" action="/toViewInfo?type=host&id='+host.ErasmusCode+'">',
+                            '<button class="btn2 btn-block" class="infoUserButton" id="infoUser" type="submit">Visualizza info</button>',
+                        '</form>',
+                        '<%if(session.utente.type == "admin"){%>',
+                        '<button class="btn2 btn-block" class="deleteUserButton" id="delUser">Elimina utente</button>',
+                        '<%}%>',
+			        '</div>',
+		        '</div>',
+            '</div>'].join('\n'))
+    }
+
+    function appendExternalList(external){
+        $('.elements').append([
+            '<div class="card">',
+		        '<div class="card__image"></div>',
+		        '<div class="card__copy">',
+			        '<h3>'+external.Name+' '+external.Surname+'</h3>',
+                    '<h4 class="toPass">'+external.E_mail+'</h4>',
+                    '<form method="POST" action="/toViewInfo?type=externalTutor&id='+external.E_mail+'">',
+                        '<button class="btn2 btn-block" class="infoUserButton" id="infoUser" type="submit">Visualizza info</button>',
+                    '</form>',
+                    '<%if(session.utente.type == "admin"){%>',
+                        '<button class="btn2 btn-block" class="deleteUserButton" id="delUser" onclick="clickDelete(this)">Elimina utente</button>',
+                    '<%}%>',
+		        '</div>',
+            '</div>'].join('\n'))
+    }
+
+    function appendNothing(){
+        $('.elements').append(['Nessun utente trovato'].join('\n'))
+
+    }
+
+    $(document).ready(function(){
+        $('.custom-select').on('change', function(){
+            $('.elements').empty()
+            var selected=this.value
+            $.ajax({
+                type: 'POST',
+                url: '/getUserList',
+                data: {type: selected},
+                success: function(result){
+                    var i;
+                    if(result.length == 0){
+                        appendNothing();
+                    }
+                    if(selected == 'externalTutor'){
+                        $('.elements').append('<section class="cards clearfix">')
+                        for(i=0; result[i]!=null; i++){
+                            if(i>1){
+                                if((i%3) == 0){
+                                    $('.elements').append('</section>')
+                                }
+                            }
+                            appendExternalList(result[i])
+                        }
+                    }
+                    else if(selected == 'academicTutor'){
+                        $('.elements').append('<section class="cards clearfix">')
+                        for(i=0; result[i]!=null; i++){
+                            if(i>1){
+                                if((i%3) == 0){
+                                    $('.elements').append('</section>')
+                                }
+                            }
+                            appendAcademicList(result[i])
+                        }
+                    }
+                    else if(selected == 'host'){
+                        $('.elements').append('<section class="cards clearfix">')
+                        for(i=0; result[i]!=null; i++){
+                            if(i>1){
+                                if((i%3) == 0){
+                                    $('.elements').append('</section>')
+                                }
+                            }
+                            appendHostList(result[i])
+                        }
+                    }
+                }
+            })
+        })
+    })
+
+    function clickDelete(el){
+        let type = $('.custom-select').val()
+        let id = $(el.parentNode).children('.toPass').text()
+        if(type == "host"){
+            swal({
+                title: 'Sei sicuro?',
+                text: 'Non potrai più tornare indietro!',
+                icon: 'warning',
+                showCancelButton: true,
+                buttons: true,
+                dangerMode: true
+            })
+            .then(function (yes) {
+                if (yes) {
+                    $.ajax({
+                        type:'POST',
+                        url:'/deleteHostOrg',
+                        data:{erasmus:id},
+                        success: function(result){
+                            if(result == "no"){
+                                swal('Errore', 'La cancellazione di un utente è limitata all\'admin', 'error')
+                            }
+                            else if(result){
+                                $(el.parentNode.parentNode.parentNode).remove()
+                                swal('Eliminata', 'Organizzazione ospitante eliminata con successo', 'success')
+                            }
+                            else{
+                                swal('Non eliminata', 'è stato impossibile eliminara l\'organizzazione', 'error')
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        else if(type == "externalTutor"){
+            swal({
+                title: 'Sei sicuro?',
+                text: 'Non potrai più tornare indietro!',
+                icon: 'warning',
+                showCancelButton: true,
+                buttons: true,
+                dangerMode: true
+            })
+            .then(function (yes) {
+                if (yes) {
+                    $.ajax({
+                        type:'POST',
+                        url:'/deleteExTutor',
+                        data:{email:id},
+                        success: function(result){
+                            if(result == "no"){
+                                swal('Errore', 'La cancellazione di un utente è limitata all\'admin', 'error')
+                            }
+                            else if(result){
+                                $(el.parentNode.parentNode.parentNode).remove()
+                                swal('Eliminato', 'Tutor esterno eliminato con successo', 'success')
+                            }
+                            else{
+                                swal('Non eliminato', 'è stato impossibile eliminara il tutor', 'error')
+                            }
+                        }
+                    })
+                }
+            })
+        }
+    }
+</script>
+<%- include ('footer') %>
                         
                         

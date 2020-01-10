@@ -25,44 +25,51 @@
             <hr>
             <h5 style="text-align: justify; font-style: italic; color: darkblue;">Informazioni profile</h5>
                      <div class="form-label-group">
-                         
 
-                        <!-- IF con le Info di tutor esterno-->
+                        <%if(type == "externalTutor"){%>
                         <div class="container-fluid" id="studentView" >
                             <div class="viewdati">
                                 <ul class="list-group" id="viewp">
                                     <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span>  </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%=user.Name%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%=user.Surname%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span> <%=user.E_mail%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span> <%=user.Organization%></li>
                                 </ul>
-                            </div>
-
-                          
-                             
+                            </div>  
                          </div>
-                        
-                         <!-- IF con le Info di organizzazione ospitante -->
 
+                        <%}
+                         else if(type == "host"){%>
                          <div class="container-fluid" id="studentView" >
                             <div class="viewdati">
                                 <ul class="list-group" id="viewp">
                                     <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">ErasmusCode: </strong></span> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Faculty: </strong></span> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Address: </strong></span></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Size: </strong></span>  </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Country: </strong></span>  </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Contacts: </strong></span>  </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Name: </strong></span> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">ErasmusCode: </strong></span> <%=user.ErasmusCode%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Faculty: </strong></span> <%=user.Faculty%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Address: </strong></span> <%=user.Address%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Size: </strong></span> <%=user.Size%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Country: </strong></span> <%=user.Country%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Contacts: </strong></span> <%=user.Contacts%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Name: </strong></span> <%=user.Name%></li>
 
                                 </ul>
                             </div>
-
-
-                             
                          </div>
+                         <%}
+                        else if(type == "academicTutor"){%>
+                         <div class="container-fluid" id="studentView" >
+                            <div class="viewdati">
+                                <ul class="list-group" id="viewp">
+                                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= user.Name%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= user.Surname%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= user.E_mail%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento: </strong></span>  <%= user.Department%></li>
+                                </ul>
+                            </div>
+                         </div>
+                         <%}%>
                      </div>
                 </div>
             </div>

@@ -197,6 +197,29 @@ class HostOrganization {
       })
     })
   }
+
+  static retrieveOne (id){
+    return new Promise(function(fulfill, reject){
+      MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology:true}, function(err, db){
+        if(err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('HostOrganization').findOne({ErasmusCode:id}, function(err, result){
+          if(err) reject(err)
+          if(result!=null){
+            var host= new HostOrganization()
+            host.setErasmusCode(result.ErasmusCode)
+            host.setName(result.Name)
+            host.setAddress(result.Address)
+            host.setContacts(result.Contacts)
+            host.setCountry(result.Country)
+            host.setFaculty(result.Faculty)
+            host.setOrgSize(result.Size)
+            fulfill(host)
+          }
+        })
+      })
+    })
+  }
 }
 
 module.exports = HostOrganization

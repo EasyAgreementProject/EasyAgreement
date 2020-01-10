@@ -75,22 +75,8 @@ $(document).ready(function () {
   var alreadyRegEx = getCookie('errAlreadyRegEx')
   var insertHEff = getCookie('insertHEff')
   var insertEff = getCookie('insertEff')
-
-  var errOrganizationEx= getCookie('errExOrganizationName');
-  var errdelHost= getCookie('errDelHost');
-  var succHost= getCookie('delHostSucc');
-
-  if (errdelHost == '1') {
-    swal('Errore', 'Errore cancellazione Organizzazione ospitante', 'error')
-    document.cookie = 'errDelHost=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
-  }
-
-  if (succHost== '1') {
-    swal('Organizzazione ospitante cancellata', 'cancellazione effettuata', 'success')
-    document.cookie = 'delHostSucc=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
-  }
-
-
+  var errOrganizationEx = getCookie('errExOrganizationName')
+  var notPossible = getCookie('notPossibleForYou')
 
   if (errAddressH == '1') {
     $('#errAddress').css('display', 'block')
@@ -378,5 +364,10 @@ $(document).ready(function () {
   if (nviewCV == '1') {
     swal('Impossibile visualizzare', 'Il curriculum vitae non è presente', 'info')
     document.cookie = 'notViewCV=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (notPossible == '1') {
+    swal('Errore', 'La cancellazione di un utente è limitata all\'admin', 'error')
+    document.cookie = 'notPossibleForYou=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 })
