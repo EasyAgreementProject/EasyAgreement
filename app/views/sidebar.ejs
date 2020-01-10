@@ -7,7 +7,7 @@
                     <div class="avatar-sm float-left mr-2">
                         <img class="avatar-img rounded-circle" src="/img/user.png" alt="...">
                     </div>
-                    <a href="/profile" aria-expanded="true" id="profile">
+                    <a href="/profile" id="profile" aria-expanded="true">
                         <span id="nome">
                             <span class="user-level"></span>
                         </span>
@@ -126,7 +126,6 @@
             if(user.type === 'admin') {
                 name = user.utente.name;
                 role = 'Amministratore';
-                document.getElementById('profile').href = "";
                 document.getElementById('profile').style.cursor = "default";
             }
             document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
