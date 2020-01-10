@@ -2,18 +2,21 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect= chai.expect;
 chai.use(chaiHttp);
-
+var mockHttp = require('node-mocks-http')
+var hash= require('../app/controllers/hash');
 
 describe('Field test for server.js', function() {
 
   
     it('Testing get login.html', function(done) {
+      
         chai
             .request('http://localhost:8080')
             .post('/login')
             .send({username:"d.devito@studenti.unisa.it", password: "DannyDeVito1"})
             .end(function(err, res){
                 if(err) return done(err)
+                console.log(res);
                 expect(res).to.not.be.null
                 done()
             })
@@ -42,30 +45,34 @@ describe('Field test for server.js', function() {
             })
     })
 
-    it('Testing to compileLaStudent', function(done){
+    it.only('Testing to compileLaStudent', function(done){
         chai
             .request('http://localhost:8080')
             .get('/compileLAStudent.html')
             .end(function(err, res){
                 if(err) return done(err)
+                console.log(res);
+
                 expect(res).to.not.be.null
                 done()
             })
     })
 
   
-/*
+
     it('Testing to getAllVersion', function(done){
         chai
             .request('http://localhost:8080')
             .post('/login')
-            .send({username:"d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .send({session: { utente: { utente: { Email: 'd.devito@studenti.unisa.it', Password:"DannyDeVito1" } } } })
             .end(function(err, res){
                 if(err) return done(err)
                chai
                   .request('http://localhost:8080')
                   .post('/fillfForm')
                   .end(function(err, res){
+                         console.log(res);
+
                          expect(res).to.not.be.null
                          done()
                   })
@@ -89,7 +96,6 @@ describe('Field test for server.js', function() {
             })
     })
 
-    */
 
    it('Testing to fillForm', function(done){
     chai
@@ -102,6 +108,7 @@ describe('Field test for server.js', function() {
               .request('http://localhost:8080')
               .get('/fillForm')
               .end(function(err, res){
+                     console.log(res);
                      expect(res).to.not.be.null
                      done()
               })
@@ -132,10 +139,13 @@ describe('Field test for server.js', function() {
             .send({username:"d.devito@studenti.unisa.it", password: "DannyDeVito1"})
             .end(function(err, res){
                 if(err) return done(err)
+                console.log(res);
                chai
                   .request('http://localhost:8080')
                   .get('/getStatus')
                   .end(function(err, res){
+                    console.log("second"+res);
+
                          expect(res).to.not.be.null
                          done()
                   })
@@ -153,6 +163,7 @@ describe('Field test for server.js', function() {
             .end(function(err, res){
                 if(err) return done(err)
                 expect(res).to.not.be.null
+                console.log(res);
                 done()
             })
     })
