@@ -99,7 +99,7 @@ exports.sendLaStudent = function(input, res) {
                     if (err)
                         throw err;
                     else {
-                        console.log("PDF create successfully!");
+                        console.log("PDF create successfully! Student");
                         //send Filled PDF to Client side                        
                         var file = fs.readFileSync('pdf/Filled_LA_'+random+'.pdf');
                         var download = fs.createReadStream('pdf/Filled_LA_'+random+'.pdf');
@@ -225,9 +225,10 @@ exports.saveLaStudent = function(input, res) {
             if(result) {
                 var getStatusPr = exports.getStatus(data["E-mail"]);
                 getStatusPr.then(function(result){
-                    if(!result || result.startsWith("Disapprovato")) {
+                    if(!result || result.startsWith("Disapprovato") || result.startsWith("Salvato")) {
                         learningAgreement.setFilling(data);
                         learningAgreement.setDocument(null);
+                        learningAgreement.setState("Salvato");
                         learningAgreement.setStudentID(input[10]);
 
                         let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -246,6 +247,7 @@ exports.saveLaStudent = function(input, res) {
             else {
                 learningAgreement.setFilling(data);
                 learningAgreement.setDocument(null);
+                learningAgreement.setState("Salvato");
                 learningAgreement.setStudentID(input[10]);
 
                 let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -391,7 +393,7 @@ exports.sendLaAcademicTutor = function(input, res) {
                         if (err)
                             throw err;
                         else {
-                            console.log("PDF create successfully!");
+                            console.log("PDF create successfully! Academic tutor");
                             //send Filled PDF to Client side                        
                             var file = fs.readFileSync('pdf/Filled_LA_'+random+'.pdf');
                             var download = fs.createReadStream('pdf/Filled_LA_'+random+'.pdf');
@@ -540,12 +542,11 @@ exports.saveLaAcademicTutor = function(input, res) {
             data["International Departemental Coordinator sign"] = data["Contact person name"];  
             data["International Departemental Coordinator date"] = today;
                         
-            console.log("PDF create successfully!");
             var getStatusPr = exports.getStatus(data["E-mail"]);
             getStatusPr.then(function(result){
-                if(result.startsWith("Inviato")) {
+                if(result.startsWith("Inviato") || result.startsWith("Disapprovato dal Tutor Accademico")) {
                     learningAgreement.setFilling(data);
-                    learningAgreement.setDocument(null);
+                    learningAgreement.setState("In valutazione dal Tutor Accademico");
                     learningAgreement.setStudentID(data["E-mail"]);
 
                     var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -737,9 +738,9 @@ exports.saveLaExternalTutor = function(input, res) {
 
             var getStatusPr = exports.getStatus(data["E-mail"]);
             getStatusPr.then(function(result){
-                if(result.startsWith("Approvato dal Tutor Accademico")) {
+                if(result.startsWith("Approvato dal Tutor Accademico") || result.startsWith("Disapprovato dal Tutor Esterno")) {
                     learningAgreement.setFilling(data);
-                    learningAgreement.setDocument(null);
+                    learningAgreement.setState("In valutazione dal Tutor Esterno");
                     learningAgreement.setStudentID(data["E-mail"]);
 
                     var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -763,11 +764,10 @@ exports.disapproveAcademicTutor = function(student, msg) {
         var email;
         if(!student) email = "v.volpicelli4@studenti.unisa.it";
         else email = student;
-        console.log("Getting data for student: " + student);
+        console.log("Disapprove for student: " + student);
         getLearningAgreementPr = LA.getLearningAgreement(email);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) {
                 var state = "Disapprovato dal Tutor Accademico per il motivo: "+msg;
                 var updateStatePr = LA.updateState(student, state);
@@ -786,14 +786,13 @@ exports.disapproveAcademicTutor = function(student, msg) {
 
 exports.disapproveExternalTutor = function(student, msg) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
+        console.log("Disapprover for student: " + student);
         var email;
         if(!student) email = "v.volpicelli4@studenti.unisa.it";
         else email = student;
         getLearningAgreementPr = LA.getLearningAgreement(email);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) {
                 var state = "Disapprovato dal Tutor Esterno per il motivo: "+msg;
                 var updateStatePr = LA.updateState(student, state);
@@ -812,11 +811,9 @@ exports.disapproveExternalTutor = function(student, msg) {
 
 exports.getData = function(student) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
         getLearningAgreementPr = LA.getLearningAgreement(student);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) 
                 fulfill(result.filling);
         });
@@ -825,11 +822,9 @@ exports.getData = function(student) {
 
 exports.getStatus = function(student) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
         getLearningAgreementPr = LA.getLearningAgreement(student);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) 
                 fulfill(result.state);
         });
@@ -843,7 +838,6 @@ exports.getVersion = function(id, email) {
         getPdfPr = LA.getPdf(id, email);
         getPdfPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Getting version with id= "+id);
             fs.writeFile('pdf/Old_LA_'+random+'.pdf', result.document.file_data.buffer ,function(err){                        
                 if (err) throw err;                
                 console.log('Sucessfully saved!');
@@ -859,16 +853,13 @@ exports.getVersion = function(id, email) {
 
 exports.getAllVersions = function(student) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
         getAllVersionsPr = LA.getOldVersions(student);
         getAllVersionsPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) {                  
                 getLearningAgreementPr = LA.getLearningAgreement(student);
                 getLearningAgreementPr.then(function(la, err) {
                     if (err) throw err;
-                    console.log("Searching done!");
                     if(la) {
                         result.push(la);
                         result.sort((a, b) => b.version - a.version);
