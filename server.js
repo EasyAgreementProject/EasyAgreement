@@ -886,3 +886,4 @@ app.post('/deleteExTutor', function(req, res) {
 });
 
   
+module.exports= app
