@@ -2,16 +2,20 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect= chai.expect;
 chai.use(chaiHttp);
-
+var hash= require('../app/controllers/hash');
 
 describe('Field test for server.js', function() {
 
+    
   
     it('Testing get login.html', function(done) {
+        var studPass="DannyDeVito1";
+        studPass=hash.hashPassword(studPass);
         chai
+
             .request('http://localhost:8080')
             .post('/login')
-            .send({username:"d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .send({username:"d.devito@studenti.unisa.it", password: studPass})
             .end(function(err, res){
                 if(err) return done(err)
                 expect(res).to.not.be.null
@@ -25,7 +29,7 @@ describe('Field test for server.js', function() {
             .get('/index.html')
             .end(function(err, res){
                 if(err) return done(err)
-                console.log(res)
+            
                 expect(res).to.not.be.null
                 done()
             })
@@ -83,6 +87,8 @@ describe('Field test for server.js', function() {
                   .request('http://localhost:8080')
                   .post('/fillfForm')
                   .end(function(err, res){
+
+                        console.log(res);
                          expect(res).to.not.be.null
                          done()
                   })
