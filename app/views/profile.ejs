@@ -182,12 +182,12 @@
                 <div class="viewdati">
                 <ul class="list-group" id="viewp">
                     <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.Email) %></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo: </strong></span>  <%= JSON.stringify(session.utente.utente.Address) %></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città: </strong></span>  <%= JSON.stringify(session.utente.utente.City) %></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea: </strong></span>  <%= JSON.stringify(session.utente.utente.DegreeCourse) %></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name).replace(/['"]+/g, '') %> </li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname).replace(/['"]+/g, '')%></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.Email).replace(/['"]+/g, '') %></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo: </strong></span>  <%= JSON.stringify(session.utente.utente.Address).replace(/['"]+/g, '') %></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città: </strong></span>  <%= JSON.stringify(session.utente.utente.City).replace(/['"]+/g, '') %></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea: </strong></span>  <%= JSON.stringify(session.utente.utente.DegreeCourse).replace(/['"]+/g, '') %></li>
                 </ul>
                 </div>
                <hr>
@@ -246,10 +246,10 @@
             <div class="container-fluid" id="externalView">
                 <ul class="list-group" id="viewp">
                     <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.E_mail) %></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span>  <%= JSON.stringify(session.utente.utente.Organization) %></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name).replace(/['"]+/g, '') %> </li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname).replace(/['"]+/g, '')%></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.E_mail).replace(/['"]+/g, '') %></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span>  <%= JSON.stringify(session.utente.utente.Organization).replace(/['"]+/g, '') %></li>
                 </ul>
                 <hr>
                 <div class="updatedati">
@@ -297,10 +297,10 @@
             <div class="container-fluid" id="accademicView">
                 <ul class="list-group" id="viewp">
                     <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.E_mail) %></li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento: </strong></span>  <%= JSON.stringify(session.utente.utente.Department) %></ li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name).replace(/['"]+/g, '') %> </li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname).replace(/['"]+/g, '')%></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.E_mail).replace(/['"]+/g, '') %></li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento: </strong></span>  <%= JSON.stringify(session.utente.utente.Department).replace(/['"]+/g, '') %></ li>
                 </ul>
                 <hr>
                 <div class="updatedati">
