@@ -111,11 +111,11 @@ exports.searchUser = function (type, search, res) {
         if (!result.length == 0) {
           for (var i = 0; result[i] != null; i++) {
             if (surname == null) {
-              if (result[i].Name == name) users1.push(result[i])
-              if (result[i].Surname == name) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == name.toUpperCase()) users1.push(result[i])
+              if (result[i].Surname.toUpperCase() == name.toUpperCase()) users1.push(result[i])
             } else {
-              if (result[i].Name == name && result[i].Surname == surname) users1.push(result[i])
-              if (result[i].Name == surname && result[i].Surname == name) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == name.toUpperCase() && result[i].Surname.toUpperCase() == surname.toUpperCase()) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == surname.toUpperCase() && result[i].Surname.toUpperCase() == name.toUpperCase()) users1.push(result[i])
             }
           }
         }
@@ -124,11 +124,11 @@ exports.searchUser = function (type, search, res) {
           if (!result.length == 0) {
             for (var i = 0; result[i] != null; i++) {
               if (surname == null) {
-                if (result[i].Name == name) users2.push(result[i])
-                if (result[i].Surname == name) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == name.toUpperCase()) users2.push(result[i])
+                if (result[i].Surname.toUpperCase() == name.toUpperCase()) users2.push(result[i])
               } else {
-                if (result[i].Name == name && result[i].Surname == surname) users2.push(result[i])
-                if (result[i].Name == surname && result[i].Surname == name) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == name.toUpperCase() && result[i].Surname.toUpperCase() == surname.toUpperCase()) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == surname.toUpperCase() && result[i].Surname.toUpperCase() == name.toUpperCase()) users2.push(result[i])
               }
             }
           }
@@ -141,11 +141,11 @@ exports.searchUser = function (type, search, res) {
         if (!result.length == 0) {
           for (var i = 0; result[i] != null; i++) {
             if (surname == null) {
-              if (result[i].Name == name) users1.push(result[i])
-              if (result[i].Surname == name) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == name.toUpperCase()) users1.push(result[i])
+              if (result[i].Surname.toUpperCase() == name.toUpperCase()) users1.push(result[i])
             } else {
-              if (result[i].Name == name && result[i].Surname == surname) users1.push(result[i])
-              if (result[i].Name == surname && result[i].Surname == name) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == name.toUpperCase() && result[i].Surname.toUpperCase() == surname.toUpperCase()) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == surname.toUpperCase() && result[i].Surname.toUpperCase() == name.toUpperCase()) users1.push(result[i])
             }
           }
         }
@@ -154,11 +154,11 @@ exports.searchUser = function (type, search, res) {
           if (!result.length == 0) {
             for (var i = 0; result[i] != null; i++) {
               if (surname == null) {
-                if (result[i].Name == name) users2.push(result[i])
-                if (result[i].Surname == name) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == name.toUpperCase()) users2.push(result[i])
+                if (result[i].Surname.toUpperCase() == name.toUpperCase()) users2.push(result[i])
               } else {
-                if (result[i].Name == name && result[i].Surname == surname) users2.push(result[i])
-                if (result[i].Name == surname && result[i].Surname == name) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == name.toUpperCase() && result[i].Surname.toUpperCase() == surname.toUpperCase()) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == surname.toUpperCase() && result[i].Surname.toUpperCase() == name.toUpperCase()) users2.push(result[i])
               }
             }
           }
@@ -171,11 +171,11 @@ exports.searchUser = function (type, search, res) {
         if (!result.length == 0) {
           for (var i = 0; result[i] != null; i++) {
             if (surname == null) {
-              if (result[i].Name == name) users1.push(result[i])
-              if (result[i].Surname == name) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == name.toUpperCase()) users1.push(result[i])
+              if (result[i].Surname.toUpperCase() == name.toUpperCase()) users1.push(result[i])
             } else {
-              if (result[i].Name == name && result[i].Surname == surname) users1.push(result[i])
-              if (result[i].Name == surname && result[i].Surname == name) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == name.toUpperCase() && result[i].Surname.toUpperCase() == surname.toUpperCase()) users1.push(result[i])
+              if (result[i].Name.toUpperCase() == surname.toUpperCase() && result[i].Surname.toUpperCase() == name.toUpperCase()) users1.push(result[i])
             }
           }
         }
@@ -184,11 +184,11 @@ exports.searchUser = function (type, search, res) {
           if (!result.length == 0) {
             for (var i = 0; result[i] != null; i++) {
               if (surname == null) {
-                if (result[i].Name == name) users2.push(result[i])
-                if (result[i].Surname == name) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == name.toUpperCase()) users2.push(result[i])
+                if (result[i].Surname.toUpperCase() == name.toUpperCase()) users2.push(result[i])
               } else {
-                if (result[i].Name == name && result[i].Surname == surname) users2.push(result[i])
-                if (result[i].Name == surname && result[i].Surname == name) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == name.toUpperCase() && result[i].Surname.toUpperCase() == surname.toUpperCase()) users2.push(result[i])
+                if (result[i].Name.toUpperCase() == surname.toUpperCase() && result[i].Surname.toUpperCase() == name.toUpperCase()) users2.push(result[i])
               }
             }
           }
