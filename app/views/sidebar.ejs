@@ -1,5 +1,5 @@
-<!-- Sidebar -->	
-<div id ="sidebar" class="sidebar sidebar-style-2">	
+<!-- Sidebar -->
+<div id ="sidebar" class="sidebar sidebar-style-2">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <div class="user">
@@ -7,7 +7,7 @@
                     <div class="avatar-sm float-left mr-2">
                         <img class="avatar-img rounded-circle" src="/img/user.png" alt="...">
                     </div>
-                    <a href="/profile" aria-expanded="true" id="profile">
+                    <a href="/profile" id="profile" aria-expanded="true">
                         <span id="nome">
                             <span class="user-level"></span>
                         </span>
@@ -28,7 +28,7 @@
                     <a href="compileLAStudent.html">
                         <i class="fas fa-file-contract"></i>
                         <p>Compila LA</p>
-                    </a>							
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="viewLA.html">
@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="viewtutor.html">
+                    <a href="/toViewList">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Lista Tutor e <br>Organizzazioni</p>
                     </a>							
@@ -58,7 +58,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="viewtutor.html">
+                    <a href="/toViewList">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Lista Tutor e <br>Organizzazioni</p>
                     </a>							
@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="viewtutor.html">
+                    <a href="/toViewList">
                         <i class="fas fa-clipboard-list"></i>
                         <p>Lista Tutor e <br>Organizzazioni</p>
                     </a>							
@@ -82,25 +82,26 @@
             <%} %>
             <%if(session.utente.type == "admin") {%>
                 <li class="nav-item">
-                    <a href="/profile">
+                    <a href="/addHostOrg">
                         <i class="fas fa-file-alt"></i>
-                        <p>Modifica Password</p>
+                        <p>Aggiunta <br>Organizzazione Ospitante</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="">
+                    <a href="/addExtTutor">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Inserimento <br>Rimozione</p>
-                    </a>							
+                        <p>Aggiunta <br>Tutor Esterno</p>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a href="viewtutor.html">
+                    <a href="/toViewList">
                         <i class="fas fa-clipboard-list"></i>
-                        <p>Lista Tutor e <br>Organizzazioni</p>
-                    </a>							
+                        <p>Lista Organizzazioni <br> Ospitante e Tutor Esterno</p>
+                    </a>
                 </li>
-            </ul>
-            <%} %>    
+               
+                
+            <%} %>
         </div>
     </div>
 </div>
@@ -125,10 +126,7 @@
             if(user.type === 'admin') {
                 name = user.utente.name;
                 role = 'Amministratore';
-                document.getElementById('profile').href = "";
                 document.getElementById('profile').style.cursor = "default";
-                document.getElementById('open-chat').style.display = "none";
-                document.getElementById('open-notification').style.display = "none";
             }
             document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
         })
