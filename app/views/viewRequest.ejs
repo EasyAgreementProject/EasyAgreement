@@ -112,6 +112,12 @@
                             document.getElementById("approve1").style.display = "none";
                             document.getElementById("disapprove").style.display = "none";
                         }
+                        else if(data["status"].startsWith("Disapprovato")|| data["status"].startsWith("In valutazione")) {
+                            document.getElementById("disapprove").style.display = "none";
+                            document.getElementById("approve1").style.display = "none";
+                            document.getElementById("approve2").onclick = function() {location.href='compileLAAcademicTutor.html';}
+                            document.getElementById("approve2").style.display = "block";
+                        }
                         else {
                             document.getElementById("approve1").onclick = function() {location.href='compileLAAcademicTutor.html';}
                             document.getElementById("disapprove").onclick = function() {                            
@@ -120,7 +126,6 @@
                                 document.getElementById("disapproveForm").action = "/disapproveAcademicTutor";
                                 document.getElementById("approve1").style.display = "none";
                                 document.getElementById("approve2").style.display = "block";
-                                document.getElementById("approve2").onclick = function() {location.href='compileLAAcademicTutor.html';}
                             }
                         }
                     }
@@ -128,6 +133,12 @@
                         if(data["status"].startsWith("Approvato dal Tutor Esterno")) {
                             document.getElementById("approve1").style.display = "none";
                             document.getElementById("disapprove").style.display = "none";
+                        }
+                        else if(data["status"].startsWith("Disapprovato") || data["status"].startsWith("In valutazione")) {
+                            document.getElementById("disapprove").style.display = "none";
+                            document.getElementById("approve1").style.display = "none";
+                                document.getElementById("approve2").onclick = location.href='compileLAExternalTutor.html';
+                            document.getElementById("approve2").style.display = "block";
                         }
                         else {
                             document.getElementById("approve1").onclick = function() {location.href='compileLAExternalTutor.html'};
@@ -137,22 +148,10 @@
                                 document.getElementById("disapproveForm").action = "/disapproveExternalTutor";
                                 document.getElementById("approve1").style.display = "none";
                                 document.getElementById("approve2").style.display = "block";
-                                document.getElementById("approve2").onclick = location.href='compileLAExternalTutor.html';
                             }
                         }
                     }
                 });
-                
-                if(data["status"].startsWith("Approvato dal Tutor Accademico") || data["status"].startsWith("Approvato dal Tutor Esterno")) {
-                    document.getElementById("approve").style.display = "none";
-                    document.getElementById("disapprove").style.display = "none";
-                }
-
-                if(data["status"].startsWith("Disapprovato")) {
-                    document.getElementById("disapprove").style.display = "none";
-                    document.getElementById("approve1").style.display = "none";
-                    document.getElementById("approve2").style.display = "block";
-                }
             })
         });
     </script>
