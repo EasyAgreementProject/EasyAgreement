@@ -125,7 +125,7 @@ exports.sendLaStudent = function(input, res) {
                                     var d = new Date();
                                     var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
                                     socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["Header name"]+" ha compilato il Learning Agreement"}, date: date});
-
+                                    if(res) res.cookie("succRequest", "1");
                                     fulfill(download);
                                 });
                             }
@@ -419,7 +419,7 @@ exports.sendLaAcademicTutor = function(input, res) {
                                         var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
                                         socket.emit('send-notification', {associatedID: email2, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["Header name"]+" ha compilato il Learning Agreement"}, date: date});
                                         socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Accademico ha approvato la tua richiesta."}, date: date});
-                                       
+                                        if(res) res.cookie("succRequest", "1");
                                         fulfill(download);
                                     });
                                 }
@@ -679,7 +679,7 @@ exports.sendLaExternalTutor = function(input, res) {
                                 var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
                                 socket.emit('send-notification', {associatedID: email3, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la richiesta di "+data["Header name"]+"."}, date: date});
                                 socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la tua richiesta."}, date: date});
-                            
+                                if(res) res.cookie("succRequest", "1");
                                 fulfill(download);
                             });
 
@@ -874,7 +874,7 @@ exports.getAllVersions = function(student) {
 exports.validateDataStudent = function(data, res) {
     return new Promise(function(fulfill, reject) {
         console.log("Begin...");
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Header name"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Header name"]))) {
             if(res) {
                 res.cookie("errName", "1");
                 res.cookie("errSurname", "1");
@@ -882,12 +882,12 @@ exports.validateDataStudent = function(data, res) {
             console.log("Header Name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ *$/.test(data["Last name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Last name (s)"]))) {
             if(res) res.cookie("errSurname", "1");
             console.log("Last name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["First name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["First name (s)"]))) {
             if(res) res.cookie("errName", "1");
             console.log("Name wrong!");
             fulfill(false);
@@ -942,7 +942,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("sending department wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Contact person name"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name"]))) {
             if(res) res.cookie("errContactName", "1");
             console.log("contact person name wrong!");
             fulfill(false);
@@ -952,7 +952,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("contact email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name / position"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* * - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name / position"]))) {
             if(res) res.cookie("errContactReciving", "1");
             console.log("contact person name position wrong! "+data["Contact person name / position"]);
             fulfill(false);
@@ -987,7 +987,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("size of enterprise wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Mentor name / position"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* * - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Mentor name / position"]))) {
             if(res) res.cookie("errMentor", "1");
             console.log("mentor name position wrong!");
             fulfill(false);
