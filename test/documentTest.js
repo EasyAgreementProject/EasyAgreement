@@ -21,18 +21,26 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing viewIDCard', function(done){
-        var check= documentControl.viewID("d.devito@studenti.unisa.it");
+        var check= documentControl.idHandler("f.califano@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
-            done();
+            var check= documentControl.viewID("f.califano@studenti.unisa.it");
+            check.then(function(result){
+                expect(result).to.not.be.null;
+                done();
+            });
         });
     });
 
     it('Testing viewCV', function(done){
-        var check= documentControl.viewCV("d.devito@studenti.unisa.it");
+        var check= documentControl.cvHandler("f.califano@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
-            done();
+            var check= documentControl.viewCV("f.califano@studenti.unisa.it");
+            check.then(function(result){
+                expect(result).to.not.be.null;
+                done();
+            });
         });
     });
 
@@ -53,18 +61,26 @@ describe('Field test for documentControl', function(){
     });
 
     it('Testing deleteIDCard', function(done){
-        var check= documentControl.IDEraser("d.devito@studenti.unisa.it");
+        var check= documentControl.idHandler("d.marino@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
-            done();
+            var check= documentControl.IDEraser("d.marino@studenti.unisa.it");
+            check.then(function(result){
+                expect(result).to.not.be.null;
+                done();
+            });
         });
     });
 
     it('Testing deleteCV', function(done){
-        var check= documentControl.CVEraser("d.devito@studenti.unisa.it");
+        var check= documentControl.cvHandler("d.marino@studenti.unisa.it");
         check.then(function(result){
             expect(result).to.not.be.null;
-            done();
+            var check= documentControl.CVEraser("d.marino@studenti.unisa.it");
+            check.then(function(result){
+                expect(result).to.not.be.null;
+                done();
+            });
         });
     });
 });

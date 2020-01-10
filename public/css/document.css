@@ -14,7 +14,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: inherit;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin: 1rem;
   outline: none;
   padding: 1rem 50px;
   position: relative;
@@ -60,7 +60,8 @@
     font-family: 'Poppins', sans-serif;
     font-size: inherit;
     font-weight: 600;
-    margin-bottom: 1rem;
+    padding: 1rem;
+    margin: 1rem;
     border-radius: 50px;
     border: none;
     vertical-align: top;

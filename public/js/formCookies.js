@@ -1,23 +1,23 @@
 /**
  * Take the generate cookie
  * @param {string} cname - The cookie name
- * 
+ *
  */
 
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+function getCookie (cname) {
+  var name = cname + '='
+  var decodedCookie = decodeURIComponent(document.cookie)
+  var ca = decodedCookie.split(';')
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i]
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1)
     }
-    return "";
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return ''
 }
 
 $(document).ready(function() {
@@ -52,6 +52,7 @@ $(document).ready(function() {
     var errEvaluation = getCookie("errEvaluation");
     var errLenguage = getCookie("errLenguage");
     var errRequest = getCookie("errRequest");
+    var saveSuccess = getCookie("saveSuccess");
    
 
 
@@ -164,7 +165,7 @@ $(document).ready(function() {
     if (errMentorInfo == "1") {
         $('#errDepartmentReciving').css('display', 'block');
         $('#inputDepartmentReciving').addClass("errClass");
-        document.cookie = "errDepartmentReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie = "errMentorInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errDateFrom == "1") {
         $('#errDateFrom').css('display', 'block');
@@ -214,5 +215,9 @@ $(document).ready(function() {
     if (errRequest == "1") {
         swal('Richiesta già inviata', "Puoi controllare lo stato della richiesta nell'apposita pagina", 'error');
         document.cookie = "errRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (saveSuccess == "1") {
+        swal('Salvataggio effettuato', "Puoi continuare la compilazione in un secondo momento.", 'success');
+        document.cookie = "saveSuccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });
