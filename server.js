@@ -117,7 +117,6 @@ app.get('/gestioneDocumenti.html', function(req, res) {
 
 app.get('/fillForm', function(req, res) {
     var getData = learningAgreementControl.getData(req.session.utente.utente.Email);
-    console.log("Student = "+req.session.utente.utente.Email);
     getData.then(function(data) {
         if (data) {
             res.send(data);
@@ -127,7 +126,6 @@ app.get('/fillForm', function(req, res) {
 
 app.get('/fillFormRequest', function(req, res) {
   var getData = learningAgreementControl.getData(req.session.data.data["E-mail"]);
-  console.log("Student = "+req.session.utente.utente.Email);
   getData.then(function(data) {
       if (data) {
           res.send(data);
@@ -137,10 +135,8 @@ app.get('/fillFormRequest', function(req, res) {
 
 app.get('/getStatus', function(req, res) {
   var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email);
-  console.log("Student Status = "+req.session.utente.utente.Email);
     getStatus.then(function(status) {
         if (status) {
-            console.log("Status = "+status);
             res.send(status);
         }
     })
