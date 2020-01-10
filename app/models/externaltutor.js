@@ -248,5 +248,63 @@ class externalTutor {
       })
     })
   }
+
+  static findByEmailA(email){
+    return new Promise(function(fulfill,reject){
+        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+            if(err)  reject(err);
+            var dbo= db.db(dbName);
+            dbo.collection("ExternalTutor").findOne({"E_mail": email}, function(err, result){
+                if(err) reject(err);
+                if(Boolean(result)){
+                    fulfill(false);
+                }
+                else{
+                    fulfill(true);
+                }
+                db.close();
+            })
+        });
+    });
+}
+
+static addExtTutor(ExtTutor) {
+
+  return new Promise(function(fulfill,reject){
+      MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
+          if(err)  reject(err);
+          var dbo= db.db(dbName);
+          dbo.collection("ExternalTutor").insertOne(ExtTutor, function(err) {
+          
+          if (err) throw err;
+          console.log("Successfully added an External Tutor to database!");
+          fulfill();
+          db.close();
+          });
+
+      });
+
+  });
+
+  }
+
+  static deleteExTutor (email) {
+    return new Promise(function (fulfill, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection("ExternalTutor").findOneAndDelete({ E_mail: email }, function (err, result) {
+          if (err) throw err
+          if (result.value != null) {
+            fulfill(true)
+          } else {
+            fulfill(false)
+          }
+          db.close()
+        })
+      })
+    })
+  }
+
 }
 module.exports = externalTutor

@@ -115,3 +115,12 @@ exports.updatePassword = function (req, res) {
     }
   })
 }
+
+exports.getByEmail = function(email){
+  return new Promise(function(fulfill, reject){
+    var get = academicTutorModel.RetrieveByEmail(email)
+    get.then(function(result){
+      fulfill({Name:result.Name, Surname:result.getSurname(), E_mail:result.getEmail(), Department:result.getDepartment()})
+    })
+  })
+}
