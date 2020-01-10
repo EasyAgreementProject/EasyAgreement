@@ -5,6 +5,7 @@ var expect= chai.expect
 var app = require('../server')
 var agent = chai.request.agent(app);
 
+//se avete bisogno di testare i cookie dopo un redirect o un rendere, scrivere nel .end if(getCookies(res.request)['Nome_Cookie']=='valoreCookie0){ done()}
 var getCookies = function(request) {
     var cookies = {};
     request.cookies.split(';').forEach(function(cookie) {
