@@ -28,6 +28,7 @@ $(document).ready(function() {
     var errWeeks = getCookie("errWeeks");
     var errRequest = getCookie("errRequest");
     var saveSuccess = getCookie("saveSuccess");
+    var succRequest = getCookie("succRequest");
 
   if (errMissingFields == '1') {
     swal('Compila tutti i campi!', '', 'warning')
@@ -59,5 +60,9 @@ $(document).ready(function() {
     if (saveSuccess == "1") {
         swal('Salvataggio effettuato', "Puoi continuare la compilazione in un secondo momento.", 'success');
         document.cookie = "saveSuccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (succRequest == "1") {
+        swal('Richiesta approvata', "Puoi controllare lo stato della richiesta nell'apposita pagina.", 'success');
+        document.cookie = "succRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });

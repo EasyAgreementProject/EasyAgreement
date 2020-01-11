@@ -1,6 +1,7 @@
 var hash = require('./hash.js')
 var externalTutorModel = require('../models/externaltutor.js')
 
+
 exports.update = function (req, res) {
   return new Promise(function (fulfill, reject) {
     var name = req.body.inputNameE
@@ -113,3 +114,15 @@ exports.updatePassword = function (req, res) {
     }
   })
 }
+
+exports.getByEmail = function(email){
+  return new Promise(function(fulfill, reject){
+    var get = externalTutorModel.findByEmail(email)
+    get.then(function(result){
+      fulfill({E_mail: result.getEmail(), Surname:result.getSurname(), Name:result.getName(), Organization:result.getOrganization()})
+    })
+  })
+}
+
+
+  

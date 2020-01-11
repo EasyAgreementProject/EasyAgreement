@@ -53,6 +53,7 @@ $(document).ready(function() {
     var errLenguage = getCookie("errLenguage");
     var errRequest = getCookie("errRequest");
     var saveSuccess = getCookie("saveSuccess");
+    var succRequest = getCookie("succRequest");
    
 
 
@@ -104,7 +105,7 @@ $(document).ready(function() {
     if (errEmail == "1") {
         $('#errEmail').css('display', 'block');
         $('#inputEmail').addClass("errClass");
-        document.cookie = "errEmailm=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie = "errEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errDepartmentSending == "1") {
         $('#errDepartmentSending').css('display', 'block');
@@ -213,11 +214,15 @@ $(document).ready(function() {
         document.cookie = "errLenguage=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errRequest == "1") {
-        swal('Richiesta già inviata', "Puoi controllare lo stato della richiesta nell'apposita pagina", 'error');
+        swal('Richiesta già inviata', "Puoi controllare lo stato della richiesta nell'apposita pagina.", 'error');
         document.cookie = "errRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (saveSuccess == "1") {
         swal('Salvataggio effettuato', "Puoi continuare la compilazione in un secondo momento.", 'success');
         document.cookie = "saveSuccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    }
+    if (succRequest == "1") {
+        swal('Richiesta inviata', "Puoi controllare lo stato della richiesta nell'apposita pagina.", 'success');
+        document.cookie = "succRequest=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
 });

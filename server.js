@@ -10,11 +10,12 @@ var loginControl = require('./app/controllers/loginControl')
 var studentControl = require('./app/controllers/studentControl')
 var academicTutorControl = require('./app/controllers/academicTutorControl')
 var externalTutorControl = require('./app/controllers/externalTutorControl')
+var tutorControl = require('./app/controllers/tutorControl')
 var administratorControl = require('./app/controllers/administratorControl')
-
 var messageControl = require('./app/controllers/messageControl')
 var requestControl = require('./app/controllers/requestControl')
 var notificationControl = require('./app/controllers/notificationControl')
+var viewListControl = require('./app/controllers/viewListControl')
 var session = require('express-session')
 const multer = require('multer')
 var fs = require('fs')
@@ -306,6 +307,26 @@ app.get('/compileLAExternalTutor.html', function (req, res) {
   res.render("compileLAExternalTutor.ejs");
 });
 
+app.get('/addExternalTutor.html', function (req, res) {
+  res.sendFile("/app/views/admin/addExternalTutor.html",{root:__dirname});
+});
+
+app.get('/addHost.html', function (req, res) {
+  res.sendFile("/app/views/admin/addHost.html",{root:__dirname});
+});
+
+app.get('/infoHost.html', function (req, res) {
+  res.sendFile("/app/views/admin/infoHost.html",{root:__dirname});
+});
+
+app.get('/infoTutorExternal.html', function (req, res) {
+  res.sendFile("/app/views/admin/infoTutorExternal.html",{root:__dirname});
+});
+
+app.get('/viewExternalTutor&Host.html', function (req, res) {
+  res.sendFile("/app/views/admin/viewExternalTutor&Host.html",{root:__dirname});
+});
+
 app.get('/compileLAAcademicTutor.html', function (req, res) {
   res.render("compileLAAcademicTutor.ejs");
 });
@@ -545,10 +566,6 @@ app.post('/fileviewCV', function(req, res){
     }
   })
 })
-/*
-app.get('/profile', function (request, response) {
-    response.render('profile');
-}); */
 
 app.get('/profile', function (request, response) {
   if (request.session.utente == null) {
@@ -741,3 +758,131 @@ app.post('/setReceivedMessage', function (req, res) {
     res.json(result)
   })
 })
+
+
+app.get('/addHostOrg', function(req,res){
+  if(req.session.utente.type == "admin"){
+    res.render('admin/insorg');
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
+});
+
+
+
+app.post('/addHostOrgF', function(req, res) {
+  if(req.session.utente.type == "admin"){
+    var administratorAddHost=tutorControl.addHostOrg(req,res);
+    administratorAddHost.then(function(result){
+      if(result){
+        res.cookie('insertHEff', '1')
+        res.render('admin/insorg');
+      }
+      else{
+        res.cookie('errAlreadyRegH', '1')
+        res.render('admin/insorg');
+      }
+    });
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
+});
+
+
+app.get('/addExtTutor', function(req,res) {
+  if(req.session.utente.type == "admin"){
+    res.render('admin/instutor');
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
+});
+
+app.post('/addExtTutorF', function(req, res) {
+  if(req.session.utente.type == "admin"){
+    var administratorAddTutor=tutorControl.addExtTutor(req,res);
+    administratorAddTutor.then(function(result){
+      if(result){
+        res.cookie('insertEff', '1')
+        res.redirect('/addExtTutor');
+      }
+      else{
+        res.cookie('errAlreadyRegEx', '1')
+        res.redirect('/addExtTutor');
+      }
+    });
+  }
+  else{
+    res.cookie('notPossibleForYou', '1')
+    res.render('index')
+  }
+});
+
+
+app.get('/toViewList', function(req,res) {
+  res.render('viewList');
+});
+
+app.post('/getUserList', function(req,res){
+  var get = viewListControl.retrieveAll(req.body.type)
+  get.then(function(result){
+    res.json(result)
+  })
+})
+
+app.post('/toviewInfo',function(req,res){
+  var get;
+  if(req.query.type == "host"){
+    get=tutorControl.getHostOrganization(req.query.id)
+  }
+  else if(req.query.type == "academicTutor"){
+    get=academicTutorControl.getByEmail(req.query.id)
+  }
+  else if(req.query.type == "externalTutor"){
+    get=externalTutorControl.getByEmail(req.query.id)
+  }
+  get.then(function(result){
+    res.render('viewInfo', {type:req.query.type, user: result})
+  })
+})
+
+app.post('/deleteHostOrg', function(req, res) {
+  if(req.session.utente.type == "admin"){
+    var deleteHost=tutorControl.deleteHostOrg(req.body.erasmus,res);
+    deleteHost.then(function(result){
+      if(result){
+        res.json(true)
+      }
+      else{
+        res.json(false)
+      }
+    });
+  }
+  else{
+    res.json("no")
+  }
+});
+
+app.post('/deleteExTutor', function(req, res) {
+  if(req.session.utente.type == "admin"){
+    var deleteHost=tutorControl.deleteExTutor(req.body.email,res);
+    deleteHost.then(function(result){
+      if(result){
+        res.json(true)
+      }
+      else{
+        res.json(false)
+      }
+    });
+  }
+  else{
+    res.json("no")
+  }
+});
+
+  
