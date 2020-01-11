@@ -431,6 +431,7 @@ app.post('/login', function (request, response) {
   UserLogin.then(function (result) {
     if (result != false) {
       request.session.utente = result
+
       response.redirect('/index.html')
     } else {
       response.redirect('/')
