@@ -333,6 +333,7 @@ app.get('/getRequests', function(req, res){
   })
 })
 
+
 app.get('/getDetails', function (req, res) {
   res.send(req.session.data)
 })
@@ -438,6 +439,7 @@ app.post('/login', function (request, response) {
   UserLogin.then(function (result) {
     if (result != false) {
       request.session.utente = result
+
       response.redirect('/index.html')
     } else {
       response.redirect('/')
@@ -764,17 +766,16 @@ app.post('/addHostOrgF', function(req, res) {
     administratorAddHost.then(function(result){
       if(result){
         res.cookie('insertHEff', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
       else{
-        res.cookie('errAlreadyRegH', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
     });
   }
   else{
     res.cookie('notPossibleForYou', '1')
-    res.render('index')
+    res.redirect('/index.html')
   }
 });
 

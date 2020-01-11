@@ -73,7 +73,7 @@
 				        '<h3>'+academic.Name+' '+academic.Surname+'</h3>',
 					    '<h4 class="toPass">'+academic.E_mail+'</h4>',
                         '<form method="POST" action="/toViewInfo?type=academicTutor&id='+academic.E_mail+'">',
-                            '<button class="btn2 btn-block" class="infoUserButton" id="infoUser" type="submit">Visualizza info</button>',
+                            '<button class="btn2 btn-block" class="infoUserButton" type="submit">Visualizza info</button>',
                         '</form>',
 			        '</div>',
 		        '</div>',
@@ -89,10 +89,10 @@
 				        '<h3>'+host.Name+'</h3>',
 					    '<h4 class="toPass">'+host.ErasmusCode+'</h4>',
                         '<form method="POST" action="/toViewInfo?type=host&id='+host.ErasmusCode+'">',
-                            '<button class="btn2 btn-block" class="infoUserButton" id="infoUser" type="submit">Visualizza info</button>',
+                            '<button class="btn2 btn-block" class="infoUserButton" type="submit">Visualizza info</button>',
                         '</form>',
                         '<%if(session.utente.type == "admin"){%>',
-                        '<button class="btn2 btn-block" class="deleteUserButton" id="delUser">Elimina utente</button>',
+                        '<button class="btn2 btn-block" class="deleteUserButton" id="delUser" onclick="clickDelete(this)">Elimina utente</button>',
                         '<%}%>',
 			        '</div>',
 		        '</div>',
@@ -107,7 +107,7 @@
 			        '<h3>'+external.Name+' '+external.Surname+'</h3>',
                     '<h4 class="toPass">'+external.E_mail+'</h4>',
                     '<form method="POST" action="/toViewInfo?type=externalTutor&id='+external.E_mail+'">',
-                        '<button class="btn2 btn-block" class="infoUserButton" id="infoUser" type="submit">Visualizza info</button>',
+                        '<button class="btn2 btn-block" class="infoUserButton" type="submit">Visualizza info</button>',
                     '</form>',
                     '<%if(session.utente.type == "admin"){%>',
                         '<button class="btn2 btn-block" class="deleteUserButton" id="delUser" onclick="clickDelete(this)">Elimina utente</button>',
@@ -175,6 +175,7 @@
     function clickDelete(el){
         let type = $('.custom-select').val()
         let id = $(el.parentNode).children('.toPass').text()
+        console.log(id)
         if(type == "host"){
             swal({
                 title: 'Sei sicuro?',
@@ -195,7 +196,7 @@
                                 swal('Errore', 'La cancellazione di un utente è limitata all\'admin', 'error')
                             }
                             else if(result){
-                                $(el.parentNode.parentNode.parentNode).remove()
+                                $(el.parentNode.parentNode).remove()
                                 swal('Eliminata', 'Organizzazione ospitante eliminata con successo', 'success')
                             }
                             else{
@@ -226,7 +227,7 @@
                                 swal('Errore', 'La cancellazione di un utente è limitata all\'admin', 'error')
                             }
                             else if(result){
-                                $(el.parentNode.parentNode.parentNode).remove()
+                                $(el.parentNode.parentNode).remove()
                                 swal('Eliminato', 'Tutor esterno eliminato con successo', 'success')
                             }
                             else{

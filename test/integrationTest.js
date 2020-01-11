@@ -17,7 +17,7 @@ var getCookies = function(request) {
 
 describe('Integration Testing', function(){
 
-    it('Test for /login', function(done){
+    it.only('Test for /login', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -29,7 +29,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it('Test for /index.html', function(done){
+    it.only('Test for /index.html', function(done){
         agent
             .post('/login')
             .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
@@ -45,6 +45,9 @@ describe('Integration Testing', function(){
                     })
             })
     })
+
+    
+    
     
     it('Test for /compileLAStudent.html', function(done){
         agent
@@ -738,6 +741,8 @@ describe('Integration Testing', function(){
             })
     })
 
+  
+
     it('Test for /gestioneDocumenti.html', function(done){
         agent
             .post('/login')
@@ -751,6 +756,62 @@ describe('Integration Testing', function(){
                     .end(function(err, res){
                         if(err) done(err)
                         expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    it.only('Test for /updateProfile for External Tutor', function(done){
+        agent
+            .post('/login')
+            .send({username: "a.gentile@yahoo.it", password: "angelo678"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                agent
+                    .post('/updateProfile')
+                    .send({inputNameE: 'Marco', inputSurnameE: 'Borrelli', inputOrganization: 'Sony'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('updateEff')
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /updateProfile for Academic Tutor', function(done){
+        agent
+            .post('/login')
+            .send({username: "p.penna@unisa.it", password: "PenPaola1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                agent
+                    .post('/updateProfile')
+                    .send({inputNameAc: 'Antonio', inputSurnameAc: 'Borrelli', inputDepartmentT: 'Economia'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('updateEff')
+                        done()
+                    })
+            })
+    })
+
+
+    
+    it('Test for /updateProfile for Student', function(done){
+        agent
+            .post('/login')
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                agent
+                    .post('/updateProfile')
+                    .send({inputNameS: "Marco", inputSurnameS: "Borrelli", inputCity: "Milano", inputAddress: "Via Pigno 13", inputDegree: "Informatica"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('updateEff')
                         done()
                     })
             })
