@@ -99,7 +99,7 @@ exports.sendLaStudent = function(input, res) {
                     if (err)
                         throw err;
                     else {
-                        console.log("PDF create successfully!");
+                        console.log("PDF create successfully! Student");
                         //send Filled PDF to Client side                        
                         var file = fs.readFileSync('pdf/Filled_LA_'+random+'.pdf');
                         var download = fs.createReadStream('pdf/Filled_LA_'+random+'.pdf');
@@ -125,7 +125,7 @@ exports.sendLaStudent = function(input, res) {
                                     var d = new Date();
                                     var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
                                     socket.emit('send-notification', {associatedID: email, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["Header name"]+" ha compilato il Learning Agreement"}, date: date});
-
+                                    if(res) res.cookie("succRequest", "1");
                                     fulfill(download);
                                 });
                             }
@@ -225,9 +225,10 @@ exports.saveLaStudent = function(input, res) {
             if(result) {
                 var getStatusPr = exports.getStatus(data["E-mail"]);
                 getStatusPr.then(function(result){
-                    if(!result || result.startsWith("Disapprovato")) {
+                    if(!result || result.startsWith("Disapprovato") || result.startsWith("Salvato")) {
                         learningAgreement.setFilling(data);
                         learningAgreement.setDocument(null);
+                        learningAgreement.setState("Salvato");
                         learningAgreement.setStudentID(input[10]);
 
                         let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -246,6 +247,7 @@ exports.saveLaStudent = function(input, res) {
             else {
                 learningAgreement.setFilling(data);
                 learningAgreement.setDocument(null);
+                learningAgreement.setState("Salvato");
                 learningAgreement.setStudentID(input[10]);
 
                 let insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -391,7 +393,7 @@ exports.sendLaAcademicTutor = function(input, res) {
                         if (err)
                             throw err;
                         else {
-                            console.log("PDF create successfully!");
+                            console.log("PDF create successfully! Academic tutor");
                             //send Filled PDF to Client side                        
                             var file = fs.readFileSync('pdf/Filled_LA_'+random+'.pdf');
                             var download = fs.createReadStream('pdf/Filled_LA_'+random+'.pdf');
@@ -417,7 +419,7 @@ exports.sendLaAcademicTutor = function(input, res) {
                                         var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
                                         socket.emit('send-notification', {associatedID: email2, text: {title: "Nuova richiesta ricevuta", text: "Lo studente "+data["Header name"]+" ha compilato il Learning Agreement"}, date: date});
                                         socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Accademico ha approvato la tua richiesta."}, date: date});
-                                       
+                                        if(res) res.cookie("succRequest", "1");
                                         fulfill(download);
                                     });
                                 }
@@ -540,12 +542,11 @@ exports.saveLaAcademicTutor = function(input, res) {
             data["International Departemental Coordinator sign"] = data["Contact person name"];  
             data["International Departemental Coordinator date"] = today;
                         
-            console.log("PDF create successfully!");
             var getStatusPr = exports.getStatus(data["E-mail"]);
             getStatusPr.then(function(result){
-                if(result.startsWith("Inviato")) {
+                if(result.startsWith("Inviato") || result.startsWith("Disapprovato dal Tutor Accademico")) {
                     learningAgreement.setFilling(data);
-                    learningAgreement.setDocument(null);
+                    learningAgreement.setState("In valutazione dal Tutor Accademico");
                     learningAgreement.setStudentID(data["E-mail"]);
 
                     var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -678,7 +679,7 @@ exports.sendLaExternalTutor = function(input, res) {
                                 var date = {hour: d.getHours().toString().padStart(2,0), minutes: d.getMinutes().toString().padStart(2,0), seconds: d.getSeconds().toString().padStart(2,0),  day:d.getDate().toString().padStart(2,0), month: ((d.getMonth())+1).toString().padStart(2,0), year: d.getFullYear().toString()};
                                 socket.emit('send-notification', {associatedID: email3, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la richiesta di "+data["Header name"]+"."}, date: date});
                                 socket.emit('send-notification', {associatedID: email, text: {title: "Richiesta approvata", text: "Il Tutor Esterno ha approvato la tua richiesta."}, date: date});
-                            
+                                if(res) res.cookie("succRequest", "1");
                                 fulfill(download);
                             });
 
@@ -737,9 +738,9 @@ exports.saveLaExternalTutor = function(input, res) {
 
             var getStatusPr = exports.getStatus(data["E-mail"]);
             getStatusPr.then(function(result){
-                if(result.startsWith("Approvato dal Tutor Accademico")) {
+                if(result.startsWith("Approvato dal Tutor Accademico") || result.startsWith("Disapprovato dal Tutor Esterno")) {
                     learningAgreement.setFilling(data);
-                    learningAgreement.setDocument(null);
+                    learningAgreement.setState("In valutazione dal Tutor Esterno");
                     learningAgreement.setStudentID(data["E-mail"]);
 
                     var insertLearningAgreementPr = LA.insertLearningAgreement(learningAgreement);
@@ -763,11 +764,10 @@ exports.disapproveAcademicTutor = function(student, msg) {
         var email;
         if(!student) email = "v.volpicelli4@studenti.unisa.it";
         else email = student;
-        console.log("Getting data for student: " + student);
+        console.log("Disapprove for student: " + student);
         getLearningAgreementPr = LA.getLearningAgreement(email);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) {
                 var state = "Disapprovato dal Tutor Accademico per il motivo: "+msg;
                 var updateStatePr = LA.updateState(student, state);
@@ -786,14 +786,13 @@ exports.disapproveAcademicTutor = function(student, msg) {
 
 exports.disapproveExternalTutor = function(student, msg) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
+        console.log("Disapprover for student: " + student);
         var email;
         if(!student) email = "v.volpicelli4@studenti.unisa.it";
         else email = student;
         getLearningAgreementPr = LA.getLearningAgreement(email);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) {
                 var state = "Disapprovato dal Tutor Esterno per il motivo: "+msg;
                 var updateStatePr = LA.updateState(student, state);
@@ -812,11 +811,9 @@ exports.disapproveExternalTutor = function(student, msg) {
 
 exports.getData = function(student) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
         getLearningAgreementPr = LA.getLearningAgreement(student);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) 
                 fulfill(result.filling);
         });
@@ -825,11 +822,9 @@ exports.getData = function(student) {
 
 exports.getStatus = function(student) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
         getLearningAgreementPr = LA.getLearningAgreement(student);
         getLearningAgreementPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) 
                 fulfill(result.state);
         });
@@ -843,7 +838,6 @@ exports.getVersion = function(id, email) {
         getPdfPr = LA.getPdf(id, email);
         getPdfPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Getting version with id= "+id);
             fs.writeFile('pdf/Old_LA_'+random+'.pdf', result.document.file_data.buffer ,function(err){                        
                 if (err) throw err;                
                 console.log('Sucessfully saved!');
@@ -859,16 +853,13 @@ exports.getVersion = function(id, email) {
 
 exports.getAllVersions = function(student) {
     return new Promise(function(fulfill, reject) {
-        console.log("Getting data for student: " + student);
         getAllVersionsPr = LA.getOldVersions(student);
         getAllVersionsPr.then(function(result, err) {
             if (err) throw err;
-            console.log("Searching done!");
             if(result) {                  
                 getLearningAgreementPr = LA.getLearningAgreement(student);
                 getLearningAgreementPr.then(function(la, err) {
                     if (err) throw err;
-                    console.log("Searching done!");
                     if(la) {
                         result.push(la);
                         result.sort((a, b) => b.version - a.version);
@@ -883,7 +874,7 @@ exports.getAllVersions = function(student) {
 exports.validateDataStudent = function(data, res) {
     return new Promise(function(fulfill, reject) {
         console.log("Begin...");
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Header name"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Header name"]))) {
             if(res) {
                 res.cookie("errName", "1");
                 res.cookie("errSurname", "1");
@@ -891,12 +882,12 @@ exports.validateDataStudent = function(data, res) {
             console.log("Header Name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ *$/.test(data["Last name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Last name (s)"]))) {
             if(res) res.cookie("errSurname", "1");
             console.log("Last name wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["First name (s)"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["First name (s)"]))) {
             if(res) res.cookie("errName", "1");
             console.log("Name wrong!");
             fulfill(false);
@@ -951,7 +942,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("sending department wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data["Contact person name"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name"]))) {
             if(res) res.cookie("errContactName", "1");
             console.log("contact person name wrong!");
             fulfill(false);
@@ -961,7 +952,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("contact email phone wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name / position"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* * - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Contact person name / position"]))) {
             if(res) res.cookie("errContactReciving", "1");
             console.log("contact person name position wrong! "+data["Contact person name / position"]);
             fulfill(false);
@@ -996,7 +987,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("size of enterprise wrong!");
             fulfill(false);
         }
-        if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù])? - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Mentor name / position"]))) {
+        if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* * - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data["Mentor name / position"]))) {
             if(res) res.cookie("errMentor", "1");
             console.log("mentor name position wrong!");
             fulfill(false);

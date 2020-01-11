@@ -52,6 +52,7 @@ $(document).ready(function () {
   var updatePassEff = getCookie('updatePassEff')
   var successID = getCookie('SuccessIDCard')
   var successCV = getCookie('SuccessCV')
+  var errSize = getCookie('errSize')
   var deletedID = getCookie('DeletedID')
   var deletedCV = getCookie('DeletedCV')
   var cannotAccess = getCookie('cannotAccess')
@@ -62,6 +63,96 @@ $(document).ready(function () {
   var ndelCV = getCookie('notDeletedCV')
   var nviewID = getCookie('notViewID')
   var nviewCV = getCookie('notViewCV')
+  var errErasmusCode = getCookie('errErasmusCode')
+  var errFacolta = getCookie('errFacolta')
+  var errContatti = getCookie('errContatti')
+  var errNameEx = getCookie('errExTutorName')
+  var errSurnameEx = getCookie('errExTutorSurname')
+  var errEmailEx = getCookie('errExTutorEmail')
+  var errAddressH = getCookie('errHAddress')
+  var errExTutorName = getCookie('errExTutorName')
+  var alreadyRegH = getCookie('errAlreadyRegH')
+  var alreadyRegEx = getCookie('errAlreadyRegEx')
+  var insertHEff = getCookie('insertHEff')
+  var insertEff = getCookie('insertEff')
+  var errOrganizationEx = getCookie('errExOrganizationName')
+  var notPossible = getCookie('notPossibleForYou')
+
+  if (errAddressH == '1') {
+    $('#errAddress').css('display', 'block')
+    $('#inputAddress').addClass('errClass')
+    document.cookie = 'errHAddress=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (insertEff == '1') {
+    swal('Inserimento effettuato', 'tutor esterno inserito con successo', 'success')
+    document.cookie = 'insertEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (insertHEff == '1') {
+    swal('Inserimento effettuato', 'organizzazione ospitante inserita con successo', 'success')
+    document.cookie = 'insertHEff=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (alreadyRegH == '1') {
+    swal('Errore', 'organizzazione ospitante già presente', 'error')
+    document.cookie = 'errAlreadyRegH=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (alreadyRegEx == '1') {
+    swal('Errore', 'tutor esterno già presente', 'error')
+    document.cookie = 'errAlreadyRegEx=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+  if (errErasmusCode == '1') {
+    $('#errErasmusCode').css('display', 'block')
+    $('#inputErasmusCode').addClass('errClass')
+    document.cookie = 'errErasmusCode=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (errFacolta == '1') {
+    $('#errFacolta').css('display', 'block')
+    $('#inputFacolta').addClass('errClass')
+    document.cookie = 'errFacolta=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (errExTutorName == '1') {
+    $('#errNameEx').css('display', 'block')
+    $('#inputNameEx').addClass('errClass')
+    document.cookie = 'errExTutorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (errContatti == '1') {
+    $('#errContatti').css('display', 'block')
+    $('#inputContacts').addClass('errClass')
+    document.cookie = 'errContatti=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+  if (errSize == '1') {
+    $('#errSize').css('display', 'block')
+    $('#inputSize').addClass('errClass')
+    document.cookie = 'errSize=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (errOrganizationEx == '1') {
+    $('#errOrganizationEx').css('display', 'block')
+    $('#inputOrganizzazioneEx').addClass('errClass')
+    document.cookie = 'errExOrganizationName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (errNameEx == '1') {
+    $('#errNameEx').css('display', 'block')
+    $('#inputNameEx').addClass('errClass')
+    document.cookie = 'errExTutorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+  if (errSurnameEx == '1') {
+    $('#errSurnameEx').css('display', 'block')
+    $('#inputSurnameEx').addClass('errClass')
+    document.cookie = 'errExTutorSurname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+  if (errEmailEx == '1') {
+    $('#errEmailEx').css('display', 'block')
+    $('#inputEmailEx').addClass('errClass')
+    document.cookie = 'errExTutorEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
 
   if (errOrganization == '1') {
     $('#errOrganization').css('display', 'block')
@@ -273,5 +364,10 @@ $(document).ready(function () {
   if (nviewCV == '1') {
     swal('Impossibile visualizzare', 'Il curriculum vitae non è presente', 'info')
     document.cookie = 'notViewCV=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (notPossible == '1') {
+    swal('Errore', 'La cancellazione di un utente è limitata all\'admin', 'error')
+    document.cookie = 'notPossibleForYou=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 })

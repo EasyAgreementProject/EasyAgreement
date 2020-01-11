@@ -1,0 +1,103 @@
+<%- include ('header') %>
+<%- include ('sidebar') %>
+
+<link href="/css/simple-sidebar.css" rel="stylesheet">
+<script type="text/javascript" src="./js/formValidation.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="/js/cookie.js"></script>
+<link href="/css/viewandupdate.css" rel="stylesheet">
+
+           
+<div class="main-panel">
+    <div class="content">
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                    <div>
+                        <h2 class="text-white pb-2 fw-bold">Visualizzazione informazioni Organizzazione ospitante</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-inner py-5">
+            <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+            <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+            <hr>
+            <h5 style="text-align: justify; font-style: italic; color: darkblue;">Informazioni profile</h5>
+                     <div class="form-label-group">
+
+                        <%if(type == "externalTutor"){%>
+                        <div class="container-fluid" id="studentView" >
+                            <div class="viewdati">
+                                <ul class="list-group" id="viewp">
+                                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%=user.Name%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%=user.Surname%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span> <%=user.E_mail%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span> <%=user.Organization%></li>
+                                </ul>
+                            </div>  
+                         </div>
+
+                        <%}
+                         else if(type == "host"){%>
+                         <div class="container-fluid" id="studentView" >
+                            <div class="viewdati">
+                                <ul class="list-group" id="viewp">
+                                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">ErasmusCode: </strong></span> <%=user.ErasmusCode%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Faculty: </strong></span> <%=user.Faculty%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Address: </strong></span> <%=user.Address%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Size: </strong></span> <%=user.Size%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Country: </strong></span> <%=user.Country%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Contacts: </strong></span> <%=user.Contacts%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Name: </strong></span> <%=user.Name%></li>
+
+                                </ul>
+                            </div>
+                         </div>
+                         <%}
+                        else if(type == "academicTutor"){%>
+                         <div class="container-fluid" id="studentView" >
+                            <div class="viewdati">
+                                <ul class="list-group" id="viewp">
+                                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= user.Name%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= user.Surname%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= user.E_mail%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento: </strong></span>  <%= user.Department%></li>
+                                </ul>
+                            </div>
+                         </div>
+                         <%}%>
+                     </div>
+                </div>
+            </div>
+                
+           <!--         
+            <script>
+
+                var scelta=res.body.choice;
+                
+                $.ajax({
+                       type:'POST',
+                       url:'/getHost',
+                       data:{param: erasmuscode},
+                       success: function(result){
+
+
+                       }
+
+                })
+                
+            
+            </script>
+            -->
+                        
+                        <%- include ('footer') %>
+                        
+                
+
+
+
+
