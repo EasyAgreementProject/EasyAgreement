@@ -19,6 +19,7 @@ var viewListControl = require('./app/controllers/viewListControl')
 var session = require('express-session')
 const multer = require('multer')
 var fs = require('fs')
+module.exports=app
 
 const io = require('socket.io')(3000)
 
@@ -117,7 +118,6 @@ app.get('/gestioneDocumenti.html', function(req, res) {
 
 app.get('/fillForm', function(req, res) {
     var getData = learningAgreementControl.getData(req.session.utente.utente.Email);
-    console.log("Student = "+req.session.utente.utente.Email);
     getData.then(function(data) {
         if (data) {
             res.send(data);
@@ -127,7 +127,6 @@ app.get('/fillForm', function(req, res) {
 
 app.get('/fillFormRequest', function(req, res) {
   var getData = learningAgreementControl.getData(req.session.data.data["E-mail"]);
-  console.log("Student = "+req.session.utente.utente.Email);
   getData.then(function(data) {
       if (data) {
           res.send(data);
@@ -137,10 +136,8 @@ app.get('/fillFormRequest', function(req, res) {
 
 app.get('/getStatus', function(req, res) {
   var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email);
-  console.log("Student Status = "+req.session.utente.utente.Email);
     getStatus.then(function(status) {
         if (status) {
-            console.log("Status = "+status);
             res.send(status);
         }
     })
@@ -289,16 +286,6 @@ app.get('/getRequestVersions', function(req, res) {
   })
 });
 
-app.get('/getLearningAgreement', function(req, res) {
-  var getVersionPr = learningAgreementControl.getVersion(null, req.session.data.studentID);
-  getVersionPr.then(function(la) {
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
-    console.log("Tornato da tutto "+la); 
-    la.pipe(res);
-  })   
-});
-
 app.get('/', function (req, res) {
   res.sendFile('/app/views/login.html', { root: __dirname })
 })
@@ -341,11 +328,11 @@ app.get('/request.html', function (req, res) {
 
 app.get('/getRequests', function(req, res){
   var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.E_mail); //req.session.utente.utente.Email
-  getRequestsPr.then(function(result){    
-    console.log(req.session.utente.utente.Email);
+  getRequestsPr.then(function(result){        
     res.send(result);
   })
 })
+
 
 app.get('/getDetails', function (req, res) {
   res.send(req.session.data)
@@ -452,6 +439,7 @@ app.post('/login', function (request, response) {
   UserLogin.then(function (result) {
     if (result != false) {
       request.session.utente = result
+
       response.redirect('/index.html')
     } else {
       response.redirect('/')
@@ -778,17 +766,16 @@ app.post('/addHostOrgF', function(req, res) {
     administratorAddHost.then(function(result){
       if(result){
         res.cookie('insertHEff', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
       else{
-        res.cookie('errAlreadyRegH', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
     });
   }
   else{
     res.cookie('notPossibleForYou', '1')
-    res.render('index')
+    res.redirect('/index.html')
   }
 });
 
