@@ -333,6 +333,7 @@ app.get('/getRequests', function(req, res){
   })
 })
 
+
 app.get('/getDetails', function (req, res) {
   res.send(req.session.data)
 })
@@ -438,6 +439,7 @@ app.post('/login', function (request, response) {
   UserLogin.then(function (result) {
     if (result != false) {
       request.session.utente = result
+
       response.redirect('/index.html')
     } else {
       response.redirect('/')
