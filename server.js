@@ -286,16 +286,6 @@ app.get('/getRequestVersions', function(req, res) {
   })
 });
 
-app.get('/getLearningAgreement', function(req, res) {
-  var getVersionPr = learningAgreementControl.getVersion(null, req.session.data.studentID);
-  getVersionPr.then(function(la) {
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
-    console.log("Tornato da tutto "+la); 
-    la.pipe(res);
-  })   
-});
-
 app.get('/', function (req, res) {
   res.sendFile('/app/views/login.html', { root: __dirname })
 })
@@ -338,8 +328,7 @@ app.get('/request.html', function (req, res) {
 
 app.get('/getRequests', function(req, res){
   var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.E_mail); //req.session.utente.utente.Email
-  getRequestsPr.then(function(result){    
-    console.log(req.session.utente.utente.Email);
+  getRequestsPr.then(function(result){        
     res.send(result);
   })
 })
