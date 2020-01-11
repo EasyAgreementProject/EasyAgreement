@@ -634,7 +634,7 @@ describe('Field test for learningAgreementControl', function(){
             assert.isNull(la);
             done();
         });
-    }).timeout(20000);
+    }).timeout(100000);
 
 
     it('Testing method sendLaAcademicTutor - TC_LAM_2.2', (done) => {
