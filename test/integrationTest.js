@@ -17,7 +17,7 @@ var getCookies = function(request) {
 
 describe('Integration Testing', function(){
 
-    it.only('Test for /login', function(done){
+    it('Test for /login', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -29,7 +29,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it.only('Test for /index.html', function(done){
+    it('Test for /index.html', function(done){
         agent
             .post('/login')
             .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
@@ -761,7 +761,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it.only('Test for /updateProfile for External Tutor', function(done){
+    it('Test for /updateProfile for External Tutor', function(done){
         agent
             .post('/login')
             .send({username: "a.gentile@yahoo.it", password: "angelo678"})
