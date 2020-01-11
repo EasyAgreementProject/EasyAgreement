@@ -15,6 +15,17 @@ var getCookies = function(request) {
     return cookies;
   };
 
+  var getResponseCookies = function(response) {
+
+    var cookies = {};
+    response.cookies.split(';').forEach(function(cookie) {
+      var parts = cookie.match(/(.*?)=(.*)$/)
+      cookies[ parts[1].trim() ] = (parts[2] || '').trim();
+    });
+    return cookies;
+  };
+
+
 describe('Integration Testing', function(){
 
     it('Test for /login', function(done){
@@ -817,77 +828,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it('Test for /updatePassword for Student', function(done){
-        agent
-            .post('/login')
-            .send({username: "f.vitolo@studenti.unisa.it", password: "VitoFerdi1"})
-            .end(function(err, res){
-                if(err) done(err)
-                expect(res).status(200)
-                agent
-                    .post('/updatePassword')
-                    .send({inputOldPassword: 'VitoFerdi1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                    .end(function(err, res){
-                        if(err) done(err)
-                        expect(res).to.have.cookie('updatePassEff')
-                        done()
-                    })
-            })
-    })
-
-    it('Test for /updatePassword for Admin', function(done){
-        agent
-            .post('/login')
-            .send({username: "a.marino@unisa.it", password: "andrea123"})
-            .end(function(err, res){
-                if(err) done(err)
-                expect(res).status(200)
-                agent
-                    .post('/updatePassword')
-                    .send({inputOldPassword: 'andrea123', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                    .end(function(err, res){
-                        if(err) done(err)
-                        expect(res).to.have.cookie('updatePassEff')
-                        done()
-                    })
-            })
-    })
-
-    it('Test for /updatePassword for Academic Tutor', function(done){
-        agent
-            .post('/login')
-            .send({username: "s.risso@unisa.it", password: "RisSimone1"})
-            .end(function(err, res){
-                if(err) done(err)
-                expect(res).status(200)
-                agent
-                    .post('/updatePassword')
-                    .send({inputOldPassword: 'RisSimone1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                    .end(function(err, res){
-                        if(err) done(err)
-                        expect(res).to.have.cookie('updatePassEff')
-                        done()
-                    })
-            })
-    })
-
-    it('Test for /updatePassword for External Tutor', function(done){
-        agent
-            .post('/login')
-            .send({username: "a.lombardo@libero.it", password: "alberto987"})
-            .end(function(err, res){
-                if(err) done(err)
-                expect(res).status(200)
-                agent
-                    .post('/updatePassword')
-                    .send({inputOldPassword: 'alberto987', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                    .end(function(err, res){
-                        if(err) done(err)
-                        expect(res).to.have.cookie('updatePassEff')
-                        done()
-                    })
-            })
-    })
+    
 
     it('Test for /profile', function(done){
         agent
@@ -1251,9 +1192,187 @@ it('Test for /footer.html', function(done){
 
 
 
+it('Test for getCVState/', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/getCVState')
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.deep.include({"text" : "true"})
+                    done()
+                })
+        })
+})
 
 
+it('Test for /getIDState', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/getIDState')
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.deep.include({"text" : "true"})
+                    done()
+                })
+        })
+})
 
 
+it('Test for /deleteCV', function(done){ //va fixato
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/deleteCV')
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    
+                    
+                    if( getResponseCookies(res)['DeletedCV']=='1'){ done()} 
+                    else if(getResponseCookies(res)['notDeletedCV']=='1') {done()}
+                    else {console.log('UNHANDLED ENDPOINT ERROR ON DELETECV:'+JSON.stringify(res))}
+
+
+                        
+
+                    
+                })
+        })
+})
+
+
+it('Test for /deleteID', function(done){ //va fixato
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/deleteID')
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    
+                    if(getCookies(res)['DeletedID']=='1'){ done()} 
+                    else if(getCookies(res)['notDeletedID']=='1') {done()}
+                    else {console.log('UNHANDLED ENDPOINT ERROR ON DELETEID:'+JSON.stringify(res))}
+
+                    })
+                
+        })
+})
+
+it('Test for /getConnectedUser', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/getConnectedUser')
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.deep.include({"City" : "Milano"})
+                    done()
+                })
+        })
+})
+
+
+it('Test for /updatePassword for Student', function(done){
+    agent
+        .post('/login')
+        .send({username: "f.vitolo@studenti.unisa.it", password: "VitoFerdi1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).status(200)
+            agent
+                .post('/updatePassword')
+                .send({inputOldPassword: 'VitoFerdi1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.have.cookie('updatePassEff')
+                    done()
+                })
+        })
+})
+
+it('Test for /updatePassword for Admin', function(done){
+    agent
+        .post('/login')
+        .send({username: "a.marino@unisa.it", password: "andrea123"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).status(200)
+            agent
+                .post('/updatePassword')
+                .send({inputOldPassword: 'andrea123', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.have.cookie('updatePassEff')
+                    done()
+                })
+        })
+})
+
+it('Test for /updatePassword for Academic Tutor', function(done){
+    agent
+        .post('/login')
+        .send({username: "s.risso@unisa.it", password: "RisSimone1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).status(200)
+            agent
+                .post('/updatePassword')
+                .send({inputOldPassword: 'RisSimone1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.have.cookie('updatePassEff')
+                    done()
+                })
+        })
+})
+
+it('Test for /updatePassword for External Tutor', function(done){
+    agent
+        .post('/login')
+        .send({username: "a.lombardo@libero.it", password: "alberto987"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).status(200)
+            agent
+                .post('/updatePassword')
+                .send({inputOldPassword: 'alberto987', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.have.cookie('updatePassEff')
+                    done()
+                })
+        })
+})
 
 })
