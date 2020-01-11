@@ -64,7 +64,7 @@ class LearningAgreement {
                 if (err) throw err;
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
-                var insert_data = {};;
+                var insert_data = {};
                 var get = LearningAgreement.getLearningAgreement(learningAgreement.getStudentID());
                 get.then(function(result) {
                     console.log("Learning Agreeement per lo StudentID: " + learningAgreement.getStudentID() + " = " + result)
@@ -73,6 +73,7 @@ class LearningAgreement {
                         learningAgreement.version = result.version;
                         var updateDataPr = LearningAgreement.updateData(learningAgreement.getStudentID(), learningAgreement.getFilling());
                         updateDataPr.then(function() {
+                            db.close();
                             fulfill();
                         })
                     }
@@ -81,6 +82,8 @@ class LearningAgreement {
                         dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                             if (err) throw err;
                             console.log("Learning Agreement inserted correctly! (No other versions were found)");
+                            db.close();
+                            fulfill();
                         });
                     } else if (result && result.document && result.version) {
                         insert_data.file_data = Binary(learningAgreement.document);
@@ -98,6 +101,7 @@ class LearningAgreement {
                                 if (err) throw err;
                                 console.log("Learning Agreement revision inserted correctly!");
                                 db.close();
+                                fulfill();
                             });
                         })
                     } else if (result && !result.version) {
@@ -110,6 +114,8 @@ class LearningAgreement {
                             dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                                 if (err) throw err;
                                 console.log("Learning Agreement inserted correctly! (Saved version was found)");
+                                db.close();
+                                fulfill();
                             });
                         })
                     } else {
@@ -120,10 +126,11 @@ class LearningAgreement {
                         dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                             if (err) throw err;
                             console.log("Learning Agreement inserted correctly! (No other versions were found)");
+                            db.close();
+                            fulfill();
                         });
                     }
                 })
-                fulfill();
             });
         });
     }

@@ -63,7 +63,7 @@ describe('Integration Testing', function(){
                     })
             })
     })
-
+    
     it('Test for /saveStudent', function(done){
         agent
             .post('/login')
@@ -257,6 +257,35 @@ describe('Integration Testing', function(){
             })
     })
 
+    it('Test for /disapproveAcademicTutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.ferrucci@unisa.it", password: "FerFilomena1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/getRequest')
+                    .redirects(0)
+                    .query({student: "d.devito@studenti.unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.status(302)
+                        agent
+                            .post('/disapproveAcademicTutor')
+                            .send({
+                                msg : "Compilazione errata"
+                            })
+                            .end(function(err, res){
+                                if(err) done(err)
+                                expect(res).status(200)
+                                done()
+                            })
+                        });
+            })
+    }, this.timeout(10000))
+
     it('Test for /compileAcademicTutor', function(done){
         agent
             .post('/login')
@@ -299,7 +328,7 @@ describe('Integration Testing', function(){
         agent
             .post('/login')
             .redirects(0)
-            .send({username: "f.ferrucci@unisa.it", password: "FerFilomena1"})
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
             .end(function(err, res){
                 if(err) done(err)
                 expect(res).to.have.cookie('logEff')
@@ -329,11 +358,40 @@ describe('Integration Testing', function(){
             })
     }, this.timeout(10000))
 
+    it('Test for /disapproveExternalTutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/getRequest')
+                    .redirects(0)
+                    .query({student: "d.devito@studenti.unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.status(302)
+                        agent
+                            .post('/disapproveExternalTutor')
+                            .send({
+                                msg : "Compilazione errata"
+                            })
+                            .end(function(err, res){
+                                if(err) done(err)
+                                expect(res).status(200)
+                                done()
+                            })
+                        });
+            })
+    }, this.timeout(10000))
+
     it('Test for /compileExternalTutor', function(done){
         agent
             .post('/login')
             .redirects(0)
-            .send({username: "f.ferrucci@unisa.it", password: "FerFilomena1"})
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
             .end(function(err, res){
                 if(err) done(err)
                 expect(res).to.have.cookie('logEff')
@@ -384,6 +442,46 @@ describe('Integration Testing', function(){
             })
     })
 
+    it('Test for /getRequests', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.ferrucci@unisa.it", password: "FerFilomena1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/getRequests')
+                    .redirects(0)
+                    .query({student: "d.devito@studenti.unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json
+                        done()
+                    });
+            })
+    })
+
+    it('Test for /getDetails', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.ferrucci@unisa.it", password: "FerFilomena1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/getDetails')
+                    .redirects(0)
+                    .query({student: "d.devito@studenti.unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json
+                        done()
+                    });
+            })
+    })
+
     it('Test for /getAllRequestVersions', function(done){
         agent
             .post('/login')
@@ -410,6 +508,54 @@ describe('Integration Testing', function(){
             })
     })
 
+    it('Test for /getRequestVersions', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.ferrucci@unisa.it", password: "FerFilomena1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/getRequest')
+                    .redirects(0)
+                    .query({student: "d.devito@studenti.unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.status(302)
+                        agent
+                            .get('/getRequestVersions')      
+                            .query({inputVersion : "1"})                      
+                            .end(function(err, res){
+                                if(err) done(err)
+                                expect(res).status(200)
+                                expect(res).to.have.header('Content-Type', 'application/pdf');
+                                done()
+                            })
+                        });
+            })
+    })
+
+    it('Test for /getVersions', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/getVersions')
+                    .query({inputVersion : "1"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        expect(res).to.have.header('Content-Type', 'application/pdf');
+                        done()
+                    })
+            })
+    })
+
     it('Test for /getAllVersions', function(done){
         agent
             .post('/login')
@@ -428,7 +574,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it('Test for /getStatus', function(done){
+     it('Test for /getStatus', function(done){
         agent
             .post('/login')
             .redirects(0)
