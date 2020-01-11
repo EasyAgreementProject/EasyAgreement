@@ -1007,7 +1007,7 @@ it('Test for /deleteHostOrg', function(done){
         .end(function(err, res){
             if(err) done(err)
             expect(res).to.have.cookie('logEff')
-            agent
+            agenterasmus
                 .post('/deleteHostOrg')
                 .send({erasmus:"sams9797"})
                 .redirects(0)
@@ -1374,5 +1374,28 @@ it('Test for /updatePassword for External Tutor', function(done){
                 })
         })
 })
+/*
+it.only('Test for /getReceivedMessage', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/getReceivedMessage')
+                .send({sender:"d.devito@studenti.unisa.it"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    
+                    expect(res).to.deep.include({"text" : "[]"})
+                    
+                    done()
+                })
+        })
+})
 
+*/
 })
