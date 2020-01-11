@@ -889,4 +889,58 @@ describe('Integration Testing', function(){
             })
     })
 
+    it('Test for /profile', function(done){
+        agent
+            .post('/login')
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                agent
+                    .get('/profile')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    /*it.only('Test for /logout', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/logout')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('logoutEff')
+                        done()
+                    })
+            })
+    })
+    */
+
+   it('Test for /logout', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/logout')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.have.cookie('logoutEff')
+                    done()
+                })
+        })
+})
+
 })
