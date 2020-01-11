@@ -853,7 +853,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it.only('Test for /updatePassword for Academic Tutor', function(done){
+    it('Test for /updatePassword for Academic Tutor', function(done){
         agent
             .post('/login')
             .send({username: "s.risso@unisa.it", password: "RisSimone1"})
@@ -925,16 +925,17 @@ describe('Integration Testing', function(){
     })
     */
 
-   it('Test for /logout', function(done){
+   it.only('Test for /logout', function(done){
     agent
         .post('/login')
         .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .send({username: "l.deamicis@studenti.unisa.it", password: "DeLorenzo1"})
         .end(function(err, res){
             if(err) done(err)
             expect(res).to.have.cookie('logEff')
             agent
                 .get('/logout')
+                .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
                     expect(res).to.have.cookie('logoutEff')
