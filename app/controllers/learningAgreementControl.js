@@ -932,7 +932,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("phone wrong!");
             fulfill(false);
         }
-        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1} *$/.test(data["E-mail"]))) {
+        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{0,}@{1}(studenti.unisa.it){1} *$/.test(data["E-mail"]))) {
             if(res) res.cookie("errEmail", "1");
             console.log("email student wrong!");
             fulfill(false);
