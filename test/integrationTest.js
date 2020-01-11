@@ -940,7 +940,7 @@ describe('Integration Testing', function(){
         })
 })
 
-it('Test for /signpup for Student', function(done){
+it('Test for /signup for Student', function(done){
     agent
         .post('/signup')
         .redirects(0)
@@ -950,6 +950,10 @@ it('Test for /signpup for Student', function(done){
             expect(res).to.have.cookie('regEff')
             done()
         })
+
+    })
+
+
 it('Test for get /', function(done){
     agent
         .post('/login')
@@ -1068,7 +1072,9 @@ it('Test for /deleteHostOrg', function(done){
                 .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
-                    expect(res).to.be.json
+                    
+                    expect(res).to.deep.include({"text" : "true"})
+                    
                     done()
                 })
         })
@@ -1088,13 +1094,13 @@ it('Test for /deleteExTutor', function(done){
                 .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
-                    expect(res).to.be.json
+                    expect(res).to.deep.include({"text" : "true"})
                     done()
                 })
         })
 })
 
-})
+
 
 it('Test for /compileLaExternalTutor.html', function(done){
     agent
@@ -1240,6 +1246,13 @@ it('Test for /footer.html', function(done){
                 })
         })
 })
+
+
+
+
+
+
+
 
 
 
