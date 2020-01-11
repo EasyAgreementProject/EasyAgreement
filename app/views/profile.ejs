@@ -16,23 +16,22 @@
                 </div>	
             </div>           
                 <%if(session.utente.type == "student") {%>
-                    <hr>
-                    <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
                     <div class="page-inner py-5" id="studentView" >
-                        <div class="viewdati">
-                        <ul class="list-group" id="viewp">
-                            <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.Email) %></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo: </strong></span>  <%= JSON.stringify(session.utente.utente.Address) %></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città: </strong></span>  <%= JSON.stringify(session.utente.utente.City) %></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea: </strong></span>  <%= JSON.stringify(session.utente.utente.DegreeCourse) %></li>
+                        <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
+                        <br>
+                        <div class="text-center" id="viewp">
+                        <ul>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email:&nbsp;</strong></span><%= JSON.stringify(session.utente.utente.Email).substring(1, JSON.stringify(session.utente.utente.Email).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Address).substring(1, JSON.stringify(session.utente.utente.Address).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.City).substring(1, JSON.stringify(session.utente.utente.City).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.DegreeCourse).substring(1, JSON.stringify(session.utente.utente.DegreeCourse).length-1) %></li>
                         </ul>
+                        <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
                         </div>
-                       <hr>
-                       <div class="updatedati">
-                          
+                       <div class="updatedati text-center">
+                        <hr>                          
                             <form id="formUpdate" method="post" action="/updateProfile">
                                 <h4 class="mt-4">Modifica dati anagrafici</h4>
                                     <div class="form-label-groupS">
@@ -55,7 +54,7 @@
                                         <input type="text" id="inputDegree" class="form-control" name="inputDegree" placeholder="Corso di Laurea"  >
                                             <span id="errCourse">Corso di Laurea non valido</span>
                                     </div>
-                                    <button class="btn2 btn-block" type="submit" class="saveButton">Modifica dati</button>
+                                    <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica dati</button>
                             </form>
                                                        
                                 <form id="formUpdatePass" method="post" action="/updatePassword">
@@ -72,25 +71,25 @@
                                         <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                                             <span id="errConfirmPassword">Password errata </span>
                                     </div>
-                                    <button class="btn2 btn-block" type="submit" class="saveButton">Modifica password</button>
+                                    <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
                                 </form>
                                    
                         </div>
                     </div>
                 <% } %>        
                 <%if(session.utente.type == "externalTutor") {%>
-                    <hr>
-                    <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
-                    <div class="page-inner py-5" id="externalView">
-                        <ul class="list-group" id="viewp">
-                            <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.E_mail) %></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span>  <%= JSON.stringify(session.utente.utente.Organization) %></li>
+                    <div class="page-inner py-5" id="studentView" >
+                        <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
+                        <br>
+                        <div class="text-center" id="viewp">
+                        <ul>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1)%></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.E_mail).substring(1, JSON.stringify(session.utente.utente.E_mail).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Organization).substring(1, JSON.stringify(session.utente.utente.Organization).length-1) %></li>
                         </ul>
-                        <hr>
-                        <div class="updatedati">                        
+                        <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
+                        <div class="updatedati text-center">                        
                             <form id="formUpdate" method="post" action="/updateProfile">
                             <h4 class="mt-4">Modifica dati anagrafici</h4>
                                 <div class="form-label-groupE">
@@ -105,7 +104,7 @@
                                     <input type="text" id="inputOrganization" class="form-control" name="inputOrganization" placeholder="Organizzazione"  >
                                         <span id="errOrganization">Organizzazione non valida</span>
                                 </div>
-                                <button class="btn2 btn-block" type="submit" class="saveButton">Modifica dati</button>
+                                <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica dati</button>
                             </form>
                                         
                             <form id="formUpdatePass" method="post" action="/updatePassword">
@@ -122,7 +121,7 @@
                                     <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password" >
                                         <span id="errConfirmPassword">Password errata </span>
                                 </div>
-                                <button class="btn2 btn-block" type="submit" class="saveButton">Modifica password</button>
+                                <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
                             </form>
                         </div>
                     </div>
@@ -130,18 +129,18 @@
         
         
                     <%if(session.utente.type == "academicTutor"){%>
-                    <hr>
-                    <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
-                    <div class="page-inner py-5" id="accademicView">
-                        <ul class="list-group" id="viewp">
-                            <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= JSON.stringify(session.utente.utente.Name) %> </li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= JSON.stringify(session.utente.utente.Surname)%></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= JSON.stringify(session.utente.utente.E_mail) %></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento: </strong></span>  <%= JSON.stringify(session.utente.utente.Department) %></ li>
+                    <div class="page-inner py-5" id="studentView" >
+                        <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
+                        <br>
+                        <div class="text-center" id="viewp">
+                            <ul>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1)%></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.E_mail).substring(1, JSON.stringify(session.utente.utente.E_mail).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Department).substring(1, JSON.stringify(session.utente.utente.Department).length-1) %></li>
                         </ul>
-                        <hr>
-                        <div class="updatedati">
+                        <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
+                        <div class="updatedati text-center">
                         
                             <form id="formUpdate" method="post" action="/updateProfile">
                                 <h4 class="mt-4">Modifica dati anagrafici</h4>
@@ -157,7 +156,7 @@
                                     <input type="text" id="inputDepartmentT" class="form-control" name="inputDepartmentT" placeholder="Dipartimento">
                                     <span id="errDepartmentT">Dipartimento non valido</span>
                                 </div>
-                                <button class="btn2 btn-block" type="submit" class="saveButton">Modifica dati</button>
+                                <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica dati</button>
                             </form>
                                 
                             <form id="formUpdatePass" method="post" action="/updatePassword">
@@ -174,7 +173,7 @@
                                 <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                                     <span id="errConfirmPassword">Password errata </span>
                             </div>
-                            <button class="btn2 btn-block" type="submit" class="saveButton">Modifica password</button>
+                            <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
                         </form>
                         </div>
                     </div>
@@ -183,8 +182,7 @@
         
                     <%if(session.utente.type == "admin"){%>
                     <div class="page-inner py-5" id="adminView">
-                        <hr>
-                        <div class="updatedatiAdmin">
+                        <div class="updatedati text-centerAdmin">
                             <form id="formUpdatePass" method="post" action="/updatePassword">
                                 <h4 class="mt-4">Modifica password</h4>
                                 <div class="form-label-groupA">
@@ -199,7 +197,7 @@
                                 <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
                                     <span id="errConfirmPassword">Password errata </span>
                             </div>
-                            <button class="btn2 btn-block" type="submit" class="saveButton">Modifica password</button>
+                            <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
                         </form>
                         </div>
                     </div>
@@ -207,3 +205,11 @@
         </div>
     </div>
 <%- include ('footer') %>
+<script>
+    function showEdit() {
+        if($(".updatedati").is(":hidden") )
+            $(".updatedati").css('display', 'flex');
+        else
+            $(".updatedati").css('display', 'none');
+    }
+</script>

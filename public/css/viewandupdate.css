@@ -1,8 +1,6 @@
 
                     #viewp{
-                        width: 450px;
-                        border-color: black;
-                        border-style: solid;
+                        width: 50%;
                         margin: 0 auto;
                     }
                     
@@ -36,7 +34,7 @@
                        
 
                         .updatedati{ 
-                           display: flex;
+                           display: none;
                         }
 
                         .updatedatiAdmin{
