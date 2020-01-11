@@ -282,7 +282,7 @@ describe('Integration Testing', function(){
                             })
                             .end(function(err, res){
                                 if(err) done(err)
-                                expect(res).status(200)
+                                expect(res).status(200) 
                                 done()
                             })
                         });
@@ -922,6 +922,144 @@ describe('Integration Testing', function(){
                 .end(function(err, res){
                     if(err) done(err)
                     expect(res).to.have.cookie('logoutEff')
+                    done()
+                })
+        })
+})
+
+it('Test for /signpup for Student', function(done){
+    agent
+        .post('/signup')
+        .redirects(0)
+        .send({radioAccount: 'studente', inputName: 'Mario', inputSurname: 'Cianino', inputEmail: 'm.ciano98@studenti.unisa.it', inputMatricola: '1111111111', inputPassword: 'MarcoCiano98', inputCity: 'Salerno', inputAddress: 'Via Appia, 16', inputCourse: 'Informatica', inputConfirmPassword: 'MarcoCiano98' })
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('regEff')
+            done()
+        })
+})
+
+it('Test for /signpup for Academic', function(done){
+    agent
+        .post('/signup')
+        .redirects(0)
+        .send({radioAccount:'tutorAccademico', inputNameT: 'Alessia', inputSurnameT: 'Amoroso', inputEmailT: 'a.ambruoso99@unisa.it', inputPassword: 'AlessioAmb98', inputDepartmentT: 'Informatica', inputConfirmPassword: 'AlessioAmb98' })
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('regEff')
+            done()
+        })
+})
+
+it('Test for /addHostOrg', function(done){
+    agent
+        .post('/login')
+        .send({username: "f.intrieri@unisa.it", password: "filip123"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).status(200)
+            agent
+                .get('/addHostOrg')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /addHostOrgF', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "f.intrieri@unisa.it", password: "filip123"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/addHostOrgF')
+                .send({inputErasmusCode:'peppo201', inputFacolta: 'ComputerScience' , inputAddress:'via firenze 41',inputSize:'110', inputCountry:'Germania', inputContacts:'0818933344', inputNameT:'SoftwareApple'})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.have.cookie('insertHEff')
+                    done()
+                })
+        })
+})
+
+it('Test for /addExtTutor', function(done){
+    agent
+        .post('/login')
+        .send({username: "f.intrieri@unisa.it", password: "filip123"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).status(200)
+            agent
+                .get('/addExtTutor')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /addExtTutorF', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "f.intrieri@unisa.it", password: "filip123"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/addExtTutorF')
+                .send({inputNameEx: 'Marco', inputSurnameEx: 'Esposito' , inputEmailEx:'peppe9@hotmail.it',inputOrganizationEx:'Tcc', inputPassword:'ciaociaociao1', inputRePassword:'ciaociaociao1'})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.have.cookie('insertEff')
+                    done()
+                })
+        })
+})
+
+it('Test for /deleteHostOrg', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "f.intrieri@unisa.it", password: "filip123"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/deleteHostOrg')
+                .send({erasmus:"sams9797"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
+                    done()
+                })
+        })
+})
+
+it('Test for /deleteExTutor', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "f.intrieri@unisa.it", password: "filip123"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/deleteExTutor')
+                .send({email:"a.lombardo@libero.it"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
                     done()
                 })
         })
