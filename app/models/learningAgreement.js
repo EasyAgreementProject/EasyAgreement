@@ -98,9 +98,9 @@ class LearningAgreement {
 
                             dbo.collection("LearningAgreement_revision").insertOne(result, function(err) {
                                 if (err) throw err;
-                                console.log("Learning Agreement revision inserted correctly!");
-                                fulfill();
+                                console.log("Learning Agreement revision inserted correctly!");                                
                             });
+                            fulfill();
                         })
                     } else if (result && learningAgreement.getState().startsWith("Inviato")) {
                         insert_data.file_data = Binary(learningAgreement.document);
