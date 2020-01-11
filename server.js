@@ -344,6 +344,7 @@ app.get('/getRequests', function(req, res){
   })
 })
 
+
 app.get('/getDetails', function (req, res) {
   res.send(req.session.data)
 })

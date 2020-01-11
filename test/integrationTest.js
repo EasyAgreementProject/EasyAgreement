@@ -17,7 +17,7 @@ var getCookies = function(request) {
 
 describe('Integration Testing', function(){
 
-    it('Test for /login', function(done){
+    it.only('Test for /login', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -29,7 +29,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it('Test for /index.html', function(done){
+    it.only('Test for /index.html', function(done){
         agent
             .post('/login')
             .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
@@ -38,6 +38,23 @@ describe('Integration Testing', function(){
                 expect(res).status(200)
                 agent
                     .get('/index.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    it.only('Test for /easyAgreement.html', function(done){
+        agent
+            .post('/login')
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                agent
+                    .get('/easyAgreement.html')
                     .end(function(err, res){
                         if(err) done(err)
                         expect(res).status(200)
@@ -83,7 +100,7 @@ describe('Integration Testing', function(){
     })
 
     //bisogna prima inserire altre versioni oppure fallisce logicamente
-    /*it('Test for /getAllVersions', function(done){
+    it('Test for /getAllVersions', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -99,10 +116,10 @@ describe('Integration Testing', function(){
                         done()
                     })
             })
-    })*/
+    })
 
     //bisogna prima generare la richiesta oppure fallisce logicamente
-    /*it('Test for /getAllRequestVersions', function(done){
+    it('Test for /getAllRequestVersions', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -118,7 +135,7 @@ describe('Integration Testing', function(){
                         done()
                     })
             })
-    })*/
+    })
 
     it('Test for /gestioneDocumenti.html', function(done){
         agent
@@ -139,7 +156,7 @@ describe('Integration Testing', function(){
     })
 
     //veronica volpicelli questi 3 non so da cosa dipendono prima, comunque bisogna eseguire prima le dipendenze
-    /*it('Test for /fillForm', function(done){
+it('Test for /fillForm', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -191,6 +208,6 @@ describe('Integration Testing', function(){
                         done()
                     })
             })
-    })*/
+    })
 
 })
