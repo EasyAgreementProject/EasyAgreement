@@ -354,10 +354,6 @@ app.get('/index.html', function (req, res) {
   res.render('index')
 })
 
-app.get('/easyAgreement.html', function (req, res) {
-  res.render('easyAgreement.ejs')
-})
-
 app.get('/header.html', function (req, res) {
   res.render('header.ejs')
 })
@@ -630,14 +626,6 @@ app.post('/fileviewCVRequest', function(req, res){
     else{
       res.redirect('/viewRequest.html');
     }
-  });
-});
-
-app.post('/getIDState', function(req, res){
-  var get=documentControl.getIDState(req.body.email);
-  get.then(function(result){
-    if(result)  res.json(true);
-    else  res.json(false);
   });
 });
 

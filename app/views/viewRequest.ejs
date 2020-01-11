@@ -108,7 +108,7 @@
 
                 $.post('/getConnectedUser', function(user) {
                     if(user.type === 'academicTutor') {
-                        if(data["status"].startsWith("Approvato dal Tutor Accademico")) {
+                        if(data["status"].startsWith("Approvato")) {
                             document.getElementById("approve1").style.display = "none";
                             document.getElementById("disapprove").style.display = "none";
                         }
