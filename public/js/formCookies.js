@@ -104,7 +104,7 @@ $(document).ready(function() {
     if (errEmail == "1") {
         $('#errEmail').css('display', 'block');
         $('#inputEmail').addClass("errClass");
-        document.cookie = "errEmailm=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie = "errEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
     if (errDepartmentSending == "1") {
         $('#errDepartmentSending').css('display', 'block');
