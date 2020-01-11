@@ -115,7 +115,7 @@ class LearningAgreement {
                                 fulfill();
                             });
                         })
-                    } else {
+                    } else if (!result) {
                         insert_data.file_data = Binary(learningAgreement.document);
                         learningAgreement.document = insert_data;
                         learningAgreement._id = new ObjectID();
@@ -126,7 +126,6 @@ class LearningAgreement {
                             fulfill();
                         });
                     }
-                    fulfill()
                 })
             });
         });
