@@ -68,12 +68,12 @@ class LearningAgreement {
                 var get = LearningAgreement.getLearningAgreement(learningAgreement.getStudentID());
                 get.then(function(result) {
                     console.log("Learning Agreeement per lo StudentID: " + learningAgreement.getStudentID() + " = " + result)
-                    if (result && (!result.document || learningAgreement.getState().startsWith("Salvato") || learningAgreement.getState().startsWith("In valutazione"))) {
+                    if (result && ((!result.document && learningAgreement.getState().startsWith("Salvato")) || (result.document &&learningAgreement.getState().startsWith("In valutazione")))) {
                         learningAgreement._id = new ObjectID();
                         learningAgreement.version = result.version;
                         var updateDataPr = LearningAgreement.updateData(learningAgreement.getStudentID(), learningAgreement.getFilling());
                         updateDataPr.then(function() {
-                            db.close();
+                            console.log("Learning Agreement saved correctly! (Other versions were found)");
                             fulfill();
                         })
                     }
@@ -81,13 +81,12 @@ class LearningAgreement {
                         learningAgreement._id = new ObjectID();
                         dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                             if (err) throw err;
-                            console.log("Learning Agreement inserted correctly! (No other versions were found)");
-                            db.close();
+                            console.log("Learning Agreement saved correctly! (No other versions were found)");
                             fulfill();
                         });
                     } else if (result && result.document && result.version) {
                         insert_data.file_data = Binary(learningAgreement.document);
-                        learningAgreement.document = insert_data
+                        learningAgreement.document = insert_data;
                         result._id = new ObjectID();
                         learningAgreement.version = result.version + 1;
                         var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
@@ -100,13 +99,12 @@ class LearningAgreement {
                             dbo.collection("LearningAgreement_revision").insertOne(result, function(err) {
                                 if (err) throw err;
                                 console.log("Learning Agreement revision inserted correctly!");
-                                db.close();
                                 fulfill();
                             });
                         })
-                    } else if (result && !result.version) {
+                    } else if (result && learningAgreement.getState().startsWith("Inviato")) {
                         insert_data.file_data = Binary(learningAgreement.document);
-                        learningAgreement.document = insert_data
+                        learningAgreement.document = insert_data;
                         result._id = new ObjectID();
                         learningAgreement.version = 1;
                         var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
@@ -114,22 +112,21 @@ class LearningAgreement {
                             dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                                 if (err) throw err;
                                 console.log("Learning Agreement inserted correctly! (Saved version was found)");
-                                db.close();
                                 fulfill();
                             });
                         })
                     } else {
                         insert_data.file_data = Binary(learningAgreement.document);
-                        learningAgreement.document = insert_data
+                        learningAgreement.document = insert_data;
                         learningAgreement._id = new ObjectID();
                         learningAgreement.version = 1;
                         dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                             if (err) throw err;
                             console.log("Learning Agreement inserted correctly! (No other versions were found)");
-                            db.close();
                             fulfill();
                         });
                     }
+                    fulfill()
                 })
             });
         });
