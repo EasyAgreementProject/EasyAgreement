@@ -764,17 +764,16 @@ app.post('/addHostOrgF', function(req, res) {
     administratorAddHost.then(function(result){
       if(result){
         res.cookie('insertHEff', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
       else{
-        res.cookie('errAlreadyRegH', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
     });
   }
   else{
     res.cookie('notPossibleForYou', '1')
-    res.render('index')
+    res.redirect('/index.html')
   }
 });
 
