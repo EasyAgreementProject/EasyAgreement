@@ -906,19 +906,32 @@ describe('Integration Testing', function(){
             })
     })
 
-
+    /*it.only('Test for /logout', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/logout')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('logoutEff')
+                        done()login
+    */
 
    it('Test for /logout', function(done){
     agent
         .post('/login')
         .redirects(0)
-        .send({username: "l.deamicis@studenti.unisa.it", password: "DeLorenzo1"})
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
         .end(function(err, res){
             if(err) done(err)
             expect(res).to.have.cookie('logEff')
             agent
                 .get('/logout')
-                .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
                     expect(res).to.have.cookie('logoutEff')
@@ -926,5 +939,170 @@ describe('Integration Testing', function(){
                 })
         })
 })
+
+it('Test for get /', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /compileLaExternalTutor.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/compileLAExternalTutor.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+
+it('Test for /compileLAAcademicTutor.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/compileLAAcademicTutor.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /viewRequest.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/viewRequest.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /request.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/request.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /signup.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/signup.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /header.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/header.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /sidebar.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/sidebar.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+it('Test for /footer.html', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .get('/footer.html')
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).status(200)
+                    done()
+                })
+        })
+})
+
+
 
 })
