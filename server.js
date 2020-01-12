@@ -19,6 +19,7 @@ var viewListControl = require('./app/controllers/viewListControl')
 var session = require('express-session')
 const multer = require('multer')
 var fs = require('fs')
+module.exports=app
 
 const io = require('socket.io')(3000)
 
@@ -257,7 +258,7 @@ app.get('/getVersions', function(req, res) {
   var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email);
   getVersionsPr.then(function(data) {
       if (data && req.query.inputVersion) {
-        console.log("Version id = "+req.query.number)
+        console.log("Version id = "+req.query.inputVersion)
         var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.utente.utente.Email);
         getVersionPr.then(function(la) {
           res.setHeader('Content-Type', 'application/pdf');
@@ -273,7 +274,7 @@ app.get('/getRequestVersions', function(req, res) {
   var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID);
   getVersionsPr.then(function(data) {
       if (data && req.query.inputVersion) {
-        console.log("Version id = "+req.query.number)
+        console.log("Version id = "+req.query.inputVersion)
         var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.data.studentID);
         getVersionPr.then(function(la) {
           res.setHeader('Content-Type', 'application/pdf');
@@ -285,42 +286,12 @@ app.get('/getRequestVersions', function(req, res) {
   })
 });
 
-app.get('/getLearningAgreement', function(req, res) {
-  var getVersionPr = learningAgreementControl.getVersion(null, req.session.data.studentID);
-  getVersionPr.then(function(la) {
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename = LA_V_'+req.query.inputVersion+'.pdf');        
-    console.log("Tornato da tutto "+la); 
-    la.pipe(res);
-  })   
-});
-
 app.get('/', function (req, res) {
   res.sendFile('/app/views/login.html', { root: __dirname })
 })
 
 app.get('/compileLAExternalTutor.html', function (req, res) {
   res.render("compileLAExternalTutor.ejs");
-});
-
-app.get('/addExternalTutor.html', function (req, res) {
-  res.sendFile("/app/views/admin/addExternalTutor.html",{root:__dirname});
-});
-
-app.get('/addHost.html', function (req, res) {
-  res.sendFile("/app/views/admin/addHost.html",{root:__dirname});
-});
-
-app.get('/infoHost.html', function (req, res) {
-  res.sendFile("/app/views/admin/infoHost.html",{root:__dirname});
-});
-
-app.get('/infoTutorExternal.html', function (req, res) {
-  res.sendFile("/app/views/admin/infoTutorExternal.html",{root:__dirname});
-});
-
-app.get('/viewExternalTutor&Host.html', function (req, res) {
-  res.sendFile("/app/views/admin/viewExternalTutor&Host.html",{root:__dirname});
 });
 
 app.get('/compileLAAcademicTutor.html', function (req, res) {
@@ -337,11 +308,11 @@ app.get('/request.html', function (req, res) {
 
 app.get('/getRequests', function(req, res){
   var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.E_mail); //req.session.utente.utente.Email
-  getRequestsPr.then(function(result){    
-    console.log(req.session.utente.utente.Email);
+  getRequestsPr.then(function(result){        
     res.send(result);
   })
 })
+
 
 app.get('/getDetails', function (req, res) {
   res.send(req.session.data)
@@ -361,10 +332,6 @@ app.get('/signup.html', function (req, res) {
 
 app.get('/index.html', function (req, res) {
   res.render('index')
-})
-
-app.get('/easyAgreement.html', function (req, res) {
-  res.render('easyAgreement.ejs')
 })
 
 app.get('/header.html', function (req, res) {
@@ -448,6 +415,7 @@ app.post('/login', function (request, response) {
   UserLogin.then(function (result) {
     if (result != false) {
       request.session.utente = result
+
       response.redirect('/index.html')
     } else {
       response.redirect('/')
@@ -641,14 +609,6 @@ app.post('/fileviewCVRequest', function(req, res){
   });
 });
 
-app.post('/getIDState', function(req, res){
-  var get=documentControl.getIDState(req.body.email);
-  get.then(function(result){
-    if(result)  res.json(true);
-    else  res.json(false);
-  });
-});
-
 app.post('/getConnectedUser', function (req, res) {
   res.json(req.session.utente)
 })
@@ -671,7 +631,7 @@ app.post('/saveMessage', function (req, res) {
   var save = messageControl.saveMessage(req.body.message, res)
   save.then(function (result) {
     res.json(result)
-  })
+  })  
 })
 
 app.post('/removeMessage', function (req, res) {
@@ -774,17 +734,16 @@ app.post('/addHostOrgF', function(req, res) {
     administratorAddHost.then(function(result){
       if(result){
         res.cookie('insertHEff', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
       else{
-        res.cookie('errAlreadyRegH', '1')
-        res.render('admin/insorg');
+        res.redirect('/addHostOrg')
       }
     });
   }
   else{
     res.cookie('notPossibleForYou', '1')
-    res.render('index')
+    res.redirect('/index.html')
   }
 });
 

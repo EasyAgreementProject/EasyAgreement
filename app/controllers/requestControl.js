@@ -1,11 +1,13 @@
 var Request = require('../models/request.js');
 var learningAgreementControl = require('./learningAgreementControl.js')
 var request = new Request();
+var ObjectID = require('mongodb').ObjectID;
 
 exports.generateRequest = function(student, academicTutor) {
     return new Promise(function(fulfill, reject) {
         request.setStudentID(student);
         request.setAcademicTutorID(academicTutor);
+        request._id = new ObjectID();
 
         var getRequestPr = Request.getRequest(student);
         getRequestPr.then(function(result) {

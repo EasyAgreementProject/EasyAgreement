@@ -34,12 +34,12 @@ exports.addHostOrg = function (req, res) {
         isRight = false
       }
   
-      if ((contact == null) || (contact.length <= 7) || (!/^[A-Za-z0-9,\s]+$/.test(contact))){
+      if ((contact == null) || (contact.length <= 7) || (!/(^[0-9]{9,10}$|[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9]){1,}?)/.test(contact))){
         res.cookie('errContatti', '1')
         isRight = false
       }
   
-      if ((country == null) || (country.length <= 1) || (!/^[A-Za-z0-9\s]+$/.test(country))) {
+      if ((country == null) || (country.length <= 1) || (!/^[A-Za-z0-9\s]+$/.test(country))){
         res.cookie('errCountryName', '1')
         isRight = false
       }
@@ -69,6 +69,7 @@ exports.addHostOrg = function (req, res) {
   
       checkE.then(function (result) {
         if (!result) {
+          res.cookie('errAlreadyRegH', '1')
           fulfill(false)
           return
         }
