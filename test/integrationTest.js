@@ -1343,7 +1343,7 @@ it('Test for /updatePassword for Academic Tutor', function(done){
         })
 })
 
-it.only('Test for /updatePassword for External Tutor', function(done){
+it('Test for /updatePassword for External Tutor', function(done){
     agent
         .post('/login')
         .redirects(0)
