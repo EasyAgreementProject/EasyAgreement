@@ -1289,10 +1289,11 @@ it('Test for /getConnectedUser', function(done){
 it('Test for /updatePassword for Student', function(done){
     agent
         .post('/login')
+        .redirects(0)
         .send({username: "f.vitolo@studenti.unisa.it", password: "VitoFerdi1"})
         .end(function(err, res){
             if(err) done(err)
-            expect(res).status(200)
+            expect(res).to.have.cookie('logEff')
             agent
                 .post('/updatePassword')
                 .send({inputOldPassword: 'VitoFerdi1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
@@ -1307,10 +1308,11 @@ it('Test for /updatePassword for Student', function(done){
 it('Test for /updatePassword for Admin', function(done){
     agent
         .post('/login')
+        .redirects(0)
         .send({username: "a.marino@unisa.it", password: "andrea123"})
         .end(function(err, res){
             if(err) done(err)
-            expect(res).status(200)
+            expect(res).to.have.cookie('logEff')
             agent
                 .post('/updatePassword')
                 .send({inputOldPassword: 'andrea123', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
@@ -1325,10 +1327,11 @@ it('Test for /updatePassword for Admin', function(done){
 it('Test for /updatePassword for Academic Tutor', function(done){
     agent
         .post('/login')
+        .redirects(0)
         .send({username: "s.risso@unisa.it", password: "RisSimone1"})
         .end(function(err, res){
             if(err) done(err)
-            expect(res).status(200)
+            expect(res).to.have.cookie('logEff')
             agent
                 .post('/updatePassword')
                 .send({inputOldPassword: 'RisSimone1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
@@ -1340,16 +1343,17 @@ it('Test for /updatePassword for Academic Tutor', function(done){
         })
 })
 
-it('Test for /updatePassword for External Tutor', function(done){
+it.only('Test for /updatePassword for External Tutor', function(done){
     agent
         .post('/login')
-        .send({username: "a.lombardo@libero.it", password: "alberto987"})
+        .redirects(0)
+        .send({username: "s.brignolo@gmail.com", password: "silvia345"})
         .end(function(err, res){
             if(err) done(err)
-            expect(res).status(200)
+            expect(res).to.have.cookie('logEff')
             agent
                 .post('/updatePassword')
-                .send({inputOldPassword: 'alberto987', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                .send({inputOldPassword: 'silvia345', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
                 .end(function(err, res){
                     if(err) done(err)
                     expect(res).to.have.cookie('updatePassEff')
