@@ -631,7 +631,7 @@ app.post('/saveMessage', function (req, res) {
   var save = messageControl.saveMessage(req.body.message, res)
   save.then(function (result) {
     res.json(result)
-  })
+  })  
 })
 
 app.post('/removeMessage', function (req, res) {

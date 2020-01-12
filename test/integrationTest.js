@@ -1461,6 +1461,98 @@ it('Test for /setReceivedNotification', function(done){
                 })
         })
 })
+/*
+it.only('Test for /getAllNotification', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/getAllNotification')
+                .send({email:"s.cotto@gmail.com"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
+                    
+                    done()
+                })
+        })
+})
+*/
+
+it('Test for /removeNotification', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/removeNotification')
+                .send({notificationID:"s.cotto@gmail.com"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
+                    
+                    done()
+                })
+        })
+})
+
+/*
+
+it('Test for /insertNotification', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/removeNotification')
+                .send({email:"s.cotto@gmail.com"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
+                    
+                    done()
+                })
+        })
+})
+*/
+
+/*crea la tabella Message ma non carica il text all'interno
+it.only('Test for /saveMessage', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/saveMessage')
+                .send({message:"ciao amici come va"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
+                    
+                    done()
+                })
+        })
+})
+*/
+
+
 
 
 })
