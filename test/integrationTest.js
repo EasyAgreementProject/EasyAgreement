@@ -1499,7 +1499,7 @@ describe('Integration Testing', function(){
     })
 
    
-    it.only('Test for /removeMessage', function(done){
+    it('Test for /removeMessage', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -1547,7 +1547,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it.only('Test for /updateMessage', function(done){
+    it('Test for /updateMessage', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -1575,6 +1575,26 @@ describe('Integration Testing', function(){
             })
     })
     
+    it('Test for /getMessages', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getMessages')
+                    .send({sender: 'd.devito@studenti.unisa.it', recipient: "s.cotto@gmail.com"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        console.log(res)
+                        expect(res).to.be.json                     
+                        done()
+                    })
+            })
+    })
     /*
 
     manca getMessages,searchUser,toViewList,getUserList,toviewInfo
