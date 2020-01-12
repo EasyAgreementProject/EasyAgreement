@@ -18,7 +18,7 @@
                 <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
                 <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
                 <hr><br><br>
-                <form id="formCompile" method="post" action="/compileExternalTutor"><br>
+                <div id="formCompile" method="post" action="/compileExternalTutor"><br>
                    <ul>
                        <li>
                            Il tirocinante riceverà un sostegno finanziario per il suo tirocinio:
@@ -105,8 +105,10 @@
                                     e firmando il certificato di tirocinio.</p>
                             </div>
                     <hr>
-                    <button class="btn2 btn-block" type="submit" class="saveButton">APPROVA</button>
-                    <button class="btn2 btn-block" type="submit" formaction="/saveExternalTutor" class="saveButton">SALVA</button>
+                    <div class="text-center">
+                        <button class="btn btn-secondary btn-round form-group" type="submit" formaction="/saveExternalTutor" class="saveButton">Salva</button>
+                        <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Approva</button>
+                    </div>
                 </form>                   
             </div>
         </div>

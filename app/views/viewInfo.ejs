@@ -14,58 +14,58 @@
             <div class="page-inner py-5">
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
-                        <h2 class="text-white pb-2 fw-bold">Visualizzazione informazioni Organizzazione ospitante</h2>
+                        <h2 class="text-white pb-2 fw-bold">Visualizzazione informazioni</h2>
+                        <%if(type == "externalTutor") {%>
+                        <h5 class="text-white op-7 mb-2">Tutor Esterni</h5>
+                        <%} if(type == "host"){%>
+                        <h5 class="text-white op-7 mb-2">Organizzazioni Ospitanti</h5>
+                        <%} if(type == "academicTutor"){%>
+                        <h5 class="text-white op-7 mb-2">Tutor Accademici</h5>
+                        <%}%>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="page-inner py-5">
-            <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
-            <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
-            <hr>
-            <h5 style="text-align: justify; font-style: italic; color: darkblue;">Informazioni profile</h5>
+        <div class="page-inner py-5" id="studentView">     
+            <h1 class="mt-8">Riepilogo Dati</h1>             
                      <div class="form-label-group">
-
                         <%if(type == "externalTutor"){%>
-                        <div class="container-fluid" id="studentView" >
+                        <div class="text-center" id="viewp">
                             <div class="viewdati">
-                                <ul class="list-group" id="viewp">
-                                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%=user.Name%> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%=user.Surname%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span> <%=user.E_mail%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione: </strong></span> <%=user.Organization%></li>
+                                <ul>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome:&nbsp;</strong></span> <%=user.Name%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome:&nbsp;</strong></span> <%=user.Surname%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email:&nbsp;</strong></span> <%=user.E_mail%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Organizzazione:&nbsp;</strong></span> <%=user.Organization%></li>
                                 </ul>
                             </div>  
                          </div>
 
                         <%}
                          else if(type == "host"){%>
-                         <div class="container-fluid" id="studentView" >
+                         <div class="text-center" id="viewp">
                             <div class="viewdati">
-                                <ul class="list-group" id="viewp">
-                                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">ErasmusCode: </strong></span> <%=user.ErasmusCode%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Faculty: </strong></span> <%=user.Faculty%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Address: </strong></span> <%=user.Address%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Size: </strong></span> <%=user.Size%> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Country: </strong></span> <%=user.Country%> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Contacts: </strong></span> <%=user.Contacts%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Name: </strong></span> <%=user.Name%></li>
+                                <ul>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">ErasmusCode:&nbsp;</strong></span> <%=user.ErasmusCode%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Faculty:&nbsp;</strong></span> <%=user.Faculty%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Address:&nbsp;</strong></span> <%=user.Address%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Size:&nbsp;</strong></span> <%=user.Size%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Country:&nbsp;</strong></span> <%=user.Country%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Contacts:&nbsp;</strong></span> <%=user.Contacts%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Name:&nbsp;</strong></span> <%=user.Name%></li>
 
                                 </ul>
                             </div>
                          </div>
                          <%}
                         else if(type == "academicTutor"){%>
-                         <div class="container-fluid" id="studentView" >
+                            <div class="text-center" id="viewp">
                             <div class="viewdati">
-                                <ul class="list-group" id="viewp">
-                                    <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome: </strong></span> <%= user.Name%> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome: </strong></span> <%= user.Surname%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email: </strong></span><%= user.E_mail%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento: </strong></span>  <%= user.Department%></li>
+                                <ul>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome:&nbsp;</strong></span> <%= user.Name%> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome:&nbsp;</strong></span> <%= user.Surname%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email:&nbsp;</strong></span><%= user.E_mail%></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">Dipartimento:&nbsp;</strong></span>  <%= user.Department%></li>
                                 </ul>
                             </div>
                          </div>
@@ -73,7 +73,8 @@
                      </div>
                 </div>
             </div>
-                
+        </div>
+<%- include ('footer') %>
            <!--         
             <script>
 
@@ -94,7 +95,7 @@
             </script>
             -->
                         
-                        <%- include ('footer') %>
+                        
                         
                 
 

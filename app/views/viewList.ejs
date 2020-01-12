@@ -7,15 +7,14 @@
 <link rel="stylesheet" href="/css/atlantis.min.css">
 <link rel="stylesheet" href="/css/list.css">
 
-
-           
 <div class="main-panel">
     <div class="content">
         <div class="panel-header bg-primary-gradient">
             <div class="page-inner py-5">
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
-                        <h2 class="text-white pb-2 fw-bold">Visualizzazione Lista Organizzazioni ospitanti/Tutor Esterni/Tutor Accademici</h2>
+                        <h2 class="text-white pb-2 fw-bold">Visualizzazione Liste</h2>
+                        <h5 class="text-white op-7 mb-2">Seleziona il tipo di utente da visualizzare</h5>
                     </div>
                 </div>
             </div>
@@ -73,11 +72,11 @@
 				        '<h3>'+academic.Name+' '+academic.Surname+'</h3>',
 					    '<h4 class="toPass">'+academic.E_mail+'</h4>',
                         '<form method="POST" action="/toViewInfo?type=academicTutor&id='+academic.E_mail+'">',
-                            '<button class="btn2 btn-block" class="infoUserButton" type="submit">Visualizza info</button>',
+                            '<button class="btn btn-secondary btn-round form-group" class="infoUserButton" type="submit">Visualizza info</button>',
                         '</form>',
 			        '</div>',
 		        '</div>',
-	    '</div>'].join('\n'))
+        '</div>'].join('\n'))
 
     }
 
@@ -89,10 +88,10 @@
 				        '<h3>'+host.Name+'</h3>',
 					    '<h4 class="toPass">'+host.ErasmusCode+'</h4>',
                         '<form method="POST" action="/toViewInfo?type=host&id='+host.ErasmusCode+'">',
-                            '<button class="btn2 btn-block" class="infoUserButton" type="submit">Visualizza info</button>',
+                            '<button class="btn btn-secondary btn-round form-group" class="infoUserButton" type="submit">Visualizza info</button>',
                         '</form>',
                         '<%if(session.utente.type == "admin"){%>',
-                        '<button class="btn2 btn-block" class="deleteUserButton" id="delUser" onclick="clickDelete(this)">Elimina utente</button>',
+                        '<button class="btn btn-secondary btn-round form-group" class="deleteUserButton" id="delUser" onclick="clickDelete(this)">Elimina utente</button>',
                         '<%}%>',
 			        '</div>',
 		        '</div>',
@@ -107,10 +106,10 @@
 			        '<h3>'+external.Name+' '+external.Surname+'</h3>',
                     '<h4 class="toPass">'+external.E_mail+'</h4>',
                     '<form method="POST" action="/toViewInfo?type=externalTutor&id='+external.E_mail+'">',
-                        '<button class="btn2 btn-block" class="infoUserButton" type="submit">Visualizza info</button>',
+                        '<button class="btn btn-secondary btn-round form-group" class="infoUserButton" type="submit">Visualizza info</button>',
                     '</form>',
                     '<%if(session.utente.type == "admin"){%>',
-                        '<button class="btn2 btn-block" class="deleteUserButton" id="delUser" onclick="clickDelete(this)">Elimina utente</button>',
+                        '<button class="btn btn-secondary btn-round form-group" class="deleteUserButton" id="delUser" onclick="clickDelete(this)">Elimina utente</button>',
                     '<%}%>',
 		        '</div>',
             '</div>'].join('\n'))
