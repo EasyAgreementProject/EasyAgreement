@@ -1449,7 +1449,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it.only('Test for /getAllNotifications', function(done){
+    it('Test for /getAllNotifications', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -1470,7 +1470,7 @@ describe('Integration Testing', function(){
     })
     
 
-    it.only('Test for /removeNotification', function(done){
+    it('Test for /removeNotification', function(done){
         agent
             .post('/login')
             .redirects(0)
