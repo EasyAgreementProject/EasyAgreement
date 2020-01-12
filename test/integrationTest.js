@@ -1516,8 +1516,8 @@ it('Test for /insertNotification', function(done){
 })
 */
 
-/*crea la tabella Message ma non carica il text all'interno
-it.only('Test for /saveMessage', function(done){
+//crea la tabella Message ma non carica il text all'interno
+it('Test for /saveMessage', function(done){
     agent
         .post('/login')
         .redirects(0)
@@ -1527,7 +1527,7 @@ it.only('Test for /saveMessage', function(done){
             expect(res).to.have.cookie('logEff')
             agent
                 .post('/saveMessage')
-                .send({message:"ciao amici come va"})
+                .send({message: {recipientID: 'd.devito@studenti.unisa.it', senderID: 'g.musso@unisa.it', text: 'fratmmoo', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' }}})
                 .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
@@ -1537,6 +1537,7 @@ it.only('Test for /saveMessage', function(done){
                 })
         })
 })
+/*
 dopo save message,si implemente remove e update Message
 
 manca getMessages,searchUser,toViewList,getUserList,toviewInfo
