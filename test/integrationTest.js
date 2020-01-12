@@ -847,7 +847,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    /*it.only('Test for /logout', function(done){
+    /*it('Test for /logout', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -999,7 +999,7 @@ it('Test for /addExtTutorF', function(done){
         })
 })
 
-it.only('Test for /deleteHostOrg', function(done){
+it('Test for /deleteHostOrg', function(done){
     agent
         .post('/login')
         .redirects(0)
