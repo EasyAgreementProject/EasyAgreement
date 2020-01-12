@@ -847,21 +847,6 @@ describe('Integration Testing', function(){
             })
     })
 
-    /*it('Test for /logout', function(done){
-        agent
-            .post('/login')
-            .redirects(0)
-            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-            .end(function(err, res){
-                if(err) done(err)
-                expect(res).to.have.cookie('logEff')
-                agent
-                    .get('/logout')
-                    .end(function(err, res){
-                        if(err) done(err)
-                        expect(res).to.have.cookie('logoutEff')
-                        done()login
-    */
 
    it('Test for /logout', function(done){
     agent
@@ -879,668 +864,665 @@ describe('Integration Testing', function(){
                     expect(res).to.have.cookie('logoutEff')
                     done()
                 })
-        })
-})
+            })
+    })
 
-it('Test for /signup for Student', function(done){
-    agent
-        .post('/signup')
-        .redirects(0)
-        .send({radioAccount: 'studente', inputName: 'Mario', inputSurname: 'Cianino', inputEmail: 'm.ciano98@studenti.unisa.it', inputMatricola: '1111111111', inputPassword: 'MarcoCiano98', inputCity: 'Salerno', inputAddress: 'Via Appia, 16', inputCourse: 'Informatica', inputConfirmPassword: 'MarcoCiano98' })
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('regEff')
-            done()
+    it('Test for /signup for Student', function(done){
+        agent
+            .post('/signup')
+            .redirects(0)
+            .send({radioAccount: 'studente', inputName: 'Mario', inputSurname: 'Cianino', inputEmail: 'm.ciano98@studenti.unisa.it', inputMatricola: '1111111111', inputPassword: 'MarcoCiano98', inputCity: 'Salerno', inputAddress: 'Via Appia, 16', inputCourse: 'Informatica', inputConfirmPassword: 'MarcoCiano98' })
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('regEff')
+                done()
+            })
+
         })
 
+
+    it('Test for get /', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /signpup for Academic', function(done){
+        agent
+            .post('/signup')
+            .redirects(0)
+            .send({radioAccount:'tutorAccademico', inputNameT: 'Alessia', inputSurnameT: 'Amoroso', inputEmailT: 'a.ambruoso99@unisa.it', inputPassword: 'AlessioAmb98', inputDepartmentT: 'Informatica', inputConfirmPassword: 'AlessioAmb98' })
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('regEff')
+                done()
+            })
+    })
+
+    it('Test for /addHostOrg', function(done){
+        agent
+            .post('/login')
+            .send({username: "f.intrieri@unisa.it", password: "filip123"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                agent
+                    .get('/addHostOrg')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /addHostOrgF', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.intrieri@unisa.it", password: "filip123"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/addHostOrgF')
+                    .send({inputErasmusCode:'peppo201', inputFacolta: 'ComputerScience' , inputAddress:'via firenze 41',inputSize:'110', inputCountry:'Germania', inputContacts:'0818933344', inputNameT:'SoftwareApple'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('insertHEff')
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /addExtTutor', function(done){
+        agent
+            .post('/login')
+            .send({username: "f.intrieri@unisa.it", password: "filip123"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                agent
+                    .get('/addExtTutor')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /addExtTutorF', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.intrieri@unisa.it", password: "filip123"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/addExtTutorF')
+                    .send({inputNameEx: 'Marco', inputSurnameEx: 'Esposito' , inputEmailEx:'peppe9@hotmail.it',inputOrganizationEx:'Tcc', inputPassword:'ciaociaociao1', inputRePassword:'ciaociaociao1'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('insertEff')
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /deleteHostOrg', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.intrieri@unisa.it", password: "filip123"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/deleteHostOrg')
+                    .send({erasmus:"sams9797"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        
+                        expect(res).to.deep.include({"text" : "true"})
+                        
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /deleteExTutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.intrieri@unisa.it", password: "filip123"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/deleteExTutor')
+                    .send({email:"a.lombardo@libero.it"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.deep.include({"text" : "true"})
+                        done()
+                    })
+            })
     })
 
 
-it('Test for get /', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
 
-it('Test for /signpup for Academic', function(done){
-    agent
-        .post('/signup')
-        .redirects(0)
-        .send({radioAccount:'tutorAccademico', inputNameT: 'Alessia', inputSurnameT: 'Amoroso', inputEmailT: 'a.ambruoso99@unisa.it', inputPassword: 'AlessioAmb98', inputDepartmentT: 'Informatica', inputConfirmPassword: 'AlessioAmb98' })
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('regEff')
-            done()
-        })
-})
+    it('Test for /compileLaExternalTutor.html', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/compileLAExternalTutor.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
 
-it('Test for /addHostOrg', function(done){
-    agent
-        .post('/login')
-        .send({username: "f.intrieri@unisa.it", password: "filip123"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).status(200)
-            agent
-                .get('/addHostOrg')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
 
-it('Test for /addHostOrgF', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "f.intrieri@unisa.it", password: "filip123"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/addHostOrgF')
-                .send({inputErasmusCode:'peppo201', inputFacolta: 'ComputerScience' , inputAddress:'via firenze 41',inputSize:'110', inputCountry:'Germania', inputContacts:'0818933344', inputNameT:'SoftwareApple'})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('insertHEff')
-                    done()
-                })
-        })
-})
+    it('Test for /compileLAAcademicTutor.html', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/compileLAAcademicTutor.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
 
-it('Test for /addExtTutor', function(done){
-    agent
-        .post('/login')
-        .send({username: "f.intrieri@unisa.it", password: "filip123"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).status(200)
-            agent
-                .get('/addExtTutor')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
+    it('Test for /viewRequest.html', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/viewRequest.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
 
-it('Test for /addExtTutorF', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "f.intrieri@unisa.it", password: "filip123"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/addExtTutorF')
-                .send({inputNameEx: 'Marco', inputSurnameEx: 'Esposito' , inputEmailEx:'peppe9@hotmail.it',inputOrganizationEx:'Tcc', inputPassword:'ciaociaociao1', inputRePassword:'ciaociaociao1'})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('insertEff')
-                    done()
-                })
-        })
-})
+    it('Test for /request.html', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/request.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
 
-it('Test for /deleteHostOrg', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "f.intrieri@unisa.it", password: "filip123"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/deleteHostOrg')
-                .send({erasmus:"sams9797"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
+    it('Test for /signup.html', function(done){
+        agent
+            .get('/signup.html')
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).status(200)
+                done()
+            })
+    })
+
+    it('Test for /header.html', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/header.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /sidebar.html', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/sidebar.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /footer.html', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/footer.html')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).status(200)
+                        done()
+                    })
+            })
+    })
+
+
+    it('Test for /getCVState', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getCVState')
+                    .redirects(0)
+                    .send({email: "d.devito@studenti.unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.deep.include({"text" : "true"})
+                        done()
+                    })
+            })
+    })
+
+
+    it('Test for /getIDState', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getIDState')
+                    .send({email: "d.devito@studenti.unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.deep.include({"text" : "true"})
+                        done()
+                    })
+            })
+    })
+
+
+    it('Test for /deleteCV', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/deleteCV')
+                    .redirects(0)                
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('DeletedCV')
+                        done()
+                    })
+            })
+    })
+
+
+    it('Test for /deleteID', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/deleteID')
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('DeletedID')
+                        done()
+                    })
                     
-                    expect(res).to.deep.include({"text" : "true"})
-                    
-                    done()
-                })
-        })
-})
+            })
+    })
 
-it('Test for /deleteExTutor', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "f.intrieri@unisa.it", password: "filip123"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/deleteExTutor')
-                .send({email:"a.lombardo@libero.it"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.deep.include({"text" : "true"})
-                    done()
-                })
-        })
-})
+    it('Test for /getConnectedUser', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getConnectedUser')
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json
+                        done()
+                    })
+            })
+    })
 
 
+    it('Test for /updatePassword for Student', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "f.vitolo@studenti.unisa.it", password: "VitoFerdi1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/updatePassword')
+                    .send({inputOldPassword: 'VitoFerdi1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('updatePassEff')
+                        done()
+                    })
+            })
+    })
 
-it('Test for /compileLaExternalTutor.html', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/compileLAExternalTutor.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
+    it('Test for /updatePassword for Admin', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "a.marino@unisa.it", password: "andrea123"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/updatePassword')
+                    .send({inputOldPassword: 'andrea123', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('updatePassEff')
+                        done()
+                    })
+            })
+    })
 
+    it('Test for /updatePassword for Academic Tutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.risso@unisa.it", password: "RisSimone1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/updatePassword')
+                    .send({inputOldPassword: 'RisSimone1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('updatePassEff')
+                        done()
+                    })
+            })
+    })
 
-it('Test for /compileLAAcademicTutor.html', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/compileLAAcademicTutor.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
+    it('Test for /updatePassword for External Tutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.brignolo@gmail.com", password: "silvia345"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/updatePassword')
+                    .send({inputOldPassword: 'silvia345', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.cookie('updatePassEff')
+                        done()
+                    })
+            })
+    })
 
-it('Test for /viewRequest.html', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/viewRequest.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
+    it('Test for /getReceivedMessage', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getReceivedMessage')
+                    .send({sender:"d.devito@studenti.unisa.it"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        
+                        expect(res).to.be.json
+                        
+                        done()
+                    })
+            })
+    })
 
-it('Test for /request.html', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/request.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
-
-it('Test for /signup.html', function(done){
-    agent
-        .get('/signup.html')
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).status(200)
-            done()
-        })
-})
-
-it('Test for /header.html', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/header.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
-
-it('Test for /sidebar.html', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/sidebar.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
-
-it('Test for /footer.html', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/footer.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
-        })
-})
+    it('Test for /setReceivedMessage', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/setReceivedMessage')
+                    .send({sender:"d.devito@studenti.unisa.it", receiver:"s.cotto@gmail.com"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json
+                        
+                        done()
+                    })
+            })
+    })
 
 
+    it('Test for /getReceivedNotification', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getReceivedNotification')
+                    .send({sender:"d.devito@studenti.unisa.it"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        
+                        expect(res).to.deep.include({"text" : "true"})
+                        
+                        done()
+                    })
+            })
+    })
 
+    it('Test for /setReceivedNotification', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/setReceivedNotification')
+                    .send({sender:"d.devito@studenti.unisa.it"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json
+                        
+                        done()
+                    })
+            })
+    })
 
+    it.only('Test for /insertNotification', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/insertNotification')
+                    .send({notifica : { associatedID: 's.cotto@gmail.com', text: { title: 'test', text: 'Questo è il testing' }, date: { hour: '12', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json
+                        done()
+                    })
+            })
+    })
 
-it('Test for /getCVState', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/getCVState')
-                .redirects(0)
-                .send({email: "d.devito@studenti.unisa.it"})
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.deep.include({"text" : "true"})
-                    done()
-                })
-        })
-})
+    it.only('Test for /getAllNotification', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getAllNotification')
+                    .send({email: "s.cotto@gmail.com"})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                        
+                        done()
+                    })
+            })
+    })
 
+    it.only('Test for /removeNotification', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/insertNotification')
+                    .send({notifica : { associatedID: 's.cotto@gmail.com', text: { title: 'test', text: 'Questo è il testing' }, date: { hour: '12', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                    
+                        agent
+                            .post('/removeNotification')
+                            .send({notificationID: res.notification._id})
+                            .redirects(0)
+                            .end(function(err, res){
+                                if(err) done(err)
+                                expect(res).to.be.json                        
+                                done()
+                            })
+                    })
+            })
+    })
 
-it('Test for /getIDState', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/getIDState')
-                .send({email: "d.devito@studenti.unisa.it"})
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.deep.include({"text" : "true"})
-                    done()
-                })
-        })
-})
+   
+    it.only('Test for /saveMessage', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/saveMessage')
+                    .send({ message : { senderID: 'd.devito@studenti.unisa.it', recipientID: 's.cotto@gmail.com', text: 'sormaaa', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } } })
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                        
+                        done()
+                    })
+            })
+    })/*
+    dopo save message,si implemente remove e update Message
 
-
-it('Test for /deleteCV', function(done){ //va fixato
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/deleteCV')
-                .redirects(0)                
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('DeletedCV')
-                    done()
-                })
-        })
-})
-
-
-it('Test for /deleteID', function(done){ //va fixato
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/deleteID')
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('DeletedID')
-                    done()
-                })
-                
-        })
-})
-
-it('Test for /getConnectedUser', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: 'd.devito@studenti.unisa.it', password: "DannyDeVito1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/getConnectedUser')
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.be.json
-                    done()
-                })
-        })
-})
-
-
-it('Test for /updatePassword for Student', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "f.vitolo@studenti.unisa.it", password: "VitoFerdi1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/updatePassword')
-                .send({inputOldPassword: 'VitoFerdi1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('updatePassEff')
-                    done()
-                })
-        })
-})
-
-it('Test for /updatePassword for Admin', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "a.marino@unisa.it", password: "andrea123"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/updatePassword')
-                .send({inputOldPassword: 'andrea123', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('updatePassEff')
-                    done()
-                })
-        })
-})
-
-it('Test for /updatePassword for Academic Tutor', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.risso@unisa.it", password: "RisSimone1"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/updatePassword')
-                .send({inputOldPassword: 'RisSimone1', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('updatePassEff')
-                    done()
-                })
-        })
-})
-
-it('Test for /updatePassword for External Tutor', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.brignolo@gmail.com", password: "silvia345"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/updatePassword')
-                .send({inputOldPassword: 'silvia345', inputPassword: 'marco1997', inputConfirmPassword: 'marco1997'})
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.have.cookie('updatePassEff')
-                    done()
-                })
-        })
-})
-
-it('Test for /getReceivedMessage', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/getReceivedMessage')
-                .send({sender:"d.devito@studenti.unisa.it"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    
-                    expect(res).to.be.json
-                    
-                    done()
-                })
-        })
-})
-
-it('Test for /setReceivedMessage', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/setReceivedMessage')
-                .send({sender:"d.devito@studenti.unisa.it", receiver:"s.cotto@gmail.com", value: false})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.be.json
-                    
-                    done()
-                })
-        })
-})
-
-
-it('Test for /getReceivedNotification', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/getReceivedNotification')
-                .send({sender:"d.devito@studenti.unisa.it"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    
-                    expect(res).to.deep.include({"text" : "true"})
-                    
-                    done()
-                })
-        })
-})
-
-it('Test for /setReceivedNotification', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/setReceivedNotification')
-                .send({sender:"d.devito@studenti.unisa.it", value: false})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.be.json
-                    
-                    done()
-                })
-        })
-})
-/*
-it.only('Test for /getAllNotification', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/getAllNotification')
-                .send({email:"s.cotto@gmail.com"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.be.json
-                    
-                    done()
-                })
-        })
-})
-*/
-/*
-it('Test for /removeNotification', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/removeNotification')
-                .send({notificationID:"s.cotto@gmail.com"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.be.json
-                    
-                    done()
-                })
-        })
-})
-*/
-/*
-
-it('Test for /insertNotification', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/removeNotification')
-                .send({email:"s.cotto@gmail.com"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.be.json
-                    
-                    done()
-                })
-        })
-})
-*/
-
-/*crea la tabella Message ma non carica il text all'interno
-it.only('Test for /saveMessage', function(done){
-    agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "s.cotto@gmail.com", password: "sara1234"})
-        .end(function(err, res){
-            if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .post('/saveMessage')
-                .send({message:"ciao amici come va"})
-                .redirects(0)
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).to.be.json
-                    
-                    done()
-                })
-        })
-})
-dopo save message,si implemente remove e update Message
-
-manca getMessages,searchUser,toViewList,getUserList,toviewInfo
-*/
+    manca getMessages,searchUser,toViewList,getUserList,toviewInfo
+    */
 
 
 
