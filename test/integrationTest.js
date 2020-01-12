@@ -1470,7 +1470,7 @@ it.only('Test for /getAllNotification', function(done){
         })
 })
 */
-
+/*
 it('Test for /removeNotification', function(done){
     agent
         .post('/login')
@@ -1491,7 +1491,7 @@ it('Test for /removeNotification', function(done){
                 })
         })
 })
-
+*/
 /*
 
 it('Test for /insertNotification', function(done){
@@ -1537,7 +1537,11 @@ it.only('Test for /saveMessage', function(done){
                 })
         })
 })
+dopo save message,si implemente remove e update Message
+
+manca getMessages,searchUser,toViewList,getUserList,toviewInfo
 */
+
 
 
 
