@@ -863,7 +863,7 @@ describe('Integration Testing', function(){
                         done()login
     */
 
-   it('Test for /logout', function(done){
+   it.only('Test for /logout', function(done){
     agent
         .post('/login')
         .redirects(0)
@@ -873,6 +873,7 @@ describe('Integration Testing', function(){
             expect(res).to.have.cookie('logEff')
             agent
                 .get('/logout')
+                .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
                     expect(res).to.have.cookie('logoutEff')
