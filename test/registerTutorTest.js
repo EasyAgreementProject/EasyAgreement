@@ -6,7 +6,7 @@ var tutorControl = require('../app/controllers/tutorControl')
 describe('Field test for tutorControl', function () {
     it('Testin method tutorControl - TC_TM_1.1', function (done) {
       var res = mockHttp.createResponse()
-      var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'a@b.i', inputOrganizationEx:'', inputPassword:'', inputRePassword:'', } }
+      var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'a@b.i', inputOrganizationEx:'', inputPassword:'', inputRePassword:'' } }
       var tutor = tutorControl.addExtTutor(req, res)
       tutor.then(function (result) {
         expect(result).to.not.be.null
@@ -17,7 +17,7 @@ describe('Field test for tutorControl', function () {
 describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.2', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'rossiMario@email.fasulla',inputOrganizationEx:'', inputPassword:'', inputRePassword:'', } }
+          var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'rossiMario@email.fasulla',inputOrganizationEx:'', inputPassword:'', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -31,7 +31,7 @@ describe('Field test for tutorControl', function () {
 describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.3', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'cia', inputRePassword:'', } }
+          var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'cia', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -43,7 +43,7 @@ describe('Field test for tutorControl', function () {
 describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.4', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'cia%%%', inputRePassword:'', } }
+          var req = { body: { inputNameEx: '', inputSurnameEx: '' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'cia%%%', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -55,7 +55,7 @@ describe('Field test for tutorControl', function () {
 describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.5', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: '', inputSurnameEx: 'a' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'', } }
+          var req = { body: { inputNameEx: '', inputSurnameEx: 'a' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -67,7 +67,7 @@ describe('Field test for tutorControl', function () {
 describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.6', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: '', inputSurnameEx: 'ros1' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'', } }
+          var req = { body: { inputNameEx: '', inputSurnameEx: 'ros1' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -79,7 +79,7 @@ describe('Field test for tutorControl', function () {
 describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.7', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: 'M', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'', } }
+          var req = { body: { inputNameEx: 'M', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -91,7 +91,7 @@ describe('Field test for tutorControl', function () {
 describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.8', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: 'Mario122', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'', } }
+          var req = { body: { inputNameEx: 'Mario122', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'', inputPassword:'ciaociaociao1', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -103,7 +103,7 @@ describe('Field test for tutorControl', function () {
     describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.9', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'T', inputPassword:'ciaociaociao1', inputRePassword:'', } }
+          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'T', inputPassword:'ciaociaociao1', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -116,7 +116,7 @@ describe('Field test for tutorControl', function () {
     describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - TC_TM_1.10', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'T%%%', inputPassword:'ciaociaociao1', inputRePassword:'', } }
+          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'rossimario@gmail.com',inputOrganizationEx:'T%%%', inputPassword:'ciaociaociao1', inputRePassword:'' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -128,7 +128,7 @@ describe('Field test for tutorControl', function () {
     describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - already reg', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'s.cotto@gmail.com',inputOrganizationEx:'Tvc', inputPassword:'ciaociaociao1', inputRePassword:'ciaociaociao1', } }
+          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'s.cotto@gmail.com',inputOrganizationEx:'Tvc', inputPassword:'ciaociaociao1', inputRePassword:'ciaociaociao1' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null
@@ -139,7 +139,7 @@ describe('Field test for tutorControl', function () {
     describe('Field test for tutorControl', function () {
         it('Testin method tutorControl - reg', function (done) {
           var res = mockHttp.createResponse()
-          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'peppino9@outlook.com',inputOrganizationEx:'Tvc', inputPassword:'ciaociaociao1', inputRePassword:'ciaociaociao1', } }
+          var req = { body: { inputNameEx: 'Mario', inputSurnameEx: 'Rossi' , inputEmailEx:'peppino9@outlook.com',inputOrganizationEx:'Tvc', inputPassword:'ciaociaociao1', inputRePassword:'ciaociaociao1' } }
           var tutor = tutorControl.addExtTutor(req, res)
           tutor.then(function (result) {
             expect(result).to.not.be.null

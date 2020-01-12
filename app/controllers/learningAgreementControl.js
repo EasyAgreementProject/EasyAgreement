@@ -932,7 +932,7 @@ exports.validateDataStudent = function(data, res) {
             console.log("phone wrong!");
             fulfill(false);
         }
-        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1} *$/.test(data["E-mail"]))) {
+        if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{0,}@{1}(studenti.unisa.it){1} *$/.test(data["E-mail"]))) {
             if(res) res.cookie("errEmail", "1");
             console.log("email student wrong!");
             fulfill(false);
@@ -1134,19 +1134,19 @@ exports.validateDataExternalTutor = function(data, res) {
             fulfill(false); 
         }
 
-        if ((!data["financial support Yes"] && !data["financial support No"]) || (!data["The trainee will receive a contribution in kind for his/her traineeship Yes"] && !data["The trainee will receive a contribution in kind for his/her traineeship No"]) || !(data["Is the trainee covered by the accident insurance Yes"] && !data["Is the trainee covered by the accident insurance No"])) {
+        if ((!data["financial support Yes"] && !data["financial support No"]) || (!data["The trainee will receive a contribution in kind for his/her traineeship Yes"] && !data["The trainee will receive a contribution in kind for his/her traineeship No"]) || (!data["Is the trainee covered by the accident insurance Yes"] && !data["Is the trainee covered by the accident insurance No"])) {
             if(res) res.cookie("errMissingFields", "1");
             console.log("Missing fields!");
             fulfill(false); 
         }
 
-        if (!(/^\d*(,\d+)?€? *$/.test(data["if financial support Yes"]))) {
+        if (data["financial support Yes"] == "X" && !(/^\d*(,\d+)?€? *$/.test(data["if financial support Yes"]))) {
             if(res) res.cookie("errFinancialSupport", "1");
             console.log("Financial support wrong!");
             fulfill(false); 
         }
 
-        if (!(/^[\wà-ù\.,"' ]* *$/.test(data["If yes, please specify"]))) {
+        if (data["The trainee will receive a contribution in kind for his/her traineeship Yes"] == "X" && !(/^[\wà-ù\.,"' ]* *$/.test(data["If yes, please specify"]))) {
             if(res) res.cookie("errContribution", "1");
             console.log("Contribution wrong!");
             fulfill(false); 

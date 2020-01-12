@@ -158,19 +158,20 @@ body {
         margin-left: 0.75rem;
     }
     
-.btn2 {
-    font-size: 80%;
+.btn2, .btn3 {
     border-radius: 5rem;
-    letter-spacing: .1rem;
-    font-weight: bold;
     padding: 1rem;
-    transition: all 0.2s;
     background-color:orange;
     border:orange;
-    margin-left: 25%;
-    max-width: 50%;
+    margin-left: 35%;
+    max-width: 30%;
     margin-bottom: 20px;
   }
+  .btn3 {
+    margin-left: 5% !important;
+
+  }
+  
   div.button{
       margin-top: 20%;
       display: absolute;

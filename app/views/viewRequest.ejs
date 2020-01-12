@@ -42,27 +42,27 @@
             <div class="form-group">
                 <button class="btn2 btn-white2 btn-border" type="button" style="cursor:default"></button>
                 <div class="text-center form-inline">
-                    <button class="btn2" type="button" id="approve1" style="width: 12%;">Approva</button>
-                    <button class="btn2" type="button" id="disapprove" style="width: 13%;">Disapprova</button>  
+                    <button class="btn2 btn-secondary" type="button" id="approve1" style="width: 12%;">Approva</button>
+                    <button class="btn3 btn-secondary" type="button" id="disapprove" style="width: 13%;">Disapprova</button>  
                 </div>   
                 <form id = "disapproveForm" method ="POST" action = "#" style = "display: none;">
                     <div class = "form-label-group">
                         <input type = "text" class = "form-control" name = "msg">
                         <label for = "msg">Inserire la motivazione</label>
                     </div>
-                    <button class="btn2 btn-block" type="submit">Disapprova</button>
+                    <button class="btn2 btn-secondary btn-block" type="submit">Disapprova</button>
                 </form>
-                <button class="btn2 btn-block" type="button" id="approve2" style = "display:none">Approva</button>  
+                <button class="btn2 btn-secondary btn-block" type="button" id="approve2" style = "display:none">Approva</button>  
                 <form id = "idForm" method="POST" action ="/fileviewIDRequest" style = "display:none"></form>
-                    <button class="btn2 btn-block" type="button" id="id">Visualizza carta d'identità</button>
+                    <button class="btn2 btn-secondary btn-block" type="button" id="id">Visualizza carta d'identità</button>
                 <form id = "cvForm" method="POST" action ="/fileviewCVRequest" style = "display:none"></form>             
-                    <button class="btn2 btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
+                    <button class="btn2 btn-secondary btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
                 <form class="text-center" action="/getRequestVersions" method ="GET">
                     <div class="form-group">
                         <label>Versioni:</label><br>
-                        <select class="custom-select"  name="inputVersion" style="width: 20%;" id="versions">
+                        <select class="custom-select"  name="inputVersion" id="versions">
                         </select>
-                        <button class="btn2" type="submit" class="saveButton" >Visualizza</button>
+                        <button class="btn3 btn-secondary" type="submit" class="saveButton" >Visualizza</button>
                     </div>
                 </form>
             </div>
@@ -108,7 +108,7 @@
 
                 $.post('/getConnectedUser', function(user) {
                     if(user.type === 'academicTutor') {
-                        if(data["status"].startsWith("Approvato dal Tutor Accademico")) {
+                        if(data["status"].startsWith("Approvato")) {
                             document.getElementById("approve1").style.display = "none";
                             document.getElementById("disapprove").style.display = "none";
                         }
