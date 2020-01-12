@@ -41,6 +41,7 @@ exports.getAllMessages = function (sender, receiver, res) {
         delete senderArray[i].compareData
       }
 
+      
       for (i = 0; recipientArray[i] != null; i++) {
         recipientArray[i].compareData = new Date(recipientArray[i].date.year, recipientArray[i].date.month - 1, recipientArray[i].date.day, recipientArray[i].date.hour, recipientArray[i].date.minutes, recipientArray[i].date.seconds)
       }

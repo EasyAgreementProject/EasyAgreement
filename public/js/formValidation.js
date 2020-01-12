@@ -321,7 +321,7 @@ function testSubjectCode () {
 function testEmail () {
   var email = $('#inputEmail').val().toLowerCase()
   if (email.length >= 3) {
-    if (/^[a-z]{1}\.{1}[a-z]{2,}\d{1,}@{1}(studenti.unisa.it){1}$/.test(email)) return true
+    if (/^[a-z]{1}\.{1}[a-z]{2,}\d{0,}@{1}(studenti.unisa.it){1}$/.test(email)) return true
   }
   return false
 }

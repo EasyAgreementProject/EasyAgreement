@@ -141,7 +141,7 @@ static updatePassword(pass,emailv) {
             admin.setEmail(result.email)
             admin.setName(result.name)
             admin.setSurname(result.surname)
-            admin.setPassword(result.password)
+            admin.setPassword(result.Password)
             fulfill(admin)
           } else {
             fulfill(null)

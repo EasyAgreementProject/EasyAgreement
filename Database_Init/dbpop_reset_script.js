@@ -13,68 +13,73 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
     var dbo= db.db(dbName);
 
     dbo.collection("Student").deleteMany({}, function(err,result) {
-
         if(err) throw err;
-    console.log("Succesfully deleted "+result.deletedCount+" students");
-
+        console.log("Succesfully deleted "+result.deletedCount+" students");
     });
 
     dbo.collection("HostOrganization").deleteMany({}, function(err,result) {
-
         if(err) throw err;
-        console.log("Succesfully deleted "+result.deletedCount+" host organizations");
+        console.log("Succesfully deleted "+result.deletedCount+" host organizations");    
+    });
     
-        });
-    
-        dbo.collection("Administrator").deleteMany({}, function(err,result) {
+    dbo.collection("Administrator").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" administrators");
+    });
 
-            if(err) throw err;
-            console.log("Succesfully deleted "+result.deletedCount+" administrators");
-        
-            });
+    dbo.collection("ExternalTutor").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" external tutors");
+    });
 
-            dbo.collection("ExternalTutor").deleteMany({}, function(err,result) {
+    dbo.collection("AcademicTutor").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" academic tutors");
+    });
 
-                if(err) throw err;
-                console.log("Succesfully deleted "+result.deletedCount+" external tutors");
-            
-                });
+    dbo.collection("current_LearningAgreement").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" current Learning Agreements");
+    });
 
-                dbo.collection("AcademicTutor").deleteMany({}, function(err,result) {
+    dbo.collection("current_LearningAgreement").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" current Learning Agreements");
+    });
 
-                    if(err) throw err;
-                    console.log("Succesfully deleted "+result.deletedCount+" academic tutors");
-                
-                    });
-                    
-                    dbo.collection("current_LearningAgreement").deleteMany({}, function(err,result) {
+    dbo.collection("LearningAgreement_revision").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" versions of Learning Agreements");
+    });
 
-                        if(err) throw err;
-                        console.log("Succesfully deleted "+result.deletedCount+" current Learning Agreements");
-                    
-                        });
+    dbo.collection("Request").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" requests");
+    });
 
-                        dbo.collection("current_LearningAgreement").deleteMany({}, function(err,result) {
+    dbo.collection("Notification").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" notifications");
+    });
 
-                            if(err) throw err;
-                            console.log("Succesfully deleted "+result.deletedCount+" current Learning Agreements");
-                        
-                            });
+    dbo.collection("Message").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" messages");
+    });
 
-                            dbo.collection("LearningAgreement_revision").deleteMany({}, function(err,result) {
+    dbo.collection("Documents.files").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" files");
+    });
 
-                                if(err) throw err;
-                                console.log("Succesfully deleted "+result.deletedCount+" versions of Learning Agreements");
-                            
-                                });
+    dbo.collection("Documents.chunks").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" chunks");
+    });
 
-                                dbo.collection("Request").deleteMany({}, function(err,result) {
-
-                                    if(err) throw err;
-                                    console.log("Succesfully deleted "+result.deletedCount+" requests");
-                                
-                                    });
-
-
+    dbo.collection("Cache").deleteMany({}, function(err,result) {
+        if(err) throw err;
+        console.log("Succesfully deleted "+result.deletedCount+" cache");
+    });
 
 });
