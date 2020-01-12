@@ -1374,8 +1374,8 @@ it('Test for /updatePassword for External Tutor', function(done){
                 })
         })
 })
-/*
-it.only('Test for /getReceivedMessage', function(done){
+
+it('Test for /getReceivedMessage', function(done){
     agent
         .post('/login')
         .redirects(0)
@@ -1390,12 +1390,77 @@ it.only('Test for /getReceivedMessage', function(done){
                 .end(function(err, res){
                     if(err) done(err)
                     
-                    expect(res).to.deep.include({"text" : "[]"})
+                    expect(res).to.be.json
                     
                     done()
                 })
         })
 })
 
-*/
+it('Test for /setReceivedMessage', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/setReceivedMessage')
+                .send({sender:"d.devito@studenti.unisa.it", receiver:"s.cotto@gmail.com", value: false})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
+                    
+                    done()
+                })
+        })
+})
+
+
+it('Test for /getReceivedNotification', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/getReceivedNotification')
+                .send({sender:"d.devito@studenti.unisa.it"})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    
+                    expect(res).to.deep.include({"text" : "true"})
+                    
+                    done()
+                })
+        })
+})
+
+it.only('Test for /setReceivedNotification', function(done){
+    agent
+        .post('/login')
+        .redirects(0)
+        .send({username: "s.cotto@gmail.com", password: "sara1234"})
+        .end(function(err, res){
+            if(err) done(err)
+            expect(res).to.have.cookie('logEff')
+            agent
+                .post('/setReceivedNotification')
+                .send({sender:"d.devito@studenti.unisa.it", value: false})
+                .redirects(0)
+                .end(function(err, res){
+                    if(err) done(err)
+                    expect(res).to.be.json
+                    
+                    done()
+                })
+        })
+})
+
+
 })
