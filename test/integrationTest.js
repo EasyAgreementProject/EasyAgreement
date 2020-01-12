@@ -863,7 +863,7 @@ describe('Integration Testing', function(){
                         done()login
     */
 
-   it.only('Test for /logout', function(done){
+   it('Test for /logout', function(done){
     agent
         .post('/login')
         .redirects(0)
