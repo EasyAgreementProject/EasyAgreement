@@ -4,7 +4,6 @@ var mockHttp = require('node-mocks-http')
 var notificationControl = require('../app/controllers/notificationControl')
 
 describe('Field test for notificationControl', function () {
-
   it('Testing insertNotification', function (done) {
     var notifica = { associatedID: 'd.devito@studenti.unisa.it', text: { title: 'test', text: 'Questo è il testing' }, date: { hour: '12', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }
     var save = notificationControl.insertNotification(notifica)
@@ -35,7 +34,7 @@ describe('Field test for notificationControl', function () {
     var save = notificationControl.insertNotification(notifica)
     save.then(function (result) {
       expect(result).to.not.be.null
-      var idNotifica=result
+      var idNotifica = result
       var rem = notificationControl.removeNotification(idNotifica, res)
       rem.then(function (result) {
         expect(result).to.not.be.null

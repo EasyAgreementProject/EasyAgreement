@@ -105,7 +105,7 @@ class AcademicTutor {
  * @returns {Promise} - return a promise
  */
   static insertAcademicTutor (AcademicTutor) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
         console.log('Connected successfully to server!')
@@ -113,7 +113,7 @@ class AcademicTutor {
         dbo.collection('AcademicTutor').insertOne(AcademicTutor, function (err) {
           if (err) throw err
           console.log('Academic Tutor inserted correctly!')
-          fulfill()
+          resolve()
           db.close()
         })
       })
@@ -126,16 +126,16 @@ class AcademicTutor {
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
   static findByEmail (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('AcademicTutor').findOne({ E_mail: email }, function (err, result) {
           if (err) reject(err)
           if (result) {
-            fulfill(false)
+            resolve(false)
           } else {
-            fulfill(true)
+            resolve(true)
           }
           db.close()
         })
@@ -149,7 +149,7 @@ class AcademicTutor {
  * @returns {Object} - return academic tutor if exist, else null
  */
   static RetrieveByEmail (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -162,9 +162,9 @@ class AcademicTutor {
             academicTutor.setEmail(result.E_mail)
             academicTutor.setDepartment(result.Department)
             academicTutor.setPassword(result.Password)
-            fulfill(academicTutor)
+            resolve(academicTutor)
           } else {
-            fulfill(null)
+            resolve(null)
           }
           db.close()
         })
@@ -178,13 +178,13 @@ class AcademicTutor {
  * @returns {promise} - return promise
  */
   static RetrieveAll () {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('AcademicTutor').find({}).toArray(function (err, result) {
           if (err) reject(err)
-          fulfill(result)
+          resolve(result)
           db.close()
         })
       })
@@ -199,44 +199,42 @@ class AcademicTutor {
  *
  */
   static updateAcademicTutor (academicTutor, emailv) {
-    return new Promise(function (fulfill, reject) {
-        MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
-            if(err) throw err;
-            console.log("Connected successfully to server!");
-            var dbo = db.db(dbName);
-            console.log(".");
-            var myquery = { E_mail: emailv };
-            var newvalues={};
-            if( academicTutor.Name    != null) newvalues.Name= academicTutor.Name;
-            if( academicTutor.Surname != null) newvalues.Surname= academicTutor.Surname;
-            if( academicTutor.Department != null) newvalues.Department= academicTutor.Department;
-             dbo.collection("AcademicTutor").updateOne(myquery,{$set: newvalues }, function(err, res) {
-                 if (err) throw err;
-                     console.log("1 document updated");
-                     dbo.collection("AcademicTutor").findOne({"E_mail": emailv}, function(err, result){
-                        if(err) reject(err);
-                        if(result!=null){
-                            var academicTutor= new AcademicTutor();
-                            academicTutor.setName(result.Name);
-                            academicTutor.setSurname(result.Surname);
-                            academicTutor.setEmail(result.E_mail);
-                            academicTutor.setDepartment(result.Department);
-                            academicTutor.setPassword(result.Password);
-                            fulfill(academicTutor);
-                        }
-                        else{                        
-                            db.close();
-                            fulfill(null);
-                        }
-                    })
-             });
-            
-            });
-        });
-    
-}
-static updatePassword(password,emailv) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        console.log('Connected successfully to server!')
+        var dbo = db.db(dbName)
+        console.log('.')
+        var myquery = { E_mail: emailv }
+        var newvalues = {}
+        if (academicTutor.Name != null) newvalues.Name = academicTutor.Name
+        if (academicTutor.Surname != null) newvalues.Surname = academicTutor.Surname
+        if (academicTutor.Department != null) newvalues.Department = academicTutor.Department
+        dbo.collection('AcademicTutor').updateOne(myquery, { $set: newvalues }, function (err, res) {
+          if (err) throw err
+          console.log('1 document updated')
+          dbo.collection('AcademicTutor').findOne({ E_mail: emailv }, function (err, result) {
+            if (err) reject(err)
+            if (result != null) {
+              var academicTutor = new AcademicTutor()
+              academicTutor.setName(result.Name)
+              academicTutor.setSurname(result.Surname)
+              academicTutor.setEmail(result.E_mail)
+              academicTutor.setDepartment(result.Department)
+              academicTutor.setPassword(result.Password)
+              resolve(academicTutor)
+            } else {
+              db.close()
+              resolve(null)
+            }
+          })
+        })
+      })
+    })
+  }
+
+  static updatePassword (password, emailv) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         console.log('Connected successfully to server!')
@@ -258,10 +256,10 @@ static updatePassword(password,emailv) {
             academicTutor.setPassword(result.Password)
 
             db.close()
-            fulfill(academicTutor)
+            resolve(academicTutor)
           } else {
             db.close()
-            fulfill(null)
+            resolve(null)
           }
         })
       })

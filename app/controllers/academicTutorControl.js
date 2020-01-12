@@ -1,13 +1,13 @@
 var hash = require('./hash.js')
-var academicTutorModel = require('../models/academicTutor.js')
+var AcademicTutorModel = require('../models/academicTutor.js')
 
 exports.update = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var name = req.body.inputNameAc
     var surname = req.body.inputSurnameAc
     var department = req.body.inputDepartmentT
 
-    var academicTutor = new academicTutorModel()
+    var academicTutor = new AcademicTutorModel()
 
     // Form validation
     var isRight = true
@@ -40,11 +40,11 @@ exports.update = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
 
-    var checkS = academicTutorModel.updateAcademicTutor(academicTutor, req.session.utente.utente.E_mail)
+    var checkS = AcademicTutorModel.updateAcademicTutor(academicTutor, req.session.utente.utente.E_mail)
 
     /**
 * It checks the result of updateAcademicTutor function and updates the academic tutor session
@@ -56,16 +56,16 @@ exports.update = function (req, res) {
       if (result != null) {
         req.session.utente.utente = result
         res.cookie('updateEff', '1')
-        fulfill()
+        resolve()
       } else {
-        reject()
+        resolve()
       }
     })
   })
 }
 
 exports.updatePassword = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var oldPassword = req.body.inputOldPassword
     var password = req.body.inputPassword
     var passwordConfirm = req.body.inputConfirmPassword
@@ -89,13 +89,13 @@ exports.updatePassword = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
 
     if (hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)) {
       var passwordHashed = hash.hashPassword(password)
-      var checkS = academicTutorModel.updatePassword(passwordHashed, req.session.utente.utente.E_mail)
+      var checkS = AcademicTutorModel.updatePassword(passwordHashed, req.session.utente.utente.E_mail)
 
       /**
         * It checks the result of updatePassword function and updates the academic tutor session
@@ -106,21 +106,21 @@ exports.updatePassword = function (req, res) {
         if (result != null) {
           req.session.utente.utente = result
           res.cookie('updatePassEff', '1')
-          fulfill(true)
-        } else { reject() }
+          resolve(true)
+        } else { resolve() }
       })
     } else {
       res.cookie('errOldPassword', '1')
-      fulfill(true)
+      resolve(true)
     }
   })
 }
 
-exports.getByEmail = function(email){
-  return new Promise(function(fulfill, reject){
-    var get = academicTutorModel.RetrieveByEmail(email)
-    get.then(function(result){
-      fulfill({Name:result.Name, Surname:result.getSurname(), E_mail:result.getEmail(), Department:result.getDepartment()})
+exports.getByEmail = function (email) {
+  return new Promise(function (resolve, reject) {
+    var get = AcademicTutorModel.RetrieveByEmail(email)
+    get.then(function (result) {
+      resolve({ Name: result.Name, Surname: result.getSurname(), E_mail: result.getEmail(), Department: result.getDepartment() })
     })
   })
 }

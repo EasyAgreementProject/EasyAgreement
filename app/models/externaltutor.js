@@ -101,7 +101,7 @@ class externalTutor {
   }
 
   static insertExternalTutor (externaltutor) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
         console.log('Connected successfully to server!')
@@ -109,7 +109,7 @@ class externalTutor {
         dbo.collection('ExternalTutor').insertOne(externaltutor, function (err) {
           if (err) throw err
           console.log('External Tutor inserted correctly!')
-          fulfill()
+          resolve()
           db.close()
         })
       })
@@ -122,7 +122,7 @@ class externalTutor {
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
   static findByEmail (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -135,9 +135,9 @@ class externalTutor {
             extutor.setSurname(result.Surname)
             extutor.setName(result.Name)
             extutor.setOrganization(result.Organization)
-            fulfill(extutor)
+            resolve(extutor)
           } else {
-            fulfill(null)
+            resolve(null)
           }
           db.close()
         })
@@ -154,7 +154,7 @@ class externalTutor {
  */
 
   static updateExternalTutor (externaltutor, emailv) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
         console.log('Connected successfully to server!')
@@ -178,10 +178,10 @@ class externalTutor {
               extutor.setSurname(result.Surname)
               extutor.setName(result.Name)
               extutor.setOrganization(result.Organization)
-              fulfill(extutor)
+              resolve(extutor)
             } else {
               db.close()
-              fulfill(null)
+              resolve(null)
             }
           })
         })
@@ -195,13 +195,13 @@ class externalTutor {
  * @returns {promise} - return promise
  */
   static RetrieveAll () {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('ExternalTutor').find({}).toArray(function (err, result) {
           if (err) throw err
-          fulfill(result)
+          resolve(result)
           db.close()
         })
       })
@@ -217,7 +217,7 @@ class externalTutor {
  */
 
   static updatePassword (password, emailv) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         console.log('Connected successfully to server!')
@@ -239,66 +239,27 @@ class externalTutor {
             externaltutor.setPassword(result.Password)
 
             db.close()
-            fulfill(externaltutor)
+            resolve(externaltutor)
           } else {
             db.close()
-            fulfill(null)
+            resolve(null)
           }
         })
       })
     })
   }
 
-  static findByEmailA(email){
-    return new Promise(function(fulfill,reject){
-        MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-            if(err)  reject(err);
-            var dbo= db.db(dbName);
-            dbo.collection("ExternalTutor").findOne({"E_mail": email}, function(err, result){
-                if(err) reject(err);
-                if(Boolean(result)){
-                    fulfill(false);
-                }
-                else{
-                    fulfill(true);
-                }
-                db.close();
-            })
-        });
-    });
-}
-
-static addExtTutor(ExtTutor) {
-
-  return new Promise(function(fulfill,reject){
-      MongoClient.connect(url,{useNewUrlParser:true, useUnifiedTopology:true}, function(err, db){
-          if(err)  reject(err);
-          var dbo= db.db(dbName);
-          dbo.collection("ExternalTutor").insertOne(ExtTutor, function(err) {
-          
-          if (err) throw err;
-          console.log("Successfully added an External Tutor to database!");
-          fulfill();
-          db.close();
-          });
-
-      });
-
-  });
-
-  }
-
-  static deleteExTutor (email) {
-    return new Promise(function (fulfill, reject) {
+  static findByEmailA (email) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection("ExternalTutor").findOneAndDelete({ E_mail: email }, function (err, result) {
-          if (err) throw err
-          if (result.value != null) {
-            fulfill(true)
+        dbo.collection('ExternalTutor').findOne({ E_mail: email }, function (err, result) {
+          if (err) reject(err)
+          if (result) {
+            resolve(false)
           } else {
-            fulfill(false)
+            resolve(true)
           }
           db.close()
         })
@@ -306,5 +267,37 @@ static addExtTutor(ExtTutor) {
     })
   }
 
+  static addExtTutor (ExtTutor) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('ExternalTutor').insertOne(ExtTutor, function (err) {
+          if (err) throw err
+          console.log('Successfully added an External Tutor to database!')
+          resolve()
+          db.close()
+        })
+      })
+    })
+  }
+
+  static deleteExTutor (email) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('ExternalTutor').findOneAndDelete({ E_mail: email }, function (err, result) {
+          if (err) throw err
+          if (result.value != null) {
+            resolve(true)
+          } else {
+            resolve(false)
+          }
+          db.close()
+        })
+      })
+    })
+  }
 }
 module.exports = externalTutor

@@ -134,16 +134,16 @@ class HostOrganization {
   }
 
   static findByEcode (erasmuscode) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('HostOrganization').findOne({ ErasmusCode: erasmuscode }, function (err, result) {
           if (err) reject(err)
           if (result) {
-            fulfill(false)
+            resolve(false)
           } else {
-            fulfill(true)
+            resolve(true)
           }
           db.close()
         })
@@ -152,14 +152,14 @@ class HostOrganization {
   }
 
   static addHostOrg (HostOrg) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('HostOrganization').insertOne(HostOrg, function (err) {
           if (err) throw err
           console.log('Successfully added Host Organization to database!')
-          fulfill()
+          resolve()
           db.close()
         })
       })
@@ -167,16 +167,16 @@ class HostOrganization {
   }
 
   static deleteHostOrg (erasmuscode) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('HostOrganization').findOneAndDelete({ ErasmusCode: erasmuscode }, function (err, result) {
           if (err) throw err
           if (result.value != null) {
-            fulfill(true)
+            resolve(true)
           } else {
-            fulfill(false)
+            resolve(false)
           }
           db.close()
         })
@@ -185,28 +185,28 @@ class HostOrganization {
   }
 
   static retrieveAll () {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('HostOrganization').find({}).toArray(function (err, result) {
           if (err) throw err
-          fulfill(result)
+          resolve(result)
           db.close()
         })
       })
     })
   }
 
-  static retrieveOne (id){
-    return new Promise(function(fulfill, reject){
-      MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology:true}, function(err, db){
-        if(err) reject(err)
+  static retrieveOne (id) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection('HostOrganization').findOne({ErasmusCode:id}, function(err, result){
-          if(err) reject(err)
-          if(result!=null){
-            var host= new HostOrganization()
+        dbo.collection('HostOrganization').findOne({ ErasmusCode: id }, function (err, result) {
+          if (err) reject(err)
+          if (result != null) {
+            var host = new HostOrganization()
             host.setErasmusCode(result.ErasmusCode)
             host.setName(result.Name)
             host.setAddress(result.Address)
@@ -214,7 +214,7 @@ class HostOrganization {
             host.setCountry(result.Country)
             host.setFaculty(result.Faculty)
             host.setOrgSize(result.Size)
-            fulfill(host)
+            resolve(host)
           }
         })
       })

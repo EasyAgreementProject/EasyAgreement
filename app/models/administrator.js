@@ -88,7 +88,7 @@ class Administrator {
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
   static findByEmail (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -100,9 +100,9 @@ class Administrator {
             admin.setName(result.name)
             admin.setSurname(result.surname)
             admin.setPassword(result.Password)
-            fulfill(admin)
+            resolve(admin)
           } else {
-            fulfill(null)
+            resolve(null)
           }
           db.close()
         })
@@ -110,19 +110,8 @@ class Administrator {
     })
   }
 
-
-
-
-
-
-            
-
-    
-
- 
-
-static updatePassword(pass,emailv) {
-    return new Promise(function (fulfill, reject) {
+  static updatePassword (pass, emailv) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         console.log('Connected successfully to server!')
@@ -142,9 +131,9 @@ static updatePassword(pass,emailv) {
             admin.setName(result.name)
             admin.setSurname(result.surname)
             admin.setPassword(result.Password)
-            fulfill(admin)
+            resolve(admin)
           } else {
-            fulfill(null)
+            resolve(null)
           }
           db.close()
         })

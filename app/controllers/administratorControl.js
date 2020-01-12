@@ -1,10 +1,8 @@
 var hash = require('./hash.js')
 var adminModel = require('../models/administrator.js')
-var extutorModel = require('../models/externaltutor.js')
-var organizationModel = require('../models/hostorganization.js')
 
 exports.update = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var oldPassword = req.body.inputOldPassword
     var password = req.body.inputPassword
     var passwordConfirm = req.body.inputConfirmPassword
@@ -26,7 +24,7 @@ exports.update = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
     if (hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)) {
@@ -41,12 +39,12 @@ exports.update = function (req, res) {
         if (result != null) {
           req.session.utente.utente = result
           res.cookie('updatePassEff', '1')
-          fulfill(true)
-        } else { reject() }
+          resolve(true)
+        } else { resolve() }
       })
     } else {
       res.cookie('errOldPassword', '1')
-      fulfill(false)
+      resolve(false)
     }
   })
 }

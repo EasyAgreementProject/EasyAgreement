@@ -191,7 +191,7 @@ class Student {
  * @returns {Promise} - return promise
  */
   static insertStudent (student) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
         console.log('Connected successfully to server!')
@@ -199,7 +199,7 @@ class Student {
         dbo.collection('Student').insertOne(student, function (err) {
           if (err) throw err
           console.log('Student inserted correctly!')
-          fulfill()
+          resolve()
           db.close()
         })
       })
@@ -212,16 +212,16 @@ class Student {
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
   static findByMatricola (studentID) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Student').findOne({ StudentID: studentID }, function (err, result) {
           if (err) reject(err)
           if (result) {
-            fulfill(false)
+            resolve(false)
           } else {
-            fulfill(true)
+            resolve(true)
           }
           db.close()
         })
@@ -235,16 +235,16 @@ class Student {
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
   static findExistByEmail (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Student').findOne({ Email: email }, function (err, result) {
           if (err) reject(err)
           if (result) {
-            fulfill(false)
+            resolve(false)
           } else {
-            fulfill(true)
+            resolve(true)
           }
           db.close()
         })
@@ -258,7 +258,7 @@ class Student {
  * @returns {boolean} - return true if the object does not exist in database, else false
  */
   static findByEmail (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -276,9 +276,9 @@ class Student {
             student.setIdentityCard(result.IDCard)
             student.setPassword(result.Password)
             student.setStudentID(result.StudentID)
-            fulfill(student)
+            resolve(student)
           } else {
-            fulfill(null)
+            resolve(null)
           }
           db.close()
         })
@@ -309,13 +309,13 @@ class Student {
   }
 
   static retrieveStudentCV (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Student').findOne({ Email: email }, function (err, result) {
           if (err) reject(err)
-          fulfill(result.CV)
+          resolve(result.CV)
           db.close()
         })
       })
@@ -323,13 +323,13 @@ class Student {
   }
 
   static retrieveStudentIDCard (email) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Student').findOne({ Email: email }, function (err, result) {
           if (err) reject(err)
-          fulfill(result.IDCard)
+          resolve(result.IDCard)
           db.close()
         })
       })
@@ -344,7 +344,7 @@ class Student {
  *
  */
   static updateStudent (student, emailv) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         console.log('Connected successfully to server!')
@@ -375,10 +375,10 @@ class Student {
               student.setPassword(result.Password)
               student.setStudentID(result.StudentID)
               db.close()
-              fulfill(student)
+              resolve(student)
             } else {
               db.close()
-              fulfill(null)
+              resolve(null)
             }
           })
         })
@@ -394,7 +394,7 @@ class Student {
  *
  */
   static updatePassword (password, emailv) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         console.log('Connected successfully to server!')
@@ -420,10 +420,10 @@ class Student {
             student.setPassword(result.Password)
             student.setStudentID(result.StudentID)
             db.close()
-            fulfill(student)
+            resolve(student)
           } else {
             db.close()
-            fulfill(null)
+            resolve(null)
           }
         })
       })
@@ -436,14 +436,14 @@ class Student {
  * @returns {promise} - return promise
  */
   static RetrieveAll () {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
 
         dbo.collection('Student').find({}).toArray(function (err, result) {
           if (err) throw err
-          fulfill(result)
+          resolve(result)
           db.close()
         })
       })
