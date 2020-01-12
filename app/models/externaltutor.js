@@ -199,7 +199,7 @@ class externalTutor {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection('ExternalTutor').find({}).toArray(function (err, result) {
+        dbo.collection('ExternalTutor').find({}).sort({Name : 1}).toArray(function (err, result) {
           if (err) throw err
           fulfill(result)
           db.close()
