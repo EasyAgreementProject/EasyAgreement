@@ -1589,19 +1589,207 @@ describe('Integration Testing', function(){
                     .redirects(0)
                     .end(function(err, res){
                         if(err) done(err)
-                        console.log(res)
                         expect(res).to.be.json                     
                         done()
                     })
             })
     })
-    /*
 
-    manca getMessages,searchUser,toViewList,getUserList,toviewInfo
-    */
+    it('Test for /searchUser student', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/searchUser')
+                    .send({type: 'student', search: 'Sara'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                     
+                        done()
+                    })
+            })
+    })
 
+    it('Test for /searchUser academicTutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/searchUser')
+                    .send({type: 'academicTutor', search: 'Danny'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                     
+                        done()
+                    })
+            })
+    })
 
+    it('Test for /searchUser externalTutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/searchUser')
+                    .send({type: 'externalTutor', search: 'Danny'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                     
+                        done()
+                    })
+            })
+    })
 
+    it('Test for /toViewList', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .get('/toViewList')
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.status(200)                    
+                        done()
+                    })
+            })
+    })
 
+    it('Test for /getUserList host', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getUserList')
+                    .send({type: 'host'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                     
+                        done()
+                    })
+            })
+    })
 
+    it('Test for /getUserList academicTutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getUserList')
+                    .send({type: 'academicTutor'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                     
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /getUserList externalTutor', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/getUserList')
+                    .send({type: 'externalTutor'})
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                     
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /toviewInfo', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/toviewInfo')
+                    .redirects(0)
+                    .query({type: 'host', id : 'appl2020'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.status(200)  
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /toviewInfo', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/toviewInfo')
+                    .redirects(0)
+                    .query({type: 'academicTutor', id : "f.ferrucci@unisa.it"})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.status(200)  
+                        done()
+                    })
+            })
+    })
+
+    it('Test for /toviewInfo', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/toviewInfo')
+                    .redirects(0)
+                    .query({type: 'externalTutor', id : 's.cotto@gmail.com'})
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.have.status(200)  
+                        done()
+                    })
+            })
+    })
 })
