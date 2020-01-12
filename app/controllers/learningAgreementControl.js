@@ -54,7 +54,6 @@ exports.sendLaStudent = function (input, res) {
     'The trainee date': today
   }
 
-  console.log(data['Date of birth'] + '    ' + data['The trainee date'])
   data.A1 = null
   data.A2 = null
   data.B1 = null
@@ -87,7 +86,6 @@ exports.sendLaStudent = function (input, res) {
   return new Promise(function (resolve, reject) {
     const validatePr = exports.validateDataStudent(data, res)
     validatePr.then(function (result) {
-      console.log('' + data)
       if (result) {
         if (!data.A1) data.A1 = ''
         if (!data.A2) data.A2 = ''
@@ -97,7 +95,6 @@ exports.sendLaStudent = function (input, res) {
         if (!data.C2) data.C2 = ''
         pdfFiller.fillForm(sourcePDF, destinationPDF, data, function (err) {
           if (err) { throw err } else {
-            console.log('PDF create successfully! Student')
             // send Filled PDF to Client side
             var file = fs.readFileSync('pdf/Filled_LA_' + random + '.pdf')
             var download = fs.createReadStream('pdf/Filled_LA_' + random + '.pdf')
@@ -128,7 +125,6 @@ exports.sendLaStudent = function (input, res) {
                 })
               } else {
                 if (res) res.cookie('errRequest', '1')
-                console.log('Request already sent!')
                 resolve()
               }
             })
@@ -184,7 +180,7 @@ exports.saveLaStudent = function (input, res) {
     'The trainee signature': input[0] + ' ' + input[1],
     'The trainee date': today
   }
-  console.log(data['Date of birth'] + '    ' + data['The trainee date'])
+
   data.A1 = null
   data.A2 = null
   data.B1 = null
@@ -233,7 +229,6 @@ exports.saveLaStudent = function (input, res) {
             })
           } else {
             if (res) res.cookie('errRequest', '1')
-            console.log('Request already sent!')
             resolve()
           }
         })
@@ -383,7 +378,6 @@ exports.sendLaAcademicTutor = function (input, res) {
 
           pdfFiller.fillForm(sourcePDF, destinationPDF, data, function (err) {
             if (err) { throw err } else {
-              console.log('PDF create successfully! Academic tutor')
               // send Filled PDF to Client side
               var file = fs.readFileSync('pdf/Filled_LA_' + random + '.pdf')
               var download = fs.createReadStream('pdf/Filled_LA_' + random + '.pdf')
@@ -414,7 +408,6 @@ exports.sendLaAcademicTutor = function (input, res) {
                   })
                 } else {
                   if (res) res.cookie('errRequest', '1')
-                  console.log('Request already sent!')
                   resolve()
                 }
               })
@@ -543,7 +536,6 @@ exports.saveLaAcademicTutor = function (input, res) {
           })
         } else {
           if (res) res.cookie('errRequest', '1')
-          console.log('Request already sent!')
           resolve()
         }
       })
@@ -644,7 +636,6 @@ exports.sendLaExternalTutor = function (input, res) {
 
           pdfFiller.fillForm(sourcePDF, destinationPDF, data, function (err) {
             if (err) { throw err } else {
-              console.log('PDF create successfully!')
               // send Filled PDF to Client side
               var file = fs.readFileSync('pdf/Filled_LA_' + random + '.pdf')
               var download = fs.createReadStream('pdf/Filled_LA_' + random + '.pdf')
@@ -732,7 +723,6 @@ exports.saveLaExternalTutor = function (input, res) {
           })
         } else {
           if (res) res.cookie('errRequest', '1')
-          console.log('Request already sent!')
           resolve()
         }
       })
@@ -745,7 +735,6 @@ exports.disapproveAcademicTutor = function (student, msg) {
     var email
     if (!student) email = 'v.volpicelli4@studenti.unisa.it'
     else email = student
-    console.log('Disapprove for student: ' + student)
     var getLearningAgreementPr = LA.getLearningAgreement(email)
     getLearningAgreementPr.then(function (result, err) {
       if (err) throw err
@@ -766,7 +755,6 @@ exports.disapproveAcademicTutor = function (student, msg) {
 
 exports.disapproveExternalTutor = function (student, msg) {
   return new Promise(function (resolve, reject) {
-    console.log('Disapprover for student: ' + student)
     var email
     if (!student) email = 'v.volpicelli4@studenti.unisa.it'
     else email = student
@@ -818,7 +806,6 @@ exports.getVersion = function (id, email) {
       if (err) throw err
       fs.writeFile('pdf/Old_LA_' + random + '.pdf', result.document.file_data.buffer, function (err) {
         if (err) throw err
-        console.log('Sucessfully saved!')
         var file = fs.createReadStream('pdf/Old_LA_' + random + '.pdf')
         fs.unlink('pdf/Old_LA_' + random + '.pdf', function (err) {
           if (err) throw err
@@ -851,191 +838,152 @@ exports.getAllVersions = function (student) {
 
 exports.validateDataStudent = function (data, res) {
   return new Promise(function (resolve, reject) {
-    console.log('Begin...')
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Header name']))) {
       if (res) {
         res.cookie('errName', '1')
         res.cookie('errSurname', '1')
       }
-      console.log('Header Name wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Last name (s)']))) {
       if (res) res.cookie('errSurname', '1')
-      console.log('Last name wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['First name (s)']))) {
       if (res) res.cookie('errName', '1')
-      console.log('Name wrong!')
       resolve(false)
     }
     if (!(/^(\d{4}(-|\/)((0)?[0-9]|(1)?[0-2]){1}(-|\/)([0-2]?[0-9]|(3)?[0-1]){1}|([0-2]?[0-9]|(3)?[0-1]){1}(-|\/){1}((0)?[0-9]|(1)?[0-2]){1}(-|\/){1}\d{4})$/.test(data['Date of birth']))) {
       if (res) res.cookie('errDate', '1')
-      console.log('birth date wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+ *$/.test(data.Nationality))) {
       if (res) res.cookie('errNationality', '1')
-      console.log('nationality wrong!')
       resolve(false)
     }
     if (!(/^(M|F)/.test(data['Sex [M/F]']))) {
       if (res) res.cookie('errSex', '1')
-      console.log('sex wrong!')
       resolve(false)
     }
     if (!(/^\d{2} *$/.test(data['Academic year1']))) {
       if (res) res.cookie('errAcademicYear1', '1')
-      console.log('ac1 wrong!')
       resolve(false)
     }
     if (!(/^\d{2} *$/.test(data['Academic year2']))) {
-      if (res) res.cookie('errAcademicYear2', '1')
-      console.log('ac2 wrong!')
       resolve(false)
     }
     if (!(/^(1st (C|c){1}ycle|2nd (C|c){1}ycle)$/.test(data['Study cycle']))) {
       if (res) res.cookie('errStudyCicle', '1')
-      console.log('study cycle wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+\,{1} ?\d+ *$/.test(data['Subject area, Code']))) {
       if (res) res.cookie('errSubjectCode', '1')
-      console.log('subject area code wrong!')
       resolve(false)
     }
     if (!(/^\d{1,10} *$/.test(data.Phone))) {
       if (res) res.cookie('errTelephone', '1')
-      console.log('phone wrong!')
       resolve(false)
     }
     if (!(/^[a-z]{1}\.{1}[a-z]{2,}\d{0,}@{1}(studenti.unisa.it){1} *$/.test(data['E-mail']))) {
       if (res) res.cookie('errEmail', '1')
-      console.log('email student wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù\.,';à-ù0-9]+( [A-za-zà-ù\.,';à-ù0-9]+)* *$/.test(data['Sending Departement']))) {
       if (res) res.cookie('errDepartmentSending', '1')
-      console.log('sending department wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Contact person name']))) {
       if (res) res.cookie('errContactName', '1')
-      console.log('contact person name wrong!')
       resolve(false)
     }
     if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data['Contact person Email / Phone']))) {
       if (res) res.cookie('errContactSending', '1')
-      console.log('contact email phone wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* * - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Contact person name / position']))) {
       if (res) res.cookie('errContactReciving', '1')
-      console.log('contact person name position wrong! ' + data['Contact person name / position'])
       resolve(false)
     }
     if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data['Receiving contact person e-mail phone']))) {
       if (res) res.cookie('errContactSending', '1')
-      console.log('receiving contact person email phone wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Name Sector']))) {
       if (res) res.cookie('errNameSector', '1')
-      console.log('name sector wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Receiving Department']))) {
       if (res) res.cookie('errDepartmentReciving', '1')
-      console.log('receiving department wrong!')
       resolve(false)
     }
     if (!(/^[\w ,\.()']+ ?(,|\/)? (http(s)?:\\\\)?www\.\w+\.(\w+\.)*\w{2,3} *$/.test(data['Address, website']))) {
       if (res) res.cookie('errAddressWebSite', '1')
-      console.log('address website wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data.Country))) {
       if (res) res.cookie('Country wrong', '1')
-      console.log('country wrong!')
       resolve(false)
     }
     if (!(/^\d+( ?[- \/] ?\d+)? *$/.test(data['Size of enterprise']))) {
       if (res) res.cookie('SerrSizeEnterprise', '1')
-      console.log('size of enterprise wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* * - [A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Mentor name / position']))) {
       if (res) res.cookie('errMentor', '1')
-      console.log('mentor name position wrong!')
       resolve(false)
     }
     if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+ {1}\/? ?\d{9,10} *$/.test(data['Mentor e-mail / phone']))) {
       if (res) res.cookie('errMentorInfo', '1')
-      console.log('mentor email phone wrong!')
       resolve(false)
     }
     if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4} *$/.test(data.from))) {
       if (res) res.cookie('errDateFrom', '1')
-      console.log('from wrong!')
       resolve(false)
     }
     if (!(/^((0)[0-9]|(1)[0-2]){1}\/{1}\d{4} *$/.test(data.till))) {
       if (res) res.cookie('errDateTo', '1')
-      console.log('till wrong!')
       resolve(false)
     }
     if (!(/^\d{1,2}$/.test(data['Number of working hours for week']))) {
       if (res) res.cookie('errHourWork', '1')
-      console.log('working hours wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù,'à-ù0-9]+( [A-za-zà-ù,'à-ù0-9]+)* *$/.test(data['Traineeship title']))) {
       if (res) res.cookie('errTitle', '1')
-      console.log('traineeship title wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data['Detailed programme of the traineeship period']))) {
       if (res) res.cookie('errDetailed', '1')
-      console.log('detailed programme wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data['Knowledge, skill and competences to be acquired by the trainee at the end of the traineeship']))) {
       if (res) res.cookie('errKnowledge', '1')
-      console.log('knowledge wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data['Monitoring plan']))) {
       if (res) res.cookie('errMonitoring', '1')
-      console.log('monitoring plan wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù\.,"';à-ù0-9]+( [A-za-zà-ù\.",';à-ù0-9]+)* *$/.test(data['Evaluation plan']))) {
       if (res) res.cookie('errEvaluation', '1')
-      console.log('evaluation plan wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+ *$/.test(data['language competence']))) {
       if (res) res.cookie('errLenguage', '1')
-      console.log('language wrong! ' + data['language competence'])
       resolve(false)
     }
     if (!data.A1 && !data.A2 && !data.B1 && !data.B2 && !data.C1 && !data.A2) {
       if (res) res.cookie('errLenguage', '1')
-      console.log('language level wrong!')
       resolve(false)
     }
     if (!(/^[A-za-zà-ù]+ {1}[A-za-zà-ù]+( {1}[A-za-zà-ù]+)? *$/.test(data['The trainee signature']))) {
       if (res) res.cookie('errName', '1')
-      console.log('trainee signature wrong!')
       resolve(false)
     }
     if (!(/^(\d{4}(-|\/)((0)?[0-9]|(1)?[0-2]){1}(-|\/)([0-2]?[0-9]|(3)?[0-1]){1}|([0-2]?[0-9]|(3)?[0-1]){1}(-|\/){1}((0)?[0-9]|(1)?[0-2]){1}(-|\/){1}\d{4})$/.test(data['The trainee date']))) {
       if (res) res.cookie('errDate', '1')
-      console.log('today date wrong!')
       resolve(false)
     } else {
-      console.log('All okay')
       resolve(true)
     }
   })
@@ -1043,17 +991,14 @@ exports.validateDataStudent = function (data, res) {
 
 exports.validateDataAcademicTutor = function (data, res) {
   return new Promise(function (resolve, reject) {
-    console.log('Begin...')
 
     if (data.Award && (data['Traineeship certificate'] || data['Final report'] || data.Interview) && (data['Europass Mobility Document Yes'] || data['Europass Mobility Document No'])) {
       if (data['Award ECTS credits Yes'] || data['Award ECTS credits No'] || data['If yes, please indicate the number of ECTS credits'] || data['Give a grade Yes'] || data['Give a grade No'] ||
             data['Traineeship certificate1'] || data['Final report1'] || data.Interview1 || data["Record the traineeship in the trainee's Transcript of Records Yes"] ||
             data["Record the traineeship in the trainee's Transcript of Records No"] || data["Record the traineeship in the trainee's Europass Mobility Document Yes"] || data["Record the traineeship in the trainee's Europass Mobility Document No"]) {
         if (res) res.cookie('errCompileOnlyOne', '1')
-        console.log('Compile only form one! ' + data.Award + ' ' + data['Traineeship certificate'] + ' ' + data['Europass Mobility Document Yes'] + ' ' + data['Award ECTS credits Yes'])
         if (!(/^\d{1,2}$/.test(data.Award))) {
           if (res) res.cookie('errAward', '1')
-          console.log('Award wrong!')
           resolve(false)
         }
         resolve(false)
@@ -1064,29 +1009,23 @@ exports.validateDataAcademicTutor = function (data, res) {
         data["Record the traineeship in the trainee's Transcript of Records No"]) && (data["Record the traineeship in the trainee's Europass Mobility Document Yes"] || data["Record the traineeship in the trainee's Europass Mobility Document No"])) {
       if (data.Award || data['Traineeship certificate'] || data['Final report'] || data.Interview || data['Europass Mobility Document Yes'] || data['Europass Mobility Document No']) {
         if (res) res.cookie('errCompileOnlyOne', '1')
-        console.log('Compile only form two!' + data.Award + ' ' + data['Traineeship certificate'] + ' ' + data['Final report'] + ' ' + data.Interview + ' ' + data['Europass Mobility Document Yes'] + ' ' + data['Europass Mobility Document No'])
         if (data['Award ECTS credits Yes'] && !(/^\d{1,2}$/.test(data['If yes, please indicate the number of ECTS credits']))) {
           if (res) res.cookie('errNumberCredits', '1')
-          console.log('Number of ECTS credits wrong!')
           resolve(false)
         }
         if (data['Give a grade Yes'] && (!data['Traineeship certificate1'] && !data['Final report1'] && !data.Interview1)) {
           if (res) res.cookie('errMissingFields', '1')
-          console.log('Missing fields!')
           resolve(false)
         }
         resolve(false)
       }
       resolve(true)
     } else if (data['Award ECTS credits No'] && !data['If yes, please indicate the number of ECTS credits']) {
-      console.log('Number of ECTS credits not asked!')
       resolve(true)
     } else if (data['Give a grade No'] && (!data['Traineeship certificate1'] && !data['Final report1'] && !data.Interview1)) {
-      console.log('Grade not asked!')
       resolve(true)
     } else {
       if (res) res.cookie('errMissingFields', '1')
-      console.log('Missing fields!')
       resolve(false)
     }
   })
@@ -1094,43 +1033,35 @@ exports.validateDataAcademicTutor = function (data, res) {
 
 exports.validateDataExternalTutor = function (data, res) {
   return new Promise(function (resolve, reject) {
-    console.log('Begin...')
     if (data['financial support Yes'] == 'X' && !data['if financial support Yes']) {
       if (res) res.cookie('errFinancialSupport', '1')
-      console.log('Missing financial support!')
       resolve(false)
     }
 
     if (data['The trainee will receive a contribution in kind for his/her traineeship Yes'] == 'X' && !data['If yes, please specify']) {
       if (res) res.cookie('errContribution', '1')
-      console.log('Missing contribution!')
       resolve(false)
     }
 
     if ((!data['financial support Yes'] && !data['financial support No']) || (!data['The trainee will receive a contribution in kind for his/her traineeship Yes'] && !data['The trainee will receive a contribution in kind for his/her traineeship No']) || (!data['Is the trainee covered by the accident insurance Yes'] && !data['Is the trainee covered by the accident insurance No'])) {
       if (res) res.cookie('errMissingFields', '1')
-      console.log('Missing fields!')
       resolve(false)
     }
 
     if (data['financial support Yes'] == 'X' && !(/^\d*(,\d+)?€? *$/.test(data['if financial support Yes']))) {
       if (res) res.cookie('errFinancialSupport', '1')
-      console.log('Financial support wrong!')
       resolve(false)
     }
 
     if (data['The trainee will receive a contribution in kind for his/her traineeship Yes'] == 'X' && !(/^[\wà-ù\.,"' ]* *$/.test(data['If yes, please specify']))) {
       if (res) res.cookie('errContribution', '1')
-      console.log('Contribution wrong!')
       resolve(false)
     }
 
     if (!(/^[0-5]{1} *$/.test(data['Traineeship Certificate by']))) {
       if (res) res.cookie('errWeeks', '1')
-      console.log('Traineeship certificate wrong! = ' + data['Traineeship Certificate by'])
       resolve(false)
     } else {
-      console.log('All okay')
       resolve(true)
     }
   })

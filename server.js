@@ -258,12 +258,10 @@ app.get('/getVersions', function (req, res) {
   var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email)
   getVersionsPr.then(function (data) {
     if (data && req.query.inputVersion) {
-      console.log('Version id = ' + req.query.inputVersion)
       var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.utente.utente.Email)
       getVersionPr.then(function (la) {
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename = LA_V_' + req.query.inputVersion + '.pdf')
-        console.log('Tornato da tutto')
         la.pipe(res)
       })
     }
@@ -274,12 +272,10 @@ app.get('/getRequestVersions', function (req, res) {
   var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID)
   getVersionsPr.then(function (data) {
     if (data && req.query.inputVersion) {
-      console.log('Version id = ' + req.query.inputVersion)
       var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.data.studentID)
       getVersionPr.then(function (la) {
         res.setHeader('Content-Type', 'application/pdf')
         res.setHeader('Content-Disposition', 'attachment; filename = LA_V_' + req.query.inputVersion + '.pdf')
-        console.log('Tornato da tutto')
         la.pipe(res)
       })
     }
@@ -538,10 +534,8 @@ app.get('/profile', function (request, response) {
 app.get('/logout', function (req, res) {
   req.session.destroy(function (err) {
     if (err) {
-      console.log(err)
     } else {
       res.cookie('logoutEff', '1')
-      console.log('sessione eliminata')
 
       res.redirect('/')
     }

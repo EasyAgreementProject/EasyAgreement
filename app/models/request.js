@@ -50,11 +50,9 @@ class Request {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Request').insertOne(request, function (err) {
           if (err) throw err
-          console.log('Request insert completed!')
           db.close()
           resolve()
         })
@@ -66,11 +64,9 @@ class Request {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Request').findOne({ studentID: studentID }, function (err, result) {
           if (err) throw err
-          console.log('Request search completed! ' + result + ' StudentID = ' + studentID)
           db.close()
           resolve(result)
         })
@@ -82,11 +78,9 @@ class Request {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Request').find({ $or: [{ academicTutorID: tutorID }, { externalTutorID: tutorID }] }).toArray(function (err, result) {
           if (err) throw err
-          console.log('Request search completed! ' + result + ' TutorID = ' + tutorID)
           db.close()
           resolve(result)
         })
@@ -98,11 +92,9 @@ class Request {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Request').deleteOne({ studentID: studentID }, function (err) {
           if (err) throw err
-          console.log('Request delete completed! StudentID = ' + studentID)
           db.close()
           resolve()
         })
@@ -114,11 +106,9 @@ class Request {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Request').updateOne({ studentID: studentID }, { $set: { externalTutorID: tutorID } }, function (err, result) {
           if (err) throw err
-          console.log('Request update completed! Tutor = ' + tutorID + ' StudentID = ' + studentID)
           db.close()
           resolve()
         })

@@ -194,11 +194,9 @@ class Student {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('Student').insertOne(student, function (err) {
           if (err) throw err
-          console.log('Student inserted correctly!')
           resolve()
           db.close()
         })
@@ -347,9 +345,7 @@ class Student {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
-        console.log('.')
         var myquery = { Email: emailv }
         var newvalues = {}
         if (student.Name != null) newvalues.Name = student.Name
@@ -359,7 +355,6 @@ class Student {
         if (student.DegreeCourse != null) newvalues.DegreeCourse = student.DegreeCourse
         dbo.collection('Student').updateOne(myquery, { $set: newvalues }, function (err, res) {
           if (err) throw err
-          console.log('1 document updated')
           dbo.collection('Student').findOne({ Email: emailv }, function (err, result) {
             if (err) reject(err)
             if (result != null) {
@@ -397,9 +392,7 @@ class Student {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
-        console.log('.')
         var myquery = { Email: emailv }
         var newvalues = { $set: { Password: password } }
         dbo.collection('Student').updateOne(myquery, newvalues, function (err, res) {

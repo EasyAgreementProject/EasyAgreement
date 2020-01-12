@@ -158,7 +158,6 @@ class HostOrganization {
         var dbo = db.db(dbName)
         dbo.collection('HostOrganization').insertOne(HostOrg, function (err) {
           if (err) throw err
-          console.log('Successfully added Host Organization to database!')
           resolve()
           db.close()
         })

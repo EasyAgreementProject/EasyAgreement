@@ -104,11 +104,9 @@ class externalTutor {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('ExternalTutor').insertOne(externaltutor, function (err) {
           if (err) throw err
-          console.log('External Tutor inserted correctly!')
           resolve()
           db.close()
         })
@@ -157,9 +155,7 @@ class externalTutor {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
-        console.log('.')
         var myquery = { E_mail: emailv }
         var newvalues = {}
         if (externaltutor.Name != null) newvalues.Name = externaltutor.Name
@@ -168,7 +164,6 @@ class externalTutor {
 
         dbo.collection('ExternalTutor').updateOne(myquery, { $set: newvalues }, function (err, res) {
           if (err) throw err
-          console.log('1 document updated')
           dbo.collection('ExternalTutor').findOne({ E_mail: emailv }, function (err, result) {
             if (err) reject(err)
             if (result != null) {
@@ -220,9 +215,7 @@ class externalTutor {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
-        console.log('.')
         var myquery = { E_mail: emailv }
         var newvalues = { $set: { Password: password } }
         dbo.collection('ExternalTutor').updateOne(myquery, newvalues, function (err, res) {
@@ -274,7 +267,6 @@ class externalTutor {
         var dbo = db.db(dbName)
         dbo.collection('ExternalTutor').insertOne(ExtTutor, function (err) {
           if (err) throw err
-          console.log('Successfully added an External Tutor to database!')
           resolve()
           db.close()
         })

@@ -108,11 +108,9 @@ class AcademicTutor {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
         dbo.collection('AcademicTutor').insertOne(AcademicTutor, function (err) {
           if (err) throw err
-          console.log('Academic Tutor inserted correctly!')
           resolve()
           db.close()
         })
@@ -202,9 +200,7 @@ class AcademicTutor {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
-        console.log('.')
         var myquery = { E_mail: emailv }
         var newvalues = {}
         if (academicTutor.Name != null) newvalues.Name = academicTutor.Name
@@ -212,7 +208,6 @@ class AcademicTutor {
         if (academicTutor.Department != null) newvalues.Department = academicTutor.Department
         dbo.collection('AcademicTutor').updateOne(myquery, { $set: newvalues }, function (err, res) {
           if (err) throw err
-          console.log('1 document updated')
           dbo.collection('AcademicTutor').findOne({ E_mail: emailv }, function (err, result) {
             if (err) reject(err)
             if (result != null) {
@@ -237,9 +232,7 @@ class AcademicTutor {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
-        console.log('Connected successfully to server!')
         var dbo = db.db(dbName)
-        console.log('.')
         var myquery = { E_mail: emailv }
         var newvalues = { $set: { Password: password } }
         dbo.collection('AcademicTutor').updateOne(myquery, newvalues, function (err, res) {
