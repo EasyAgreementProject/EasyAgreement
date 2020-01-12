@@ -67,12 +67,12 @@ MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, fun
         console.log("Succesfully deleted "+result.deletedCount+" messages");
     });
 
-    dbo.collection("Document.files").deleteMany({}, function(err,result) {
+    dbo.collection("Documents.files").deleteMany({}, function(err,result) {
         if(err) throw err;
         console.log("Succesfully deleted "+result.deletedCount+" files");
     });
 
-    dbo.collection("Document.chunks").deleteMany({}, function(err,result) {
+    dbo.collection("Documents.chunks").deleteMany({}, function(err,result) {
         if(err) throw err;
         console.log("Succesfully deleted "+result.deletedCount+" chunks");
     });

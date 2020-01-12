@@ -1401,10 +1401,8 @@ describe('Integration Testing', function(){
                     .send({sender:"d.devito@studenti.unisa.it"})
                     .redirects(0)
                     .end(function(err, res){
-                        if(err) done(err)
-                        
-                        expect(res).to.deep.include({"text" : "true"})
-                        
+                        if(err) done(err)                        
+                        expect(res).to.deep.include({"text" : "true"})                        
                         done()
                     })
             })
@@ -1431,7 +1429,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it.only('Test for /insertNotification', function(done){
+    it('Test for /insertNotification', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -1451,7 +1449,7 @@ describe('Integration Testing', function(){
             })
     })
 
-    it.only('Test for /getAllNotification', function(done){
+    it.only('Test for /getAllNotifications', function(done){
         agent
             .post('/login')
             .redirects(0)
@@ -1460,7 +1458,7 @@ describe('Integration Testing', function(){
                 if(err) done(err)
                 expect(res).to.have.cookie('logEff')
                 agent
-                    .post('/getAllNotification')
+                    .post('/getAllNotifications')
                     .send({email: "s.cotto@gmail.com"})
                     .redirects(0)
                     .end(function(err, res){
@@ -1470,6 +1468,7 @@ describe('Integration Testing', function(){
                     })
             })
     })
+    
 
     it.only('Test for /removeNotification', function(done){
         agent
@@ -1488,11 +1487,11 @@ describe('Integration Testing', function(){
                         expect(res).to.be.json                    
                         agent
                             .post('/removeNotification')
-                            .send({notificationID: res.notification._id})
+                            .send({notificationID: res.id})
                             .redirects(0)
                             .end(function(err, res){
                                 if(err) done(err)
-                                expect(res).to.be.json                        
+                                expect(res).to.deep.include({"text" : "true"})                      
                                 done()
                             })
                     })
@@ -1500,7 +1499,7 @@ describe('Integration Testing', function(){
     })
 
    
-    it.only('Test for /saveMessage', function(done){
+    it('Test for /saveMessage', function(done){
         agent
             .post('/login')
             .redirects(0)
