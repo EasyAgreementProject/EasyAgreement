@@ -1499,6 +1499,34 @@ describe('Integration Testing', function(){
     })
 
    
+    it.only('Test for /removeMessage', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/saveMessage')
+                    .send({ message : { senderID: 'd.devito@studenti.unisa.it', recipientID: 's.cotto@gmail.com', text: 'sormaaa', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } } })
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                        
+                        agent
+                            .post('/removeMessage')
+                            .send({notificationID: res.result})
+                            .redirects(0)
+                            .end(function(err, res){
+                                if(err) done(err)
+                                expect(res).to.deep.include({text : '{"boolean":true}' })                      
+                                done()
+                            })
+                    })
+            })
+    })
+    
     it('Test for /saveMessage', function(done){
         agent
             .post('/login')
@@ -1517,8 +1545,37 @@ describe('Integration Testing', function(){
                         done()
                     })
             })
-    })/*
-    dopo save message,si implemente remove e update Message
+    })
+
+    it.only('Test for /updateMessage', function(done){
+        agent
+            .post('/login')
+            .redirects(0)
+            .send({username: "s.cotto@gmail.com", password: "sara1234"})
+            .end(function(err, res){
+                if(err) done(err)
+                expect(res).to.have.cookie('logEff')
+                agent
+                    .post('/saveMessage')
+                    .send({ message : { senderID: 'd.devito@studenti.unisa.it', recipientID: 's.cotto@gmail.com', text: 'sormaaa', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } } })
+                    .redirects(0)
+                    .end(function(err, res){
+                        if(err) done(err)
+                        expect(res).to.be.json                        
+                        agent
+                            .post('/updateMessage')
+                            .send({notificationID: res.result})
+                            .redirects(0)
+                            .end(function(err, res){
+                                if(err) done(err)
+                                expect(res).to.deep.include({text : '{"boolean":true}' })                      
+                                done()
+                            })
+                    })
+            })
+    })
+    
+    /*
 
     manca getMessages,searchUser,toViewList,getUserList,toviewInfo
     */
