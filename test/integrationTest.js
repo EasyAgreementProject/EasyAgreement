@@ -999,7 +999,7 @@ it('Test for /addExtTutorF', function(done){
         })
 })
 
-it('Test for /deleteHostOrg', function(done){
+it.only('Test for /deleteHostOrg', function(done){
     agent
         .post('/login')
         .redirects(0)
@@ -1007,7 +1007,7 @@ it('Test for /deleteHostOrg', function(done){
         .end(function(err, res){
             if(err) done(err)
             expect(res).to.have.cookie('logEff')
-            agenterasmus
+            agent
                 .post('/deleteHostOrg')
                 .send({erasmus:"sams9797"})
                 .redirects(0)
@@ -1118,19 +1118,11 @@ it('Test for /request.html', function(done){
 
 it('Test for /signup.html', function(done){
     agent
-        .post('/login')
-        .redirects(0)
-        .send({username: "d.devito@studenti.unisa.it", password: "DannyDeVito1"})
+        .get('/signup.html')
         .end(function(err, res){
             if(err) done(err)
-            expect(res).to.have.cookie('logEff')
-            agent
-                .get('/signup.html')
-                .end(function(err, res){
-                    if(err) done(err)
-                    expect(res).status(200)
-                    done()
-                })
+            expect(res).status(200)
+            done()
         })
 })
 
@@ -1192,7 +1184,7 @@ it('Test for /footer.html', function(done){
 
 
 
-it('Test for getCVState/', function(done){
+it('Test for /getCVState', function(done){
     agent
         .post('/login')
         .redirects(0)
@@ -1203,6 +1195,7 @@ it('Test for getCVState/', function(done){
             agent
                 .post('/getCVState')
                 .redirects(0)
+                .send({email: "d.devito@studenti.unisa.it"})
                 .end(function(err, res){
                     if(err) done(err)
                     expect(res).to.deep.include({"text" : "true"})
@@ -1222,7 +1215,7 @@ it('Test for /getIDState', function(done){
             expect(res).to.have.cookie('logEff')
             agent
                 .post('/getIDState')
-                .redirects(0)
+                .send({email: "d.devito@studenti.unisa.it"})
                 .end(function(err, res){
                     if(err) done(err)
                     expect(res).to.deep.include({"text" : "true"})
@@ -1242,19 +1235,11 @@ it('Test for /deleteCV', function(done){ //va fixato
             expect(res).to.have.cookie('logEff')
             agent
                 .post('/deleteCV')
-                .redirects(0)
+                .redirects(0)                
                 .end(function(err, res){
                     if(err) done(err)
-                    
-                    
-                    if( getResponseCookies(res)['DeletedCV']=='1'){ done()} 
-                    else if(getResponseCookies(res)['notDeletedCV']=='1') {done()}
-                    else {console.log('UNHANDLED ENDPOINT ERROR ON DELETECV:'+JSON.stringify(res))}
-
-
-                        
-
-                    
+                    expect(res).to.have.cookie('DeletedCV')
+                    done()
                 })
         })
 })
@@ -1273,12 +1258,9 @@ it('Test for /deleteID', function(done){ //va fixato
                 .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
-                    
-                    if(getCookies(res)['DeletedID']=='1'){ done()} 
-                    else if(getCookies(res)['notDeletedID']=='1') {done()}
-                    else {console.log('UNHANDLED ENDPOINT ERROR ON DELETEID:'+JSON.stringify(res))}
-
-                    })
+                    expect(res).to.have.cookie('DeletedID')
+                    done()
+                })
                 
         })
 })
@@ -1296,7 +1278,7 @@ it('Test for /getConnectedUser', function(done){
                 .redirects(0)
                 .end(function(err, res){
                     if(err) done(err)
-                    expect(res).to.deep.include({"City" : "Milano"})
+                    expect(res).to.be.json
                     done()
                 })
         })
