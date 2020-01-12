@@ -5,26 +5,6 @@ var expect= chai.expect
 var app = require('../server')
 var agent = chai.request.agent(app);
 
-//se avete bisogno di testare i cookie dopo un redirect o un rendere, scrivere nel .end if(getCookies(res.request)['Nome_Cookie']=='valoreCookie0){ done()}
-var getCookies = function(request) {
-    var cookies = {};
-    request.cookies.split(';').forEach(function(cookie) {
-      var parts = cookie.match(/(.*?)=(.*)$/)
-      cookies[ parts[1].trim() ] = (parts[2] || '').trim();
-    });
-    return cookies;
-  };
-
-  var getResponseCookies = function(response) {
-
-    var cookies = {};
-    response.cookies.split(';').forEach(function(cookie) {
-      var parts = cookie.match(/(.*?)=(.*)$/)
-      cookies[ parts[1].trim() ] = (parts[2] || '').trim();
-    });
-    return cookies;
-  };
-
 
 describe('Integration Testing', function(){
 

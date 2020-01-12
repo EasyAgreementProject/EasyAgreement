@@ -8,7 +8,6 @@ exports.update = function (req, res) {
     var oldPassword = req.body.inputOldPassword
     var password = req.body.inputPassword
     var passwordConfirm = req.body.inputConfirmPassword
-
     var isRight = true
 
     if ((oldPassword == null) || (oldPassword.length <= 7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))) {
