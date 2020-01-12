@@ -1,95 +1,130 @@
-var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient
+var ObjectID = require('mongodb').ObjectId
 
-//Database URL
-const url="mongodb://localhost:27017/easyagreement";
+// Database URL
+const url = 'mongodb://localhost:27017/easyagreement'
 
-//Database name
-const dbName="easyagreement";
+// Database name
+const dbName = 'easyagreement'
 
 class Notification {
-    /**
+  /**
      * Constructor of notification
      * @constructor
      */
-    constructor(){
-        this.notificationID=null;
-        this.associatedID=null;
-        this.text=null;
-        this.date=null;
-    }
+  constructor () {
+    this.associatedID = null
+    this.text = null
+    this.date = null
+  }
 
-    //getter methods
+  // getter methods
+  getAssociateID () {
+    return this.associatedID
+  }
 
-    getNotificationID(){
-        return this.notificationID;
-    }
+  getText () {
+    return this.text
+  }
 
-    getAssociateID(){
-        return this.associatedID;
-    }
+  getDate () {
+    return this.date
+  }
 
-    getText(){
-        return this.text;
-    }
+  // setter methods
 
-    getDate(){
-        return this.date;
-    }
+  setText (text) {
+    this.text = text
+  }
 
-    //setter methods
+  setDate (date) {
+    this.date = date
+  }
 
-    setText(text) {
-        this.text=text;
-    }
+  setAssociatedID (associatedID) {
+    this.associatedID = associatedID
+  }
 
-    setDate(date) {
-        this.date=date;
-    }
+  static insertNotification (notification) {
+    return new Promise(function (fulfill, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('Notification').insertOne(notification, function (err, result) {
+          if (err) reject(err)
+          fulfill(result.insertedId)
+          db.close()
+        })
+      })
+    })
+  }
 
-    static insertNotification(notification) {    
-        return new Promise(function (fulfill, reject) {
-            MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
-                if(err) reject(err);
-                console.log("Connected successfully to server!");
-                var dbo = db.db(dbName);
-                dbo.collection("Notification").insertOne(notification, function(err, result) {
-                    if(err) reject(err);
-                    console.log("Notification inserted correctly!");
-                    fulfill(result.insertedId);
-                    db.close();
-                });
-            });
-        });
-    }
+  static removeNotification (notificationID) {
+    return new Promise(function (fulfill, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('Notification').deleteOne({ _id: ObjectID(notificationID) }, function (err, result) {
+          if (err) reject(err)
+          fulfill()
+          db.close()
+        })
+      })
+    })
+  }
 
-    static removeNotification(notificationID) {
-        return new Promise(function (fulfill, reject) {
-            MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
-                if(err) reject(err);
-                console.log("Connected successfully to server!");
-                var dbo = db.db(dbName);
-                dbo.collection("Notification").deleteOne({_id: ObjectID(notificationID)}, function(err, result) {
-                    if(err) reject(err);
-                    console.log("Notification removed correctly!");
-                    fulfill();
-                    db.close();
-                });
-            });
-        });
-    }
+  static retrieveAll (associatedID) {
+    return new Promise(function (fulfill, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('Notification').find({ associatedID: associatedID }).toArray(function (err, result) {
+          if (err) reject(err)
+          fulfill(result)
+          db.close()
+        })
+      })
+    })
+  }
 
-    static retrieveAll(associatedID) {
-        return new Promise(function (fulfill, reject) {
-            MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {    
-                if(err) reject(err);
-                console.log("Connected successfully to server!");
-                var dbo = db.db(dbName);
-                dbo.collection("Notification").find({"associateID": associatedID}).toArray(function(err, result) {
-                    if(err) reject(err);
-                    fulfill();
-                    db.close();
-                });
-            });
-        });
-    }
+  static changeStateCache (associatedID, value) {
+    return new Promise(function (fulfill, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('Cache').findOne({ associatedID: associatedID }, function (err, result) {
+          if (err) reject(err)
+          if (result != null) {
+            dbo.collection('Cache').updateOne({ associatedID: associatedID }, { $set: { bool: value } }, function (err, result) {
+              if (err) reject(err)
+              db.close()
+              fulfill()
+            })
+          } else {
+            dbo.collection('Cache').insertOne({ associatedID: associatedID, bool: value }, function (err, result) {
+              if (err) reject(err)
+              db.close()
+              fulfill()
+            })
+          }
+        })
+      })
+    })
+  }
+
+  static getStateCache (associatedID) {
+    return new Promise(function (fulfill, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('Cache').findOne({ associatedID: associatedID }, function (err, result) {
+          if (err) reject(err)
+          if (result != null) fulfill(result.bool)
+          else fulfill(null)
+        })
+      })
+    })
+  }
 }
+
+module.exports = Notification

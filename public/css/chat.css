@@ -6,8 +6,8 @@
   height: 65%;
   background-color: #fff;
   font-family: 'Lato', sans-serif;
-  border: 0.7px solid black;
-  border-radius: 20px 20px 0 0;
+  border-radius: 10px 10px 0 0 !important;
+  box-shadow: 4px 4px 10px rgba(69,65,78,0.6);
 
   -webkit-transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
   transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
@@ -35,7 +35,7 @@
     flex-direction: column;
     justify-content: space-between;
     background: #FFFFFF;
-    border-radius: 20px 20px 0 0;
+    border-radius: 10px 10px 0 0 !important;
     height: 100%;
     width: 100%;
     padding: 0;
@@ -45,11 +45,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #2979FF;
-    border-radius: 20px 20px 0 0;
-    height: 50px;
+    background: #1f283e;
+    border-radius: 10px 10px 0 0 !important;
+    height: 80px;
     width: 100%;
-    min-height: 50px;
+    min-height: 80px;
     padding-right: 10px;
     cursor: pointer;
     padding-left: 5%;
@@ -90,9 +90,10 @@
   
   .input-chat {
     border: none;
-    border-radius: 24px 0 0 24px;
+    border-left: 1px white;
     padding-left: 5%;
     padding-right: 5%;
+    padding-top: 1.5%;
     width: 80%;
     height: 100%;
     font-size: 1.2em;
@@ -113,7 +114,6 @@
     border: none;
     width: 20%;
     height: 100%;
-    border-radius: 0 24px 24px 0;
   }
 
   .messageBox {
@@ -169,9 +169,8 @@
   }
 
   .send-form{
-    padding:2%;
     height: 15%;
-    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
   }
   
   .chat-menu{
@@ -227,35 +226,38 @@
 
   .choice-user{
     display: flex;
-    padding:3% 5%;
-    height: 15%;
-    border-top: 1px solid #ddd;
+    height: 50px;
+    min-height: 50px;
   }
 
   .choice-user-button{
     color: #fff !important;
-    text-transform: uppercase;
+    text-transform: capitalize;
     text-decoration: none;
-    background: #2979FF;
+    font-size: large;
+    background: #007bff;
     display: inline-block;
     border: none;
-    width: 50%;
+    border-radius: 0px !important;
+    width: 100%;
     height: 100%;
   }
 
-  .choice-user-button:hover{
+  .choice-user-button:hover, .sendButton:hover{
     background: rgb(0, 50, 136);
   }
 
   .contact-container{
     width: 100%;
     padding: 0 0 1% 1%;
-    margin-top: 3px;
+  }
+
+  .contact-container:hover {
+    cursor : pointer;
   }
 
   .contact{
     display: block;
-    margin:2% 3%;
   }
 
   .contact-container:hover{
@@ -269,7 +271,6 @@
   }
 
   .contacts{
-    padding: 5% 3% 5% 3%;
     overflow: auto;
     flex: auto;
   }
@@ -337,6 +338,12 @@
   .chat-notification{
     height: 10px;
     float: right;
+  }
+
+  .user-notification{
+    float: right;
+    padding-top: 20px;
+    height: 35px;
   }
 
   @media (min-width: 320px) and (max-width: 480px) {

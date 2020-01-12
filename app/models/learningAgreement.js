@@ -65,21 +65,28 @@ class LearningAgreement {
                 console.log("Connected successfully to server!");
                 var dbo = db.db(dbName);
                 var insert_data = {};
-                insert_data.file_data = Binary(learningAgreement.document);
-                learningAgreement.document = insert_data;
                 var get = LearningAgreement.getLearningAgreement(learningAgreement.getStudentID());
                 get.then(function(result) {
                     console.log("Learning Agreeement per lo StudentID: " + learningAgreement.getStudentID() + " = " + result)
-                    if (result && !result.document) {
+                    if (result && ((!result.document && learningAgreement.getState().startsWith("Salvato")) || (result.document &&learningAgreement.getState().startsWith("In valutazione")))) {
                         learningAgreement._id = new ObjectID();
-                        var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
-                        del.then(function() {
-                            dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
-                                if (err) throw err;
-                                console.log("Learning Agreement inserted correctly! (Other versions were found)");
-                            });
+                        learningAgreement.version = result.version;
+                        var updateDataPr = LearningAgreement.updateData(learningAgreement.getStudentID(), learningAgreement.getFilling());
+                        updateDataPr.then(function() {
+                            console.log("Learning Agreement saved correctly! (Other versions were found)");
+                            fulfill();
                         })
-                    } else if (result && result.document) {
+                    }
+                    else if (!result && learningAgreement.getState().startsWith("Salvato")) {
+                        learningAgreement._id = new ObjectID();
+                        dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
+                            if (err) throw err;
+                            console.log("Learning Agreement saved correctly! (No other versions were found)");
+                            fulfill();
+                        });
+                    } else if (result && result.document && result.version) {
+                        insert_data.file_data = Binary(learningAgreement.document);
+                        learningAgreement.document = insert_data;
                         result._id = new ObjectID();
                         learningAgreement.version = result.version + 1;
                         var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
@@ -91,20 +98,35 @@ class LearningAgreement {
 
                             dbo.collection("LearningAgreement_revision").insertOne(result, function(err) {
                                 if (err) throw err;
-                                console.log("Learning Agreement inserted correctly!");
-                                db.close();
+                                console.log("Learning Agreement revision inserted correctly!");                                
+                            });
+                            fulfill();
+                        })
+                    } else if (result && learningAgreement.getState().startsWith("Inviato")) {
+                        insert_data.file_data = Binary(learningAgreement.document);
+                        learningAgreement.document = insert_data;
+                        result._id = new ObjectID();
+                        learningAgreement.version = 1;
+                        var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID());
+                        del.then(function() {
+                            dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
+                                if (err) throw err;
+                                console.log("Learning Agreement inserted correctly! (Saved version was found)");
+                                fulfill();
                             });
                         })
-                    } else {
+                    } else if (!result) {
+                        insert_data.file_data = Binary(learningAgreement.document);
+                        learningAgreement.document = insert_data;
                         learningAgreement._id = new ObjectID();
                         learningAgreement.version = 1;
                         dbo.collection("current_LearningAgreement").insertOne(learningAgreement, function(err) {
                             if (err) throw err;
                             console.log("Learning Agreement inserted correctly! (No other versions were found)");
+                            fulfill();
                         });
                     }
                 })
-                fulfill();
             });
         });
     }
@@ -140,6 +162,23 @@ class LearningAgreement {
             });
         });
     }
+
+    static updateData(studentID, data) {
+        return new Promise(function(fulfill, reject) {
+            MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+                if (err) throw err;
+                console.log("Connected successfully to server!");
+                var dbo = db.db(dbName);
+                dbo.collection("current_LearningAgreement").updateOne({ "studentID": studentID }, {$set: {"filling": data}}, function(err, result) {
+                    if (err) throw err;
+                    console.log("Learning Agreement update completed! Data = " + data + " StudentID = " + studentID);
+                    db.close();
+                    fulfill();
+                });
+            });
+        });
+    }
+
     static deleteLearningAgreement(studentID) {
         return new Promise(function(fulfill, reject) {
             MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
@@ -178,24 +217,36 @@ class LearningAgreement {
                 if (err) throw err;
                 console.log("Connected successfully to server! Versione = "+v+" Email = "+email);
                 var dbo = db.db(dbName);
-                dbo.collection("LearningAgreement_revision").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
-                    if (err) throw err;
-                    if(result) {
-                        console.log("Sono qui ilvaiovnzodivn "+result)
-                        db.close();
-                        fulfill(result);                        
-                    }
-                    else {
-                        dbo.collection("current_LearningAgreement").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
-                            if (err) throw err;
-                            if(result) {
-                                console.log("Sono qui ilvaiovnzodivn "+result)
-                                db.close();
-                                fulfill(result);                        
-                            }
-                        });
-                    }
-                });
+                if(v) {
+                    dbo.collection("LearningAgreement_revision").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
+                        if (err) throw err;
+                        if(result) {
+                            console.log("Sono qui "+result)
+                            db.close();
+                            fulfill(result);                        
+                        }
+                        else {
+                            dbo.collection("current_LearningAgreement").findOne({ "version": Number(v), "studentID": email }, function(err, result) {
+                                if (err) throw err;
+                                if(result) {
+                                    console.log("Sono qui "+result)
+                                    db.close();
+                                    fulfill(result);                        
+                                }
+                            });
+                        }
+                    });
+                }
+                else {
+                    dbo.collection("current_LearningAgreement").findOne({ "studentID": email }, function(err, result) {
+                        if (err) throw err;
+                        if(result) {
+                            console.log("Sono qui "+result)
+                            db.close();
+                            fulfill(result);                        
+                        }
+                    });
+                }
             });
         });
     }

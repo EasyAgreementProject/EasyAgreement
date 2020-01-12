@@ -1,8 +1,9 @@
 [
-    { "E_mail":"g.musso@unisa.it" , "Password":"temp", "Surname":"Musso" ,"Name":"Giuseppe","Department":"Informatica"},
-    { "E_mail":"m.bianco@unisa.it" , "Password":"temp", "Surname":"Bianco" ,"Name":"Marco","Department":"Informatica"},
-    { "E_mail" : "p.penna@unisa.it" , "Password":"temp", "Surname":"Penna" ,"Name":"Paola","Department":"Matematica"},
-    { "E_mail" :"l.nebiolo@unisa.it" , "Password":"temp", "Surname":"Nebiolo" ,"Name":"Lorenzo","Department":"Matematica"},
-    { "E_mail":"s.risso@unisa.it" , "Password":"temp", "Surname":"Risso" ,"Name":"Simone","Department":"Lettere"}
+    { "E_mail":"g.musso@unisa.it" , "Password":"MusGiuseppe1", "Surname":"Musso" ,"Name":"Giuseppe","Department":"Informatica"},
+    { "E_mail":"m.bianco@unisa.it" , "Password":"BiaMarco1", "Surname":"Bianco" ,"Name":"Marco","Department":"Informatica"},
+    { "E_mail" : "p.penna@unisa.it" , "Password":"PenPaola1", "Surname":"Penna" ,"Name":"Paola","Department":"Matematica"},
+    { "E_mail" :"l.nebiolo@unisa.it" , "Password":"NebLorenzo1", "Surname":"Nebiolo" ,"Name":"Lorenzo","Department":"Matematica"},
+    { "E_mail":"s.risso@unisa.it" , "Password":"RisSimone1", "Surname":"Risso" ,"Name":"Simone","Department":"Lettere"},
+    { "E_mail":"f.ferrucci@unisa.it" , "Password":"FerFilomena1", "Surname":"Ferrucci" ,"Name":"Filomena","Department":"Informatica"}
   
   ]

@@ -1,0 +1,158 @@
+<%- include ('header') %>
+<%- include ('sidebar') %>
+<link href="/css/viewRequest.css" rel="stylesheet">
+<div class="main-panel">
+    <div class="content">
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                    <div>
+                        <h2 class="text-white pb-2 fw-bold">Visualizzazione Dettagli Richiesta</h2>
+                        <h5 class="text-white op-7 mb-2">Learning Agreement</h5>
+                    </div>
+                </div>
+            </div>	
+        </div>
+        <div class="page-inner py-5">
+            <div class="infoStudent" style="width: 50%; float: left;">
+                <span style="font-weight: bold;">Nome:</span>
+                <span id="name"></span><br><br>
+                <span style="font-weight: bold;">Cognome:</span>
+                <span id="surname"></span><br><br>
+                <span style="font-weight: bold;">Data di nascita:</span>
+                <span id="bornDate"></span><br><br>
+                <span style="font-weight: bold;">Nazionalità:</span>
+                <span id="nationality"></span><br><br>
+                <span style="font-weight: bold;">E-mail:</span>
+                <span id="email"></span><br><br>
+            </div>
+            <div class="infoTutor" style="width: 50%; float: right">
+                <span style="font-weight: bold;">Tutor Accademico:</span>
+                <span id="academicTutor"></span><br><br>
+                <span style="font-weight: bold;">Tutor Esterno:</span>
+                <span id="externalTutor"></span><br><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <span style="font-weight: bold;">Stato:</span>
+                <span id="state"></span><br><br>
+            </div>
+            <br>
+            <div class="form-group">
+                <button class="btn2 btn-white2 btn-border" type="button" style="cursor:default"></button>
+                <div class="text-center form-inline">
+                    <button class="btn2 btn-secondary" type="button" id="approve1" style="width: 12%;">Approva</button>
+                    <button class="btn3 btn-secondary" type="button" id="disapprove" style="width: 13%;">Disapprova</button>  
+                </div>   
+                <form id = "disapproveForm" method ="POST" action = "#" style = "display: none;">
+                    <div class = "form-label-group">
+                        <input type = "text" class = "form-control" name = "msg">
+                        <label for = "msg">Inserire la motivazione</label>
+                    </div>
+                    <button class="btn2 btn-secondary btn-block" type="submit">Disapprova</button>
+                </form>
+                <button class="btn2 btn-secondary btn-block" type="button" id="approve2" style = "display:none">Approva</button>  
+                <form id = "idForm" method="POST" action ="/fileviewIDRequest" style = "display:none"></form>
+                    <button class="btn2 btn-secondary btn-block" type="button" id="id">Visualizza carta d'identità</button>
+                <form id = "cvForm" method="POST" action ="/fileviewCVRequest" style = "display:none"></form>             
+                    <button class="btn2 btn-secondary btn-block" type="button" id="cv">Visualizza curriculum vitae</button>
+                <form class="text-center" action="/getRequestVersions" method ="GET">
+                    <div class="form-group">
+                        <label>Versioni:</label><br>
+                        <select class="custom-select"  name="inputVersion" id="versions">
+                        </select>
+                        <button class="btn3 btn-secondary" type="submit" class="saveButton" >Visualizza</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    
+    <script>
+        $(document).ready(function(){
+            document.getElementById("id").onclick = function() { 
+                document.getElementById("idForm").submit();
+            }
+            document.getElementById("cv").onclick = function() { 
+                document.getElementById("cvForm").submit();
+            }
+            $.get("/getAllRequestVersions", function(array) {
+                if(array) {
+                    var select = document.getElementById("versions");
+                    for(i = 0; i < array.length; i++) {
+                        var option = document.createElement("option");
+                        if(i == 0) {
+                            option.text = array[i].version+" (corrente)";
+                            option.value = array[i].version;
+                            select.add(option);
+                        }
+                        else {
+                            option.text = array[i].version;
+                            option.value = array[i].version;
+                            select.add(option);
+                        }
+                    }     
+                }
+            });
+            $.get('/getDetails', function(data){
+                document.getElementById("name").innerHTML = data["data"]["First name (s)"];
+                document.getElementById("surname").innerHTML = data["data"]["Last name (s)"];
+                document.getElementById("bornDate").innerHTML = data["data"]["Date of birth"];
+                document.getElementById("nationality").innerHTML = data["data"]["Nationality"];
+                document.getElementById("email").innerHTML = data["data"]["E-mail"];
+                document.getElementById("academicTutor").innerHTML = data["data"]["Contact person name / position"];
+                document.getElementById("externalTutor").innerHTML = data["data"]["Mentor name / position"];
+                document.getElementById("state").innerHTML = data["status"];             
+               
+
+                $.post('/getConnectedUser', function(user) {
+                    if(user.type === 'academicTutor') {
+                        if(data["status"].startsWith("Approvato")) {
+                            document.getElementById("approve1").style.display = "none";
+                            document.getElementById("disapprove").style.display = "none";
+                        }
+                        else if(data["status"].startsWith("Disapprovato")|| data["status"].startsWith("In valutazione")) {
+                            document.getElementById("disapprove").style.display = "none";
+                            document.getElementById("approve1").style.display = "none";
+                            document.getElementById("approve2").onclick = function() {location.href='compileLAAcademicTutor.html';}
+                            document.getElementById("approve2").style.display = "block";
+                        }
+                        else {
+                            document.getElementById("approve1").onclick = function() {location.href='compileLAAcademicTutor.html';}
+                            document.getElementById("disapprove").onclick = function() {                            
+                                document.getElementById("disapproveForm").style.display = "block";
+                                document.getElementById("disapprove").style.display = "none";
+                                document.getElementById("disapproveForm").action = "/disapproveAcademicTutor";
+                                document.getElementById("approve1").style.display = "none";
+                                document.getElementById("approve2").style.display = "block";
+                            }
+                        }
+                    }
+                    else if (user.type === 'externalTutor') {
+                        if(data["status"].startsWith("Approvato dal Tutor Esterno")) {
+                            document.getElementById("approve1").style.display = "none";
+                            document.getElementById("disapprove").style.display = "none";
+                        }
+                        else if(data["status"].startsWith("Disapprovato") || data["status"].startsWith("In valutazione")) {
+                            document.getElementById("disapprove").style.display = "none";
+                            document.getElementById("approve1").style.display = "none";
+                                document.getElementById("approve2").onclick = location.href='compileLAExternalTutor.html';
+                            document.getElementById("approve2").style.display = "block";
+                        }
+                        else {
+                            document.getElementById("approve1").onclick = function() {location.href='compileLAExternalTutor.html'};
+                            document.getElementById("disapprove").onclick = function() {                            
+                                document.getElementById("disapproveForm").style.display = "block";
+                                document.getElementById("disapprove").style.display = "none";
+                                document.getElementById("disapproveForm").action = "/disapproveExternalTutor";
+                                document.getElementById("approve1").style.display = "none";
+                                document.getElementById("approve2").style.display = "block";
+                            }
+                        }
+                    }
+                });
+            })
+        });
+    </script>
+<%- include ('sidebar') %>

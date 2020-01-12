@@ -94,11 +94,11 @@
                         .form-label-group input::placeholder {
                             color: transparent;
                         }
-                        .form-label-group input:not(:placeholder-shown) {
+                        .form-label-group input:not(:placeholder-shown), .form-label-groupS input:not(:placeholder-shown), .form-label-groupAT input:not(:placeholder-shown), .form-label-groupE input:not(:placeholder-shown), .form-label-groupA input:not(:placeholder-shown) {
                             padding-top: calc((.75rem) + .75rem * (2 / 3));
                             padding-bottom: calc(.75rem / 3);
                         }
-                        .form-label-group input:not(:placeholder-shown)~label {
+                        .form-label-group input:not(:placeholder-shown)~label, .form-label-groupS input:not(:placeholder-shown)~label, .form-label-groupAT input:not(:placeholder-shown)~label, .form-label-groupE input:not(:placeholder-shown)~label, .form-label-groupA input:not(:placeholder-shown)~label {
                             padding-top: calc(.75rem / 3);
                             padding-bottom: calc(0.75rem / 3);
                             font-size: 12px;
@@ -109,15 +109,15 @@
                          ::before {
                             box-sizing: border-box;
                         }
-                        .form-label-group, .form-group {
+                        .form-label-group, .form-label-groupS, .form-label-groupAT, .form-label-groupE, .form-label-groupA, .form-group {
                             margin-bottom: 1rem;
                             position: relative;
                             margin: 2%;
                         }
-                        .form-label-group>input {
+                        .form-label-group >input, .form-label-groupS >input, .form-label-groupAT >input, .form-label-groupE >input, .form-label-groupA >input {
                             padding: 0.75rem 1.5rem;
                         }
-                        .form-label-group input {
+                        .form-label-group input, .form-label-groupS input, .form-label-groupAT input, .form-label-groupE input, .form-label-groupA input  {
                             height: auto;
                             line-height: .75rem;
                             border-radius: 2rem;
@@ -167,15 +167,30 @@
                             margin-left: 0.75rem;
                         }
                         #errName,
+                        #errNameT,
+                        #errNameEx,
+                        #errSurnameEx,
+                        #errOrganizationEx,
+                        #errEmailEx,
                         #errSurname,
+                        #errSurnameT,
                         #errDate,
                         #errTelephone,
+                        #errErasmusCode,
+                        #errFacolta,
+                        #errIndirizzo,
+                        #errSize,
+                        #errContatti,
                         #errStudyCicle,
                         #errAcademicYear1,
                         #errAcademicYear2,
                         #errNationality,
                         #errSubjectCode,
                         #errEmail,
+                        #errEmailT,
+                        #errOrganization,
+                        #errPassword,
+                        #errConfirmPassword,
                         #errDepartmentSending,
                         #errContactName,
                         #errContactSending,
@@ -215,7 +230,7 @@
                             border-color: red !important;
                         }
                     }
-                    .btn {
+                    .btn2 {
                         font-size: 80%;
                         border-radius: 5rem;
                         letter-spacing: .1rem;

@@ -1,0 +1,215 @@
+<%- include ('header') %>
+<%- include ('sidebar') %>
+<link href="/css/viewandupdate.css" rel="stylesheet">
+<link href="/css/simple-sidebar.css" rel="stylesheet">
+<script type="text/javascript" src="./js/cookie.js"></script>
+    <div class="main-panel">
+        <div class="content">
+            <div class="panel-header bg-primary-gradient">
+                <div class="page-inner py-5">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h2 class="text-white pb-2 fw-bold">Visualizzazione Profilo</h2>
+                            <h5 class="text-white op-7 mb-2">Easy Agreement</h5>
+                        </div>
+                    </div>
+                </div>	
+            </div>           
+                <%if(session.utente.type == "student") {%>
+                    <div class="page-inner py-5" id="studentView" >
+                        <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
+                        <br>
+                        <div class="text-center" id="viewp">
+                        <ul>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email:&nbsp;</strong></span><%= JSON.stringify(session.utente.utente.Email).substring(1, JSON.stringify(session.utente.utente.Email).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Address).substring(1, JSON.stringify(session.utente.utente.Address).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.City).substring(1, JSON.stringify(session.utente.utente.City).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.DegreeCourse).substring(1, JSON.stringify(session.utente.utente.DegreeCourse).length-1) %></li>
+                        </ul>
+                        <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
+                        </div>
+                       <div class="updatedati text-center">
+                        <hr>                          
+                            <form id="formUpdate" method="post" action="/updateProfile">
+                                <h4 class="mt-4">Modifica dati anagrafici</h4>
+                                    <div class="form-label-groupS">
+                                        <input type="text" id="inputNameS" class="form-control" name="inputNameS" placeholder="Nome" >
+                                            <span id="errNameS">Nome non valido</span>
+                                    </div>
+                                    <div class="form-label-groupS">
+                                        <input type="text" id="inputSurnameS" class="form-control" name="inputSurnameS" placeholder="Cognome"  >
+                                            <span id="errSurnameS">Cognome non valido</span>
+                                    </div>
+                                    <div class="form-label-groupS">
+                                        <input type="text" id="inputAddress" class="form-control" name="inputAddress" placeholder="Indirizzo"  >
+                                            <span id="errAddress" >Indirizzo non valido</span>
+                                    </div>
+                                    <div class="form-label-groupS">
+                                        <input type="text" id="inputCity" class="form-control" name="inputCity" placeholder="Città"  >
+                                            <span id="errCity">Città non valida</span>
+                                    </div>
+                                    <div class="form-label-groupS">
+                                        <input type="text" id="inputDegree" class="form-control" name="inputDegree" placeholder="Corso di Laurea"  >
+                                            <span id="errCourse">Corso di Laurea non valido</span>
+                                    </div>
+                                    <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica dati</button>
+                            </form>
+                                                       
+                                <form id="formUpdatePass" method="post" action="/updatePassword">
+                                <h4 class="mt-4">Modifica password</h4>
+                                    <div class="form-label-groupS">
+                                        <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
+                                            <span id="errOldPassword">Vecchia Password errata</span>
+                                   </div>
+                                    <div class="form-label-groupS">
+                                        <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password" >
+                                            <span id="errPassword">Nuova Password non valida</span>
+                                    </div>
+                                    <div class="form-label-groupS">
+                                        <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
+                                            <span id="errConfirmPassword">Password errata </span>
+                                    </div>
+                                    <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
+                                </form>
+                                   
+                        </div>
+                    </div>
+                <% } %>        
+                <%if(session.utente.type == "externalTutor") {%>
+                    <div class="page-inner py-5" id="studentView" >
+                        <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
+                        <br>
+                        <div class="text-center" id="viewp">
+                        <ul>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1)%></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.E_mail).substring(1, JSON.stringify(session.utente.utente.E_mail).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Organization).substring(1, JSON.stringify(session.utente.utente.Organization).length-1) %></li>
+                        </ul>
+                        <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
+                        <div class="updatedati text-center">                        
+                            <form id="formUpdate" method="post" action="/updateProfile">
+                            <h4 class="mt-4">Modifica dati anagrafici</h4>
+                                <div class="form-label-groupE">
+                                    <input type="text" id="inputNameE" class="form-control" name="inputNameE" placeholder="Nome">
+                                        <span id="errNameE">Nome non valido</span>
+                                </div>
+                                <div class="form-label-groupE">
+                                    <input type="text" id="inputSurnameE" class="form-control" name="inputSurnameE" placeholder="Cognome"  >
+                                        <span id="errSurnameE">Cognome non valido</span>
+                                </div>
+                                <div class="form-label-groupE">
+                                    <input type="text" id="inputOrganization" class="form-control" name="inputOrganization" placeholder="Organizzazione"  >
+                                        <span id="errOrganization">Organizzazione non valida</span>
+                                </div>
+                                <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica dati</button>
+                            </form>
+                                        
+                            <form id="formUpdatePass" method="post" action="/updatePassword">
+                                <h4 class="mt-4">Modifica password</h4>
+                                    <div class="form-label-groupE">
+                                    <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
+                                        <span id="errOldPassword">Vecchia Password errata</span>
+                                </div>
+                                <div class="form-label-groupE">
+                                    <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
+                                        <span id="errPassword">Nuova Password non valida</span>
+                                </div>
+                                <div class="form-label-groupE">
+                                    <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password" >
+                                        <span id="errConfirmPassword">Password errata </span>
+                                </div>
+                                <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% } %>
+        
+        
+                    <%if(session.utente.type == "academicTutor"){%>
+                    <div class="page-inner py-5" id="studentView" >
+                        <h1 class="mt-8">Riepilogo Dati Anagrafici</h1>
+                        <br>
+                        <div class="text-center" id="viewp">
+                            <ul>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1)%></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.E_mail).substring(1, JSON.stringify(session.utente.utente.E_mail).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Department).substring(1, JSON.stringify(session.utente.utente.Department).length-1) %></li>
+                        </ul>
+                        <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
+                        <div class="updatedati text-center">
+                        
+                            <form id="formUpdate" method="post" action="/updateProfile">
+                                <h4 class="mt-4">Modifica dati anagrafici</h4>
+                                <div class="form-label-groupAT">
+                                    <input type="text" id="inputNameAc" class="form-control" name="inputNameAc" placeholder="Nome">
+                                    <span id="errNameAc">Nome non valido</span>
+                                </div>
+                                <div class="form-label-groupAT">
+                                    <input type="text" id="inputSurnameAc" class="form-control" name="inputSurnameAc" placeholder="Cognome">
+                                    <span id="errSurnameAc">Cognome non valido</span>
+                                </div>
+                                <div class="form-label-groupAT">
+                                    <input type="text" id="inputDepartmentT" class="form-control" name="inputDepartmentT" placeholder="Dipartimento">
+                                    <span id="errDepartmentT">Dipartimento non valido</span>
+                                </div>
+                                <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica dati</button>
+                            </form>
+                                
+                            <form id="formUpdatePass" method="post" action="/updatePassword">
+                                <h4 class="mt-4">Modifica password</h4>
+                                <div class="form-label-groupAT">
+                                <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
+                                    <span id="errOldPassword">Vecchia Password errata</span>
+                            </div>
+                            <div class="form-label-groupAT">
+                                <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
+                                    <span id="errPassword">Nuova Password non valida</span>
+                            </div>
+                            <div class="form-label-groupAT">
+                                <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
+                                    <span id="errConfirmPassword">Password errata </span>
+                            </div>
+                            <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
+                        </form>
+                        </div>
+                    </div>
+                    <% } %>   
+        
+        
+                    <%if(session.utente.type == "admin"){%>
+                    <div class="page-inner py-5" id="adminView">
+                        <div class="updatedati text-centerAdmin">
+                            <form id="formUpdatePass" method="post" action="/updatePassword">
+                                <h4 class="mt-4">Modifica password</h4>
+                                <div class="form-label-groupA">
+                                <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
+                                    <span id="errOldPassword">Vecchia Password errata</span>
+                            </div>
+                            <div class="form-label-groupA">
+                                <input type="password" id="inputPassword" class="form-control" name="inputPassword" placeholder="Nuova Password"  >
+                                    <span id="errPassword">Nuova Password non valida</span>
+                            </div>
+                            <div class="form-label-groupA">
+                                <input type="password" id="inputConfirmPassword" class="form-control" name="inputConfirmPassword" placeholder="Ripeti Password"  >
+                                    <span id="errConfirmPassword">Password errata </span>
+                            </div>
+                            <button class="btn btn-secondary btn-round form-group" type="submit" class="saveButton">Modifica password</button>
+                        </form>
+                        </div>
+                    </div>
+                    <% } %>
+        </div>
+    </div>
+<%- include ('footer') %>
+<script>
+    function showEdit() {
+        if($(".updatedati").is(":hidden") )
+            $(".updatedati").css('display', 'flex');
+        else
+            $(".updatedati").css('display', 'none');
+    }
+</script>

@@ -1,0 +1,84 @@
+.banner{
+    background: #fff;
+    height:50%;
+    margin-top:40px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,1);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,1);
+}
+
+.banner__image{
+    width:auto;
+    float:left;
+	background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+    background-position: center center;
+    content: url(/img/user.png);
+    height: 150px;
+    padding-top: 5%;
+    padding-right: 5%;
+    padding-left: 10%;
+}
+
+.banner__copy{
+    width:70%;
+    float:left;
+    height:100%;
+    display: table;
+}
+
+.banner__copy__text{
+    display:block; 
+    padding:30px;
+}
+
+.banner__copy__text h3{
+    font-size: 36px;
+    margin-bottom:0;
+}
+
+.banner__copy__text h4{
+    font-size: 22px;
+    margin: 5px 0
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.cards{
+    max-width: 1200px; 
+    margin: 40px auto
+}
+
+.card{
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: 30%; 
+    margin:0 1.5%; 
+    background: #fff;
+    float:left;
+    margin-bottom: 1%;
+}
+
+.card__image{
+    width:100%; 
+    height: auto;
+    padding: 30px; 
+    background-image: url('/img/user.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.card__copy{
+    padding:5px 20px;
+    margin-bottom:0; 
+    text-align: center;
+}

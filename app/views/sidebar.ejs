@@ -1,0 +1,134 @@
+<!-- Sidebar -->
+<div id ="sidebar" class="sidebar sidebar-style-2">
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <div class="user">
+                <div class="info">
+                    <div class="avatar-sm float-left mr-2">
+                        <img class="avatar-img rounded-circle" src="/img/user.png" alt="...">
+                    </div>
+                    <a href="/profile" id="profile" aria-expanded="true">
+                        <span id="nome">
+                            <span class="user-level"></span>
+                        </span>
+                    </a>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <ul class="nav nav-primary">
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-user-circle"></i>
+                    </span>
+                    <h4 class="text-section">Opzioni</h4>
+                </li>
+            <%if(session.utente.type == "student") {%>            
+                <li class="nav-item">
+                    <a href="compileLAStudent.html">
+                        <i class="fas fa-file-contract"></i>
+                        <p>Compila LA</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="viewLA.html">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Visualizza LA</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/toViewList">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Lista Tutor e <br>Organizzazioni</p>
+                    </a>							
+                </li>
+                <li class="nav-item">
+                    <a href="gestioneDocumenti.html">
+                        <i class="fas fa-file-download"></i>
+                        <p>Gestione Documenti</p>
+                    </a>
+                </li>
+            </ul>
+            <%} %>
+            <%if(session.utente.type == "academicTutor") {%>                
+                <li class="nav-item">
+                    <a href="request.html">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Visualizza Richieste</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/toViewList">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Lista Tutor e <br>Organizzazioni</p>
+                    </a>							
+                </li>
+            </ul>
+            <%} %>
+            <%if(session.utente.type == "externalTutor") {%>
+                <li class="nav-item">
+                    <a href="request.html">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Visualizza Richieste</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/toViewList">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Lista Tutor e <br>Organizzazioni</p>
+                    </a>							
+                </li>
+            </ul>
+            <%} %>
+            <%if(session.utente.type == "admin") {%>
+                <li class="nav-item">
+                    <a href="/addHostOrg">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Aggiunta <br>Organizzazione Ospitante</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/addExtTutor">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Aggiunta <br>Tutor Esterno</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/toViewList">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Lista Organizzazioni <br> Ospitante e Tutor Esterno</p>
+                    </a>
+                </li>
+               
+                
+            <%} %>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->
+<script>
+    $(document).ready(function(){
+        $.post('/getConnectedUser', function(user){
+            var role;
+            var name;
+            if(user.type === 'student') {
+                role = 'Studente';
+                name = user.utente.Name;
+            }
+            if(user.type === 'academicTutor') {
+                role = 'Tutor Accademico';
+                name = user.utente.Name;
+            }
+            if(user.type === 'externalTutor') {
+                role = 'Tutor Esterno';
+                name = user.utente.Name;
+            }
+            if(user.type === 'admin') {
+                name = user.utente.name;
+                role = 'Amministratore';
+                document.getElementById('profile').style.cursor = "default";
+            }
+            document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
+        })
+    })
+</script>
