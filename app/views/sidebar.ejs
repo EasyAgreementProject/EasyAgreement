@@ -126,7 +126,6 @@
             if(user.type === 'admin') {
                 name = user.utente.name;
                 role = 'Amministratore';
-                document.getElementById('profile').style.cursor = "default";
             }
             document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
         })

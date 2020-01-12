@@ -1,15 +1,15 @@
 var hash = require('./hash.js')
-var studentModel = require('../models/student.js')
+var StudentModel = require('../models/student.js')
 
 exports.update = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var name = req.body.inputNameS
     var surname = req.body.inputSurnameS
     var citta = req.body.inputCity
     var indirizzo = req.body.inputAddress
     var corso = req.body.inputDegree
 
-    var studente = new studentModel()
+    var studente = new StudentModel()
 
     // Form validation
     var isRight = true
@@ -60,11 +60,11 @@ exports.update = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
 
-    var checkS = studentModel.updateStudent(studente, req.session.utente.utente.Email)
+    var checkS = StudentModel.updateStudent(studente, req.session.utente.utente.Email)
     /**
     * It checks the result of updateStudent function and updates the student session
     * @param  {Object} result - The result of updateStudent function
@@ -74,16 +74,16 @@ exports.update = function (req, res) {
       if (result != null) {
         req.session.utente.utente = result
         res.cookie('updateEff', '1')
-        fulfill(true)
+        resolve(true)
       } else {
-        reject()
+        resolve()
       }
     })
   })
 }
 
 exports.updatePassword = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var oldPassword = req.body.inputOldPassword
     var password = req.body.inputPassword
     var passwordConfirm = req.body.inputConfirmPassword
@@ -107,13 +107,13 @@ exports.updatePassword = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
 
     if (hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)) {
       var passwordHashed = hash.hashPassword(password)
-      var checkS = studentModel.updatePassword(passwordHashed, req.session.utente.utente.Email)
+      var checkS = StudentModel.updatePassword(passwordHashed, req.session.utente.utente.Email)
       /**
         * It checks the result of updatePassword function and updates the student session
         * @param  {Object} result - The result of updatePassword function (about student)
@@ -123,14 +123,14 @@ exports.updatePassword = function (req, res) {
         if (result != null) {
           req.session.utente.utente = result
           res.cookie('updatePassEff', '1')
-          fulfill(true)
+          resolve(true)
         } else {
-          reject()
+          resolve()
         }
       })
     } else {
       res.cookie('errOldPassword', '1')
-      fulfill(true)
+      resolve(true)
     }
   })
 }

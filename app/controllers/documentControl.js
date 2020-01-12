@@ -4,14 +4,13 @@ var fs = require('fs')
 const url = 'mongodb://localhost:27017/easyagreement'
 
 exports.idHandler = function (e) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var id = null
     var email = e
     var exist = studentModel.retrieveStudentIDCard(email)
     exist.then(function (result) {
-      if (result != null && result != "") {
-        fulfill('2')
-        return
+      if (result != null && result != '') {
+        resolve('2')
       } else {
         mongo.MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
           if (err) reject(err)
@@ -29,7 +28,7 @@ exports.idHandler = function (e) {
               }
             })
             if (!thereIs) {
-              fulfill('1')
+              resolve('1')
               db.close()
               return
             }
@@ -45,7 +44,7 @@ exports.idHandler = function (e) {
             if (error) reject(error)
           })
             .on('finish', function () {
-              fulfill('0')
+              resolve('0')
               db.close()
             })
         })
@@ -55,13 +54,13 @@ exports.idHandler = function (e) {
 }
 
 exports.cvHandler = function (e) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var id = null
     var email = e
     var exist = studentModel.retrieveStudentCV(email)
     exist.then(function (result) {
       if (result != null && result != '') {
-        fulfill('2')
+        resolve('2')
       }
     })
     mongo.MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -81,7 +80,7 @@ exports.cvHandler = function (e) {
           }
         })
         if (!thereIs) {
-          fulfill('1')
+          resolve('1')
           db.close()
           return
         }
@@ -96,7 +95,7 @@ exports.cvHandler = function (e) {
         if (error) reject(error)
       })
         .on('finish', function () {
-          fulfill('0')
+          resolve('0')
           db.close()
         })
     })
@@ -104,7 +103,7 @@ exports.cvHandler = function (e) {
 }
 
 exports.IDEraser = function (e) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var email = e
     var getID = studentModel.retrieveStudentIDCard(email)
     getID.then(function (id) {
@@ -116,17 +115,16 @@ exports.IDEraser = function (e) {
           var bucket = new mongo.GridFSBucket(dbo, { bucketName: 'Documents' })
           bucket.delete(id, function (err) {
             if (err) reject(err)
-            fulfill(true)
+            resolve(true)
           })
         })
-      }
-      else fulfill(false)
+      } else resolve(false)
     })
   })
 }
 
 exports.CVEraser = function (e) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var email = e
     var getCV = studentModel.retrieveStudentCV(email)
     getCV.then(function (id) {
@@ -138,17 +136,16 @@ exports.CVEraser = function (e) {
           var bucket = new mongo.GridFSBucket(dbo, { bucketName: 'Documents' })
           bucket.delete(id, function (err) {
             if (err) reject(err)
-            fulfill(true)
+            resolve(true)
           })
         })
-      }
-      else  fulfill(false)
+      } else resolve(false)
     })
   })
 }
 
 exports.viewID = function (e) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var email = e
     var getID = studentModel.retrieveStudentIDCard(email)
     getID.then(function (result) {
@@ -159,16 +156,15 @@ exports.viewID = function (e) {
           var dbo = db.db('easyagreement')
           var bucket = new mongo.GridFSBucket(dbo, { bucketName: 'Documents' })
           var downloadStream = bucket.openDownloadStream(idCard)
-          fulfill(downloadStream)
+          resolve(downloadStream)
         })
-      }
-      else  fulfill(false)
+      } else resolve(false)
     })
   })
 }
 
 exports.viewCV = function (e) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var email = e
     var getID = studentModel.retrieveStudentCV(email)
     getID.then(function (result) {
@@ -179,30 +175,29 @@ exports.viewCV = function (e) {
           var dbo = db.db('easyagreement')
           var bucket = new mongo.GridFSBucket(dbo, { bucketName: 'Documents' })
           var downloadStream = bucket.openDownloadStream(cv)
-          fulfill(downloadStream)
+          resolve(downloadStream)
         })
-      }
-      else  fulfill(false)
+      } else resolve(false)
     })
   })
 }
 
 exports.getIDState = function (email) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var checkID = studentModel.retrieveStudentIDCard(email)
     checkID.then(function (result) {
-      if (result != null) fulfill(true)
-      else fulfill(false)
+      if (result != null) resolve(true)
+      else resolve(false)
     })
   })
 }
 
 exports.getCVState = function (email) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var checkCV = studentModel.retrieveStudentCV(email)
     checkCV.then(function (result) {
-      if (result != null) fulfill(true)
-      else fulfill(false)
+      if (result != null) resolve(true)
+      else resolve(false)
     })
   })
 }

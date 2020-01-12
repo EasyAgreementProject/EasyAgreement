@@ -3,7 +3,6 @@ var expect = chai.expect
 var mockHttp = require('node-mocks-http')
 var messageControl = require('../app/controllers/messageControl')
 
-
 describe('Field test for messageControl', function () {
   it('Testing saveMessage', function (done) {
     var res = mockHttp.createResponse()
@@ -18,17 +17,17 @@ describe('Field test for messageControl', function () {
   it('Testing getMessages', function (done) {
     var res = mockHttp.createResponse()
     var message = { senderID: 'g.musso@unisa.it', recipientID: 'd.devito@studenti.unisa.it', text: 'fratmmoo', date: { hour: '18', minutes: '20', seconds: '08', day: '25', months: '12', year: '2019' } }
-      var save = messageControl.saveMessage(message, res)
-      save.then(function (result) {
+    var save = messageControl.saveMessage(message, res)
+    save.then(function (result) {
+      expect(result).to.not.be.null
+      var sender = 'd.devito@studenti.unisa.it'
+      var receiver = 'g.musso@unisa.it'
+      var get = messageControl.getAllMessages(sender, receiver, res)
+      get.then(function (result) {
         expect(result).to.not.be.null
-        var sender = 'd.devito@studenti.unisa.it'
-        var receiver = 'g.musso@unisa.it'
-        var get = messageControl.getAllMessages(sender, receiver, res)
-        get.then(function (result) {
-          expect(result).to.not.be.null
-          done()
-        })
+        done()
       })
+    })
   })
 
   it('Testing getContacts 1', function (done) {
@@ -133,7 +132,7 @@ describe('Field test for messageControl', function () {
     var save = messageControl.saveMessage(message, res)
     save.then(function (result) {
       expect(result).to.not.be.null
-      var messID= result;
+      var messID = result
       var text = 'wewe come stai bro'
       var update = messageControl.updateMessage(messID, text, res)
       update.then(function (result) {
@@ -149,7 +148,7 @@ describe('Field test for messageControl', function () {
     var save = messageControl.saveMessage(message, res)
     save.then(function (result) {
       expect(result).to.not.be.null
-      var messID=result
+      var messID = result
       var remove = messageControl.removeMessage(messID, res)
       remove.then(function (result) {
         expect(result).to.not.be.null
