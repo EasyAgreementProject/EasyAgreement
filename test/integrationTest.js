@@ -1441,7 +1441,7 @@ it('Test for /getReceivedNotification', function(done){
         })
 })
 
-it.only('Test for /setReceivedNotification', function(done){
+it('Test for /setReceivedNotification', function(done){
     agent
         .post('/login')
         .redirects(0)
