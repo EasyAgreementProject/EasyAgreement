@@ -80,6 +80,7 @@ $(document).ready(function () {
   var onlyStudent = getCookie('onlyForStudent')
   var onlyAcademic = getCookie('onlyForAcademic')
   var onlyExternal = getCookie('onlyForExternal')
+  var onlyTutor = getCookie('onlyForTutor')
 
   if (errAddressH == '1') {
     $('#errAddress').css('display', 'block')
@@ -375,17 +376,22 @@ $(document).ready(function () {
   }
 
   if (onlyStudent == '1') {
-    swal('Errore', 'Questa funzionalità è limitata allo studente', 'error')
+    swal('Errore', 'Questa funzionalità è limitata allo Studente', 'error')
     document.cookie = 'onlyForStudent=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
   if (onlyAcademic == '1') {
-    swal('Errore', 'Questa funzionalità è limitata al tutor accademico', 'error')
+    swal('Errore', 'Questa funzionalità è limitata al Tutor Accademico', 'error')
     document.cookie = 'onlyForAcademic=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
   if (onlyExternal == '1') {
-    swal('Errore', 'Questa funzionalità è limitata al tutor esterno', 'error')
+    swal('Errore', 'Questa funzionalità è limitata al Tutor Esterno', 'error')
     document.cookie = 'onlyForExternal=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (onlyTutor == '1') {
+    swal('Errore', 'Questa funzionalità è limitata ai Tutor', 'error')
+    document.cookie = 'onlyForTutor=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 })

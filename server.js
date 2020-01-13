@@ -110,21 +110,41 @@ app.get('/viewLA.html', function (req, res) {
 })
 
 app.get('/getAllVersions', function (req, res) {
-  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email)
-  getVersionsPr.then(function (data) {
-    if (data) {
-      res.send(data)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'student') {
+      var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email)
+      getVersionsPr.then(function (data) {
+        if (data) {
+          res.send(data)
+        }
+      })
+    } else {
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/getAllRequestVersions', function (req, res) {
-  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID)
-  getVersionsPr.then(function (data) {
-    if (data) {
-      res.send(data)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID)
+      getVersionsPr.then(function (data) {
+        if (data) {
+          res.send(data)
+        }
+      })
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/gestioneDocumenti.html', function (req, res) {
@@ -142,30 +162,60 @@ app.get('/gestioneDocumenti.html', function (req, res) {
 })
 
 app.get('/fillForm', function (req, res) {
-  var getData = learningAgreementControl.getData(req.session.utente.utente.Email)
-  getData.then(function (data) {
-    if (data) {
-      res.send(data)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'student') {
+      var getData = learningAgreementControl.getData(req.session.utente.utente.Email)
+      getData.then(function (data) {
+        if (data) {
+          res.send(data)
+        }
+      })
+    } else {
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
-app.get('/fillFormRequest', function(req, res) {
-  var getData = learningAgreementControl.getData(req.session.data.data["E-mail"]);
-  getData.then(function(data) {
-      if (data) {
-          res.send(data);
-      }
-  })
+app.get('/fillFormRequest', function (req, res) {
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      var getData = learningAgreementControl.getData(req.session.data.data['E-mail'])
+      getData.then(function (data) {
+        if (data) {
+          res.send(data)
+        }
+      })
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
+    }
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/getStatus', function (req, res) {
-  var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email)
-  getStatus.then(function (status) {
-    if (status) {
-      res.send(status)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'student') {
+      var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email)
+      getStatus.then(function (status) {
+        if (status) {
+          res.send(status)
+        }
+      })
+    } else {
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.post('/compileStudent', function (req, res) {
@@ -350,37 +400,61 @@ app.post('/disapproveExternalTutor', function (req, res) {
 })
 
 app.get('/getVersions', function (req, res) {
-  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email)
-  getVersionsPr.then(function (data) {
-    if (data && req.query.inputVersion) {
-      console.log('Version id = ' + req.query.inputVersion)
-      var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.utente.utente.Email)
-      getVersionPr.then(function (la) {
-        res.setHeader('Content-Type', 'application/pdf')
-        res.setHeader('Content-Disposition', 'attachment; filename = LA_V_' + req.query.inputVersion + '.pdf')
-        console.log('Tornato da tutto')
-        la.pipe(res)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'student') {
+      var getVersionsPr = learningAgreementControl.getAllVersions(req.session.utente.utente.Email)
+      getVersionsPr.then(function (data) {
+        if (data && req.query.inputVersion) {
+          console.log('Version id = ' + req.query.inputVersion)
+          var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.utente.utente.Email)
+          getVersionPr.then(function (la) {
+            res.setHeader('Content-Type', 'application/pdf')
+            res.setHeader('Content-Disposition', 'attachment; filename = LA_V_' + req.query.inputVersion + '.pdf')
+            console.log('Tornato da tutto')
+            la.pipe(res)
+          })
+        }
       })
+    } else {
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/getRequestVersions', function (req, res) {
-  var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID)
-  getVersionsPr.then(function (data) {
-    if (data && req.query.inputVersion) {
-      var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.data.studentID)
-      getVersionPr.then(function (la) {
-        res.setHeader('Content-Type', 'application/pdf')
-        res.setHeader('Content-Disposition', 'attachment; filename = LA_V_' + req.query.inputVersion + '.pdf')
-        la.pipe(res)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      var getVersionsPr = learningAgreementControl.getAllVersions(req.session.data.studentID)
+      getVersionsPr.then(function (data) {
+        if (data && req.query.inputVersion) {
+          var getVersionPr = learningAgreementControl.getVersion(req.query.inputVersion, req.session.data.studentID)
+          getVersionPr.then(function (la) {
+            res.setHeader('Content-Type', 'application/pdf')
+            res.setHeader('Content-Disposition', 'attachment; filename = LA_V_' + req.query.inputVersion + '.pdf')
+            la.pipe(res)
+          })
+        }
       })
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/', function (req, res) {
-  res.sendFile('/app/views/login.html', { root: __dirname })
+  if (req.session.utente == null) {
+    res.sendFile('/app/views/login.html', { root: __dirname })
+  } else {
+    res.redirect('/index.html')
+  }
 })
 
 app.get('/compileLAExternalTutor.html', function (req, res) {
@@ -412,34 +486,88 @@ app.get('/compileLAAcademicTutor.html', function (req, res) {
 })
 
 app.get('/viewRequest.html', function (req, res) {
-  res.render('viewRequest.ejs')
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      res.render('viewRequest.ejs')
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
+    }
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/request.html', function (req, res) {
-  res.render('request.ejs')
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      res.render('request.ejs')
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
+    }
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/getRequests', function (req, res) {
-  var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.E_mail) // req.session.utente.utente.Email
-  getRequestsPr.then(function (result) {
-    res.send(result)
-  })
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      var getRequestsPr = requestControl.getAllRequests(req.session.utente.utente.E_mail) // req.session.utente.utente.Email
+      getRequestsPr.then(function (result) {
+        res.send(result)
+      })
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
+    }
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/getDetails', function (req, res) {
-  res.send(req.session.data)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      res.send(req.session.data)
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
+    }
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/getRequest', function (req, res) {
-  var getDetailsPr = requestControl.getRequestDetails(req.query.student)
-  getDetailsPr.then(function (details) {
-    req.session.data = details
-    res.redirect('/viewRequest.html')
-  })
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      var getDetailsPr = requestControl.getRequestDetails(req.query.student)
+      getDetailsPr.then(function (details) {
+        req.session.data = details
+        res.redirect('/viewRequest.html')
+      })
+    } else {
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
+    }
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.get('/signup.html', function (req, res) {
-  res.sendFile('/app/views/signup.html', { root: __dirname })
+  if (req.session.utente == null) {
+    res.sendFile('/app/views/signup.html', { root: __dirname })
+  } else {
+    res.redirect('/index.html')
+  }
 })
 
 app.get('/index.html', function (req, res) {
@@ -659,16 +787,26 @@ app.post('/fileviewID', function (req, res) {
 })
 
 app.post('/fileviewIDRequest', function (req, res) {
-  var view = documentControl.viewID(req.session.data.studentID)
-  view.then(function (result) {
-    if (result) {
-      res.setHeader('Content-Type', 'application/pdf')
-      res.setHeader('Content-Disposition', 'attachment; filename = IDCard.pdf')
-      result.pipe(res)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      var view = documentControl.viewID(req.session.data.studentID)
+      view.then(function (result) {
+        if (result) {
+          res.setHeader('Content-Type', 'application/pdf')
+          res.setHeader('Content-Disposition', 'attachment; filename = IDCard.pdf')
+          result.pipe(res)
+        } else {
+          res.redirect('/viewRequest.html')
+        }
+      })
     } else {
-      res.redirect('/viewRequest.html')
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.post('/fileviewCV', function (req, res) {
@@ -759,16 +897,26 @@ io.on('connection', socket => {
 })
 
 app.post('/fileviewCVRequest', function (req, res) {
-  var view = documentControl.viewCV(req.session.data.studentID)
-  view.then(function (result) {
-    if (result) {
-      res.setHeader('Content-Type', 'application/pdf')
-      res.setHeader('Content-Disposition', 'attachment; filename = CV.pdf')
-      result.pipe(res)
+  if (req.session.utente != null) {
+    if (req.session.utente.type == 'academicTutor' || req.session.utente.type == 'externalTutor') {
+      var view = documentControl.viewCV(req.session.data.studentID)
+      view.then(function (result) {
+        if (result) {
+          res.setHeader('Content-Type', 'application/pdf')
+          res.setHeader('Content-Disposition', 'attachment; filename = CV.pdf')
+          result.pipe(res)
+        } else {
+          res.redirect('/viewRequest.html')
+        }
+      })
     } else {
-      res.redirect('/viewRequest.html')
+      res.cookie('onlyForTutor', '1')
+      res.redirect('/index.html')
     }
-  })
+  } else {
+    res.cookie('cannotAccess', '1')
+    res.redirect('/')
+  }
 })
 
 app.post('/getConnectedUser', function (req, res) {
@@ -928,7 +1076,7 @@ app.get('/addExtTutor', function (req, res) {
 })
 
 app.post('/addExtTutorF', function (req, res) {
-  if (res.session.utente != null) {
+  if (req.session.utente != null) {
     if (req.session.utente.type == 'admin') {
       var administratorAddTutor = tutorControl.addExtTutor(req, res)
       administratorAddTutor.then(function (result) {
@@ -1001,7 +1149,7 @@ app.post('/deleteHostOrg', function (req, res) {
 })
 
 app.post('/deleteExTutor', function (req, res) {
-  if (req.sessione.utente != null && req.session.utente.type == 'admin') {
+  if (req.session.utente != null && req.session.utente.type == 'admin') {
     var deleteHost = tutorControl.deleteExTutor(req.body.email, res)
     deleteHost.then(function (result) {
       if (result) {

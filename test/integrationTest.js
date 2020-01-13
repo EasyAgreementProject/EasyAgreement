@@ -444,7 +444,6 @@ describe('Integration Testing', function () {
         agent
           .get('/getRequests')
           .redirects(0)
-          .query({ student: 'd.devito@studenti.unisa.it' })
           .end(function (err, res) {
             if (err) done(err)
             expect(res).to.be.json
