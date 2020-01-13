@@ -1001,7 +1001,7 @@ app.post('/deleteHostOrg', function (req, res) {
 })
 
 app.post('/deleteExTutor', function (req, res) {
-  if (req.sessione.utente != null && req.session.utente.type == 'admin') {
+  if (req.session.utente != null && req.session.utente.type == 'admin') {
     var deleteHost = tutorControl.deleteExTutor(req.body.email, res)
     deleteHost.then(function (result) {
       if (result) {
