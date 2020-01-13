@@ -91,6 +91,26 @@ A step by step series that tell you how to get a development env running
 
 It's possible run complex path expressions, see to: https://github.com/standard/standard
 
+## Selenium Extension Install: ##
+
+1. Go to : https://bit.ly/2FJa4ZK
+
+2. Select your browser type to install the Selenium extension:
+*  Install Selenium on Chrome: https://bit.ly/2R9YVWZ (we suggest it)
+*  Install Selenium on Mozilla FireFox: https://mzl.la/2tWfhdG
+
+## System Testing: ##
+
+1. Go in your browser.
+
+2. Open the Selenium IDE to perform all system tests.
+
+3. Select 'Open an existing project' option.
+
+4. Import file with the .side extension.
+
+5. Run all tests of the imported file with the "Run all tests" (command: `Ctrl+Shift+R`) or a single selected test with "Run current test" (command: `Ctrl+R`).
+
 ## Authors
 
 Project manager: 
