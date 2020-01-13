@@ -6,13 +6,20 @@
   .card {
     border-radius: 20px !important;
     width: 45%;      
+    margin-top: 30vh !important;
     margin: auto;
+    box-shadow: 0 0.5rem 1rem 0 #3d4347 !important;
   }
   
   .container {
-    /*background-image: url('../img/Unisa.jpg');*/
+    background-image: url('../img/Unisa.jpg');
     min-width: 100%;
     min-height: 100vh;
+  }
+
+  .row {
+    min-width: 100% !important;
+    min-height: 100vh !important;
   }
 
   body {
@@ -123,15 +130,15 @@
   }
      
   .mt-2{
-    color: orange;
+    color: #007bff;
   }
 
   .mt-2:hover{
-    color: orange;
+    color: #007bff;
   }
   
   .form-control:focus {
-    border-color: orange !important;
+    border-color: #007bff !important;
   }
 
 

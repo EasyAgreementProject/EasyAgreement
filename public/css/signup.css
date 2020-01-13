@@ -7,6 +7,20 @@ body {
   background: #eee !important;
 }
 
+.card {
+  border-radius: 20px !important;
+  width: 45%;
+  margin: auto;
+  box-shadow: 0 0.5rem 1rem 0 #3d4347 !important;
+}
+
+
+.container {
+  background-image: url('../img/Unisa.jpg');
+  min-width: 100%;
+  min-height: 100vh;
+}
+
 .card-signin {
   border: 0;
   border-radius: 1rem;
@@ -20,15 +34,6 @@ body {
   font-size: 1.5rem;
 }
 
-.card-signin .card-img-left {
-  width: 45%;
-  /* Link to your background image using in the property below! */
-  background: scroll center url('../img/EasyAgreement_Logo.png');
-  opacity: 90%;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
 .card-signin .card-body {
   padding: 2rem;
 }
@@ -38,10 +43,7 @@ body {
 }
 
 .form-signin .btn {
-  font-size: 80%;
   border-radius: 5rem;
-  letter-spacing: .1rem;
-  font-weight: bold;
   padding: 1rem;
   transition: all 0.2s;
 }
@@ -177,32 +179,27 @@ body {
 }
 
 input[type="radio"]:checked ~ .radios{
-  border: 5px orange;
+  border: 5px #007bff;
 }
 
 input[type="radio"]:checked ~ .radios::before{
-  background: orange;
+  background: #007bff;
 }
 
 input[type="radio"]:checked ~ label{
-  color: orange;
-}
-
-.btn{
-  background-color: orange !important;
-  border-color: orange !important;
+  color: #007bff;
 }
 
 .mt-2{
-  color: orange;
+  color: #007bff;
 }
 
 .mt-2:hover{
-  color: orange;
+  color: #007bff;
 }
 
 .form-control:focus {
-  border-color: orange !important;
+  border-color: #007bff !important;
 }
 
 #errNameT, #errSurnameT, #errEmailT, #errDepartmentT, #errName, #errSurname, #errEmail, #errMatricola, #errCity, #errAddress, #errCourse, #errPassword, #errConfirmPassword{
