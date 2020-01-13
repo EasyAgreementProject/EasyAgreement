@@ -371,7 +371,7 @@ $(document).ready(function () {
   }
 
   if (onlyAdmin == '1') {
-    swal('Errore', 'Questa funzionalità è limitata all\'admin', 'error')
+    swal('Errore', 'Questa funzionalità è limitata all\'Amministratore', 'error')
     document.cookie = 'onlyForAdmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
