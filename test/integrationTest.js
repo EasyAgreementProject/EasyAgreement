@@ -989,7 +989,7 @@ describe('Integration Testing', function () {
           .redirects(0)
           .end(function (err, res) {
             if (err) done(err)
-            expect(res).to.deep.include({ text: 'true' })
+            expect(res).to.deep.include({ text: true })
             done()
           })
       })
