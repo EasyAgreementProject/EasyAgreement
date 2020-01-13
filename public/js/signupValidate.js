@@ -129,7 +129,7 @@ function testSurname (surname) {
 function testEmailStudent () {
   var email = $('#inputEmail').val().toLowerCase()
   if (email.length >= 22) {
-    if (/^[a-z]\.[a-z]+[0-9]*\@studenti.unisa.it/.test(email)) return true
+    if (/^[a-z]\.[a-z]+[0-9]*@studenti.unisa.it/.test(email)) return true
   }
   return false
 }
@@ -137,7 +137,7 @@ function testEmailStudent () {
 function testEmailTutor () {
   var email = $('#inputEmailT').val().toLowerCase()
   if (email.length >= 13) {
-    if (/^[a-z]\.[a-z]+[0-9]*\@unisa.it/.test(email)) return true
+    if (/^[a-z]\.[a-z]+[0-9]*@unisa.it/.test(email)) return true
   }
   return false
 }

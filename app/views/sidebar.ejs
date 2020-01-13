@@ -8,9 +8,23 @@
                         <img class="avatar-img rounded-circle" src="/img/user.png" alt="...">
                     </div>
                     <a href="/profile" id="profile" aria-expanded="true">
-                        <span id="nome">
-                            <span class="user-level"></span>
+                        <%if(session.utente.type == "student") { %>
+                        <span> <%=  session.utente.utente.Name %>
+                            <span class="user-level">Studente</span>
                         </span>
+                        <%} if(session.utente.type == "academicTutor") { %>
+                            <span> <%=  session.utente.utente.Name %>
+                                <span class="user-level">Tutor Accademico</span>
+                            </span>
+                        <%} if(session.utente.type == "externalTutor") { %>
+                            <span> <%=  session.utente.utente.Name %>
+                                <span class="user-level">Tutor Esterno</span>
+                            </span>
+                        <%} if(session.utente.type == "admin") { %>
+                            <span> <%=  session.utente.utente.name %>
+                                <span class="user-level">Amministratore</span>
+                            </span>
+                        <%} %>
                     </a>
                     <div class="clearfix"></div>
 
@@ -106,28 +120,4 @@
     </div>
 </div>
 <!-- End Sidebar -->
-<script>
-    $(document).ready(function(){
-        $.post('/getConnectedUser', function(user){
-            var role;
-            var name;
-            if(user.type === 'student') {
-                role = 'Studente';
-                name = user.utente.Name;
-            }
-            if(user.type === 'academicTutor') {
-                role = 'Tutor Accademico';
-                name = user.utente.Name;
-            }
-            if(user.type === 'externalTutor') {
-                role = 'Tutor Esterno';
-                name = user.utente.Name;
-            }
-            if(user.type === 'admin') {
-                name = user.utente.name;
-                role = 'Amministratore';
-            }
-            document.getElementById('nome').innerHTML += name+'<span class="user-level">'+role+'</span>';
-        })
-    })
-</script>
+

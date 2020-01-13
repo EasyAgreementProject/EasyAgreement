@@ -149,7 +149,7 @@ exports.addExtTutor = function (req, res) {
         return
       }
       if (result) {
-        // Save student in database
+        // Save tutor in database
         ExternalTutorModel.addExtTutor(tutorEsterno)
         resolve(true)
       }
