@@ -1,6 +1,5 @@
 <%- include ('header') %>
 <%- include ('sidebar') %>
-
 <link href="/css/simple-sidebar.css" rel="stylesheet">
 <script type="text/javascript" src="/js/cookie.js"></script>
 <link rel="stylesheet" href="/css/atlantis.min.css">
@@ -22,9 +21,10 @@
             <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
             <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
             <hr>
-            <div class="form-label-group">           
+            <br>
+            <div class="form-group">           
                 <div class="list_version">
-                    Scegli la lista di utenti da visualizzare:
+                    <label>Scegli la lista di utenti da visualizzare: </label>
                     <%if(session.utente.type=="student"){%>
                         <select class="custom-select mr-sm-2"  name="inputType" id="tipo">
                             <option selected id="selected" value="">--Seleziona--</option>
