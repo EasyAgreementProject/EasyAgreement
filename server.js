@@ -150,6 +150,15 @@ app.get('/fillForm', function (req, res) {
   })
 })
 
+app.get('/fillFormRequest', function(req, res) {
+  var getData = learningAgreementControl.getData(req.session.data.data["E-mail"]);
+  getData.then(function(data) {
+      if (data) {
+          res.send(data);
+      }
+  })
+})
+
 app.get('/getStatus', function (req, res) {
   var getStatus = learningAgreementControl.getStatus(req.session.utente.utente.Email)
   getStatus.then(function (status) {
