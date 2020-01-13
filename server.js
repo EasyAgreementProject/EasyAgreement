@@ -928,7 +928,7 @@ app.get('/addExtTutor', function (req, res) {
 })
 
 app.post('/addExtTutorF', function (req, res) {
-  if (res.session.utente != null) {
+  if (req.session.utente != null) {
     if (req.session.utente.type == 'admin') {
       var administratorAddTutor = tutorControl.addExtTutor(req, res)
       administratorAddTutor.then(function (result) {
