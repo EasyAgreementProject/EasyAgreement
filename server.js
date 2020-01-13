@@ -19,7 +19,6 @@ var viewListControl = require('./app/controllers/viewListControl')
 var session = require('express-session')
 const multer = require('multer')
 var fs = require('fs')
-module.exports=app
 
 const io = require('socket.io')(3000)
 
@@ -83,11 +82,35 @@ app.use(function (req, res, next) {
 })
 
 app.get('/compileLAStudent.html', function(req, res) {
-    res.render("compileLAStudent.ejs");
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      res.render("compileLAStudent.ejs");
+    }
+    else{
+      res.cookie('onlyForStudent', '1');
+      res.redirect('/index.html');
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.get('/viewLA.html', function(req, res){
-    res.render("viewLA.ejs");
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      res.render("viewLA.ejs");
+    }
+    else{
+      res.cookie('onlyForStudent', '1');
+      res.redirect('/index.html');
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.get('/getAllVersions', function (req, res) {
@@ -109,11 +132,19 @@ app.get('/getAllRequestVersions', function(req, res) {
 });
 
 app.get('/gestioneDocumenti.html', function(req, res) {
-  if(req.session.utente==null){
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      res.render('dochandler');
+    }
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
     res.cookie('cannotAccess', '1');
     res.redirect('/');
   }
-  res.render('dochandler');
 });
 
 app.get('/fillForm', function(req, res) {
@@ -144,114 +175,200 @@ app.get('/getStatus', function(req, res) {
 });
 
 app.post('/compileStudent', function(req, res) {
-    var inputAddressWebSite = req.body.inputAddress+" "+req.body.inputWebSite;
-    var inputContactReciving = req.body.inputContactRecivingName+" - "+req.body.inputContactRecivingPosition;
-    var inputMentor = req.body.inputMentorName+" - "+req.body.inputMentorPosition;
-    var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
-        req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactName, req.body.inputContactSending,
-        req.body.inputNameSector, req.body.inputDepartmentReciving, inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, inputContactReciving,
-        inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
-        req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
-    ];
-    var sendStudentPr = learningAgreementControl.sendLaStudent(data, res);
-    sendStudentPr.then(function(dw) {
-        if (dw) {
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
-            dw.pipe(res)
-        } else {
-            res.render("compileLAStudent.ejs");
-        }
-    })
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      var inputAddressWebSite = req.body.inputAddress+" "+req.body.inputWebSite;
+      var inputContactReciving = req.body.inputContactRecivingName+" - "+req.body.inputContactRecivingPosition;
+      var inputMentor = req.body.inputMentorName+" - "+req.body.inputMentorPosition;
+      var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
+          req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactName, req.body.inputContactSending,
+          req.body.inputNameSector, req.body.inputDepartmentReciving, inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, inputContactReciving,
+          inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
+          req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
+      ];
+      var sendStudentPr = learningAgreementControl.sendLaStudent(data, res);
+      sendStudentPr.then(function(dw) {
+          if (dw) {
+              res.setHeader('Content-Type', 'application/pdf');
+              res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
+              dw.pipe(res)
+          } else {
+              res.render("compileLAStudent.ejs");
+          }
+      })
+    }
+    else{
+      res.cookie('onliForStudent', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/compileAcademicTutor', function (req, res) {
-  var data = [req.body.inputCredits, req.body.vote, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-      req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.data.data["E-mail"] //To change with email of student request 
-  ];
-  var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
-  sendTutorPr.then(function(dw) {
-      if (dw) {
-          res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
-          dw.pipe(res)
-      } else {
-          res.render("compileLAAcademicTutor.ejs");
-      }
-  })
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='academicTutor'){
+      var data = [req.body.inputCredits, req.body.vote, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
+          req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.data.data["E-mail"] //To change with email of student request 
+      ];
+      var sendTutorPr = learningAgreementControl.sendLaAcademicTutor(data, res);
+      sendTutorPr.then(function(dw) {
+          if (dw) {
+              res.setHeader('Content-Type', 'application/pdf');
+              res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
+              dw.pipe(res)
+          } else {
+              res.render("compileLAAcademicTutor.ejs");
+          }
+      })
+    }
+    else{
+      res.cookie('onlyForAcademic', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/compileExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.data.data["E-mail"]]; 
-  var sendTutorPr = learningAgreementControl.sendLaExternalTutor(data, res);
-  sendTutorPr.then(function(dw) {
-      if (dw) {
-          res.setHeader('Content-Type', 'application/pdf');
-          res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
-          dw.pipe(res)
-      } else {
-        res.render("compileLAExternalTutor.ejs");
-      }
-  })
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='externalTutor'){
+      var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.data.data["E-mail"]]; 
+      var sendTutorPr = learningAgreementControl.sendLaExternalTutor(data, res);
+      sendTutorPr.then(function(dw) {
+          if (dw) {
+              res.setHeader('Content-Type', 'application/pdf');
+              res.setHeader('Content-Disposition', 'attachment; filename = LA.pdf');
+              dw.pipe(res)
+          } else {
+            res.render("compileLAExternalTutor.ejs");
+          }
+      })
+    }
+    else{
+      res.cookie('onlyForExternal', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/saveStudent', function(req, res) {
-  if (!req.body.inputEmail) req.body.inputEmail = req.session.utente.utente.Email;
-  var inputAddressWebSite = req.body.inputAddress+" "+req.body.inputWebSite;
-  var inputContactReciving = req.body.inputContactRecivingName+" - "+req.body.inputContactRecivingPosition;
-  var inputMentor = req.body.inputMentorName+" - "+req.body.inputMentorPosition;
-  var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
-      req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactName, req.body.inputContactSending,
-      req.body.inputNameSector, req.body.inputDepartmentReciving, inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, inputContactReciving,
-      inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
-      req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
-  ];
-    var saveStudent = learningAgreementControl.saveLaStudent(data, res);
-    saveStudent.then(function() {
-      res.redirect("compileLAStudent.html");
-    });
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      if (!req.body.inputEmail) req.body.inputEmail = req.session.utente.utente.Email;
+      var inputAddressWebSite = req.body.inputAddress+" "+req.body.inputWebSite;
+      var inputContactReciving = req.body.inputContactRecivingName+" - "+req.body.inputContactRecivingPosition;
+      var inputMentor = req.body.inputMentorName+" - "+req.body.inputMentorPosition;
+      var data = [req.body.inputName, req.body.inputSurname, req.body.inputDate, req.body.inputTelephone, req.body.radio1, req.body.nationality, req.body.inputStudyCycle,
+          req.body.inputAcademicYear1, req.body.inputAcademicYear2, req.body.inputSubjectCode, req.body.inputEmail, req.body.inputDepartmentSending, req.body.inputContactName, req.body.inputContactSending,
+          req.body.inputNameSector, req.body.inputDepartmentReciving, inputAddressWebSite, req.body.inputCountry, req.body.inputSizeEnterprise, inputContactReciving,
+          inputMentor, req.body.inputMentorInfo, req.body.inputDateFrom, req.body.inputDateTo, req.body.inputHourWork, req.body.inputTitle, req.body.inputDetailed,
+          req.body.inputKnowledge, req.body.inputMonitoring, req.body.inputEvaluation, req.body.inputLenguage, req.body.inputLenguageLevel
+      ];
+        var saveStudent = learningAgreementControl.saveLaStudent(data, res);
+        saveStudent.then(function() {
+          res.redirect("compileLAStudent.html");
+        });
+    }
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/saveAcademicTutor', function(req, res) {
-  var data = [req.body.inputCredits, req.body.vote, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
-    req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.data.studentID //To change with email of student request 
-  ];
-  var saveTutor = learningAgreementControl.saveLaAcademicTutor(data, res);
-  saveTutor.then(function() {
-    res.redirect("compileLAAcademicTutor.html");
-  });
-});
-
-app.use(session({
-  secret: 'secret_session',
-  resave: false,
-  saveUninitialized: true
-}));
-app.use(function(req,res,next) {
-  res.locals.session = req.session;
-  next();
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='academicTutor'){
+      var data = [req.body.inputCredits, req.body.vote, req.body.inputRadio1, req.body.inputRadio2, req.body.inputCredits2, req.body.inputRadio3,
+        req.body.inputCheck2, req.body.inputRadio4, req.body.inputRadio5, req.session.data.studentID //To change with email of student request 
+      ];
+      var saveTutor = learningAgreementControl.saveLaAcademicTutor(data, res);
+      saveTutor.then(function() {
+        res.redirect("compileLAAcademicTutor.html");
+      });
+    }
+    else{
+      res.cookie('onlyForAcademic', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/saveExternalTutor', function(req, res) {
-  var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.data.studentID]; //To change with email of student request
-  var saveTutor = learningAgreementControl.saveLaExternalTutor(data, res);
-  saveTutor.then(function() {
-    res.redirect("compileLAExternalTutor.html");
-  });
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='externalTutor'){
+      var data = [req.body.inputRadio1, req.body.inputAmount, req.body.inputRadio2, req.body.inputContribution, req.body.inputWeeks, req.body.inputRadio3, req.session.data.studentID]; //To change with email of student request
+      var saveTutor = learningAgreementControl.saveLaExternalTutor(data, res);
+      saveTutor.then(function() {
+        res.redirect("compileLAExternalTutor.html");
+      });
+    }
+    else{
+      res.cookie('onlyForExternal', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/disapproveAcademicTutor', function(req, res) {
-  var disapproveTutorPr = learningAgreementControl.disapproveAcademicTutor(req.session.data.studentID, req.body.msg);
-  disapproveTutorPr.then(function() {
-    res.render("request.ejs");
-  });
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='academicTutor'){
+      var disapproveTutorPr = learningAgreementControl.disapproveAcademicTutor(req.session.data.studentID, req.body.msg);
+      disapproveTutorPr.then(function() {
+        res.render("request.ejs");
+      });
+    }
+    else{
+      res.cookie('onlyForAcademic', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/disapproveExternalTutor', function(req, res) {
-  var disapproveTutorPr = learningAgreementControl.disapproveExternalTutor(req.session.data.studentID, req.body.msg);
-  disapproveTutorPr.then(function() {
-    res.render("request.ejs");
-  });
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='externalTutor'){
+      var disapproveTutorPr = learningAgreementControl.disapproveExternalTutor(req.session.data.studentID, req.body.msg);
+      disapproveTutorPr.then(function() {
+        res.render("request.ejs");
+      });
+    }
+    else{
+      res.cookie('onlyForExternal', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.get('/getVersions', function(req, res) {
@@ -291,11 +408,35 @@ app.get('/', function (req, res) {
 })
 
 app.get('/compileLAExternalTutor.html', function (req, res) {
-  res.render("compileLAExternalTutor.ejs");
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='externalTutor'){
+      res.render("compileLAExternalTutor.ejs");
+    }
+    else{
+      res.cookie('onlyForExternal', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.get('/compileLAAcademicTutor.html', function (req, res) {
-  res.render("compileLAAcademicTutor.ejs");
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='academicTutor'){
+      res.render("compileLAAcademicTutor.ejs");
+    }
+    else{
+      res.cookie('onlyForAcademic', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.get('/viewRequest.html', function (req, res) {
@@ -331,19 +472,13 @@ app.get('/signup.html', function (req, res) {
 })
 
 app.get('/index.html', function (req, res) {
-  res.render('index')
-})
-
-app.get('/header.html', function (req, res) {
-  res.render('header.ejs')
-})
-
-app.get('/sidebar.html', function (req, res) {
-  res.render('sidebar.ejs')
-})
-
-app.get('/footer.html', function (req, res) {
-  res.render('footer.ejs')
+  if(req.session.utente!=null){
+    res.render('index')
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/signup', function (req, res) {
@@ -358,31 +493,34 @@ app.post('/signup', function (req, res) {
 })
 
 app.post('/updateProfile', function (req, res) {
-  if (req.session.utente == null) {
-    res.redirect('/')
-  } else {
+  if (req.session.utente != null) {
     if (req.session.utente.type == 'student') {
       var updateS = studentControl.update(req, res)
       updateS.then(function () {
         res.render('profile')
       })
-    } else
-    if (req.session.utente.type == 'academicTutor') {
+    } 
+    else if (req.session.utente.type == 'academicTutor') {
       var updateA = academicTutorControl.update(req, res)
       updateA.then(function () {
         res.render('profile')
       })
-    } else if (req.session.utente.type == 'externalTutor') {
+    } 
+    else if (req.session.utente.type == 'externalTutor') {
       var updateE = externalTutorControl.update(req, res)
       updateE.then(function () {
         res.render('profile')
       })
     }
   }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/updatePassword', function (req, res) {
-  if (req.session.utente == null) { res.redirect('/') } else {
+  if (req.session.utente != null){
     if (req.session.utente.type == 'student') {
       var updateS = studentControl.updatePassword(req, res)
       updateS.then(function (result) {
@@ -408,6 +546,10 @@ app.post('/updatePassword', function (req, res) {
       })
     }
   }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/login', function (request, response) {
@@ -415,7 +557,6 @@ app.post('/login', function (request, response) {
   UserLogin.then(function (result) {
     if (result != false) {
       request.session.utente = result
-
       response.redirect('/index.html')
     } else {
       response.redirect('/')
@@ -424,83 +565,143 @@ app.post('/login', function (request, response) {
 })
 
 app.post('/uploadID', uploadID('filetoupload'), function (req, res) {
-  var upload = documentControl.idHandler(req.session.utente.utente.Email)
-  upload.then(function (result) {
-    if (result == '0') {
-      fs.unlink('uploads/filetoupload-id.pdf', function (error) {
-        if (error) throw error
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      var upload = documentControl.idHandler(req.session.utente.utente.Email)
+      upload.then(function (result) {
+        if (result == '0') {
+          fs.unlink('uploads/filetoupload-id.pdf', function (error) {
+            if (error) throw error
+          })
+          res.cookie('SuccessIDCard', '1')
+          res.redirect('/gestioneDocumenti.html')
+        } else if (result == '1') {
+          res.cookie('errorIDUpload', '1')
+          res.redirect('/gestioneDocumenti.html')
+        } else if (result == '2') {
+          res.cookie('beforeDelete', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
       })
-      res.cookie('SuccessIDCard', '1')
-      res.redirect('/gestioneDocumenti.html')
-    } else if (result == '1') {
-      res.cookie('errorIDUpload', '1')
-      res.redirect('/gestioneDocumenti.html')
-    } else if (result == '2') {
-      res.cookie('beforeDelete', '1')
-      res.redirect('/gestioneDocumenti.html')
     }
-  })
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/uploadCV', uploadCV('filetoupload'), function (req, res) {
-  var upload = documentControl.cvHandler(req.session.utente.utente.Email, res)
-  upload.then(function (result) {
-    if (result == '0') {
-      fs.unlink('uploads/filetoupload-cv.pdf', function (error) {
-        if (error) throw error
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      var upload = documentControl.cvHandler(req.session.utente.utente.Email, res)
+      upload.then(function (result) {
+        if (result == '0') {
+          fs.unlink('uploads/filetoupload-cv.pdf', function (error) {
+            if (error) throw error
+          })
+          res.cookie('SuccessCV', '1')
+          res.redirect('/gestioneDocumenti.html')
+        } else if (result == '1') {
+          res.cookie('errorCVUpload', '1')
+          res.redirect('/gestioneDocumenti.html')
+        } else if (result == '2') {
+          res.cookie('beforeDelete', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
       })
-      res.cookie('SuccessCV', '1')
-      res.redirect('/gestioneDocumenti.html')
-    } else if (result == '1') {
-      res.cookie('errorCVUpload', '1')
-      res.redirect('/gestioneDocumenti.html')
-    } else if (result == '2') {
-      res.cookie('beforeDelete', '1')
-      res.redirect('/gestioneDocumenti.html')
     }
-  })
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/deleteCV', function (req, res) {
-  var del = documentControl.CVEraser(req.session.utente.utente.Email)
-  del.then(function (result) {
-    if (result) {
-      res.cookie('DeletedCV', '1')
-      res.redirect('/gestioneDocumenti.html')
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      var del = documentControl.CVEraser(req.session.utente.utente.Email)
+      del.then(function (result) {
+        if (result) {
+          res.cookie('DeletedCV', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
+        else {
+          res.cookie('notDeletedCV', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
+      })
     }
-    else {
-      res.cookie('notDeletedCV', '1')
-      res.redirect('/gestioneDocumenti.html')
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
     }
-  })
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/deleteID', function (req, res) {
-  var del = documentControl.IDEraser(req.session.utente.utente.Email)
-  del.then(function (result) {
-    if (result) {
-      res.cookie('DeletedID', '1')
-      res.redirect('/gestioneDocumenti.html')
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      var del = documentControl.IDEraser(req.session.utente.utente.Email)
+      del.then(function (result) {
+        if (result) {
+          res.cookie('DeletedID', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
+        else {
+          res.cookie('notDeletedID', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
+      })
     }
-    else {
-      res.cookie('notDeletedID', '1')
-      res.redirect('/gestioneDocumenti.html')
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
     }
-  })
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.post('/fileviewID', function (req, res) {
-  var view = documentControl.viewID(req.session.utente.utente.Email)
-  view.then(function (result) {
-    if (result) {
-      res.setHeader('Content-Type', 'application/pdf')
-      res.setHeader('Content-Disposition', 'attachment; filename = IDCard.pdf')
-      result.pipe(res)
-    } else {
-      res.cookie('notViewID', '1')
-      res.redirect('/gestioneDocumenti.html')
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      var view = documentControl.viewID(req.session.utente.utente.Email)
+      view.then(function (result) {
+        if (result) {
+          res.setHeader('Content-Type', 'application/pdf')
+          res.setHeader('Content-Disposition', 'attachment; filename = IDCard.pdf')
+          result.pipe(res)
+        } else {
+          res.cookie('notViewID', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
+      });
     }
-  });
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/fileviewIDRequest', function(req, res){
@@ -518,24 +719,38 @@ app.post('/fileviewIDRequest', function(req, res){
 });
 
 app.post('/fileviewCV', function(req, res){
-  var view=documentControl.viewCV(req.session.utente.utente.Email);
-  view.then(function(result){
-    if(result){
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename = CV.pdf');
-      result.pipe(res)
-    } else {
-      res.cookie('notViewCV', '1')
-      res.redirect('/gestioneDocumenti.html')
+  if(req.session.utente!=null){
+    if(req.session.utente.type=='student'){
+      var view=documentControl.viewCV(req.session.utente.utente.Email);
+      view.then(function(result){
+        if(result){
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', 'attachment; filename = CV.pdf');
+          result.pipe(res)
+        } else {
+          res.cookie('notViewCV', '1')
+          res.redirect('/gestioneDocumenti.html')
+        }
+      })
     }
-  })
+    else{
+      res.cookie('onlyForStudent', '1')
+      res.redirect('/index.html')
+    }
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 })
 
 app.get('/profile', function (request, response) {
-  if (request.session.utente == null) {
-    response.redirect('/')
-  } else {
+  if (request.session.utente != null) {
     response.render('profile')
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
   }
 })
 
@@ -543,10 +758,9 @@ app.get('/logout', function (req, res) {
   req.session.destroy(function (err) {
     if (err) {
       console.log(err)
-    } else {
+    } 
+    else {
       res.cookie('logoutEff', '1')
-      console.log('sessione eliminata')
-
       res.redirect('/')
     }
   })
@@ -717,70 +931,100 @@ app.post('/setReceivedMessage', function (req, res) {
 
 
 app.get('/addHostOrg', function(req,res){
-  if(req.session.utente.type == "admin"){
-    res.render('admin/insorg');
+  if(req.session.utente!=null){
+    if(req.session.utente.type == "admin"){
+      res.render('admin/insorg');
+    }
+    else{
+      res.cookie('onlyForAdmin', '1')
+      res.render('index')
+    }
   }
   else{
-    res.cookie('notPossibleForYou', '1')
-    res.render('index')
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
   }
 });
 
 
 
 app.post('/addHostOrgF', function(req, res) {
-  if(req.session.utente.type == "admin"){
-    var administratorAddHost=tutorControl.addHostOrg(req,res);
-    administratorAddHost.then(function(result){
-      if(result){
-        res.cookie('insertHEff', '1')
-        res.redirect('/addHostOrg')
-      }
-      else{
-        res.redirect('/addHostOrg')
-      }
-    });
+  if(req.session.utente!=null){
+    if(req.session.utente.type == "admin"){
+      var administratorAddHost=tutorControl.addHostOrg(req,res);
+      administratorAddHost.then(function(result){
+        if(result){
+          res.cookie('insertHEff', '1')
+          res.redirect('/addHostOrg')
+        }
+        else{
+          res.redirect('/addHostOrg')
+        }
+      });
+    }
+    else{
+      res.cookie('onlyForAdmin', '1')
+      res.redirect('/index.html')
+    }
   }
   else{
-    res.cookie('notPossibleForYou', '1')
-    res.redirect('/index.html')
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
   }
 });
 
 
 app.get('/addExtTutor', function(req,res) {
-  if(req.session.utente.type == "admin"){
-    res.render('admin/instutor');
+  if(req.session.utente!=null){
+    if(req.session.utente.type == "admin"){
+      res.render('admin/instutor');
+    }
+    else{
+      res.cookie('onlyForAdmin', '1')
+      res.render('index')
+    }
   }
   else{
-    res.cookie('notPossibleForYou', '1')
-    res.render('index')
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
   }
 });
 
 app.post('/addExtTutorF', function(req, res) {
-  if(req.session.utente.type == "admin"){
-    var administratorAddTutor=tutorControl.addExtTutor(req,res);
-    administratorAddTutor.then(function(result){
-      if(result){
-        res.cookie('insertEff', '1')
-        res.redirect('/addExtTutor');
-      }
-      else{
-        res.cookie('errAlreadyRegEx', '1')
-        res.redirect('/addExtTutor');
-      }
-    });
+  if(res.session.utente!=null){
+    if(req.session.utente.type == "admin"){
+      var administratorAddTutor=tutorControl.addExtTutor(req,res);
+      administratorAddTutor.then(function(result){
+        if(result){
+          res.cookie('insertEff', '1')
+          res.redirect('/addExtTutor');
+        }
+        else{
+          res.cookie('errAlreadyRegEx', '1')
+          res.redirect('/addExtTutor');
+        }
+      });
+    }
+    else{
+      res.cookie('onlyForAdmin', '1')
+      res.render('index')
+    }
   }
   else{
-    res.cookie('notPossibleForYou', '1')
-    res.render('index')
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
   }
 });
 
 
 app.get('/toViewList', function(req,res) {
-  res.render('viewList');
+  if(req.session.utente!=null){
+    res.render('viewList');
+  }
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
+  }
 });
 
 app.post('/getUserList', function(req,res){
@@ -791,23 +1035,29 @@ app.post('/getUserList', function(req,res){
 })
 
 app.post('/toviewInfo',function(req,res){
-  var get;
-  if(req.query.type == "host"){
-    get=tutorControl.getHostOrganization(req.query.id)
+  if(req.session.utente!=null){
+    var get;
+    if(req.query.type == "host"){
+      get=tutorControl.getHostOrganization(req.query.id)
+    }
+    else if(req.query.type == "academicTutor"){
+      get=academicTutorControl.getByEmail(req.query.id)
+    }
+    else if(req.query.type == "externalTutor"){
+      get=externalTutorControl.getByEmail(req.query.id)
+    }
+    get.then(function(result){
+      res.render('viewInfo', {type:req.query.type, user: result})
+    })
   }
-  else if(req.query.type == "academicTutor"){
-    get=academicTutorControl.getByEmail(req.query.id)
+  else{
+    res.cookie('cannotAccess', '1');
+    res.redirect('/');
   }
-  else if(req.query.type == "externalTutor"){
-    get=externalTutorControl.getByEmail(req.query.id)
-  }
-  get.then(function(result){
-    res.render('viewInfo', {type:req.query.type, user: result})
-  })
 })
 
 app.post('/deleteHostOrg', function(req, res) {
-  if(req.session.utente.type == "admin"){
+  if(req.session.utente!=null && req.session.utente.type == "admin"){
     var deleteHost=tutorControl.deleteHostOrg(req.body.erasmus,res);
     deleteHost.then(function(result){
       if(result){
@@ -824,7 +1074,7 @@ app.post('/deleteHostOrg', function(req, res) {
 });
 
 app.post('/deleteExTutor', function(req, res) {
-  if(req.session.utente.type == "admin"){
+  if(req.sessione.utente!=null && req.session.utente.type == "admin"){
     var deleteHost=tutorControl.deleteExTutor(req.body.email,res);
     deleteHost.then(function(result){
       if(result){
