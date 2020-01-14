@@ -3,7 +3,7 @@ var compileControl = require('../app/controllers/learningAgreementControl')
 var LA = require('../app/models/learningAgreement')
 
 describe('Field test for learningAgreementControl', function () {
-  it('Testing method sendLaStudent - TC_LAM_1.6', (done) => {
+  it('Testing method sendLaStudent - TC_LAM_1.1', (done) => {
     var input = ['V']
     var sendStudent = compileControl.sendLaStudent(input)
     sendStudent.then(function (la) {
@@ -12,7 +12,7 @@ describe('Field test for learningAgreementControl', function () {
     })
   }).timeout(4000)
 
-  it('Testing method sendLaStudent - TC_LAM_1.6', (done) => {
+  it('Testing method sendLaStudent - TC_LAM_1.2', (done) => {
     var input = ['Veroni’4a']
     var sendStudent = compileControl.sendLaStudent(input)
     sendStudent.then(function (la) {
@@ -21,7 +21,7 @@ describe('Field test for learningAgreementControl', function () {
     })
   }).timeout(4000)
 
-  it('Testing method sendLaStudent - TC_LAM_1.6', (done) => {
+  it('Testing method sendLaStudent - TC_LAM_1.3', (done) => {
     var input = ['Veronica', 'V']
     var sendStudent = compileControl.sendLaStudent(input)
     sendStudent.then(function (la) {
@@ -30,7 +30,7 @@ describe('Field test for learningAgreementControl', function () {
     })
   }).timeout(4000)
 
-  it('Testing method sendLaStudent - TC_LAM_1.6', (done) => {
+  it('Testing method sendLaStudent - TC_LAM_1.4', (done) => {
     var input = ['Veronica', 'Volpicel’?%']
     var sendStudent = compileControl.sendLaStudent(input)
     sendStudent.then(function (la) {
@@ -39,7 +39,7 @@ describe('Field test for learningAgreementControl', function () {
     })
   }).timeout(4000)
 
-  it('Testing method sendLaStudent - TC_LAM_1.6', (done) => {
+  it('Testing method sendLaStudent - TC_LAM_1.5', (done) => {
     var input = ['Veronica', 'Volpicelli', '123as']
     var sendStudent = compileControl.sendLaStudent(input)
     sendStudent.then(function (la) {
@@ -981,6 +981,17 @@ describe('Field test for learningAgreementControl', function () {
     })
   }).timeout(4000)
 
+  it('Testing method sendLaStudent - delete Request', (done) => {
+    var input = ['Veronica', 'Volpicelli', '22/04/1996', '123456789', 'F', 'Italiana', '1st Cycle', '19', '20', 'Informatica, 05121', 'v.volpicelli4@studenti.unisa.it', 'Informatica', 'Filomena Ferrucci',
+      'f.ferrucci@unisa.it 123456789', 'Informatica', 'Google', 'Via delle Foglie, 4 www.google.it', 'America', '300-500', 'Filomena Ferrucci - Responsabile', 'Michela Bertolotto - Direttrice',
+      'm.berto@gmail.com 0987654321', '06/2020', '06/2021', '8', 'Us Academy', 'Learning of Modern and Advanced Technologies', 'Use of MongoDB, Mocha and Chai', 'Weekly meeting',
+      'Knowledge of the tools', 'english', 'A1']
+    compileControl.sendLaStudent(input).then((la) => {
+      assert.isNotNull(la)
+      done()
+    })
+  }).timeout(10000)
+
   it('Testing method disapproveExternalTutor', (done) => {
     LA.updateState('v.volpicelli4@studenti.unisa.it', 'Approvato dal Tutor Accademico').then(() => {
       var input = ['v.volpicelli4@studenti.unisa.it', 'Compilazione errata']
@@ -994,4 +1005,5 @@ describe('Field test for learningAgreementControl', function () {
       })
     })
   }).timeout(4000)
+
 })
