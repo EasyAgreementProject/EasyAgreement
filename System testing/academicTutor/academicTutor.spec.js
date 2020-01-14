@@ -1072,8 +1072,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.css(".btn")).click()
     // 6 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
-    // 7 | click | id=nome |  | 
-    await driver.findElement(By.id("nome")).click()
+    // 7 | click | id=profile |  | 
+    await driver.findElement(By.id("profile")).click()
     // 8 | click | css=.btn-secondary:nth-child(2) |  | 
     await driver.findElement(By.css(".btn-secondary:nth-child(2)")).click()
     // 9 | click | id=inputNameAc |  | 
@@ -1114,8 +1114,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.css(".btn")).click()
     // 27 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
-    // 28 | click | id=nome |  | 
-    await driver.findElement(By.id("nome")).click()
+    // 28 | click | id=profile |  | 
+    await driver.findElement(By.id("profile")).click()
     // 29 | click | css=.btn-secondary:nth-child(2) |  | 
     await driver.findElement(By.css(".btn-secondary:nth-child(2)")).click()
     // 30 | click | id=inputOldPassword |  | 
