@@ -186,9 +186,10 @@
         
                     <%if(session.utente.type == "admin"){%>
                     <div class="page-inner py-5" id="adminView">
-                        <div class="updatedatiAdmin text-centerAdmin">
+                        <div class="updatedatiAdmin text-center" style="width: 30%; ">
+                        <h1 class="mt-8">Modifica Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                        <br>
                             <form id="formUpdatePass" method="post" action="/updatePassword">
-                                <h4 class="mt-4">Modifica password</h4>
                                 <div class="form-label-groupA">
                                     <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                                     <span id="errOldPassword">Vecchia Password errata</span>
