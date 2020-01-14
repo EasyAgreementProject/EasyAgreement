@@ -1,5 +1,6 @@
 <%- include ('header') %>
 <%- include ('sidebar') %>
+<link href="/css/viewRequest.css" rel="stylesheet">
 <div class="main-panel">
     <div class="content">
         <div class="panel-header bg-primary-gradient">
@@ -13,18 +14,21 @@
             </div>	
         </div>
         <div class="page-inner py-5">
+            <img class="logoEA" src="/img/EasyAgreement_Logo.png" alt="logo Easy Agreement">
+            <h4 style="text-align: justify; font-style: italic; color: darkblue;">Erasmus+</h4><br>
+            <hr>
+            <br>
+            <br>
             <form action="/getVersions" method ="GET">
                 <div class="form-group">
-                <label>Versione:</label><br>
-                <select class="custom-select"  name="inputVersion" style="width: 20%;" id="versions">
-                </select>
+                    <label>Versioni:</label><br>
+                    <select class="custom-select"  name="inputVersion" id="versions">
+                    </select>
+                    <button class="btn btn-secondary btn-round" type="submit" style ="margin-left: 5rem;">Visualizza</button>
                 </div>
-                <br>
-                <button class="btn btn-round btn-secondary" type="submit" class="saveButton" style="text-align: center; display: block; margin: 0 auto; margin-left: 1rem; margin-top: 1rem;" >SELEZIONA</button>
             </form>
         </div>
     </div>
-</div>
 <%- include ('footer') %>
     <script>
         $(document).ready(function() {
@@ -56,6 +60,3 @@
             });
         });
     </script>
-</body>
-
-</html>

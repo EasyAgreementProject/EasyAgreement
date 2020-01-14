@@ -1,14 +1,13 @@
 var hash = require('./hash.js')
-var externalTutorModel = require('../models/externaltutor.js')
-
+var ExternalTutorModel = require('../models/externaltutor.js')
 
 exports.update = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var name = req.body.inputNameE
     var surname = req.body.inputSurnameE
     var organization = req.body.inputOrganization
 
-    var externalTutor = new externalTutorModel()
+    var externalTutor = new ExternalTutorModel()
 
     // Form validation
     var isRight = true
@@ -40,11 +39,11 @@ exports.update = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
 
-    var checkS = externalTutorModel.updateExternalTutor(externalTutor, req.session.utente.utente.E_mail)
+    var checkS = ExternalTutorModel.updateExternalTutor(externalTutor, req.session.utente.utente.E_mail)
     /**
         * It checks the result of updateExternalTutor function and updates the external tutor session
         * @param  {Object} result - The result of updateExternalTutor function
@@ -54,14 +53,14 @@ exports.update = function (req, res) {
       if (result != null) {
         req.session.utente.utente = result
         res.cookie('updateEff', '1')
-        fulfill(true)
-      } else { reject() }
+        resolve(true)
+      } else { resolve() }
     })
   })
 }
 
 exports.updatePassword = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var oldPassword = req.body.inputOldPassword
     var password = req.body.inputPassword
     var passwordConfirm = req.body.inputConfirmPassword
@@ -87,14 +86,14 @@ exports.updatePassword = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
 
     if (hash.checkPassword(req.session.utente.utente.Password.hash, req.session.utente.utente.Password.salt, oldPassword)) {
       var passwordHashed = hash.hashPassword(password)
 
-      var checkS = externalTutorModel.updatePassword(passwordHashed, req.session.utente.utente.E_mail)
+      var checkS = ExternalTutorModel.updatePassword(passwordHashed, req.session.utente.utente.E_mail)
 
       /**
         * It checks the result of updatePassword function and updates the external tutor session
@@ -105,24 +104,21 @@ exports.updatePassword = function (req, res) {
         if (result != null) {
           req.session.utente.utente = result
           res.cookie('updatePassEff', '1')
-          fulfill(true)
-        } else { reject() }
+          resolve(true)
+        } else { resolve() }
       })
     } else {
       res.cookie('errPassword', '1')
-      fulfill(false)
+      resolve(false)
     }
   })
 }
 
-exports.getByEmail = function(email){
-  return new Promise(function(fulfill, reject){
-    var get = externalTutorModel.findByEmail(email)
-    get.then(function(result){
-      fulfill({E_mail: result.getEmail(), Surname:result.getSurname(), Name:result.getName(), Organization:result.getOrganization()})
+exports.getByEmail = function (email) {
+  return new Promise(function (resolve, reject) {
+    var get = ExternalTutorModel.findByEmail(email)
+    get.then(function (result) {
+      resolve({ E_mail: result.getEmail(), Surname: result.getSurname(), Name: result.getName(), Organization: result.getOrganization() })
     })
   })
 }
-
-
-  

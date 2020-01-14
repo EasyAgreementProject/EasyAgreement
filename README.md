@@ -4,7 +4,7 @@
 
 
 # EasyAgreement
-This project is a meant as a platform for simplify the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of Learning Agreement document.
+The "EasyAgreement" project is meant as an online platform aimed at the semplification of the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of a Learning Agreement document.
 
 ## Getting started
 
@@ -15,7 +15,7 @@ deployment for notes on how to deploy the project on a live system.
 ### Prerequisites
 First of all, you will need a machine running Ubuntu.
 
-What things you need to install the software and how to install them
+In order to execute a correct installation of the software you must:
 
 *	Download and install ‘MongoDB’ database software from here: https://bit.ly/2sOVMn8
 
@@ -90,6 +90,26 @@ A step by step series that tell you how to get a development env running
 4.	`npx standard pathFile`, if you want automatically format code run `npx standard pathFile --fix`
 
 It's possible run complex path expressions, see to: https://github.com/standard/standard
+
+## Selenium Extension Install: ##
+
+1. Go to : https://bit.ly/2FJa4ZK
+
+2. Select your browser type to install the Selenium extension:
+*  Install Selenium on Chrome: https://bit.ly/2R9YVWZ (we suggest it)
+*  Install Selenium on Mozilla FireFox: https://mzl.la/2tWfhdG
+
+## System Testing: ##
+
+1. Go in your browser.
+
+2. Open the Selenium IDE to perform all system tests.
+
+3. Select 'Open an existing project' option.
+
+4. Import file with the .side extension.
+
+5. Run all tests of the imported file with the "Run all tests" (command: `Ctrl+Shift+R`) or a single selected test with "Run current test" (command: `Ctrl+R`).
 
 ## Authors
 

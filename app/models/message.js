@@ -50,13 +50,13 @@ class Message {
   }
 
   static insertMessage (message) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Message').insertOne(message, function (err, result) {
           if (err) reject(err)
-          fulfill(result.insertedId)
+          resolve(result.insertedId)
           db.close()
         })
       })
@@ -64,35 +64,35 @@ class Message {
   }
 
   static removeMessage (messageID) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Message').deleteOne({ _id: ObjectID(messageID) }, function (err) {
           if (err) reject(err)
           db.close()
-          fulfill()
+          resolve()
         })
       })
     })
   }
 
   static updateMessage (id, value) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Message').updateOne({ _id: ObjectID(id) }, { $set: { text: value } }, function (err, result) {
           if (err) reject(err)
           db.close()
-          fulfill()
+          resolve()
         })
       })
     })
   }
 
   static getTextChat (senderID, recipientID) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -105,7 +105,7 @@ class Message {
         dbo.collection('Message').find({ senderID: recipientID, recipientID: senderID }).toArray(function (err, result) {
           if (err) reject(err)
           recipientMesssages = result
-          fulfill({ sender: senderMessages, recipient: recipientMesssages })
+          resolve({ sender: senderMessages, recipient: recipientMesssages })
           db.close()
         })
       })
@@ -113,7 +113,7 @@ class Message {
   }
 
   static changeStateCache (receiverID, senderID, value) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -123,13 +123,13 @@ class Message {
             dbo.collection('Cache').updateOne({ receiverID: receiverID, senderID: senderID }, { $set: { boolean: value } }, function (err, result) {
               if (err) reject(err)
               db.close()
-              fulfill()
+              resolve()
             })
           } else {
             dbo.collection('Cache').insertOne({ receiverID: receiverID, senderID: senderID, boolean: value }, function (err, result) {
               if (err) reject(err)
               db.close()
-              fulfill()
+              resolve()
             })
           }
         })
@@ -138,7 +138,7 @@ class Message {
   }
 
   static getAllCache (receiverID) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -150,7 +150,7 @@ class Message {
               if (result[i].boolean) all.push(result[i])
             }
           }
-          fulfill(all)
+          resolve(all)
         })
       })
     })
