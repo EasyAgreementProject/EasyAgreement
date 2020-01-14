@@ -76,7 +76,11 @@ $(document).ready(function () {
   var insertHEff = getCookie('insertHEff')
   var insertEff = getCookie('insertEff')
   var errOrganizationEx = getCookie('errExOrganizationName')
-  var notPossible = getCookie('notPossibleForYou')
+  var onlyAdmin = getCookie('onlyForAdmin')
+  var onlyStudent = getCookie('onlyForStudent')
+  var onlyAcademic = getCookie('onlyForAcademic')
+  var onlyExternal = getCookie('onlyForExternal')
+  var onlyTutor = getCookie('onlyForTutor')
 
   if (errAddressH == '1') {
     $('#errAddress').css('display', 'block')
@@ -366,8 +370,28 @@ $(document).ready(function () {
     document.cookie = 'notViewCV=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 
-  if (notPossible == '1') {
-    swal('Errore', 'La cancellazione di un utente è limitata all\'admin', 'error')
-    document.cookie = 'notPossibleForYou=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  if (onlyAdmin == '1') {
+    swal('Errore', 'Questa funzionalità è limitata all\'Amministratore', 'error')
+    document.cookie = 'onlyForAdmin=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (onlyStudent == '1') {
+    swal('Errore', 'Questa funzionalità è limitata allo Studente', 'error')
+    document.cookie = 'onlyForStudent=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (onlyAcademic == '1') {
+    swal('Errore', 'Questa funzionalità è limitata al Tutor Accademico', 'error')
+    document.cookie = 'onlyForAcademic=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (onlyExternal == '1') {
+    swal('Errore', 'Questa funzionalità è limitata al Tutor Esterno', 'error')
+    document.cookie = 'onlyForExternal=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+  }
+
+  if (onlyTutor == '1') {
+    swal('Errore', 'Questa funzionalità è limitata ai Tutor', 'error')
+    document.cookie = 'onlyForTutor=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
 })

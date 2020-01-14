@@ -32,7 +32,7 @@
                             <form action="/uploadID" method="post" enctype="multipart/form-data" name="uploadFormCD">
                             <input type="file" name="filetoupload" id="idfiletoupload" class="input-upload" >
                             <label for="idfiletoupload" class="input-label-upload">Scegli file</label>
-                            <input type="submit" class="upload-button" value="Upload">
+                            <input type="submit" class="btn btn-secondary btn-round" value="Upload">
                             </form>
                             <td class="text-center" name="visualizza_cd"><form action="/fileviewID" method="post" name="viewFormCD"><button type="image" class="download-image"><img src="/img/download-document.png" ></button></form></td>
                             <td class="text-center" name="elimina_cd"><form action="/deleteID" method="post" name="deleteFormCD" id="deleteID"><button type="image" class="delete-image"><img src="/img/delete-document.png"></button></form></td>
@@ -45,7 +45,7 @@
                             <form action="/uploadCV" method="post" enctype="multipart/form-data" id="doc" name="uploadFormCV">
                             <input type="file" name="filetoupload" id="cvfiletoupload" class="input-upload">
                             <label for="cvfiletoupload" class="input-label-upload">Scegli file</label>
-                            <input type="submit" value="Upload" class="upload-button">
+                            <input type="submit" value="Upload" class="btn btn-secondary btn-round">
                             </form>
                         <td class="text-center" name="visualizza_cv"><form action="/fileviewCV" method="post" name="viewFormCV"><button type="image" class="download-image"> <img src="/img/download-document.png" ></button></form></td>
                         <td class="text-center" name="elimina_cv"><form action="/deleteCV" method="post" name="deleteFormCV" id="deleteCV"><button type="image" class="delete-image"> <img src="/img/delete-document.png"></button></form></td>
@@ -54,7 +54,6 @@
                 </table>
             </div>
         </div>
-    </div>
 <%- include ('footer') %>
 <script>
 
@@ -126,4 +125,3 @@
     });
 </script>
 
-</html>

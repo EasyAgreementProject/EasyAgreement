@@ -444,7 +444,6 @@ describe('Integration Testing', function () {
         agent
           .get('/getRequests')
           .redirects(0)
-          .query({ student: 'd.devito@studenti.unisa.it' })
           .end(function (err, res) {
             if (err) done(err)
             expect(res).to.be.json
@@ -1074,60 +1073,6 @@ describe('Integration Testing', function () {
         if (err) done(err)
         expect(res).status(200)
         done()
-      })
-  })
-
-  it('Test for /header.html', function (done) {
-    agent
-      .post('/login')
-      .redirects(0)
-      .send({ username: 'd.devito@studenti.unisa.it', password: 'DannyDeVito1' })
-      .end(function (err, res) {
-        if (err) done(err)
-        expect(res).to.have.cookie('logEff')
-        agent
-          .get('/header.html')
-          .end(function (err, res) {
-            if (err) done(err)
-            expect(res).status(200)
-            done()
-          })
-      })
-  })
-
-  it('Test for /sidebar.html', function (done) {
-    agent
-      .post('/login')
-      .redirects(0)
-      .send({ username: 'd.devito@studenti.unisa.it', password: 'DannyDeVito1' })
-      .end(function (err, res) {
-        if (err) done(err)
-        expect(res).to.have.cookie('logEff')
-        agent
-          .get('/sidebar.html')
-          .end(function (err, res) {
-            if (err) done(err)
-            expect(res).status(200)
-            done()
-          })
-      })
-  })
-
-  it('Test for /footer.html', function (done) {
-    agent
-      .post('/login')
-      .redirects(0)
-      .send({ username: 'd.devito@studenti.unisa.it', password: 'DannyDeVito1' })
-      .end(function (err, res) {
-        if (err) done(err)
-        expect(res).to.have.cookie('logEff')
-        agent
-          .get('/footer.html')
-          .end(function (err, res) {
-            if (err) done(err)
-            expect(res).status(200)
-            done()
-          })
       })
   })
 

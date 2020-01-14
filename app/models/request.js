@@ -88,20 +88,6 @@ class Request {
     })
   }
 
-  static deleteRequest (studentID) {
-    return new Promise(function (resolve, reject) {
-      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-        if (err) throw err
-        var dbo = db.db(dbName)
-        dbo.collection('Request').deleteOne({ studentID: studentID }, function (err) {
-          if (err) throw err
-          db.close()
-          resolve()
-        })
-      })
-    })
-  }
-
   static updateExternalTutor (studentID, tutorID) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
