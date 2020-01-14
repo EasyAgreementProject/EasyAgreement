@@ -219,3 +219,14 @@ input[type="radio"]:checked ~ label{
 .errClass:focus{
   border-color: red !important;
 }
+
+@media (max-width: 570px) {
+  .card{
+    margin: 0 !important;
+    width: 100%;
+  }
+
+  .row{
+    align-content: center;
+  }
+}

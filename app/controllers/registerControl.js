@@ -26,12 +26,12 @@ exports.signup = function (req, res) {
       // Form validation
       var isRight = true
 
-      if ((name == null) || (name.length <= 1) || (!/^[A-Za-z]+$/.test(name))) {
+      if ((name == null) || (name.length <= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(name))) {
         res.cookie('errStudentName', '1')
         isRight = false
       }
 
-      if ((surname == null) || (surname.length <= 1) || (!/^[A-Za-z]+$/.test(surname))) {
+      if ((surname == null) || (surname.length <= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(surname))) {
         res.cookie('errStudentSurname', '1')
         isRight = false
       }
@@ -131,12 +131,12 @@ exports.signup = function (req, res) {
 
       // Form validation
       isRight = true
-      if ((name == null) || (name.length <= 1) || (!/^[A-Za-z]+$/.test(name))) {
+      if ((name == null) || (name.length <= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(name))) {
         res.cookie('errTutorName', '1')
         isRight = false
       }
 
-      if ((surname == null) || (surname.length <= 1) || (!/^[A-Za-z]+$/.test(surname))) {
+      if ((surname == null) || (surname.length <= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(surname))) {
         res.cookie('errTutorSurname', '1')
         isRight = false
       }
