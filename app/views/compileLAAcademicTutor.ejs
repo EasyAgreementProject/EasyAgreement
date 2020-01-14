@@ -176,30 +176,29 @@
     </script>
     <script type="text/javascript">
     function locked(){
-     if(document.getElementById("inputCredits").value>0){
-         document.getElementById("Info1").style.display='initial';
-         document.getElementById("Info2").style.display='none';
-         document.getElementById("Info2").required=false;
-         if((document.getElementById("inputCredits").value<1)||(document.getElementById("inputCredits").value==null)){
+        if(document.getElementById("inputCredits").value>0){
+            document.getElementById("Info1").style.display='initial';
+            document.getElementById("Info2").style.display='none';
+            document.getElementById("Info2").required=false;
+            if((document.getElementById("inputCredits").value<1)||(document.getElementById("inputCredits").value==null)){
+                document.getElementById("Info2").style.display='initial';
+                document.getElementById("Info2").required=true;
+            }
+        }else if(document.getElementById("inputCredits2").value>0){
+            document.getElementById("Info1").style.display='none';
+            document.getElementById("Info2").style.display='initial';
+            document.getElementById("Info1").required=false;
+            if((document.getElementById("inputCredits2").value<1)||(document.getElementById("inputCredits2").value==null)){
+                document.getElementById("Info1").style.display="initial";
+                document.getElementById("Info1").required=true;
+            }
+        }else{
+            document.getElementById("Info1").style.display='initial';
+            document.getElementById("Info1").required=true;
             document.getElementById("Info2").style.display='initial';
             document.getElementById("Info2").required=true;
-         }
-     }else if(document.getElementById("inputCredits2").value>0){
-        document.getElementById("Info1").style.display='none';
-        document.getElementById("Info2").style.display='initial';
-        document.getElementById("Info1").required=false;
-        if((document.getElementById("inputCredits2").value<1)||(document.getElementById("inputCredits2").value==null)){
-            document.getElementById("Info1").style.display="initial";
-            document.getElementById("Info1").required=true;
-        }
-     }else{
-        document.getElementById("Info1").style.display='initial';
-        document.getElementById("Info1").required=true;
-        document.getElementById("Info2").style.display='initial';
-        document.getElementById("Info2").required=true;
-     }
-   
-}
+        }    
+    }
     </script>
     <script type="text/javascript" src="./js/academicTutorCookies.js"></script>
                 
