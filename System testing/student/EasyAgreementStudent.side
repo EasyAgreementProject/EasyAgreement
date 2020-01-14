@@ -2711,13 +2711,14 @@
       "id": "e209f803-df0e-4a91-913c-8351665aadfc",
       "comment": "",
       "command": "click",
-      "target": "id=nome",
+      "target": "id=profile",
       "targets": [
-        ["id=nome", "id"],
-        ["css=#nome", "css:finder"],
-        ["xpath=//span[@id='nome']", "xpath:attributes"],
-        ["xpath=//a[@id='profile']/span", "xpath:idRelative"],
-        ["xpath=//div/div/div/div/a/span", "xpath:position"]
+        ["id=profile", "id"],
+        ["css=#profile", "css:finder"],
+        ["xpath=//a[@id='profile']", "xpath:attributes"],
+        ["xpath=//div[@id='sidebar']/div/div/div/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/profile')]", "xpath:href"],
+        ["xpath=//div/div/div/div/a", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -3331,11 +3332,12 @@
       "id": "db988861-c606-442b-bf44-101c17ac4b7f",
       "comment": "",
       "command": "click",
-      "target": "css=.text-center > form > .upload-button",
+      "target": "css=#doc > .btn",
       "targets": [
-        ["css=.text-center > form > .upload-button", "css:finder"],
-        ["xpath=//input[@value='Upload']", "xpath:attributes"],
-        ["xpath=//input[2]", "xpath:position"]
+        ["css=#doc > .btn", "css:finder"],
+        ["xpath=(//input[@value='Upload'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='doc']/input[2]", "xpath:idRelative"],
+        ["xpath=//a/form/input[2]", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -3357,28 +3359,6 @@
       "targets": [
         ["css=tr:nth-child(1) .download-image > img", "css:finder"],
         ["xpath=//button/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "420f08a9-7d60-452e-8fa5-14fe0ac59bcd",
-      "comment": "",
-      "command": "click",
-      "target": "css=.swal-button--confirm",
-      "targets": [
-        ["css=.swal-button--confirm", "css:finder"],
-        ["xpath=//div[2]/button", "xpath:position"],
-        ["xpath=//button[contains(.,'OK')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "9f51bae5-a5a8-463a-b011-0cd36662cbda",
-      "comment": "",
-      "command": "click",
-      "target": "css=.swal-button",
-      "targets": [
-        ["css=.swal-button", "css:finder"],
-        ["xpath=//div[4]/div/button", "xpath:position"],
-        ["xpath=//button[contains(.,'OK')]", "xpath:innerText"]
       ],
       "value": ""
     }]
@@ -3486,12 +3466,11 @@
       "id": "ea1a9411-fc5f-4d0a-852d-0541cd04f191",
       "comment": "",
       "command": "click",
-      "target": "css=#doc > .upload-button",
+      "target": "css=.text-center > form > .btn",
       "targets": [
-        ["css=#doc > .upload-button", "css:finder"],
-        ["xpath=(//input[@value='Upload'])[2]", "xpath:attributes"],
-        ["xpath=//form[@id='doc']/input[2]", "xpath:idRelative"],
-        ["xpath=//a/form/input[2]", "xpath:position"]
+        ["css=.text-center > form > .btn", "css:finder"],
+        ["xpath=//input[@value='Upload']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
       ],
       "value": ""
     }, {
