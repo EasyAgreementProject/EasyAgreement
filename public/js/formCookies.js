@@ -117,7 +117,7 @@ $(document).ready(function () {
   }
   if (errContactSending == '1') {
     $('#errContactSending').css('display', 'block')
-    $('#inputContactSendind').addClass('errClass')
+    $('#inputContactSending').addClass('errClass')
     document.cookie = 'errContactSending=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
   if (errNameSector == '1') {
@@ -149,11 +149,6 @@ $(document).ready(function () {
     $('#inputContactRecivingPosition').addClass('errClass')
     document.cookie = 'errContactReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
-  if (errDepartmentReciving == '1') {
-    $('#errDepartmentReciving').css('display', 'block')
-    $('#inputDepartmentReciving').addClass('errClass')
-    document.cookie = 'errDepartmentReciving=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
-  }
   if (errMentor == '1') {
     $('#errMentorName').css('display', 'block')
     $('#inputMentorName').addClass('errClass')
@@ -162,8 +157,8 @@ $(document).ready(function () {
     document.cookie = 'errMentor=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
   if (errMentorInfo == '1') {
-    $('#errDepartmentReciving').css('display', 'block')
-    $('#inputDepartmentReciving').addClass('errClass')
+    $('#errMentorInfo').css('display', 'block')
+    $('#inputMentorInfo').addClass('errClass')
     document.cookie = 'errMentorInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
   }
   if (errDateFrom == '1') {
