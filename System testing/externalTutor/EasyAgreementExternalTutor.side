@@ -844,6 +844,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "5d07ee4a-cce2-4b4c-bc22-f6ef55617142",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x570",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "d311537c-2b10-41ee-91bb-e08dc8d43eeb",
       "comment": "",
       "command": "type",
@@ -900,16 +907,6 @@
         ["css=.swal-button", "css:finder"],
         ["xpath=//div[4]/div/button", "xpath:position"],
         ["xpath=//button[contains(.,'OK')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "8e4f6496-71f7-4cd0-b33f-78110306338f",
-      "comment": "",
-      "command": "click",
-      "target": "css=.navbar-toggler-icon > .icon-menu",
-      "targets": [
-        ["css=.navbar-toggler-icon > .icon-menu", "css:finder"],
-        ["xpath=//i", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -1222,13 +1219,14 @@
       "id": "0dfb26f5-e18f-47b0-90a2-f86245f6c052",
       "comment": "",
       "command": "click",
-      "target": "id=nome",
+      "target": "id=profile",
       "targets": [
-        ["id=nome", "id"],
-        ["css=#nome", "css:finder"],
-        ["xpath=//span[@id='nome']", "xpath:attributes"],
-        ["xpath=//a[@id='profile']/span", "xpath:idRelative"],
-        ["xpath=//div/div/div/div/a/span", "xpath:position"]
+        ["id=profile", "id"],
+        ["css=#profile", "css:finder"],
+        ["xpath=//a[@id='profile']", "xpath:attributes"],
+        ["xpath=//div[@id='sidebar']/div/div/div/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/profile')]", "xpath:href"],
+        ["xpath=//div/div/div/div/a", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -1422,7 +1420,7 @@
       "id": "048a20a5-c367-49a9-9415-12c028e16126",
       "comment": "",
       "command": "click",
-      "target": "id=nome",
+      "target": "id=profile",
       "targets": [
         ["id=nome", "id"],
         ["css=#nome", "css:finder"],
@@ -2496,7 +2494,7 @@
       "id": "2bb6b663-a337-4501-b607-040b7abcf063",
       "comment": "",
       "command": "open",
-      "target": "http://localhost:8080/",
+      "target": "http://localhost:8080/logout",
       "targets": [],
       "value": ""
     }, {
@@ -2701,7 +2699,7 @@
       "id": "af3a2035-4e23-40fc-824d-e1fe6d925415",
       "comment": "",
       "command": "open",
-      "target": "http://localhost:8080/",
+      "target": "http://localhost:8080/logout",
       "targets": [],
       "value": ""
     }, {
@@ -3779,7 +3777,7 @@
       "id": "ecd418e7-e761-4be9-9999-5f9311b0cb51",
       "comment": "",
       "command": "open",
-      "target": "http://localhost:8080",
+      "target": "http://localhost:8080/logout",
       "targets": [],
       "value": ""
     }, {
@@ -3985,7 +3983,7 @@
       "id": "0b260c80-109e-4c28-ae2c-2bd643c77e25",
       "comment": "",
       "command": "open",
-      "target": "http://localhost:8080/",
+      "target": "http://localhost:8080/logout",
       "targets": [],
       "value": ""
     }, {
