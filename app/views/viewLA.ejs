@@ -8,7 +8,7 @@
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
                         <h2 class="text-white pb-2 fw-bold">Learning Agreement</h2>
-                        <h5 class="text-white op-7 mb-2" id = "status">Stato: </h5>
+                        <h5 class="text-white op-7 mb-2" id = "status">Stato: <b>Non ancora compilato</b></h5>
                     </div>
                 </div>
             </div>	
@@ -24,7 +24,7 @@
                     <label>Versioni:</label><br>
                     <select class="custom-select"  name="inputVersion" id="versions">
                     </select>
-                    <button class="btn btn-secondary btn-round" type="submit" style ="margin-left: 5rem;">Visualizza</button>
+                    <button class="btn btn-secondary btn-round" type="submit" style ="margin-left: 5rem;" id ="view" disabled>Visualizza</button>
                 </div>
             </form>
         </div>
@@ -33,8 +33,7 @@
     <script>
         $(document).ready(function() {
             $.get("/getStatus", function(status) {
-                if(status) document.getElementById("status").innerHTML += "<b>"+status+"</b>";
-                else document.getElementById("status").innerHTML += "<b>Non ancora compilato</b>";
+                if(status) document.getElementById("status").innerHTML = "Stato: <b>"+status+"</b>";
             });
         });
     </script>
@@ -42,20 +41,23 @@
         $(document).ready(function() {
             $.get("/getAllVersions", function(array) {
                 if(array) {
-                    var select = document.getElementById("versions");
-                    for(i = 0; i < array.length; i++) {
-                        var option = document.createElement("option");
-                        if(i == 0) {
-                            option.text = array[i].version+" (corrente)";
-                            option.value = array[i].version;
-                            select.add(option);
-                        }
-                        else {
-                            option.text = array[i].version;
-                            option.value = array[i].version;
-                            select.add(option);
-                        }
-                    }     
+                    if(array[0]) {
+                        document.getElementById("view").disabled = false;
+                        var select = document.getElementById("versions");
+                        for(i = 0; i < array.length; i++) {
+                            var option = document.createElement("option");
+                            if(i == 0) {
+                                option.text = array[i].version+" (corrente)";
+                                option.value = array[i].version;
+                                select.add(option);
+                            }
+                            else {
+                                option.text = array[i].version;
+                                option.value = array[i].version;
+                                select.add(option);
+                            }
+                        }     
+                    }
                 }
             });
         });
