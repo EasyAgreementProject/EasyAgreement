@@ -18,6 +18,8 @@ exports.getAllContacts = function (type, res) {
       users = studentModel.RetrieveAll()
     } else if (type == 'externalTutor') {
       users = externalModel.RetrieveAll()
+    } else {
+      reject('not found')
     }
     users.then(function (result) {
       resolve(result)
@@ -98,13 +100,14 @@ exports.saveMessage = function (message, res) {
  * @param {String} id - The id of the message to change
  * @param {String} text- The text of the message
  * @param {Object} res - The HTTP response
- * @returns {JSON} - The JSON object containing the boolean result, true if the update was successfull, else false  
+ * @returns {JSON} - The JSON object containing the boolean result, true if the update was successfull, else false
  */
 exports.updateMessage = function (id, text, res) {
   return new Promise(function (resolve, reject) {
     var update = MessageModel.updateMessage(id, text)
     update.then(function (result) {
-      resolve({ boolean: true })
+      if (result > 0) resolve({ boolean: true })
+      else reject('not modified')
     })
   })
 }
@@ -113,13 +116,14 @@ exports.updateMessage = function (id, text, res) {
  * This method removes a specific message
  * @param {String} messageID - The id of the message to remove
  * @param {Object} res - The HTTP response
- * @returns {JSON} - The JSON object containing the boolean result, true if the remove was successfull, else false  
+ * @returns {JSON} - The JSON object containing the boolean result, true if the remove was successfull, else false
  */
 exports.removeMessage = function (messageID, res) {
   return new Promise(function (resolve, reject) {
     var remove = MessageModel.removeMessage(messageID)
     remove.then(function (result) {
-      resolve({ boolean: true })
+      if (result > 0) resolve({ boolean: true })
+      else reject('not deleted')
     })
   })
 }
@@ -137,7 +141,7 @@ exports.searchUser = function (type, search, res) {
     var surname = null
     var users1 = []
     var users2 = []
-    if (search.indexOf(' ') == -1) {
+    if (search.indexOf(' ') <= 0) {
       name = search
     } else {
       name = search.substring(0, search.indexOf(' '))

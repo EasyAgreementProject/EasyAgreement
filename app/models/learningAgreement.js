@@ -9,7 +9,7 @@ const url = 'mongodb://localhost:27017/easyagreement'
 const dbName = 'easyagreement'
 /**
  * This module represents a Learning Agreement
- * @module LearningAgreement 
+ * @module LearningAgreement
  */
 class LearningAgreement {
   constructor () {
@@ -19,6 +19,7 @@ class LearningAgreement {
     this.state = null
     this.date = null
   }
+
   /**
    * This method sets the Learing Agreement's filling
    * @param {JSON} filling
@@ -98,6 +99,7 @@ class LearningAgreement {
   getDate () {
     return this.date
   }
+
   /**
    * This method inserts a new Learning Agreement and handles the versioning process
    * @param {LearningAgreement} learningAgreement - The Learnign Agreement object to insert
@@ -206,8 +208,8 @@ class LearningAgreement {
 
   /**
    * Thi method updates the filling data of the student's Learning Agreement
-   * @param {String} studentID 
-   * @param {JSON} data 
+   * @param {String} studentID
+   * @param {JSON} data
    */
   static updateData (studentID, data) {
     return new Promise(function (resolve, reject) {

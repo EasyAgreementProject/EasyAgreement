@@ -1,7 +1,7 @@
 var hash = require('./hash.js')
 var AcademicTutorModel = require('../models/academicTutor.js')
 /**
- * This method updates the academic tutor's informations 
+ * This method updates the academic tutor's informations
  * @param {Object} req - The HTTP request
  * @param {Object} res - The HTTP response
  * @returns {Boolean}  - It returns true if the update was successfull, else false
@@ -51,7 +51,7 @@ exports.update = function (req, res) {
 
     var checkS = AcademicTutorModel.updateAcademicTutor(academicTutor, req.session.utente.utente.E_mail)
 
-  /**
+    /**
   * This method checks the result of updateAcademicTutor function and updates the academic tutor session
   * @param  {Object} result - The result of updateAcademicTutor function
   * @returns {Boolean} - It returns true and generates an "edit complete" cookie if result != null, else it returns a reject
@@ -127,8 +127,8 @@ exports.updatePassword = function (req, res) {
 }
 
 /**
- * This method retrieves the academic tutor informations by email 
- * @param {String} email - Academic tutor's email to search 
+ * This method retrieves the academic tutor informations by email
+ * @param {String} email - Academic tutor's email to search
  * @returns {JSON} - It returns the JSON object containing the academic tutor's informations
  */
 exports.getByEmail = function (email) {

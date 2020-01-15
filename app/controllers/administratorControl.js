@@ -1,7 +1,7 @@
 var hash = require('./hash.js')
 var adminModel = require('../models/administrator.js')
 /**
- * This method updates the administrator's password 
+ * This method updates the administrator's password
  * @param {Object} req - The HTTP request
  * @param {Object} res - The HTTP response
  * @returns {Boolean}  - It returns true if the update was successfull, else false
@@ -42,7 +42,7 @@ exports.update = function (req, res) {
           */
       checkPass.then(function (result) {
         if (result != null) {
-          req.session.utente.utente = result
+          req.session.utente.utente = { name: result.getName(), email: result.getEmail(), surname: result.getSurname(), Password: result.getPassword() }
           res.cookie('updatePassEff', '1')
           resolve(true)
         } else { resolve() }

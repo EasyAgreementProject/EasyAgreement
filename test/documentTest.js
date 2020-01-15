@@ -11,7 +11,23 @@ describe('Field test for documentControl', function () {
     })
   })
 
+  it('Testing insertIDCard already exist', function (done) {
+    var check = documentControl.idHandler('d.devito@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
   it('Testing insertCV', function (done) {
+    var check = documentControl.cvHandler('d.devito@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
+  it('Testing insertCV already exist', function (done) {
     var check = documentControl.cvHandler('d.devito@studenti.unisa.it')
     check.then(function (result) {
       expect(result).to.not.be.null
@@ -31,6 +47,14 @@ describe('Field test for documentControl', function () {
     })
   })
 
+  it('Testing viewIDCard not exist', function (done) {
+    var check = documentControl.viewID('l.deamicis@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
   it('Testing viewCV', function (done) {
     var check = documentControl.cvHandler('f.califano@studenti.unisa.it')
     check.then(function (result) {
@@ -43,7 +67,15 @@ describe('Field test for documentControl', function () {
     })
   })
 
-  it('Testing getIDCard', function (done) {
+  it('Testing viewCV not exist', function (done) {
+    var check = documentControl.viewCV('l.deamicis@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
+  it('Testing getIDCardStatus', function (done) {
     var check = documentControl.getIDState('d.devito@studenti.unisa.it')
     check.then(function (result) {
       expect(result).to.not.be.null
@@ -51,8 +83,24 @@ describe('Field test for documentControl', function () {
     })
   })
 
-  it('Testing getCV', function (done) {
+  it('Testing getIDCardStatus not exist', function (done) {
+    var check = documentControl.getIDState('l.deamicis@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
+  it('Testing getCVStatus', function (done) {
     var check = documentControl.getCVState('d.devito@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
+  it('Testing getCVStatus not exist', function (done) {
+    var check = documentControl.getCVState('l.deamicis@studenti.unisa.it')
     check.then(function (result) {
       expect(result).to.not.be.null
       done()

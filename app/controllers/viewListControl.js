@@ -24,6 +24,8 @@ exports.retrieveAll = function (type) {
       getH.then(function (result) {
         resolve(result)
       })
+    } else {
+      reject('no type exist')
     }
   })
 }

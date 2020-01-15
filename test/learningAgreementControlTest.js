@@ -1005,5 +1005,4 @@ describe('Field test for learningAgreementControl', function () {
       })
     })
   }).timeout(4000)
-
 })

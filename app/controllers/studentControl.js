@@ -2,7 +2,7 @@ var hash = require('./hash.js')
 var StudentModel = require('../models/student.js')
 
 /**
- * This method updates the student's informations 
+ * This method updates the student's informations
  * @param {Object} req - The HTTP request
  * @param {Object} res - The HTTP response
  * @returns {Boolean}  - It returns true if the update was successfull, else false

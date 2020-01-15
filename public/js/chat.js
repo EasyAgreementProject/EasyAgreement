@@ -97,7 +97,9 @@ socket.on('chat-message', function (user, message) {
   if ($('.outerContainer').hasClass('chatbox--tray')) {
     $('.chat-notification').css('display', 'block')
   }
-  toNotificate.push(message.senderID)
+  if(toNotificate.indexOf(message.senderID) == -1){
+    toNotificate.push(message.senderID)
+  }
   appendMessage(message)
 })
 

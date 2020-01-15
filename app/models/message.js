@@ -108,10 +108,10 @@ class Message {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection('Message').deleteOne({ _id: ObjectID(messageID) }, function (err) {
+        dbo.collection('Message').deleteOne({ _id: ObjectID(messageID) }, function (err, result) {
           if (err) reject(err)
           db.close()
-          resolve()
+          resolve(result.deletedCount)
         })
       })
     })
@@ -131,7 +131,7 @@ class Message {
         dbo.collection('Message').updateOne({ _id: ObjectID(id) }, { $set: { text: value } }, function (err, result) {
           if (err) reject(err)
           db.close()
-          resolve()
+          resolve(result.matchedCount)
         })
       })
     })
@@ -153,12 +153,12 @@ class Message {
         dbo.collection('Message').find({ senderID: senderID, recipientID: recipientID }).toArray(function (err, result) {
           if (err) reject(err)
           senderMessages = result
-        })
-        dbo.collection('Message').find({ senderID: recipientID, recipientID: senderID }).toArray(function (err, result) {
-          if (err) reject(err)
-          recipientMesssages = result
-          resolve({ sender: senderMessages, recipient: recipientMesssages })
-          db.close()
+          dbo.collection('Message').find({ senderID: recipientID, recipientID: senderID }).toArray(function (err, result) {
+            if (err) reject(err)
+            recipientMesssages = result
+            resolve({ sender: senderMessages, recipient: recipientMesssages })
+            db.close()
+          })
         })
       })
     })

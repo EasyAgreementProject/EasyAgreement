@@ -13,9 +13,9 @@ ins.then(function (result) {
 })
 
 function insert () {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-      if (err) throw err
+      if (err) reject(err)
       console.log('Connected successfully to server!')
       var dbo = db.db(dbName)
 
@@ -69,7 +69,7 @@ function insert () {
                     dbo.createCollection('LearningAgreement_revision', function (err) {
                       if (err) throw err
                       console.log('Succesfully created the collection LearningAgreement_revision.')
-                      fulfill()
+                      resolve()
                     })
                   })
                 })

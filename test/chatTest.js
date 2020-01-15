@@ -60,6 +60,16 @@ describe('Field test for messageControl', function () {
     })
   })
 
+  it('Testing getContacts nothing', function (done) {
+    var res = mockHttp.createResponse()
+    var type = ''
+    var get = messageControl.getAllContacts(type, res)
+    get.catch(function (result) {
+      expect(result).to.be.equal('not found')
+      done()
+    })
+  })
+
   it('Testing searchUser 1.1', function (done) {
     var res = mockHttp.createResponse()
     var type = 'externalTutor'
@@ -74,7 +84,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 1.2', function (done) {
     var res = mockHttp.createResponse()
     var type = 'academicTutor'
-    var string = 'Sara'
+    var string = 'Francesco'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -85,7 +95,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 1.3', function (done) {
     var res = mockHttp.createResponse()
     var type = 'student'
-    var string = 'Sara'
+    var string = 'Simone'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -96,7 +106,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.1', function (done) {
     var res = mockHttp.createResponse()
     var type = 'externalTutor'
-    var string = 'Giuseppe Musso'
+    var string = 'Francesco Califano'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -107,7 +117,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.2', function (done) {
     var res = mockHttp.createResponse()
     var type = 'academicTutor'
-    var string = 'Sara Cotto'
+    var string = 'Francesco Califano'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -118,7 +128,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.3', function (done) {
     var res = mockHttp.createResponse()
     var type = 'student'
-    var string = 'Sara Cotto'
+    var string = 'Simone Russo'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -142,6 +152,16 @@ describe('Field test for messageControl', function () {
     })
   })
 
+  it('Testing updateMessage not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var text = 'wewe come stai bro'
+    var update = messageControl.updateMessage('951321325342', text, res)
+    update.catch(function (result) {
+      expect(result).to.be.equal('not modified')
+      done()
+    })
+  })
+
   it('Testing removeMessage', function (done) {
     var res = mockHttp.createResponse()
     var message = { senderID: 'd.devito@studenti.unisa.it', recipientID: 'm.bianco@unisa.it', text: 'fratmmoo', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } }
@@ -157,8 +177,17 @@ describe('Field test for messageControl', function () {
     })
   })
 
+  it('Testing removeMessage not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var remove = messageControl.removeMessage('951321325342', res)
+    remove.catch(function (result) {
+      expect(result).to.be.equal('not deleted')
+      done()
+    })
+  })
+
   it('Testing setReceivedMessage true', function (done) {
-    var sender = 'd.devito@studenti.unisa.it'
+    var sender = 'm.popovic@studenti.unisa.it'
     var receiver = 'g.musso@unisa.it'
     var set = messageControl.refreshMessageCache(receiver, sender, true)
     set.then(function (result) {
@@ -167,8 +196,18 @@ describe('Field test for messageControl', function () {
     })
   })
 
+  it('Testing setReceivedMessage true', function (done) {
+    var sender = 'f.vitolo@studenti.unisa.it'
+    var receiver = 'm.popovic@studenti.unisa.it'
+    var set = messageControl.refreshMessageCache(receiver, sender, true)
+    set.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
   it('Testing getReceivedMessage', function (done) {
-    var sender = 'd.devito@studenti.unisa.it'
+    var sender = 'm.popovic@studenti.unisa.it'
     var get = messageControl.getAllCache(sender)
     get.then(function (result) {
       expect(result).to.not.be.null
@@ -177,7 +216,7 @@ describe('Field test for messageControl', function () {
   })
 
   it('Testing setReceivedMessage false', function (done) {
-    var sender = 'd.devito@studenti.unisa.it'
+    var sender = 'm.popovic@studenti.unisa.it'
     var receiver = 'g.musso@unisa.it'
     var set = messageControl.refreshMessageCache(receiver, sender, false)
     set.then(function (result) {

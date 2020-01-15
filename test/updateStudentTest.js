@@ -155,6 +155,16 @@ describe('Field test for profileControl', function () {
     })
   }).timeout(4000)
 
+  it('testing method studentControl not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var req = { body: { inputNameS: '', inputSurnameS: '', inputCity: '', inputAddress: '', inputDegree: 'Computer Science' }, session: { utente: { utente: { Email: 'f.calfano@studenti.unisa.it' } } } }
+    var updateS = studentControl.update(req, res)
+    updateS.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  }).timeout(4000)
+
   it('testing method studentControl - TC_PM_1.1.19', function (done) {
     var res = mockHttp.createResponse()
     var req = { body: { inputOldPassword: 'mbar', inputPassword: '', inputConfirmPassword: '' } }

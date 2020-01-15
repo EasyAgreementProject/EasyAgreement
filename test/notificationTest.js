@@ -5,7 +5,7 @@ var notificationControl = require('../app/controllers/notificationControl')
 
 describe('Field test for notificationControl', function () {
   it('Testing insertNotification', function (done) {
-    var notifica = { associatedID: 'd.devito@studenti.unisa.it', text: { title: 'test', text: 'Questo è il testing' }, date: { hour: '12', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }
+    var notifica = { associatedID: 'p.penna@unisa.it', text: { title: 'test', text: 'Questo è il testing 1' }, date: { hour: '12', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }
     var save = notificationControl.insertNotification(notifica)
     save.then(function (result) {
       expect(result).to.not.be.null
@@ -13,9 +13,18 @@ describe('Field test for notificationControl', function () {
     })
   })
 
+  /* it('Testing insertNotification', function (done) {
+    var notifica = { associatedID: 'p.penna@unisa.it', text: { title: 'test', text: 'Questo è il testing 1' }, date: { hour: '13', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }
+    var save = notificationControl.insertNotification(notifica)
+    save.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  }) */
+
   it('Testing getAllNotifications', function (done) {
     var res = mockHttp.createResponse()
-    var notifica = { associatedID: 'p.penna@unisa.it', text: { title: 'test', text: 'Questo è il testing' }, date: { hour: '12', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }
+    var notifica = { associatedID: 'p.penna@unisa.it', text: { title: 'test', text: 'Questo è il testing 2' }, date: { hour: '12', minutes: '10', seconds: '20', day: '24', months: '12', year: '2019' } }
     var save = notificationControl.insertNotification(notifica)
     save.then(function (result) {
       expect(result).to.not.be.null
@@ -25,6 +34,16 @@ describe('Field test for notificationControl', function () {
         expect(result).to.not.be.null
         done()
       })
+    })
+  })
+
+  it('Testing getAllNotifications of null', function (done) {
+    var res = mockHttp.createResponse()
+    var id = ''
+    var get = notificationControl.getAllNotification(id, res)
+    get.then(function (result) {
+      expect(result).to.be.null
+      done()
     })
   })
 

@@ -142,7 +142,6 @@ exports.sendLaStudent = function (input, res) {
   })
 }
 
-
 /**
  * This method saves the student's Learning Agreement compilation
  * @param {Array} input - The inputs of the form
@@ -565,7 +564,6 @@ exports.saveLaAcademicTutor = function (input, res) {
   })
 }
 
-
 /**
  * This method sends the external tutors's Learning Agreement compilation
  * @param {Array} input - The inputs of the form
@@ -852,7 +850,7 @@ exports.getStatus = function (student) {
 }
 
 /**
- * This method returns the requested Learning Agreement's version 
+ * This method returns the requested Learning Agreement's version
  * @param {String} id - The version's number
  * @param {String} email - The student's email
  * @returns {ReadStream} The downloadable pdf of the selected version to send in the response
@@ -1060,7 +1058,6 @@ exports.validateDataStudent = function (data, res) {
   })
 }
 
-
 /**
  * This method validates the inputs of the academic tutor's Learning Agreement compilation
  * @param {JSON} data - The JSON containing the compilation's input
@@ -1069,7 +1066,6 @@ exports.validateDataStudent = function (data, res) {
  */
 exports.validateDataAcademicTutor = function (data, res) {
   return new Promise(function (resolve, reject) {
-
     if (data.Award && (data['Traineeship certificate'] || data['Final report'] || data.Interview) && (data['Europass Mobility Document Yes'] || data['Europass Mobility Document No'])) {
       if (data['Award ECTS credits Yes'] || data['Award ECTS credits No'] || data['If yes, please indicate the number of ECTS credits'] || data['Give a grade Yes'] || data['Give a grade No'] ||
             data['Traineeship certificate1'] || data['Final report1'] || data.Interview1 || data["Record the traineeship in the trainee's Transcript of Records Yes"] ||
