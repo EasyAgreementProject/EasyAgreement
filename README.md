@@ -99,17 +99,27 @@ It's possible run complex path expressions, see to: https://github.com/standard/
 *  Install Selenium on Chrome: https://bit.ly/2R9YVWZ (we suggest it)
 *  Install Selenium on Mozilla FireFox: https://mzl.la/2tWfhdG
 
+## Unit and Integration Testing: ##
+
+1. Open the terminal.
+
+2. Move to the 'EasyAgreement' directory.
+
+3. Execute `npm test` command.
+
 ## System Testing: ##
 
-1. Go in your browser.
+1. Start the server before starting system testing with `node server.js` command in the terminal.
 
-2. Open the Selenium IDE to perform all system tests.
+2. Go in your browser.
 
-3. Select 'Open an existing project' option.
+3. Open the Selenium IDE to perform all system tests.
 
-4. Import file with the .side extension.
+4. Select 'Open an existing project' option.
 
-5. Run all tests of the imported file with the "Run all tests" (command: `Ctrl+Shift+R`) or a single selected test with "Run current test" (command: `Ctrl+R`).
+5. Import file with the .side extension.
+
+6. Run all tests of the imported file with the "Run all tests" (command: `Ctrl+Shift+R`) or a single selected test with "Run current test" (command: `Ctrl+R`).
 
 ## Authors
 
