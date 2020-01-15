@@ -3,6 +3,10 @@ var mongo = require('mongodb')
 var fs = require('fs')
 const url = 'mongodb://localhost:27017/easyagreement'
 
+/**
+ * @param (e) - email
+ * @returns {Promise} - return a Promise
+ */
 exports.idHandler = function (e) {
   return new Promise(function (resolve, reject) {
     var id = null
