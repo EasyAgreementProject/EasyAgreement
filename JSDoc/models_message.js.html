@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/hostorganization.js</title>
+    <title>JSDoc: Source: models/message.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/hostorganization.js</h1>
+    <h1 class="page-title">Source: models/message.js</h1>
 
     
 
@@ -27,6 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>var MongoClient = require('mongodb').MongoClient
+var ObjectID = require('mongodb').ObjectId
 
 // Database URL
 const url = 'mongodb://localhost:27017/easyagreement'
@@ -34,150 +35,91 @@ const url = 'mongodb://localhost:27017/easyagreement'
 // Database name
 const dbName = 'easyagreement'
 
-class HostOrganization {
-  /**
-     * Constructor of HostOrganization
-     * @constructor
-     */
+class Message {
   constructor () {
-    this.ErasmusCode = null
-    this.Faculty = null
-    this.Address = null
-    this.Size = null
-    this.Country = null
-    this.Contacts = null
-    this.Name = null
+    this.senderID = null
+    this.recipientID = null
+    this.text = null
+    this.date = null
   }
 
+  // Getter methods
+  
   /**
-     * Get Erasmus Code
-     * @returns {String} - return Erasmus_code
-     */
-  getErasmusCode () {
-    return this.ErasmusCode
-  }
-
-  /**
-     * Get Faculty
-     * @returns {String} - return Faculty
-     */
-  getFaculty () {
-    return this.Faculty
-  }
-
-  /**
-     * Get Address
-     * @returns {String} - return Address
-     */
-  getAddress () {
-    return this.Address
-  }
-
-  /**
-     * Get Size
-     * @returns {String} - return Size
-     */
-  getOrgSize () {
-    return this.Size
-  }
-
-  /**
-     * Get Country
-     * @returns {String} - return Country
-     */
-  getCountry () {
-    return this.Country
-  }
-
-  /**
-     * Get Contacts
-     * @returns {String} - return Contacts
-     */
-  getContacts () {
-    return this.Contacts
-  }
-
-  /**
-     * Get Name
-     * @returns {String} - return Name
-     */
-  getName () {
-    return this.Name
-  }
-
-  /**
-     * Set Erasmus Code
-     * @param {String} erasmuscode - erasmus code
-     */
-  setErasmusCode (erasmuscode) {
-    this.ErasmusCode = erasmuscode
-  }
-
-  /**
-     * Set Faculty
-     * @param {String} faculty - faculty
-     */
-  setFaculty (faculty) {
-    this.Faculty = faculty
-  }
-
-  /**
-     * Set Address
-     * @param {String} address - address
-     */
-  setAddress (address) {
-    this.Address = address
-  }
-
-  /**
-     * Set Size
-     * @param {String} size - size
-     */
-  setOrgSize (size) {
-    this.Size = size
-  }
-
-  /**
-     * Set Country
-     * @param {String} country - country
-     */
-  setCountry (country) {
-    this.Country = country
-  }
-
-  /**
-     * Set Contacts
-     * @param {String} contacts - contacts
-     */
-  setContacts (contacts) {
-    this.Contacts = contacts
-  }
-
-  /**
-     * Set Name
-     * @param {String} name - name
-     */
-  setName (name) {
-    this.Name = name
-  }
-
-  /**
-   * This method finds an host organization by erasmus code
-   * @param {String} erasmuscode - Host organization's erasmus code
-   * @returns {Boolean} - It returns true if the search was successfull, else false
+   * @returns {String} - return senderID
    */
-  static findByEcode (erasmuscode) {
+  getSenderID () {
+    return this.senderID
+  }
+
+  /**
+   * @returns {String} - return recipientID
+   */
+  getRecipientID () {
+    return this.recipientID
+  }
+
+  /**
+   * @returns {String} - return text
+   */
+  getText () {
+    return this.text
+  }
+
+  /**
+   * @returns {String} - return date
+   */
+  getDate () {
+    return this.date
+  }
+
+  // setter method
+  
+  /**
+   * set text
+   * @param {String} text
+   */
+  setText (text) {
+    this.text = text
+  }
+
+  /**
+   * set date
+   * @param {string} date 
+   */
+  setDate (date) {
+    this.date = date
+  }
+
+  /**
+   * set senderID
+   * @param {string} sender 
+   */
+  setSenderID (sender) {
+    this.senderID = sender
+  }
+
+  /**
+   * set recipientID
+   * @param {String} recipient 
+   */
+  setRecipientID (recipient) {
+    this.recipientID = recipient
+  }
+
+  /**
+   * This method inserts the message 
+   * @param {Object} message - the message to insert
+   * @returns {Promise} - return a promise
+   */
+  static insertMessage (message) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection('HostOrganization').findOne({ ErasmusCode: erasmuscode }, function (err, result) {
+        dbo.collection('Message').insertOne(message, function (err, result) {
           if (err) reject(err)
-          if (result) {
-            resolve(false)
-          } else {
-            resolve(true)
-          }
+          resolve(result.insertedId)
           db.close()
         })
       })
@@ -185,18 +127,65 @@ class HostOrganization {
   }
 
   /**
-   * This method inserts an host organitazion 
-   * @param {String} HostOrg 
-   * @returns {Promise} - Return a promise
+   * This method removes the message 
+   * @param {Object} message - the message to remove
+   * @returns {Promise} - return a promise
    */
-  static addHostOrg (HostOrg) {
+  static removeMessage (messageID) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection('HostOrganization').insertOne(HostOrg, function (err) {
-          if (err) throw err
+        dbo.collection('Message').deleteOne({ _id: ObjectID(messageID) }, function (err) {
+          if (err) reject(err)
+          db.close()
           resolve()
+        })
+      })
+    })
+  }
+
+  /**
+   * This method update the message 
+   * @param {String} id - the id of message
+   * @param {value} value - new text
+   * @returns {Promise} - return a promise
+   */
+  static updateMessage (id, value) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('Message').updateOne({ _id: ObjectID(id) }, { $set: { text: value } }, function (err, result) {
+          if (err) reject(err)
+          db.close()
+          resolve()
+        })
+      })
+    })
+  }
+
+  /**
+   * This method gets the chat between two users
+   * @param {String} senderID - chat's sender 
+   * @param {String} recipientID - chat's recipient
+   * @returns {Promise} - return a promise
+   */
+  static getTextChat (senderID, recipientID) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        var senderMessages = null
+        var recipientMesssages = null
+        dbo.collection('Message').find({ senderID: senderID, recipientID: recipientID }).toArray(function (err, result) {
+          if (err) reject(err)
+          senderMessages = result
+        })
+        dbo.collection('Message').find({ senderID: recipientID, recipientID: senderID }).toArray(function (err, result) {
+          if (err) reject(err)
+          recipientMesssages = result
+          resolve({ sender: senderMessages, recipient: recipientMesssages })
           db.close()
         })
       })
@@ -204,76 +193,63 @@ class HostOrganization {
   }
 
   /**
-   * This method deletes an host organization by erasmus code
-   * @param {String} erasmuscode - the host organization of erasmus code
-   * @returns {Promise} - return a promise
-   */
-  static deleteHostOrg (erasmuscode) {
+ * This method refreshes the message cache
+ * @param {String} receiverID - The receiver's id
+ * @param {String} senderID - The sender's id
+ * @param {Boolean} value - The state cache value
+ * @returns {Object} - The update result
+  */
+  static changeStateCache (receiverID, senderID, value) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection('HostOrganization').findOneAndDelete({ ErasmusCode: erasmuscode }, function (err, result) {
-          if (err) throw err
-          if (result.value != null) {
-            resolve(true)
-          } else {
-            resolve(false)
-          }
-          db.close()
-        })
-      })
-    })
-  }
-
-  /**
-   * This method retrieves the host organizations
-   * @returns {Promise} - return a promise
-   */
-  static retrieveAll () {
-    return new Promise(function (resolve, reject) {
-      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-        if (err) reject(err)
-        var dbo = db.db(dbName)
-        dbo.collection('HostOrganization').find({}).toArray(function (err, result) {
-          if (err) throw err
-          resolve(result)
-          db.close()
-        })
-      })
-    })
-  }
-
-  /**
-   * This method retrieves the host organization by id
-   * @param {id} - the id of the host organization
-   * @returns {Promise} - return a promise
-   */
-  static retrieveOne (id) {
-    return new Promise(function (resolve, reject) {
-      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-        if (err) reject(err)
-        var dbo = db.db(dbName)
-        dbo.collection('HostOrganization').findOne({ ErasmusCode: id }, function (err, result) {
+        dbo.collection('Cache').findOne({ receiverID: receiverID, senderID: senderID }, function (err, result) {
           if (err) reject(err)
           if (result != null) {
-            var host = new HostOrganization()
-            host.setErasmusCode(result.ErasmusCode)
-            host.setName(result.Name)
-            host.setAddress(result.Address)
-            host.setContacts(result.Contacts)
-            host.setCountry(result.Country)
-            host.setFaculty(result.Faculty)
-            host.setOrgSize(result.Size)
-            resolve(host)
+            dbo.collection('Cache').updateOne({ receiverID: receiverID, senderID: senderID }, { $set: { boolean: value } }, function (err, result) {
+              if (err) reject(err)
+              db.close()
+              resolve()
+            })
+          } else {
+            dbo.collection('Cache').insertOne({ receiverID: receiverID, senderID: senderID, boolean: value }, function (err, result) {
+              if (err) reject(err)
+              db.close()
+              resolve()
+            })
           }
+        })
+      })
+    })
+  }
+
+  /**
+ * This method gets all cache of message
+ * @param {String} receiverID - The receiver's email
+ * @returns {Array} - The message cache
+ */
+  static getAllCache (receiverID) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) reject(err)
+        var dbo = db.db(dbName)
+        dbo.collection('Cache').find({ receiverID: receiverID }).toArray(function (err, result) {
+          if (err) reject(err)
+          var all = []
+          if (result != null) {
+            for (var i = 0; result[i] != null; i++) {
+              if (result[i].boolean) all.push(result[i])
+            }
+          }
+          resolve(all)
         })
       })
     })
   }
 }
 
-module.exports = HostOrganization
+module.exports = Message
 </code></pre>
         </article>
     </section>
