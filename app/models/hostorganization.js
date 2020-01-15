@@ -133,6 +133,11 @@ class HostOrganization {
     this.Name = name
   }
 
+  /**
+   * This method finds an host organization by erasmus code
+   * @param {String} erasmuscode - Host organization's erasmus code
+   * @returns {Boolean} - It returns true if the search was successfull, else false
+   */
   static findByEcode (erasmuscode) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -151,6 +156,11 @@ class HostOrganization {
     })
   }
 
+  /**
+   * This method inserts an host organitazion 
+   * @param {String} HostOrg 
+   * @returns {Promise} - Return a promise
+   */
   static addHostOrg (HostOrg) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -165,6 +175,11 @@ class HostOrganization {
     })
   }
 
+  /**
+   * This method deletes an host organization by erasmus code
+   * @param {String} erasmuscode - the host organization of erasmus code
+   * @returns {Promise} - return a promise
+   */
   static deleteHostOrg (erasmuscode) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -183,6 +198,10 @@ class HostOrganization {
     })
   }
 
+  /**
+   * This method retrieves the host organizations
+   * @returns {Promise} - return a promise
+   */
   static retrieveAll () {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -197,6 +216,11 @@ class HostOrganization {
     })
   }
 
+  /**
+   * This method retrieves the host organization by id
+   * @param {id} - the id of the host organization
+   * @returns {Promise} - return a promise
+   */
   static retrieveOne (id) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {

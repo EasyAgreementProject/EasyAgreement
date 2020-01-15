@@ -110,6 +110,12 @@ class Administrator {
     })
   }
 
+  /**
+   * This method update the administrator's password 
+   * @param {String} password - the new administrator's password 
+   * @param {String} emailv - administrator's email
+   * @returns {Object} - It returns the updated administrator if result != null, else it returns null
+   */
   static updatePassword (pass, emailv) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
