@@ -5,7 +5,7 @@ var externalTutorModel = require('../models/externaltutor.js')
 var administratorModel = require('../models/administrator.js')
 
 exports.login = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     // take form parameters
     var username = req.body.username
     var password = req.body.password
@@ -27,7 +27,7 @@ exports.login = function (req, res) {
     }
 
     if (!isRight) {
-      fulfill(false)
+      resolve(false)
       return
     }
 
@@ -53,7 +53,7 @@ exports.login = function (req, res) {
                 checkAdmin.then(function (resultAd) {
                   if (resultAd == null) {
                     res.cookie('errLogin', '1')
-                    fulfill(false)
+                    resolve(false)
                   } else {
                     if (hash.checkPassword(resultAd.getPassword().hash, resultAd.getPassword().salt, password)) {
                       var adminSession = {
@@ -62,10 +62,10 @@ exports.login = function (req, res) {
 
                       }
                       res.cookie('logEff', '1')
-                      fulfill(adminSession)
+                      resolve(adminSession)
                     } else {
                       res.cookie('errLogin', '1')
-                      fulfill(false)
+                      resolve(false)
                     }
                   }
                 })
@@ -76,10 +76,10 @@ exports.login = function (req, res) {
                     type: 'externalTutor'
                   }
                   res.cookie('logEff', '1')
-                  fulfill(externalSession)
+                  resolve(externalSession)
                 } else {
                   res.cookie('errLogin', '1')
-                  fulfill(false)
+                  resolve(false)
                 }
               }
             })
@@ -90,10 +90,10 @@ exports.login = function (req, res) {
                 type: 'academicTutor'
               }
               res.cookie('logEff', '1')
-              fulfill(academicSession)
+              resolve(academicSession)
             } else {
               res.cookie('errLogin', '1')
-              fulfill(false)
+              resolve(false)
             }
           }
         })
@@ -104,10 +104,10 @@ exports.login = function (req, res) {
             type: 'student'
           }
           res.cookie('logEff', '1')
-          fulfill(studentSession)
+          resolve(studentSession)
         } else {
           res.cookie('errLogin', '1')
-          fulfill(false)
+          resolve(false)
         }
       }
     })

@@ -4,7 +4,6 @@
                         margin: 0 auto;
                     }
                     
-                    @media (min-width: 180px) {
                     
                         .mt-8{
                             margin-left: 50px;
@@ -86,4 +85,10 @@
                         .errClass:focus {
                             border-color: red !important;
                         }
-                    }
+    
+                        @media (max-width: 480px) {
+                            .text-center{
+                                margin: 0;
+                                width: 90%;
+                            }
+                        }

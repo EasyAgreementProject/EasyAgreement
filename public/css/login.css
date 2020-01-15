@@ -3,6 +3,26 @@
     --input-padding-y: .75rem;
   }
   
+  .card {
+    border-radius: 20px !important;
+    width: 45%;      
+    margin-top: 30vh !important;
+    margin: auto;
+    box-shadow: 0 0.5rem 1rem 0 #3d4347 !important;
+  }
+  
+  .container {
+    background-image: url('../img/Unisa.jpg');
+    min-width: 100%;
+    min-height: 100vh;
+    background-repeat: round;
+  }
+
+  .row {
+    min-width: 100% !important;
+    min-height: 100vh !important;
+  }
+
   body {
     background: #eee !important;
   }
@@ -26,11 +46,11 @@
     background: scroll center url('../img/EasyAgreement_Logo.png');
     background-size: contain;
     background-repeat: no-repeat;
-    opacity: 0.8;
   }
 
   .card-img-left{
-      margin-left: 2%;
+      margin: 2%;
+      margin-left: 4%;
   }
   
   .card-login .card-body {
@@ -42,10 +62,7 @@
   }
   
   .form-login .btn {
-    font-size: 80%;
     border-radius: 5rem;
-    letter-spacing: .1rem;
-    font-weight: bold;
     padding: 1rem;
     transition: all 0.2s;
   }
@@ -111,22 +128,17 @@
     font-size: 12px;
     color: #777;
   }
-  
-  .btn{
-    background-color: orange !important;
-    border-color: orange !important;
-  }
-  
+     
   .mt-2{
-    color: orange;
+    color: #007bff;
   }
 
   .mt-2:hover{
-    color: orange;
+    color: #007bff;
   }
   
   .form-control:focus {
-    border-color: orange !important;
+    border-color: #007bff !important;
   }
 
 
@@ -144,4 +156,15 @@
 
 .errClass:focus{
   border-color: red !important;
+}
+
+@media (max-width: 570px) {
+  .card{
+    margin: 0 !important;
+    width: 100%;
+  }
+
+  .row{
+    align-content: center;
+  }
 }

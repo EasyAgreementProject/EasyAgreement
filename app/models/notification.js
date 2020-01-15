@@ -46,13 +46,13 @@ class Notification {
   }
 
   static insertNotification (notification) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Notification').insertOne(notification, function (err, result) {
           if (err) reject(err)
-          fulfill(result.insertedId)
+          resolve(result.insertedId)
           db.close()
         })
       })
@@ -60,13 +60,13 @@ class Notification {
   }
 
   static removeNotification (notificationID) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Notification').deleteOne({ _id: ObjectID(notificationID) }, function (err, result) {
           if (err) reject(err)
-          fulfill()
+          resolve()
           db.close()
         })
       })
@@ -74,13 +74,13 @@ class Notification {
   }
 
   static retrieveAll (associatedID) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Notification').find({ associatedID: associatedID }).toArray(function (err, result) {
           if (err) reject(err)
-          fulfill(result)
+          resolve(result)
           db.close()
         })
       })
@@ -88,7 +88,7 @@ class Notification {
   }
 
   static changeStateCache (associatedID, value) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
@@ -98,13 +98,13 @@ class Notification {
             dbo.collection('Cache').updateOne({ associatedID: associatedID }, { $set: { bool: value } }, function (err, result) {
               if (err) reject(err)
               db.close()
-              fulfill()
+              resolve()
             })
           } else {
             dbo.collection('Cache').insertOne({ associatedID: associatedID, bool: value }, function (err, result) {
               if (err) reject(err)
               db.close()
-              fulfill()
+              resolve()
             })
           }
         })
@@ -113,14 +113,14 @@ class Notification {
   }
 
   static getStateCache (associatedID) {
-    return new Promise(function (fulfill, reject) {
+    return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
         dbo.collection('Cache').findOne({ associatedID: associatedID }, function (err, result) {
           if (err) reject(err)
-          if (result != null) fulfill(result.bool)
-          else fulfill(null)
+          if (result != null) resolve(result.bool)
+          else resolve(null)
         })
       })
     })

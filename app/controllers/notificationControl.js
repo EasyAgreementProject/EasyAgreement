@@ -1,8 +1,8 @@
-const notificationModel = require('../models/notification')
+const NotificationModel = require('../models/notification')
 
 exports.getAllNotification = function (id, res) {
-  return new Promise(function (fulfill, reject) {
-    var notifications = notificationModel.retrieveAll(id)
+  return new Promise(function (resolve, reject) {
+    var notifications = NotificationModel.retrieveAll(id)
     notifications.then(function (result) {
       if (result != null) {
         for (var i = 0; result[i] != null; i++) {
@@ -17,47 +17,47 @@ exports.getAllNotification = function (id, res) {
           delete result[i].compareData
         }
       }
-      fulfill(result)
+      resolve(result)
     })
   })
 }
 
 exports.removeNotification = function (id, res) {
-  return new Promise(function (fulfill, reject) {
-    var deleted = notificationModel.removeNotification(id)
+  return new Promise(function (resolve, reject) {
+    var deleted = NotificationModel.removeNotification(id)
     deleted.then(function (result) {
-      fulfill(true)
+      resolve(true)
     })
   })
 }
 
 exports.insertNotification = function (notifica) {
-  return new Promise(function (fulfill, reject) {
-    var notification = new notificationModel()
+  return new Promise(function (resolve, reject) {
+    var notification = new NotificationModel()
     notification.setAssociatedID(notifica.associatedID)
     notification.setText(notifica.text)
     notification.setDate(notifica.date)
-    var inserted = notificationModel.insertNotification(notification)
+    var inserted = NotificationModel.insertNotification(notification)
     inserted.then(function (result) {
-      fulfill(result)
+      resolve(result)
     })
   })
 }
 
 exports.refreshNotificationCache = function (associatedId, value) {
-  return new Promise(function (fulfill, reject) {
-    var refresh = notificationModel.changeStateCache(associatedId, value)
+  return new Promise(function (resolve, reject) {
+    var refresh = NotificationModel.changeStateCache(associatedId, value)
     refresh.then(function (result) {
-      fulfill(result)
+      resolve(result)
     })
   })
 }
 
 exports.getNotificationCacheState = function (associatedID) {
-  return new Promise(function (fulfill, reject) {
-    var get = notificationModel.getStateCache(associatedID)
+  return new Promise(function (resolve, reject) {
+    var get = NotificationModel.getStateCache(associatedID)
     get.then(function (result) {
-      fulfill(result)
+      resolve(result)
     })
   })
 }

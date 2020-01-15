@@ -1,10 +1,10 @@
 var academicModel = require('../models/academicTutor')
 var externalModel = require('../models/externaltutor')
 var studentModel = require('../models/student')
-var messageModel = require('../models/message')
+var MessageModel = require('../models/message')
 
 exports.getAllContacts = function (type, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var users = null
     if (type == 'academicTutor') {
       users = academicModel.RetrieveAll()
@@ -14,14 +14,14 @@ exports.getAllContacts = function (type, res) {
       users = externalModel.RetrieveAll()
     }
     users.then(function (result) {
-      fulfill(result)
+      resolve(result)
     })
   })
 }
 
 exports.getAllMessages = function (sender, receiver, res) {
-  return new Promise(function (fulfill, reject) {
-    var chat = messageModel.getTextChat(sender, receiver)
+  return new Promise(function (resolve, reject) {
+    var chat = MessageModel.getTextChat(sender, receiver)
     chat.then(function (result) {
       var senderArray = result.sender
       var recipientArray = result.recipient
@@ -41,7 +41,6 @@ exports.getAllMessages = function (sender, receiver, res) {
         delete senderArray[i].compareData
       }
 
-      
       for (i = 0; recipientArray[i] != null; i++) {
         recipientArray[i].compareData = new Date(recipientArray[i].date.year, recipientArray[i].date.month - 1, recipientArray[i].date.day, recipientArray[i].date.hour, recipientArray[i].date.minutes, recipientArray[i].date.seconds)
       }
@@ -57,45 +56,45 @@ exports.getAllMessages = function (sender, receiver, res) {
       }
 
       var array = { sender: senderArray, recipient: recipientArray }
-      fulfill(array)
+      resolve(array)
     })
   })
 }
 
 exports.saveMessage = function (message, res) {
-  return new Promise(function (fulfill, reject) {
-    var messaggio = new messageModel()
+  return new Promise(function (resolve, reject) {
+    var messaggio = new MessageModel()
     messaggio.setSenderID(message.senderID)
     messaggio.setRecipientID(message.recipientID)
     messaggio.setText(message.text)
     messaggio.setDate(message.date)
-    var save = messageModel.insertMessage(messaggio)
+    var save = MessageModel.insertMessage(messaggio)
     save.then(function (result) {
-      fulfill(result)
+      resolve(result)
     })
   })
 }
 
 exports.updateMessage = function (id, text, res) {
-  return new Promise(function (fulfill, reject) {
-    var update = messageModel.updateMessage(id, text)
+  return new Promise(function (resolve, reject) {
+    var update = MessageModel.updateMessage(id, text)
     update.then(function (result) {
-      fulfill({ boolean: true })
+      resolve({ boolean: true })
     })
   })
 }
 
 exports.removeMessage = function (messageID, res) {
-  return new Promise(function (fulfill, reject) {
-    var remove = messageModel.removeMessage(messageID)
+  return new Promise(function (resolve, reject) {
+    var remove = MessageModel.removeMessage(messageID)
     remove.then(function (result) {
-      fulfill({ boolean: true })
+      resolve({ boolean: true })
     })
   })
 }
 
 exports.searchUser = function (type, search, res) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (resolve, reject) {
     var name = null
     var surname = null
     var users1 = []
@@ -133,7 +132,7 @@ exports.searchUser = function (type, search, res) {
               }
             }
           }
-          fulfill({ student: users1, external: users2, type: 'academicTutor' })
+          resolve({ student: users1, external: users2, type: 'academicTutor' })
         })
       })
     } else if (type == 'student') {
@@ -163,7 +162,7 @@ exports.searchUser = function (type, search, res) {
               }
             }
           }
-          fulfill({ academic: users1, external: users2, type: 'student' })
+          resolve({ academic: users1, external: users2, type: 'student' })
         })
       })
     } else if (type == 'externalTutor') {
@@ -193,7 +192,7 @@ exports.searchUser = function (type, search, res) {
               }
             }
           }
-          fulfill({ student: users1, academic: users2, type: 'externalTutor' })
+          resolve({ student: users1, academic: users2, type: 'externalTutor' })
         })
       })
     }
@@ -201,19 +200,19 @@ exports.searchUser = function (type, search, res) {
 }
 
 exports.refreshMessageCache = function (receiverID, senderID, value) {
-  return new Promise(function (fulfill, reject) {
-    var refresh = messageModel.changeStateCache(receiverID, senderID, value)
+  return new Promise(function (resolve, reject) {
+    var refresh = MessageModel.changeStateCache(receiverID, senderID, value)
     refresh.then(function (result) {
-      fulfill(result)
+      resolve(result)
     })
   })
 }
 
 exports.getAllCache = function (receiverID) {
-  return new Promise(function (fulfill, reject) {
-    var get = messageModel.getAllCache(receiverID)
+  return new Promise(function (resolve, reject) {
+    var get = MessageModel.getAllCache(receiverID)
     get.then(function (result) {
-      fulfill(result)
+      resolve(result)
     })
   })
 }

@@ -44,7 +44,7 @@ $('body').append(['<div class="outerContainer chatbox--tray" style="display: non
   '<div class="contacts" id="contacts">',
   '</div>',
   '<div class="messages" id="messages" style="display:none;">',
-  '</div>',  
+  '</div>',
   '<div class="send-form" style="display:none;">',
   '<form class="form-chat" id="form-chat">',
   '<textarea class="input-chat" id="input-chat" type="text" placeholder="Type a message..."></textarea>',

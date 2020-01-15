@@ -23,12 +23,12 @@
                 <br>
                 <div class="text-center" id="viewp">
                     <ul>
-                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
-                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1) %></li>
-                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email:&nbsp;</strong></span><%= JSON.stringify(session.utente.utente.Email).substring(1, JSON.stringify(session.utente.utente.Email).length-1) %></li>
-                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Address).substring(1, JSON.stringify(session.utente.utente.Address).length-1) %></li>
-                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.City).substring(1, JSON.stringify(session.utente.utente.City).length-1) %></li>
-                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.DegreeCourse).substring(1, JSON.stringify(session.utente.utente.DegreeCourse).length-1) %></li>
+                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Nome:&nbsp;</strong></span> <%= session.utente.utente.Name %> </li>
+                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Cognome:&nbsp;</strong></span> <%= session.utente.utente.Surname %></li>
+                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Email:&nbsp;</strong></span><%= session.utente.utente.Email %></li>
+                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Indirizzo:&nbsp;</strong></span>  <%= session.utente.utente.Address%></li>
+                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Città:&nbsp;</strong></span>  <%= session.utente.utente.City %></li>
+                        <li class="list-group-item text-left"><span class="pull-left"><strong class="">Corso di laurea:&nbsp;</strong></span>  <%= session.utente.utente.DegreeCourse %></li>
                     </ul>
                     <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
                 </div>
@@ -85,10 +85,10 @@
                     <br>
                     <div class="text-center" id="viewp">
                         <ul>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1)%></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.E_mail).substring(1, JSON.stringify(session.utente.utente.E_mail).length-1) %></li>
-                            <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Organization).substring(1, JSON.stringify(session.utente.utente.Organization).length-1) %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= session.utente.utente.Name %> </li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= session.utente.utente.Surname%></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= session.utente.utente.E_mail %></li>
+                            <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= session.utente.utente.Organization %></li>
                         </ul>
                         <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
                         <div class="updatedati text-center">                        
@@ -137,10 +137,10 @@
                             <br>
                             <div class="text-center" id="viewp">
                                 <ul>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Name).substring(1, JSON.stringify(session.utente.utente.Name).length-1) %> </li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.Surname).substring(1, JSON.stringify(session.utente.utente.Surname).length-1)%></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= JSON.stringify(session.utente.utente.E_mail).substring(1, JSON.stringify(session.utente.utente.E_mail).length-1) %></li>
-                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= JSON.stringify(session.utente.utente.Department).substring(1, JSON.stringify(session.utente.utente.Department).length-1) %></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Nome:&nbsp;</strong></span> <%= session.utente.utente.Name %> </li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Cognome:&nbsp;</strong></span> <%= session.utente.utente.Surname %></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Email:&nbsp;</strong></span> <%= session.utente.utente.E_mail %></li>
+                                    <li class="list-group-item text-left"><span class="pull-left"><strong>Dipartimento:&nbsp;</strong></span>  <%= session.utente.utente.Department %></li>
                                 </ul>
                                 <button class = "btn btn-secondary btn-round" onclick = "showEdit()">Modifica</button>
                                 <div class="updatedati text-center">
@@ -186,9 +186,10 @@
         
                     <%if(session.utente.type == "admin"){%>
                     <div class="page-inner py-5" id="adminView">
-                        <div class="updatedatiAdmin text-centerAdmin">
+                        <div class="updatedatiAdmin text-center" style="width: 30%; ">
+                        <h1 class="mt-8">Modifica Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                        <br>
                             <form id="formUpdatePass" method="post" action="/updatePassword">
-                                <h4 class="mt-4">Modifica password</h4>
                                 <div class="form-label-groupA">
                                     <input type="password" id="inputOldPassword" class="form-control" name="inputOldPassword" placeholder="Vecchia Password"  >
                                     <span id="errOldPassword">Vecchia Password errata</span>
@@ -207,7 +208,6 @@
                     </div>
                     <% } %>
         </div>
-    </div>
 <%- include ('footer') %>
 <script>
     function showEdit() {
