@@ -3,7 +3,12 @@ var studentModel = require('../models/student.js')
 var academicTutorModel = require('../models/academicTutor.js')
 var externalTutorModel = require('../models/externaltutor.js')
 var administratorModel = require('../models/administrator.js')
-
+/**
+ * This method authenticates the user to the system
+ * @param {Object} req - The HTTP request
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean}  - It returns true if login was successfull, else false
+ */
 exports.login = function (req, res) {
   return new Promise(function (resolve, reject) {
     // take form parameters

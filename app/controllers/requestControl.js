@@ -3,6 +3,12 @@ var learningAgreementControl = require('./learningAgreementControl.js')
 var request = new Request()
 var ObjectID = require('mongodb').ObjectID
 
+/**
+ * This method generates a new request from a student
+ * @param {String} student - The student's email
+ * @param {String} academicTutor - The Academic Tutor's email
+ * @returns {Request} - The generated request
+ */
 exports.generateRequest = function (student, academicTutor) {
   return new Promise(function (resolve, reject) {
     request.setStudentID(student)
@@ -36,12 +42,17 @@ exports.generateRequest = function (student, academicTutor) {
   })
 }
 
+/**
+ * This method retireves all the requests for a specific tutor
+ * @param {String} tutor - The academic or external tutor's email
+ * @returns {Array} - The list of the requests
+ */
 exports.getAllRequests = function (tutor) {
   return new Promise(function (resolve, reject) {
     var getRequestsPr = Request.getAllRequests(tutor)
     getRequestsPr.then(function (result) {
       var requests = []
-      result.forEach(x => {
+      result.forEach(x => {        
         var getDataPr = learningAgreementControl.getData(x.studentID)
         getDataPr.then(function (data) {
           x.nome = data['Header name']
@@ -59,6 +70,11 @@ exports.getAllRequests = function (tutor) {
   })
 }
 
+/**
+ * This method rerieves the details of a student's request
+ * @param student - The student's email
+ * @returns {Request} - The detailed request
+ */
 exports.getRequestDetails = function (student) {
   return new Promise(function (resolve, reject) {
     var getRequestPr = Request.getRequest(student)
@@ -76,6 +92,11 @@ exports.getRequestDetails = function (student) {
   })
 }
 
+/**
+ * This method retrieves a student's request
+ * @param {String} student - The student's email
+ * @returns {Request} - The student's request
+ */
 exports.getRequest = function (student) {
   return new Promise(function (resolve, reject) {
     var getRequestPr = Request.getRequest(student)
@@ -85,6 +106,12 @@ exports.getRequest = function (student) {
   })
 }
 
+/**
+ * This method updates the external tutor of a request
+ * @param {String} student - The student's email
+ * @param {String} tutor - The external tutor's email
+ * @returns {Boolean} Returns true if the update was successfull, else false
+ */
 exports.updateExternalTutor = function (student, tutor) {
   return new Promise(function (resolve, reject) {
     var getStatusPr = learningAgreementControl.getStatus(student)

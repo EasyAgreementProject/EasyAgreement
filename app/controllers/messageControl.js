@@ -3,6 +3,12 @@ var externalModel = require('../models/externaltutor')
 var studentModel = require('../models/student')
 var MessageModel = require('../models/message')
 
+/**
+ * This method retrieves all the contactable users depending on the current logged user type
+ * @param {String} - The type of the logged user
+ * @param {res} - The HTTP response
+ * @returns {Array} - The list of the contactable users
+ */
 exports.getAllContacts = function (type, res) {
   return new Promise(function (resolve, reject) {
     var users = null
@@ -19,6 +25,13 @@ exports.getAllContacts = function (type, res) {
   })
 }
 
+/**
+ * This method retrieves all messagess between two users
+ * @param {String} sender - The sender's email
+ * @param {String} receiver - The receiver's email
+ * @param {Object} res - The HTTP response
+ * @returns {Array} - The list of messages
+ */
 exports.getAllMessages = function (sender, receiver, res) {
   return new Promise(function (resolve, reject) {
     var chat = MessageModel.getTextChat(sender, receiver)
@@ -61,6 +74,12 @@ exports.getAllMessages = function (sender, receiver, res) {
   })
 }
 
+/**
+ * This method sends a new message between two users
+ * @param {Message} message - The Message object to save
+ * @param {Object} res - The HTTP request
+ * @returns {Message} - The sent message
+ */
 exports.saveMessage = function (message, res) {
   return new Promise(function (resolve, reject) {
     var messaggio = new MessageModel()
@@ -74,7 +93,13 @@ exports.saveMessage = function (message, res) {
     })
   })
 }
-
+/**
+ * This method updates a specific message
+ * @param {String} id - The id of the message to change
+ * @param {String} text- The text of the message
+ * @param {Object} res - The HTTP response
+ * @returns {JSON} - The JSON object containing the boolean result, true if the update was successfull, else false  
+ */
 exports.updateMessage = function (id, text, res) {
   return new Promise(function (resolve, reject) {
     var update = MessageModel.updateMessage(id, text)
@@ -84,6 +109,12 @@ exports.updateMessage = function (id, text, res) {
   })
 }
 
+/**
+ * This method removes a specific message
+ * @param {String} messageID - The id of the message to remove
+ * @param {Object} res - The HTTP response
+ * @returns {JSON} - The JSON object containing the boolean result, true if the remove was successfull, else false  
+ */
 exports.removeMessage = function (messageID, res) {
   return new Promise(function (resolve, reject) {
     var remove = MessageModel.removeMessage(messageID)
@@ -93,6 +124,13 @@ exports.removeMessage = function (messageID, res) {
   })
 }
 
+/**
+ * This method searches an user to chat with
+ * @param {String} type - The type of the logged user
+ * @param {String} search - The name of the user to search
+ * @param {Object} res - The HTTP response
+ * @returns {JSON} - The JSON object containing the list of the users found
+ */
 exports.searchUser = function (type, search, res) {
   return new Promise(function (resolve, reject) {
     var name = null
@@ -199,6 +237,13 @@ exports.searchUser = function (type, search, res) {
   })
 }
 
+/**
+ * This method refreshes the message cache
+ * @param {String} receiverID - The receiver's id
+ * @param {String} senderID - The sender's id
+ * @param {Boolean} value - The state cache value
+ * @returns {Object} - The update result
+  */
 exports.refreshMessageCache = function (receiverID, senderID, value) {
   return new Promise(function (resolve, reject) {
     var refresh = MessageModel.changeStateCache(receiverID, senderID, value)
@@ -208,6 +253,11 @@ exports.refreshMessageCache = function (receiverID, senderID, value) {
   })
 }
 
+/**
+ * This method gest all cache of message
+ * @param {String} receiverID - The receiver's email
+ * @returns {Array} - The message cache
+ */
 exports.getAllCache = function (receiverID) {
   return new Promise(function (resolve, reject) {
     var get = MessageModel.getAllCache(receiverID)

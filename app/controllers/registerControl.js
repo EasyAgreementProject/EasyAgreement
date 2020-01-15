@@ -4,10 +4,9 @@ var StudentModel = require('../models/student.js')
 var AcademicTutorModel = require('../models/academicTutor.js')
 
 /**
- * Function for sign up
- *
- * @param {Http} req - request
- * @param {Http} res - response
+ * This method registers the user into system
+ * @param {Http} req - The HTTP request
+ * @param {Http} res - The HTTP response
  */
 exports.signup = function (req, res) {
   return new Promise(function (resolve, reject) {
