@@ -100,20 +100,6 @@ class externalTutor {
     this.Organization = organization
   }
 
-  static insertExternalTutor (externaltutor) {
-    return new Promise(function (resolve, reject) {
-      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-        if (err) throw err
-        var dbo = db.db(dbName)
-        dbo.collection('ExternalTutor').insertOne(externaltutor, function (err) {
-          if (err) throw err
-          resolve()
-          db.close()
-        })
-      })
-    })
-  }
-
   /**
  * Find external tutor by email
  * @param {String} email- email of tutor

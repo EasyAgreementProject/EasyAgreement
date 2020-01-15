@@ -101,12 +101,12 @@ class Message {
         dbo.collection('Message').find({ senderID: senderID, recipientID: recipientID }).toArray(function (err, result) {
           if (err) reject(err)
           senderMessages = result
-        })
-        dbo.collection('Message').find({ senderID: recipientID, recipientID: senderID }).toArray(function (err, result) {
-          if (err) reject(err)
-          recipientMesssages = result
-          resolve({ sender: senderMessages, recipient: recipientMesssages })
-          db.close()
+          dbo.collection('Message').find({ senderID: recipientID, recipientID: senderID }).toArray(function (err, result) {
+            if (err) reject(err)
+            recipientMesssages = result
+            resolve({ sender: senderMessages, recipient: recipientMesssages })
+            db.close()
+          })
         })
       })
     })

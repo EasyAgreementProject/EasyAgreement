@@ -4,7 +4,7 @@ var mockHttp = require('node-mocks-http')
 var messageControl = require('../app/controllers/messageControl')
 
 describe('Field test for messageControl', function () {
-  it('Testing saveMessage', function (done) {
+  it('Testing saveMessage 1', function (done) {
     var res = mockHttp.createResponse()
     var message = { senderID: 'd.devito@studenti.unisa.it', recipientID: 'g.musso@unisa.it', text: 'fratmmoo', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } }
     var save = messageControl.saveMessage(message, res)
@@ -63,7 +63,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 1.1', function (done) {
     var res = mockHttp.createResponse()
     var type = 'externalTutor'
-    var string = 'Francesco'
+    var string = 'Sara'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -74,7 +74,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 1.2', function (done) {
     var res = mockHttp.createResponse()
     var type = 'academicTutor'
-    var string = 'Sara'
+    var string = 'Simone'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -85,7 +85,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 1.3', function (done) {
     var res = mockHttp.createResponse()
     var type = 'student'
-    var string = 'Sara'
+    var string = 'Francesco'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -96,7 +96,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.1', function (done) {
     var res = mockHttp.createResponse()
     var type = 'externalTutor'
-    var string = 'Giuseppe Musso'
+    var string = 'Sara Cotto'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -107,7 +107,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.2', function (done) {
     var res = mockHttp.createResponse()
     var type = 'academicTutor'
-    var string = 'Sara Cotto'
+    var string = 'Simone Risso'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -118,7 +118,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.3', function (done) {
     var res = mockHttp.createResponse()
     var type = 'student'
-    var string = 'Sara Cotto'
+    var string = 'Francesco Califano'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -158,7 +158,7 @@ describe('Field test for messageControl', function () {
   })
 
   it('Testing setReceivedMessage true', function (done) {
-    var sender = 'd.devito@studenti.unisa.it'
+    var sender = 'm.popovic@studenti.unisa.it'
     var receiver = 'g.musso@unisa.it'
     var set = messageControl.refreshMessageCache(receiver, sender, true)
     set.then(function (result) {
@@ -177,7 +177,7 @@ describe('Field test for messageControl', function () {
   })
 
   it('Testing setReceivedMessage false', function (done) {
-    var sender = 'd.devito@studenti.unisa.it'
+    var sender = 'm.popovic@studenti.unisa.it'
     var receiver = 'g.musso@unisa.it'
     var set = messageControl.refreshMessageCache(receiver, sender, false)
     set.then(function (result) {

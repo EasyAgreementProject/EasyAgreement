@@ -37,7 +37,7 @@ exports.update = function (req, res) {
           */
       checkPass.then(function (result) {
         if (result != null) {
-          req.session.utente.utente = result
+          req.session.utente.utente = { name: result.getName(), email: result.getEmail(), surname: result.getSurname(), Password: result.getPassword() }
           res.cookie('updatePassEff', '1')
           resolve(true)
         } else { resolve() }

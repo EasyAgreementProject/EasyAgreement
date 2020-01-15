@@ -99,7 +99,7 @@ exports.searchUser = function (type, search, res) {
     var surname = null
     var users1 = []
     var users2 = []
-    if (search.indexOf(' ') == -1) {
+    if (search.indexOf(' ') <=0) {
       name = search
     } else {
       name = search.substring(0, search.indexOf(' '))
