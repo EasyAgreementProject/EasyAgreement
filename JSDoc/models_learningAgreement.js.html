@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/learningAgreement.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/learningAgreement.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var MongoClient = require('mongodb').MongoClient
+var ObjectID = require('mongodb').ObjectID
+var Binary = require('mongodb').Binary
+
+// Database URL
+const url = 'mongodb://localhost:27017/easyagreement'
+
+// Database name
+const dbName = 'easyagreement'
+/**
+ * This module represents a Learning Agreement
+ * @module LearningAgreement 
+ */
+class LearningAgreement {
+  constructor () {
+    this.filling = null
+    this.document = null
+    this.studentID = null
+    this.state = null
+    this.date = null
+  }
+  /**
+   * This method sets the Learing Agreement's filling
+   * @param {JSON} filling
+   */
+  setFilling (filling) {
+    this.filling = filling
+  }
+
+  /**
+   * This method gets the Learning Agreement's filling
+   * @returns {JSON}
+   */
+  getFilling () {
+    return this.filling
+  }
+
+  /**
+   * This method sets the Learing Agreement's document
+   * @param {ReadableStream} document
+   */
+  setDocument (document) {
+    this.document = document
+  }
+
+  /**
+   * This method gets the Learning Agreement's document
+   * @returns {ReadableStream}
+   */
+  getDocument () {
+    return this.document
+  }
+
+  /**
+   * This method sets the Learning Agreement's student's email
+   * @param {String} state
+   */
+  setStudentID (studentID) {
+    this.studentID = studentID
+  }
+
+  /**
+   * This method gets the Learning Agreement's student's email
+   * @returns {String}
+   */
+  getStudentID () {
+    return this.studentID
+  }
+
+  /**
+   * This method sets the Learing Agreement's state
+   * @param {String} state
+   */
+  setState (state) {
+    this.state = state
+  }
+
+  /**
+   * This method gets the Learning Agreement's state
+   * @returns {String}
+   */
+  getState () {
+    return this.state
+  }
+
+  /**
+   * This method sets the Learing Agreement's date
+   * @param {String} date
+   */
+  setDate (date) {
+    this.date = date
+  }
+
+  /**
+   * This method gets the Learning Agreement's date
+   * @returns {String}
+   */
+  getDate () {
+    return this.date
+  }
+  /**
+   * This method inserts a new Learning Agreement and handles the versioning process
+   * @param {LearningAgreement} learningAgreement - The Learnign Agreement object to insert
+   */
+  static insertLearningAgreement (learningAgreement) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        var dbo = db.db(dbName)
+        var insertData = {}
+        var get = LearningAgreement.getLearningAgreement(learningAgreement.getStudentID())
+        get.then(function (result) {
+          if (result &amp;&amp; ((!result.document &amp;&amp; learningAgreement.getState().startsWith('Salvato')) || (result.document &amp;&amp; learningAgreement.getState().startsWith('In valutazione')))) {
+            learningAgreement._id = new ObjectID()
+            learningAgreement.version = result.version
+            var updateDataPr = LearningAgreement.updateData(learningAgreement.getStudentID(), learningAgreement.getFilling())
+            updateDataPr.then(function () {
+              resolve()
+            })
+          } else if (!result &amp;&amp; learningAgreement.getState().startsWith('Salvato')) {
+            learningAgreement._id = new ObjectID()
+            dbo.collection('current_LearningAgreement').insertOne(learningAgreement, function (err) {
+              if (err) throw err
+              resolve()
+            })
+          } else if (result &amp;&amp; result.document &amp;&amp; result.version) {
+            insertData.file_data = Binary(learningAgreement.document)
+            learningAgreement.document = insertData
+            result._id = new ObjectID()
+            learningAgreement.version = result.version + 1
+            var del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID())
+            del.then(function () {
+              dbo.collection('current_LearningAgreement').insertOne(learningAgreement, function (err) {
+                if (err) throw err
+              })
+
+              dbo.collection('LearningAgreement_revision').insertOne(result, function (err) {
+                if (err) throw err
+              })
+              resolve()
+            })
+          } else if (result &amp;&amp; learningAgreement.getState().startsWith('Inviato')) {
+            insertData.file_data = Binary(learningAgreement.document)
+            learningAgreement.document = insertData
+            result._id = new ObjectID()
+            learningAgreement.version = 1
+            del = LearningAgreement.deleteLearningAgreement(learningAgreement.getStudentID())
+            del.then(function () {
+              dbo.collection('current_LearningAgreement').insertOne(learningAgreement, function (err) {
+                if (err) throw err
+                resolve()
+              })
+            })
+          } else if (!result) {
+            insertData.file_data = Binary(learningAgreement.document)
+            learningAgreement.document = insertData
+            learningAgreement._id = new ObjectID()
+            learningAgreement.version = 1
+            dbo.collection('current_LearningAgreement').insertOne(learningAgreement, function (err) {
+              if (err) throw err
+              resolve()
+            })
+          }
+        })
+      })
+    })
+  }
+
+  /**
+   * This method retrieves a specific (current) Learning Agreement
+   * @param {String} studentID - The student's email
+   * @returns {LearningAgreement} - The current Learning Agreement
+   */
+  static getLearningAgreement (studentID) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        var dbo = db.db(dbName)
+        dbo.collection('current_LearningAgreement').findOne({ studentID: studentID }, function (err, result) {
+          if (err) throw err
+          db.close()
+          resolve(result)
+        })
+      })
+    })
+  }
+
+  /**
+   * This method updates the state of a (current) Learning Agreement
+   * @param {String} studentID - The student's email
+   * @param {String} state - The new state
+   */
+  static updateState (studentID, state) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        var dbo = db.db(dbName)
+        dbo.collection('current_LearningAgreement').updateOne({ studentID: studentID }, { $set: { state: state } }, function (err, result) {
+          if (err) throw err
+          db.close()
+          resolve()
+        })
+      })
+    })
+  }
+
+  /**
+   * Thi method updates the filling data of the student's Learning Agreement
+   * @param {String} studentID 
+   * @param {JSON} data 
+   */
+  static updateData (studentID, data) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        var dbo = db.db(dbName)
+        dbo.collection('current_LearningAgreement').updateOne({ studentID: studentID }, { $set: { filling: data } }, function (err, result) {
+          if (err) throw err
+          db.close()
+          resolve()
+        })
+      })
+    })
+  }
+
+  /**
+   * This method deletes a Learning Agreement
+   * @param {String} studentID - The student's email
+   */
+  static deleteLearningAgreement (studentID) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        var dbo = db.db(dbName)
+        dbo.collection('current_LearningAgreement').deleteOne({ studentID: studentID }, function (err) {
+          if (err) throw err
+          db.close()
+          resolve()
+        })
+      })
+    })
+  }
+
+  /**
+   * gets older versions of a Learning Agreement
+   * @param {String} studentID - The student's email
+   * @returns {Array} The list of the requests
+   */
+  static getOldVersions (studentID) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        var dbo = db.db(dbName)
+        dbo.collection('LearningAgreement_revision').find({ studentID: studentID }).toArray(function (err, result) {
+          if (err) throw err
+          db.close()
+          resolve(result)
+        })
+      })
+    })
+  }
+
+  /**
+   * This method gets the ReadableStream of a LearningAgreement's version selected
+   * @param {String} v - The Lerning Agreement's version
+   * @param {String} email - The student's email
+   * @returns {ReadableStream} - The Readable stream of the Learning Agreement
+   */
+  static getPdf (v, email) {
+    return new Promise(function (resolve, reject) {
+      MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err
+        var dbo = db.db(dbName)
+        if (v) {
+          dbo.collection('LearningAgreement_revision').findOne({ version: Number(v), studentID: email }, function (err, result) {
+            if (err) throw err
+            if (result) {
+              db.close()
+              resolve(result)
+            } else {
+              dbo.collection('current_LearningAgreement').findOne({ version: Number(v), studentID: email }, function (err, result) {
+                if (err) throw err
+                if (result) {
+                  db.close()
+                  resolve(result)
+                }
+              })
+            }
+          })
+        } else {
+          dbo.collection('current_LearningAgreement').findOne({ studentID: email }, function (err, result) {
+            if (err) throw err
+            if (result) {
+              db.close()
+              resolve(result)
+            }
+          })
+        }
+      })
+    })
+  }
+}
+
+module.exports = LearningAgreement
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-LearningAgreement.html">LearningAgreement</a></li><li><a href="module-Request.html">Request</a></li></ul><h3>Classes</h3><ul><li><a href="AcademicTutor.html">AcademicTutor</a></li><li><a href="Administrator.html">Administrator</a></li><li><a href="externalTutor.html">externalTutor</a></li><li><a href="HostOrganization.html">HostOrganization</a></li><li><a href="Notification.html">Notification</a></li><li><a href="Student.html">Student</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkPassword">checkPassword</a></li><li><a href="global.html#disapproveAcademicTutor">disapproveAcademicTutor</a></li><li><a href="global.html#disapproveExternalTutor">disapproveExternalTutor</a></li><li><a href="global.html#generateRequest">generateRequest</a></li><li><a href="global.html#getAllCache">getAllCache</a></li><li><a href="global.html#getAllContacts">getAllContacts</a></li><li><a href="global.html#getAllMessages">getAllMessages</a></li><li><a href="global.html#getAllRequests">getAllRequests</a></li><li><a href="global.html#getAllVersions">getAllVersions</a></li><li><a href="global.html#getByEmail">getByEmail</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#getRequest">getRequest</a></li><li><a href="global.html#getRequestDetails">getRequestDetails</a></li><li><a href="global.html#getStatus">getStatus</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#hashPassword">hashPassword</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#refreshMessageCache">refreshMessageCache</a></li><li><a href="global.html#removeMessage">removeMessage</a></li><li><a href="global.html#saveLaAcademicTutor">saveLaAcademicTutor</a></li><li><a href="global.html#saveLaExternalTutor">saveLaExternalTutor</a></li><li><a href="global.html#saveLaStudent">saveLaStudent</a></li><li><a href="global.html#saveMessage">saveMessage</a></li><li><a href="global.html#searchUser">searchUser</a></li><li><a href="global.html#sendLaAcademicTutor">sendLaAcademicTutor</a></li><li><a href="global.html#sendLaExternalTutor">sendLaExternalTutor</a></li><li><a href="global.html#sendLaStudent">sendLaStudent</a></li><li><a href="global.html#signup">signup</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateExternalTutor">updateExternalTutor</a></li><li><a href="global.html#updateMessage">updateMessage</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#validateDataAcademicTutor">validateDataAcademicTutor</a></li><li><a href="global.html#validateDataExternalTutor">validateDataExternalTutor</a></li><li><a href="global.html#validateDataStudent">validateDataStudent</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Jan 15 2020 17:29:56 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
