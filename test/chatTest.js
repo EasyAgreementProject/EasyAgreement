@@ -155,7 +155,7 @@ describe('Field test for messageControl', function () {
   it('Testing updateMessage not exist', function (done) {
     var res = mockHttp.createResponse()
     var text = 'wewe come stai bro'
-    var update = messageControl.updateMessage("951321325342", text, res)
+    var update = messageControl.updateMessage('951321325342', text, res)
     update.catch(function (result) {
       expect(result).to.be.equal('not modified')
       done()
@@ -179,7 +179,7 @@ describe('Field test for messageControl', function () {
 
   it('Testing removeMessage not exist', function (done) {
     var res = mockHttp.createResponse()
-    var remove = messageControl.removeMessage("951321325342", res)
+    var remove = messageControl.removeMessage('951321325342', res)
     remove.catch(function (result) {
       expect(result).to.be.equal('not deleted')
       done()
@@ -196,8 +196,18 @@ describe('Field test for messageControl', function () {
     })
   })
 
+  it('Testing setReceivedMessage true', function (done) {
+    var sender = 'f.vitolo@studenti.unisa.it'
+    var receiver = 'm.popovic@studenti.unisa.it'
+    var set = messageControl.refreshMessageCache(receiver, sender, true)
+    set.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
   it('Testing getReceivedMessage', function (done) {
-    var sender = 'd.devito@studenti.unisa.it'
+    var sender = 'm.popovic@studenti.unisa.it'
     var get = messageControl.getAllCache(sender)
     get.then(function (result) {
       expect(result).to.not.be.null

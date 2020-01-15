@@ -18,7 +18,7 @@ describe('Field test for documentControl', function () {
       done()
     })
   })
-  
+
   it('Testing insertCV', function (done) {
     var check = documentControl.cvHandler('d.devito@studenti.unisa.it')
     check.then(function (result) {
@@ -48,11 +48,11 @@ describe('Field test for documentControl', function () {
   })
 
   it('Testing viewIDCard not exist', function (done) {
-      var check = documentControl.viewID('l.deamicis@studenti.unisa.it')
-      check.then(function (result) {
-        expect(result).to.not.be.null
-        done()
-      })
+    var check = documentControl.viewID('l.deamicis@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
   })
 
   it('Testing viewCV', function (done) {
@@ -68,10 +68,10 @@ describe('Field test for documentControl', function () {
   })
 
   it('Testing viewCV not exist', function (done) {
-      var check = documentControl.viewCV('l.deamicis@studenti.unisa.it')
-      check.then(function (result) {
-        expect(result).to.not.be.null
-        done()
+    var check = documentControl.viewCV('l.deamicis@studenti.unisa.it')
+    check.then(function (result) {
+      expect(result).to.not.be.null
+      done()
     })
   })
 

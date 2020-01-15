@@ -95,6 +95,16 @@ describe('Field test for profileControl', function () {
     })
   }).timeout(4000)
 
+  it('testing method academicTutorControl not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var req = { body: { inputNameAc: '', inputSurnameAc: '', inputDepartmentT: 'Lettere' }, session: { utente: { utente: { E_mail: 's.riss@unisa.it' } } } }
+    var updateA = academicTutorControl.update(req, res)
+    updateA.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  }).timeout(4000)
+
   it('testing method academicTutorControl - TC_PM_1.2.13', function (done) {
     var res = mockHttp.createResponse()
     var req = { body: { inputOldPassword: 'A', inputPassword: '', inputConfirmPassword: '' } }

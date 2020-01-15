@@ -1,7 +1,7 @@
 var hash = require('./hash.js')
 var adminModel = require('../models/administrator.js')
 /**
- * This method updates the administrator's password 
+ * This method updates the administrator's password
  * @param {Object} req - The HTTP request
  * @param {Object} res - The HTTP response
  * @returns {Boolean}  - It returns true if the update was successfull, else false

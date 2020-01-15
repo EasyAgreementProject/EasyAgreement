@@ -434,7 +434,7 @@ class Student {
         if (err) reject(err)
         var dbo = db.db(dbName)
 
-        dbo.collection('Student').find({}).sort({Name : 1}).toArray(function (err, result) {
+        dbo.collection('Student').find({}).sort({ Name: 1 }).toArray(function (err, result) {
           if (err) throw err
           resolve(result)
           db.close()

@@ -52,7 +52,7 @@ exports.getAllRequests = function (tutor) {
     var getRequestsPr = Request.getAllRequests(tutor)
     getRequestsPr.then(function (result) {
       var requests = []
-      result.forEach(x => {        
+      result.forEach(x => {
         var getDataPr = learningAgreementControl.getData(x.studentID)
         getDataPr.then(function (data) {
           x.nome = data['Header name']

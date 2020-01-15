@@ -19,11 +19,12 @@ class Request {
 
   /**
    * This method sets the Request's Student email
-   * @param {String} studentID 
+   * @param {String} studentID
    */
   setStudentID (studentID) {
     this.studentID = studentID
   }
+
   /**
    * This method gets the Request's Student email
    * @returns {String}
@@ -34,7 +35,7 @@ class Request {
 
   /**
    * This method sets the Request's Academic Tutor email
-   * @param {String} academicTutorID 
+   * @param {String} academicTutorID
    */
   setAcademicTutorID (academicTutorID) {
     this.academicTutorID = academicTutorID
@@ -50,7 +51,7 @@ class Request {
 
   /**
    * This method sets the Request's External Tutor email
-   * @param {String} externalTutorID 
+   * @param {String} externalTutorID
    */
   setExternalTutorID (externalTutorID) {
     this.externalTutorID = externalTutorID
@@ -66,11 +67,12 @@ class Request {
 
   /**
    * This method sets the Learning Agreement associated to the Request
-   * @param {String} learningAgreementID 
+   * @param {String} learningAgreementID
    */
   setLearningAgreementID (learningAgreementID) {
     this.learningAgreementID = learningAgreementID
   }
+
   /**
    * This method gets the Learning Agreement associate to the Request
    * @returns {String}
@@ -87,13 +89,13 @@ class Request {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
-        var requestT =new Request()
+        var requestT = new Request()
         requestT.setAcademicTutorID(request.academicTutorID)
         requestT.setExternalTutorID(request.externalTutorID)
         requestT.setLearningAgreementID(request.learningAgreementID)
         requestT.setStudentID(request.studentID)
         var dbo = db.db(dbName)
-        dbo.collection('Request').insertOne({studentID: requestT.getStudentID(), academicTutorID: requestT.getAcademicTutorID(), externalTutorID:requestT.getExternalTutorID(), learningAgreementID: requestT.getLearningAgreementID()}, function (err) {
+        dbo.collection('Request').insertOne({ studentID: requestT.getStudentID(), academicTutorID: requestT.getAcademicTutorID(), externalTutorID: requestT.getExternalTutorID(), learningAgreementID: requestT.getLearningAgreementID() }, function (err) {
           if (err) throw err
           db.close()
           resolve()
@@ -157,7 +159,7 @@ class Request {
       })
     })
   }
-  
+
   /**
    * This method updates the external tutor of a request
    * @param {String} student - The student's email

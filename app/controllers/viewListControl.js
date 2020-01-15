@@ -19,8 +19,7 @@ exports.retrieveAll = function (type) {
       getH.then(function (result) {
         resolve(result)
       })
-    }
-    else{
+    } else {
       reject('no type exist')
     }
   })

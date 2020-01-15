@@ -95,6 +95,16 @@ describe('Field test for profileControl', function () {
     })
   }).timeout(4000)
 
+  it('testing method externalTutorControl not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var req = { body: { inputNameE: '', inputSurnameE: '', inputOrganization: 'Amazon' }, session: { utente: { utente: { E_mail: 's.rignolo@gmail.com' } } } }
+    var updateE = externalTutorControl.update(req, res)
+    updateE.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  }).timeout(4000)
+
   it('testing method externalTutorControl - TC_PM_1.3.13', function (done) {
     var res = mockHttp.createResponse()
     var req = { body: { inputOldPassword: 'A', inputPassword: '', inputConfirmPassword: '' } }

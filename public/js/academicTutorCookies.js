@@ -21,7 +21,6 @@ function getCookie (cname) {
 }
 
 $(document).ready(function () {
-  var cookie = document.cookie
   var errAward = getCookie('errAward')
   var errNumberCredits = getCookie('errNumberCredits')
   var errMissingFields = getCookie('errMissingFields')

@@ -180,7 +180,7 @@ class AcademicTutor {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) reject(err)
         var dbo = db.db(dbName)
-        dbo.collection('AcademicTutor').find({}).sort({Name : 1}).toArray(function (err, result) {
+        dbo.collection('AcademicTutor').find({}).sort({ Name: 1 }).toArray(function (err, result) {
           if (err) reject(err)
           resolve(result)
           db.close()

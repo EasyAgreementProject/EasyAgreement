@@ -13,14 +13,14 @@ describe('Field test for notificationControl', function () {
     })
   })
 
-  /*it('Testing insertNotification', function (done) {
+  /* it('Testing insertNotification', function (done) {
     var notifica = { associatedID: 'p.penna@unisa.it', text: { title: 'test', text: 'Questo è il testing 1' }, date: { hour: '13', minutes: '20', seconds: '10', day: '24', months: '12', year: '2019' } }
     var save = notificationControl.insertNotification(notifica)
     save.then(function (result) {
       expect(result).to.not.be.null
       done()
     })
-  })*/
+  }) */
 
   it('Testing getAllNotifications', function (done) {
     var res = mockHttp.createResponse()
@@ -46,7 +46,6 @@ describe('Field test for notificationControl', function () {
       done()
     })
   })
-
 
   it('Testing removeNotification', function (done) {
     var res = mockHttp.createResponse()

@@ -2,7 +2,7 @@ var hash = require('./hash.js')
 var ExternalTutorModel = require('../models/externaltutor.js')
 
 /**
- * This method updates the external tutor's informations 
+ * This method updates the external tutor's informations
  * @param {Object} req - The HTTP request
  * @param {Object} res - The HTTP response
  * @returns {Boolean}  - It returns true if the update was successfull, else false
@@ -127,8 +127,8 @@ exports.updatePassword = function (req, res) {
 }
 
 /**
- * This method retrieves the academic tutor informations by email 
- * @param {String} email - external tutor's email to search 
+ * This method retrieves the academic tutor informations by email
+ * @param {String} email - external tutor's email to search
  * @returns {JSON} - It returns the JSON object containing the external tutor's informations
  */
 exports.getByEmail = function (email) {

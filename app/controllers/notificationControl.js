@@ -17,8 +17,7 @@ exports.getAllNotification = function (id, res) {
           delete result[i].compareData
         }
         resolve(result)
-      }
-      else{
+      } else {
         resolve(null)
       }
     })

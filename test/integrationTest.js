@@ -72,18 +72,18 @@ describe('Integration Testing', function () {
   it('Test for /compileLAStudent.html no login', function (done) {
     agent
       .get('/logout')
-      .end(function(err, res){
-        if(err) done(err)
+      .end(function (err, res) {
+        if (err) done(err)
         agent
           .get('/compileLAStudent.html')
           .redirects(0)
           .end(function (err, res) {
             if (err) done(err)
-              expect(res).to.have.cookie('cannotAccess')
-              done()
+            expect(res).to.have.cookie('cannotAccess')
+            done()
           })
       })
-    })
+  })
 
   it('Test for /compileLAStudent.html wrong user', function (done) {
     agent
@@ -102,7 +102,7 @@ describe('Integration Testing', function () {
             done()
           })
       })
-  })  
+  })
 
   it('Test for /saveStudent', function (done) {
     agent
@@ -152,7 +152,7 @@ describe('Integration Testing', function () {
             inputLenguageLevel: 'B2'
           })
           .end(function (err, res) {
-            if (err)  done(err)
+            if (err) done(err)
             expect(res).status(200)
             done()
           })
@@ -205,7 +205,7 @@ describe('Integration Testing', function () {
             inputLenguageLevel: 'B2'
           })
           .end(function (err, res) {
-            if (err)  done(err)
+            if (err) done(err)
             expect(res).to.have.cookie('cannotAccess')
             done()
           })
@@ -261,7 +261,7 @@ describe('Integration Testing', function () {
             inputLenguageLevel: 'B2'
           })
           .end(function (err, res) {
-            if (err)  done(err)
+            if (err) done(err)
             expect(res).to.have.cookie('onlyForStudent')
             done()
           })
@@ -754,26 +754,26 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .post('/compileAcademicTutor')
-              .redirects(0)
-              .send({
-                inputCredits: '3',
-                vote: 'interview',
-                inputRadio1: 'Si',
-                inputRadio2: undefined,
-                inputCredits2: undefined,
-                inputRadio3: undefined,
-                inputCheck2: undefined,
-                inputRadio4: undefined,
-                inputRadio5: undefined
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .post('/compileAcademicTutor')
+          .redirects(0)
+          .send({
+            inputCredits: '3',
+            vote: 'interview',
+            inputRadio1: 'Si',
+            inputRadio2: undefined,
+            inputCredits2: undefined,
+            inputRadio3: undefined,
+            inputCheck2: undefined,
+            inputRadio4: undefined,
+            inputRadio5: undefined
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /compileAcademicTutor wrong user', function (done) {
@@ -784,26 +784,26 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .post('/compileAcademicTutor')
-              .redirects(0)
-              .send({
-                inputCredits: '3',
-                vote: 'interview',
-                inputRadio1: 'Si',
-                inputRadio2: undefined,
-                inputCredits2: undefined,
-                inputRadio3: undefined,
-                inputCheck2: undefined,
-                inputRadio4: undefined,
-                inputRadio5: undefined
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForAcademic')
-                done()
-              })
+        agent
+          .post('/compileAcademicTutor')
+          .redirects(0)
+          .send({
+            inputCredits: '3',
+            vote: 'interview',
+            inputRadio1: 'Si',
+            inputRadio2: undefined,
+            inputCredits2: undefined,
+            inputRadio3: undefined,
+            inputCheck2: undefined,
+            inputRadio4: undefined,
+            inputRadio5: undefined
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForAcademic')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /saveExternalTutor', function (done) {
@@ -845,23 +845,23 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .post('/saveExternalTutor')
-              .redirects(0)
-              .send({
-                inputRadio1: 'No',
-                inputAmount: undefined,
-                inputRadio2: 'No',
-                inputContribution: undefined,
-                inputWeeks: '4',
-                inputRadio3: 'No'
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .post('/saveExternalTutor')
+          .redirects(0)
+          .send({
+            inputRadio1: 'No',
+            inputAmount: undefined,
+            inputRadio2: 'No',
+            inputContribution: undefined,
+            inputWeeks: '4',
+            inputRadio3: 'No'
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /saveExternalTutor wrong user', function (done) {
@@ -872,23 +872,23 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .post('/saveExternalTutor')
-              .redirects(0)
-              .send({
-                inputRadio1: 'No',
-                inputAmount: undefined,
-                inputRadio2: 'No',
-                inputContribution: undefined,
-                inputWeeks: '4',
-                inputRadio3: 'No'
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForExternal')
-                done()
-              })
+        agent
+          .post('/saveExternalTutor')
+          .redirects(0)
+          .send({
+            inputRadio1: 'No',
+            inputAmount: undefined,
+            inputRadio2: 'No',
+            inputContribution: undefined,
+            inputWeeks: '4',
+            inputRadio3: 'No'
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForExternal')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /disapproveExternalTutor', function (done) {
@@ -925,18 +925,18 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .post('/disapproveExternalTutor')
-              .redirects(0)
-              .send({
-                msg: 'Compilazione errata'
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .post('/disapproveExternalTutor')
+          .redirects(0)
+          .send({
+            msg: 'Compilazione errata'
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /disapproveExternalTutor wrong user', function (done) {
@@ -947,18 +947,18 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .post('/disapproveExternalTutor')
-              .redirects(0)
-              .send({
-                msg: 'Compilazione errata'
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForExternal')
-                done()
-              })
+        agent
+          .post('/disapproveExternalTutor')
+          .redirects(0)
+          .send({
+            msg: 'Compilazione errata'
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForExternal')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /compileExternalTutor', function (done) {
@@ -1001,23 +1001,23 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .post('/compileExternalTutor')
-              .redirects(0)
-              .send({
-                inputRadio1: 'No',
-                inputAmount: undefined,
-                inputRadio2: 'No',
-                inputContribution: undefined,
-                inputWeeks: '4',
-                inputRadio3: 'No'
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .post('/compileExternalTutor')
+          .redirects(0)
+          .send({
+            inputRadio1: 'No',
+            inputAmount: undefined,
+            inputRadio2: 'No',
+            inputContribution: undefined,
+            inputWeeks: '4',
+            inputRadio3: 'No'
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /compileExternalTutor wrong user', function (done) {
@@ -1028,23 +1028,23 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .post('/compileExternalTutor')
-              .redirects(0)
-              .send({
-                inputRadio1: 'No',
-                inputAmount: undefined,
-                inputRadio2: 'No',
-                inputContribution: undefined,
-                inputWeeks: '4',
-                inputRadio3: 'No'
-              })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForExternal')
-                done()
-              })
+        agent
+          .post('/compileExternalTutor')
+          .redirects(0)
+          .send({
+            inputRadio1: 'No',
+            inputAmount: undefined,
+            inputRadio2: 'No',
+            inputContribution: undefined,
+            inputWeeks: '4',
+            inputRadio3: 'No'
           })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForExternal')
+            done()
+          })
+      })
   }, this.timeout(10000))
 
   it('Test for /getRequests', function (done) {
@@ -1254,15 +1254,15 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .get('/getAllRequestVersions')
-              .redirects(0)
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .get('/getAllRequestVersions')
+          .redirects(0)
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
           })
+      })
   })
 
   it('Test for /getAllRequestVersions wrong user', function (done) {
@@ -1273,15 +1273,15 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .get('/getAllRequestVersions')
-              .redirects(0)
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForTutor')
-                done()
-              })
+        agent
+          .get('/getAllRequestVersions')
+          .redirects(0)
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForTutor')
+            done()
           })
+      })
   })
 
   it('Test for /getRequestVersions', function (done) {
@@ -1317,16 +1317,16 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .get('/getRequestVersions')
-              .redirects(0)
-              .query({ inputVersion: '1' })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .get('/getRequestVersions')
+          .redirects(0)
+          .query({ inputVersion: '1' })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
           })
+      })
   })
 
   it('Test for /getRequestVersions wrong user', function (done) {
@@ -1337,16 +1337,16 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .get('/getRequestVersions')
-              .redirects(0)
-              .query({ inputVersion: '1' })
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForTutor')
-                done()
-              })
+        agent
+          .get('/getRequestVersions')
+          .redirects(0)
+          .query({ inputVersion: '1' })
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForTutor')
+            done()
           })
+      })
   })
 
   it('Test for /getVersions', function (done) {
@@ -1758,15 +1758,15 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .post('/fileviewIDRequest')
-              .redirects(0)
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .post('/fileviewIDRequest')
+          .redirects(0)
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
           })
+      })
   })
 
   it('Test for /fileviewIDRequest wrong user', function (done) {
@@ -1777,15 +1777,15 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .post('/fileviewIDRequest')
-              .redirects(0)
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForTutor')
-                done()
-              })
+        agent
+          .post('/fileviewIDRequest')
+          .redirects(0)
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForTutor')
+            done()
           })
+      })
   })
 
   it('Test for /fileviewCVRequest', function (done) {
@@ -1820,15 +1820,15 @@ describe('Integration Testing', function () {
       .get('/logout')
       .end(function (err, res) {
         if (err) done(err)
-            agent
-              .post('/fileviewCVRequest')
-              .redirects(0)
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('cannotAccess')
-                done()
-              })
+        agent
+          .post('/fileviewCVRequest')
+          .redirects(0)
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('cannotAccess')
+            done()
           })
+      })
   })
 
   it('Test for /fileviewCVRequest wrong user', function (done) {
@@ -1839,15 +1839,15 @@ describe('Integration Testing', function () {
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
-            agent
-              .post('/fileviewCVRequest')
-              .redirects(0)
-              .end(function (err, res) {
-                if (err) done(err)
-                expect(res).to.have.cookie('onlyForTutor')
-                done()
-              })
+        agent
+          .post('/fileviewCVRequest')
+          .redirects(0)
+          .end(function (err, res) {
+            if (err) done(err)
+            expect(res).to.have.cookie('onlyForTutor')
+            done()
           })
+      })
   })
 
   it('Test for /viewLA.html', function (done) {
@@ -2321,7 +2321,7 @@ describe('Integration Testing', function () {
     agent
       .post('/login')
       .redirects(0)
-      .send({ username: 's.risso@unisa.it' , password: 'RisSimone1' })
+      .send({ username: 's.risso@unisa.it', password: 'RisSimone1' })
       .end(function (err, res) {
         if (err) done(err)
         expect(res).to.have.cookie('logEff')
