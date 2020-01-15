@@ -87,8 +87,13 @@ class Request {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) throw err
+        var requestT =new Request()
+        requestT.setAcademicTutorID(request.academicTutorID)
+        requestT.setExternalTutorID(request.externalTutorID)
+        requestT.setLearningAgreementID(request.learningAgreementID)
+        requestT.setStudentID(request.studentID)
         var dbo = db.db(dbName)
-        dbo.collection('Request').insertOne(request, function (err) {
+        dbo.collection('Request').insertOne({studentID: requestT.getStudentID(), academicTutorID: requestT.getAcademicTutorID(), externalTutorID:requestT.getExternalTutorID(), learningAgreementID: requestT.getLearningAgreementID()}, function (err) {
           if (err) throw err
           db.close()
           resolve()

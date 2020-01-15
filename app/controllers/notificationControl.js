@@ -4,7 +4,7 @@ exports.getAllNotification = function (id, res) {
   return new Promise(function (resolve, reject) {
     var notifications = NotificationModel.retrieveAll(id)
     notifications.then(function (result) {
-      if (result != null) {
+      if (result.length > 0) {
         for (var i = 0; result[i] != null; i++) {
           result[i].compareData = new Date(result[i].date.year, result[i].date.month - 1, result[i].date.day, result[i].date.hour, result[i].date.minutes, result[i].date.seconds)
         }
@@ -16,8 +16,11 @@ exports.getAllNotification = function (id, res) {
         for (i = 0; result[i] != null; i++) {
           delete result[i].compareData
         }
+        resolve(result)
       }
-      resolve(result)
+      else{
+        resolve(null)
+      }
     })
   })
 }

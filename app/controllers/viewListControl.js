@@ -20,5 +20,8 @@ exports.retrieveAll = function (type) {
         resolve(result)
       })
     }
+    else{
+      reject('no type exist')
+    }
   })
 }

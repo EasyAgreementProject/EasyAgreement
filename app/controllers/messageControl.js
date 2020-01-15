@@ -18,6 +18,8 @@ exports.getAllContacts = function (type, res) {
       users = studentModel.RetrieveAll()
     } else if (type == 'externalTutor') {
       users = externalModel.RetrieveAll()
+    } else {
+      reject('not found')
     }
     users.then(function (result) {
       resolve(result)
@@ -104,7 +106,8 @@ exports.updateMessage = function (id, text, res) {
   return new Promise(function (resolve, reject) {
     var update = MessageModel.updateMessage(id, text)
     update.then(function (result) {
-      resolve({ boolean: true })
+      if(result>0)  resolve({ boolean: true })
+      else  reject('not modified')
     })
   })
 }
@@ -119,7 +122,8 @@ exports.removeMessage = function (messageID, res) {
   return new Promise(function (resolve, reject) {
     var remove = MessageModel.removeMessage(messageID)
     remove.then(function (result) {
-      resolve({ boolean: true })
+      if(result > 0)  resolve({ boolean: true })
+      else  reject('not deleted')
     })
   })
 }

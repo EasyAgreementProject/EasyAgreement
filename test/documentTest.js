@@ -18,7 +18,7 @@ describe('Field test for documentControl', function () {
       done()
     })
   })
-
+  
   it('Testing insertCV', function (done) {
     var check = documentControl.cvHandler('d.devito@studenti.unisa.it')
     check.then(function (result) {

@@ -67,4 +67,17 @@ describe('Field test for administratorControl', function () {
       })
     })
   }).timeout(10000)
+
+  it('testing method administratorControl - not found', function (done) {
+    var res = mockHttp.createResponse()
+    var findByEmail = administratorModel.findByEmail('f.intrieri@unisa.it')
+    findByEmail.then(function (result1) {
+      var req = { body: { inputOldPassword: 'andrea97977', inputPassword: 'filip123', inputConfirmPassword: 'filip123' }, session: { utente: { utente: { email: 'f.inieri@unisa.it', password: { salt: result1.getPassword().salt, hash: result1.getPassword().hash } } } } }
+      var updateS = administratorControl.update(req, res)
+      updateS.then(function (result) {
+        expect(result).to.not.be.null
+        done()
+      })
+    })
+  }).timeout(10000)
 })

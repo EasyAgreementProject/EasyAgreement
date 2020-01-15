@@ -4,7 +4,7 @@ var mockHttp = require('node-mocks-http')
 var messageControl = require('../app/controllers/messageControl')
 
 describe('Field test for messageControl', function () {
-  it('Testing saveMessage 1', function (done) {
+  it('Testing saveMessage', function (done) {
     var res = mockHttp.createResponse()
     var message = { senderID: 'd.devito@studenti.unisa.it', recipientID: 'g.musso@unisa.it', text: 'fratmmoo', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } }
     var save = messageControl.saveMessage(message, res)
@@ -60,10 +60,20 @@ describe('Field test for messageControl', function () {
     })
   })
 
+  it('Testing getContacts nothing', function (done) {
+    var res = mockHttp.createResponse()
+    var type = ''
+    var get = messageControl.getAllContacts(type, res)
+    get.catch(function (result) {
+      expect(result).to.be.equal('not found')
+      done()
+    })
+  })
+
   it('Testing searchUser 1.1', function (done) {
     var res = mockHttp.createResponse()
     var type = 'externalTutor'
-    var string = 'Sara'
+    var string = 'Francesco'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -74,7 +84,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 1.2', function (done) {
     var res = mockHttp.createResponse()
     var type = 'academicTutor'
-    var string = 'Simone'
+    var string = 'Francesco'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -85,7 +95,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 1.3', function (done) {
     var res = mockHttp.createResponse()
     var type = 'student'
-    var string = 'Francesco'
+    var string = 'Simone'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -96,7 +106,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.1', function (done) {
     var res = mockHttp.createResponse()
     var type = 'externalTutor'
-    var string = 'Sara Cotto'
+    var string = 'Francesco Califano'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -107,7 +117,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.2', function (done) {
     var res = mockHttp.createResponse()
     var type = 'academicTutor'
-    var string = 'Simone Risso'
+    var string = 'Francesco Califano'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -118,7 +128,7 @@ describe('Field test for messageControl', function () {
   it('Testing searchUser 2.3', function (done) {
     var res = mockHttp.createResponse()
     var type = 'student'
-    var string = 'Francesco Califano'
+    var string = 'Simone Russo'
     var search = messageControl.searchUser(type, string, res)
     search.then(function (result) {
       expect(result).to.not.be.null
@@ -142,6 +152,16 @@ describe('Field test for messageControl', function () {
     })
   })
 
+  it('Testing updateMessage not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var text = 'wewe come stai bro'
+    var update = messageControl.updateMessage("951321325342", text, res)
+    update.catch(function (result) {
+      expect(result).to.be.equal('not modified')
+      done()
+    })
+  })
+
   it('Testing removeMessage', function (done) {
     var res = mockHttp.createResponse()
     var message = { senderID: 'd.devito@studenti.unisa.it', recipientID: 'm.bianco@unisa.it', text: 'fratmmoo', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } }
@@ -154,6 +174,15 @@ describe('Field test for messageControl', function () {
         expect(result).to.not.be.null
         done()
       })
+    })
+  })
+
+  it('Testing removeMessage not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var remove = messageControl.removeMessage("951321325342", res)
+    remove.catch(function (result) {
+      expect(result).to.be.equal('not deleted')
+      done()
     })
   })
 

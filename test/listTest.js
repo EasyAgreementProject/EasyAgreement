@@ -30,6 +30,14 @@ describe('Field test for viewListControl', function () {
     })
   })
 
+  it('Testing retrieveAll nothing', function (done) {
+    var getListH = viewListControl.retrieveAll('')
+    getListH.catch(function (result) {
+      expect(result).to.be.equal('no type exist')
+      done()
+    })
+  })
+
   it('Testing getHost for info', function (done) {
     var getH = tutorControl.getHostOrganization('aman2019')
     getH.then(function (result) {

@@ -124,6 +124,46 @@ describe('Login  unit testing...', function () {
     })
   })
 
+  it('testing method loginControl - student email not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var req = { body: { username: 'g.moscerini@studenti.unisa.it', password: 'ciaociaoooo' } }
+    var login = loginControl.login(req, res)
+    login.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
+  it('testing method loginControl - academic email not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var req = { body: { username: 'l.nebciao@unisa.it', password: 'ciaociaoooo' } }
+    var login = loginControl.login(req, res)
+    login.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
+  it('testing method loginControl - external email not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var req = { body: { username: 'f.costasmeraldo@gmail.com', password: 'deeeeeeee' } }
+    var login = loginControl.login(req, res)
+    login.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
+  it('testing method loginControl - admin email not exist', function (done) {
+    var res = mockHttp.createResponse()
+    var req = { body: { username: 'a.marinoccii@unisa.it', password: 'andreaaaaa' } }
+    var login = loginControl.login(req, res)
+    login.then(function (result) {
+      expect(result).to.not.be.null
+      done()
+    })
+  })
+
   it('testing method loginControl - TC_ARM_1.1.7', function (done) {
     var res = mockHttp.createResponse()
     var req = { body: { username: 'g.mosconi@studenti.unisa.it', password: 'MoscGermano1' } }

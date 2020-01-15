@@ -97,7 +97,7 @@ function getAllNotification () {
     url: 'http://localhost:8080/getAllNotifications',
     data: { email: senderID },
     success: function (notifications) {
-      if (notifications.length > 0) {
+      if (notifications != null) {
         for (var i = 0; notifications[i] != null; i++) {
           appendNotification(notifications[i])
         }

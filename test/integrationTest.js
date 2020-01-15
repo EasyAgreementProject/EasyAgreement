@@ -3055,14 +3055,14 @@ describe('Integration Testing', function () {
         expect(res).to.have.cookie('logEff')
         agent
           .post('/saveMessage')
-          .send({ message: { senderID: 'd.devito@studenti.unisa.it', recipientID: 's.cotto@gmail.com', text: 'sormaaa', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } } })
+          .send({ message: { senderID: 's.cotto@gmail.com', recipientID: 'd.devito@studenti.unisa.it', text: 'sormaaa', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } } })
           .redirects(0)
           .end(function (err, res) {
             if (err) done(err)
             expect(res).to.be.json
             agent
               .post('/removeMessage')
-              .send({ notificationID: res.result })
+              .send({ messageID: res.body })
               .redirects(0)
               .end(function (err, res) {
                 if (err) done(err)
@@ -3103,14 +3103,14 @@ describe('Integration Testing', function () {
         expect(res).to.have.cookie('logEff')
         agent
           .post('/saveMessage')
-          .send({ message: { senderID: 'd.devito@studenti.unisa.it', recipientID: 's.cotto@gmail.com', text: 'sormaaa', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } } })
+          .send({ message: { senderID: 's.cotto@gmail.com', recipientID: 'd.devito@studenti.unisa.it', text: 'sormaaa', date: { hour: '12', minutes: '20', seconds: '10', day: '25', months: '12', year: '2019' } } })
           .redirects(0)
           .end(function (err, res) {
             if (err) done(err)
             expect(res).to.be.json
             agent
               .post('/updateMessage')
-              .send({ notificationID: res.result })
+              .send({ messageID: res.body })
               .redirects(0)
               .end(function (err, res) {
                 if (err) done(err)
