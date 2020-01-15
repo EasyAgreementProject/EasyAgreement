@@ -33,6 +33,7 @@ body {
   margin-bottom: 2rem;
   font-weight: 300;
   font-size: 1.5rem;
+  color: #575962 !important;
 }
 
 .card-signin .card-body {
@@ -141,6 +142,7 @@ body {
   height: 20px;
   z-index: 9;
   cursor: pointer;
+  color: #575962 !important;
 }
 
 .radioButtons li:hover label{
