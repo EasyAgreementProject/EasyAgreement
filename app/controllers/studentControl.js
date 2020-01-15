@@ -1,6 +1,12 @@
 var hash = require('./hash.js')
 var StudentModel = require('../models/student.js')
 
+/**
+ * This method updates the student's informations 
+ * @param {Object} req - The HTTP request
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean}  - It returns true if the update was successfull, else false
+ */
 exports.update = function (req, res) {
   return new Promise(function (resolve, reject) {
     var name = req.body.inputNameS
@@ -82,6 +88,12 @@ exports.update = function (req, res) {
   })
 }
 
+/**
+ * This method updates the student's password
+ * @param {Object} req - The HTTP request
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean}  - It returns true if the update was successfull, else false
+  */
 exports.updatePassword = function (req, res) {
   return new Promise(function (resolve, reject) {
     var oldPassword = req.body.inputOldPassword

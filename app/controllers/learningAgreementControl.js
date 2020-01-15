@@ -5,8 +5,13 @@ var requestControl = require('./requestControl.js')
 var learningAgreement = new LA()
 var io = require('socket.io-client')
 var socket = io.connect('http://localhost:3000')
-// const Readable = require('stream').Readable;
 
+/**
+ * This method sends the student's Learning Agreement compilation and generates a new request
+ * @param {Array} input - The inputs of the form
+ * @param {Object} res - The HTTP response
+ * @returns {ReadStream} download - If the compilation was successful returns the downloadable pdf to send in the response, else returns null
+ */
 exports.sendLaStudent = function (input, res) {
   const random = parseInt(Math.random() * 10000)
   const sourcePDF = 'pdf/Template_LA.pdf'
@@ -137,6 +142,12 @@ exports.sendLaStudent = function (input, res) {
   })
 }
 
+
+/**
+ * This method saves the student's Learning Agreement compilation
+ * @param {Array} input - The inputs of the form
+ * @param {Object} res - The HTTP response
+ */
 exports.saveLaStudent = function (input, res) {
   var today = new Date()
   var dd = today.getDate()
@@ -248,6 +259,12 @@ exports.saveLaStudent = function (input, res) {
   })
 }
 
+/**
+ * This method sends the academic tutors's Learning Agreement compilation
+ * @param {Array} input - The inputs of the form
+ * @param {Object} res - The HTTP response
+ * @returns {ReadStream} download - If the compilation was successful returns the downloadable pdf to send in the response, else returns null
+ */
 exports.sendLaAcademicTutor = function (input, res) {
   const random = parseInt(Math.random() * 10000)
   const sourcePDF = 'pdf/Template_LA.pdf'
@@ -421,6 +438,11 @@ exports.sendLaAcademicTutor = function (input, res) {
   })
 }
 
+/**
+ * This method saves the academic tutors's Learning Agreement compilation
+ * @param {Array} input - The inputs of the form
+ * @param {Object} res - The HTTP response
+ */
 exports.saveLaAcademicTutor = function (input, res) {
   var today = new Date()
   var dd = today.getDate()
@@ -543,6 +565,13 @@ exports.saveLaAcademicTutor = function (input, res) {
   })
 }
 
+
+/**
+ * This method sends the external tutors's Learning Agreement compilation
+ * @param {Array} input - The inputs of the form
+ * @param {Object} res - The HTTP response
+ * @returns {ReadStream} download - If the compilation was successful returns the downloadable pdf to send in the response, else returns null
+ */
 exports.sendLaExternalTutor = function (input, res) {
   const random = parseInt(Math.random() * 10000)
   const sourcePDF = 'pdf/Template_LA.pdf'
@@ -667,6 +696,11 @@ exports.sendLaExternalTutor = function (input, res) {
   })
 }
 
+/**
+ * This method saves the external tutors's Learning Agreement compilation
+ * @param {Array} input - The inputs of the form
+ * @param {Object} res - The HTTP response
+ */
 exports.saveLaExternalTutor = function (input, res) {
   var today = new Date()
   var dd = today.getDate()
@@ -730,6 +764,11 @@ exports.saveLaExternalTutor = function (input, res) {
   })
 }
 
+/**
+ * This method disapproves the current Learning Agreement compilation by the Academic Tutor
+ * @param {String} student - The student's email
+ * @param {String} msg - The motivation of the disapproval
+ */
 exports.disapproveAcademicTutor = function (student, msg) {
   return new Promise(function (resolve, reject) {
     var email
@@ -753,6 +792,11 @@ exports.disapproveAcademicTutor = function (student, msg) {
   })
 }
 
+/**
+ * This method disapproves the current Learning Agreement compilation by the External Tutor
+ * @param {String} student - The student's email
+ * @param {String} msg - The motivation of the disapproval
+ */
 exports.disapproveExternalTutor = function (student, msg) {
   return new Promise(function (resolve, reject) {
     var email
@@ -777,6 +821,11 @@ exports.disapproveExternalTutor = function (student, msg) {
   })
 }
 
+/**
+ * This method returns the filling of the current Learning Agreement compilation
+ * @param {String} student - The student's email
+ * @returns {JSON} - The JSON containing the compilation's data
+ */
 exports.getData = function (student) {
   return new Promise(function (resolve, reject) {
     var getLearningAgreementPr = LA.getLearningAgreement(student)
@@ -787,6 +836,11 @@ exports.getData = function (student) {
   })
 }
 
+/**
+ * This method returns the current Learning Agreement's state
+ * @param {String} student - The student's email
+ * @returns {String} - The state of the Learning Agreement
+ */
 exports.getStatus = function (student) {
   return new Promise(function (resolve, reject) {
     var getLearningAgreementPr = LA.getLearningAgreement(student)
@@ -797,6 +851,12 @@ exports.getStatus = function (student) {
   })
 }
 
+/**
+ * This method returns the requested Learning Agreement's version 
+ * @param {String} id - The version's number
+ * @param {String} email - The student's email
+ * @returns {ReadStream} The downloadable pdf of the selected version to send in the response
+ */
 exports.getVersion = function (id, email) {
   const random = parseInt(Math.random() * 10000)
   return new Promise(function (resolve, reject) {
@@ -816,6 +876,11 @@ exports.getVersion = function (id, email) {
   })
 }
 
+/**
+ * This method returns all the Learning Agreement's version
+ * @param {String} student - The student's email
+ * @returns {Array} The list of the Learning Agreement's version of the requested student
+ */
 exports.getAllVersions = function (student) {
   return new Promise(function (resolve, reject) {
     var getAllVersionsPr = LA.getOldVersions(student)
@@ -836,6 +901,12 @@ exports.getAllVersions = function (student) {
   })
 }
 
+/**
+ * This method validates the inputs of the student's Learning Agreement compilation
+ * @param {JSON} data - The JSON containing the compilation's input
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean} - It returns true if the validation passed, else false
+ */
 exports.validateDataStudent = function (data, res) {
   return new Promise(function (resolve, reject) {
     if (!(/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(data['Header name']))) {
@@ -972,7 +1043,7 @@ exports.validateDataStudent = function (data, res) {
       if (res) res.cookie('errLenguage', '1')
       resolve(false)
     }
-    if (!data.A1 && !data.A2 && !data.B1 && !data.B2 && !data.C1 && !data.A2) {
+    if (!data.A1 && !data.A2 && !data.B1 && !data.B2 && !data.C1 && !data.C2) {
       if (res) res.cookie('errLenguage', '1')
       resolve(false)
     }
@@ -989,6 +1060,13 @@ exports.validateDataStudent = function (data, res) {
   })
 }
 
+
+/**
+ * This method validates the inputs of the academic tutor's Learning Agreement compilation
+ * @param {JSON} data - The JSON containing the compilation's input
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean} - It returns true if the validation passed, else false
+ */
 exports.validateDataAcademicTutor = function (data, res) {
   return new Promise(function (resolve, reject) {
 
@@ -1031,6 +1109,12 @@ exports.validateDataAcademicTutor = function (data, res) {
   })
 }
 
+/**
+ * This method validates the inputs of the external tutor's Learning Agreement compilation
+ * @param {JSON} data - The JSON containing the compilation's input
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean} - It returns true if the validation passed, else false
+ */
 exports.validateDataExternalTutor = function (data, res) {
   return new Promise(function (resolve, reject) {
     if (data['financial support Yes'] == 'X' && !data['if financial support Yes']) {
