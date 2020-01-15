@@ -19,32 +19,57 @@ class Notification {
   }
 
   // getter methods
+  /**
+   * @return associateID
+   */
   getAssociateID () {
     return this.associatedID
   }
 
+  /**
+   * @return text
+   */
   getText () {
     return this.text
   }
-
+  /**
+   * @return date
+   */
   getDate () {
     return this.date
   }
 
   // setter methods
 
+  /**
+   * set text
+   * @param {String} text 
+   */
   setText (text) {
     this.text = text
   }
 
+  /**
+   * set date
+   * @param {String} date 
+   */
   setDate (date) {
     this.date = date
   }
 
+  /**
+   * set associateID
+   * @param {String} associatedID 
+   */
   setAssociatedID (associatedID) {
     this.associatedID = associatedID
   }
 
+  /**
+   * This method inserts a notification 
+   * @param {Object} notification 
+   * @return {Promise} - return a promise
+   */
   static insertNotification (notification) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -59,6 +84,11 @@ class Notification {
     })
   }
 
+  /**
+   * This method removes a notification 
+   * @param {String} notificationID - the id of notification
+   * @return {Promise} - return a promise
+   */
   static removeNotification (notificationID) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -73,6 +103,11 @@ class Notification {
     })
   }
 
+  /**
+   * This method retrieves the notifications
+   * @param {String} associatedID 
+   * @returns {Promise} - return a promise
+   */
   static retrieveAll (associatedID) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -87,6 +122,12 @@ class Notification {
     })
   }
 
+  /**
+ * This method changes the message cache
+ * @param {String} associatedID - The notification's id
+ * @param {Boolean} value - The state cache value
+ * @returns {Object} - The update result
+  */
   static changeStateCache (associatedID, value) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -112,6 +153,11 @@ class Notification {
     })
   }
 
+  /**
+ * This method gets all cache of message
+ * @param {String} associatedID - The notification's id
+ * @returns {Array} - The notification cache
+ */
   static getStateCache (associatedID) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {

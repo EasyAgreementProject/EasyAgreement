@@ -284,6 +284,12 @@ class Student {
     })
   }
 
+   /**
+   * This method updates student's Curriculum Vitae by id
+   * @param {String} email - student's email
+   * @param {String} id - student's id
+   * 
+   */
   static updateStudentCV (email, id) {
     MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
       if (err) throw err
@@ -295,6 +301,12 @@ class Student {
     })
   }
 
+  /**
+   * This method updates student's IDCard by id
+   * @param {String} email - student's email
+   * @param {String} id - student's id
+   * 
+   */
   static updateStudentIDCard (email, id) {
     MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
       if (err) throw err
@@ -306,6 +318,11 @@ class Student {
     })
   }
 
+   /**
+   * This method retrieves CV's student
+   * @param {String} email - student's email
+   * @returns 
+   */
   static retrieveStudentCV (email) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -320,6 +337,10 @@ class Student {
     })
   }
 
+  /**
+   * This method retrieves IDCard's student
+   * @param {String} email - student's email
+   */
   static retrieveStudentIDCard (email) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -443,6 +464,11 @@ class Student {
     })
   }
 
+  /**
+   * This method deletes CurriculumVitae's student
+   * @param {String} email - student's email
+   * @returns {Promise} - return a promise
+   */
   static deleteStudentCV (email) {
     MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
       if (err) throw err
@@ -454,6 +480,11 @@ class Student {
     })
   }
 
+  /**
+   * This method deletes IDCard's student
+   * @param {String} email - student's email
+   * @returns {Promise} - return a promise
+   */
   static deleteStudentID (email) {
     MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
       if (err) throw err

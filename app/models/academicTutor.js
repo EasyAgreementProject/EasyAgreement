@@ -228,6 +228,12 @@ class AcademicTutor {
     })
   }
 
+  /**
+   * This method update the academic tutor's password 
+   * @param {String} password - the new academic tutor's password 
+   * @param {String} emailv - Academic tutor's email
+   * @returns {Object} - It returns the updated academic tutor if result != null, else it returns null
+   */
   static updatePassword (password, emailv) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {

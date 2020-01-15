@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: controllers/administratorControl.js</title>
+    <title>JSDoc: Source: controllers/viewListControl.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: controllers/administratorControl.js</h1>
+    <h1 class="page-title">Source: controllers/viewListControl.js</h1>
 
     
 
@@ -26,58 +26,32 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var hash = require('./hash.js')
-var adminModel = require('../models/administrator.js')
+            <pre class="prettyprint source linenums"><code>var academicTutorModel = require('../models/academicTutor')
+var externalTutorModel = require('../models/externaltutor')
+var hostOrganizationModel = require('../models/hostorganization')
+
 /**
- * This method updates the administrator's password 
- * @param {Object} req - The HTTP request
- * @param {Object} res - The HTTP response
- * @returns {Boolean}  - It returns true if the update was successfull, else false
+ * This method retrieves the user's informations
+ * @param {String} type - the type of the user
+ * @returns {JSON} - It returns an JSON array containing the informations  
  */
-exports.update = function (req, res) {
+exports.retrieveAll = function (type) {
   return new Promise(function (resolve, reject) {
-    var oldPassword = req.body.inputOldPassword
-    var password = req.body.inputPassword
-    var passwordConfirm = req.body.inputConfirmPassword
-    var isRight = true
-
-    if ((oldPassword == null) || (oldPassword.length &lt;= 7) || (!/^[A-Za-z0-9]+$/.test(oldPassword))) {
-      res.cookie('errOldPassword', '1')
-      isRight = false
-    }
-
-    if ((password == null) || (password.length &lt;= 7) || (!/^[A-Za-z0-9]+$/.test(password))) {
-      res.cookie('errPassword', '1')
-      isRight = false
-    }
-
-    if (passwordConfirm != password) {
-      res.cookie('errPasswordConfirm', '1')
-      isRight = false
-    }
-
-    if (!isRight) {
-      resolve(false)
-      return
-    }
-    if (hash.checkPassword(req.session.utente.utente.password.hash, req.session.utente.utente.password.salt, oldPassword)) {
-      var passwordHashed = hash.hashPassword(password)
-      var checkPass = adminModel.updatePassword(passwordHashed, req.session.utente.utente.email)
-      /**
-          * It checks the result of updatePassword function and updates the administrator session
-          * @param  {Object} result - The result of updatePassword function (about Administrator)
-          * @returns {Boolean} - It returns true and generates an "edit password complete" cookie if result != null, else it returns a reject
-          */
-      checkPass.then(function (result) {
-        if (result != null) {
-          req.session.utente.utente = result
-          res.cookie('updatePassEff', '1')
-          resolve(true)
-        } else { resolve() }
+    if (type == 'academicTutor') {
+      var getA = academicTutorModel.RetrieveAll()
+      getA.then(function (result) {
+        resolve(result)
       })
-    } else {
-      res.cookie('errOldPassword', '1')
-      resolve(false)
+    } else if (type == 'externalTutor') {
+      var getE = externalTutorModel.RetrieveAll()
+      getE.then(function (result) {
+        resolve(result)
+      })
+    } else if (type == 'host') {
+      var getH = hostOrganizationModel.retrieveAll()
+      getH.then(function (result) {
+        resolve(result)
+      })
     }
   })
 }

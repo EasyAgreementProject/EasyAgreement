@@ -2,6 +2,12 @@ var hash = require('./hash.js')
 var ExternalTutorModel = require('../models/externaltutor.js')
 var OrganizationModel = require('../models/hostorganization.js')
 
+/**
+ * This method inserts an host organization
+ * @param {Object} req - The HTTP req
+ * @param {Object} res - The HTTP res
+ * @returns {Boolean}  - This method returns true if the insert of host organization was successfull, else false
+ */
 exports.addHostOrg = function (req, res) {
   return new Promise(function (resolve, reject) {
     var erasmusCode = req.body.inputErasmusCode
@@ -81,6 +87,12 @@ exports.addHostOrg = function (req, res) {
   })
 }
 
+/**
+ * This method inserts an external tutor
+ * @param {Object} req - The HTTP req
+ * @param {Object} res - The HTTP res
+ * @returns {Boolean}  - This method returns true if the insert of external tutor was successfull, else false
+ */
 exports.addExtTutor = function (req, res) {
   return new Promise(function (resolve, reject) {
     var name = req.body.inputNameEx
@@ -157,6 +169,12 @@ exports.addExtTutor = function (req, res) {
   })
 }
 
+/**
+ * This method deletes an host organization
+ * @param {String} erasmusCode - The erasmus code of the host organization to delete
+ * @param {Object} res - The HTTP res
+ * @returns {Boolean}  - This method returns true if the delete of host organization was successfull, else false
+ */
 exports.deleteHostOrg = function (erasmuscode, res) {
   return new Promise(function (resolve, reject) {
     var delHost = OrganizationModel.deleteHostOrg(erasmuscode)
@@ -170,6 +188,12 @@ exports.deleteHostOrg = function (erasmuscode, res) {
   })
 }
 
+/**
+ * This method deletes an external tutor
+ * @param {String} email - The external tutor's email
+ * @param {Object} res - The HTTP res
+ * @returns {Boolean}  - This method returns true if the delete of external tutor was successfull, else false
+ */
 exports.deleteExTutor = function (email, res) {
   return new Promise(function (resolve, reject) {
     var delExTutor = ExternalTutorModel.deleteExTutor(email)
@@ -183,6 +207,11 @@ exports.deleteExTutor = function (email, res) {
   })
 }
 
+/**
+ * This method gets an host organization by id
+ * @param {String} id - The id of Host organization
+ * @returns {JSON} - It return an JSON Object containing the informations of the host organization
+ */
 exports.getHostOrganization = function (id) {
   return new Promise(function (resolve, reject) {
     var get = OrganizationModel.retrieveOne(id)
