@@ -1696,7 +1696,7 @@
       "id": "5c17b546-343f-4cc0-bb18-1e02fe18535d",
       "comment": "",
       "command": "click",
-      "target": "id=nome",
+      "target": "id=profile",
       "targets": [
         ["id=nome", "id"],
         ["css=#nome", "css:finder"],
@@ -1890,7 +1890,7 @@
       "id": "c9188453-9253-47c3-9bb7-89dbf4b64716",
       "comment": "",
       "command": "click",
-      "target": "id=nome",
+      "target": "id=profile",
       "targets": [
         ["id=nome", "id"],
         ["css=#nome", "css:finder"],

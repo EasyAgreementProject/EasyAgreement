@@ -181,8 +181,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.css(".nav-item:nth-child(5) p")).click()
     // 9 | click | css=#doc > .input-label-upload |  | 
     await driver.findElement(By.css("#doc > .input-label-upload")).click()
-    // 10 | click | css=#doc > .upload-button |  | 
-    await driver.findElement(By.css("#doc > .upload-button")).click()
+    // 10 | click | css=.text-center > form > .btn |  | 
+    await driver.findElement(By.css(".text-center > form > .btn")).click()
     // 11 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
     // 12 | click | css=tr:nth-child(2) .download-image > img |  | 
@@ -209,16 +209,12 @@ describe('Default Suite', function() {
     await driver.findElement(By.css(".nav-item:nth-child(5) p")).click()
     // 9 | click | css=.text-center > form > .input-label-upload |  | 
     await driver.findElement(By.css(".text-center > form > .input-label-upload")).click()
-    // 10 | click | css=.text-center > form > .upload-button |  | 
-    await driver.findElement(By.css(".text-center > form > .upload-button")).click()
+    // 10 | click | css=#doc > .btn |  | 
+    await driver.findElement(By.css("#doc > .btn")).click()
     // 11 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
     // 12 | click | css=tr:nth-child(1) .download-image > img |  | 
     await driver.findElement(By.css("tr:nth-child(1) .download-image > img")).click()
-    // 13 | click | css=.swal-button--confirm |  | 
-    await driver.findElement(By.css(".swal-button--confirm")).click()
-    // 14 | click | css=.swal-button |  | 
-    await driver.findElement(By.css(".swal-button")).click()
   })
   it('ExternalTutorListTest', async function() {
     // Test name: ExternalTutorListTest
@@ -343,8 +339,8 @@ describe('Default Suite', function() {
     await driver.manage().window().setRect(1280, 540)
     // 7 | runScript | window.scrollTo(0,0) |  | 
     await driver.executeScript("window.scrollTo(0,0)")
-    // 8 | click | id=nome |  | 
-    await driver.findElement(By.id("nome")).click()
+    // 8 | click | id=profile |  | 
+    await driver.findElement(By.id("profile")).click()
     // 9 | runScript | window.scrollTo(0,0) |  | 
     await driver.executeScript("window.scrollTo(0,0)")
   })

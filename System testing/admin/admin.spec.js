@@ -32,8 +32,8 @@ describe('Default Suite', function() {
     await driver.executeScript("window.scrollTo(0,0)")
     // 8 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
-    // 9 | click | id=nome |  | 
-    await driver.findElement(By.id("nome")).click()
+    // 9 | click | id=profile |  | 
+    await driver.findElement(By.id("profile")).click()
     // 10 | runScript | window.scrollTo(0,0) |  | 
     await driver.executeScript("window.scrollTo(0,0)")
     // 11 | click | id=inputOldPassword |  | 
@@ -64,8 +64,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.css(".btn")).click()
     // 24 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
-    // 25 | click | id=nome |  | 
-    await driver.findElement(By.id("nome")).click()
+    // 25 | click | id=profile |  | 
+    await driver.findElement(By.id("profile")).click()
     // 26 | click | id=inputOldPassword |  | 
     await driver.findElement(By.id("inputOldPassword")).click()
     // 27 | type | id=inputOldPassword | Filippo1 | 
@@ -166,30 +166,6 @@ describe('Default Suite', function() {
     // 34 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
   })
-  it('LogoutAdminTest', async function() {
-    // Test name: LogoutAdminTest
-    // Step # | name | target | value | comment
-    // 1 | open | http://localhost:8080/ |  | 
-    await driver.get("http://localhost:8080/")
-    // 2 | setWindowSize | 1280x648 |  | 
-    await driver.manage().window().setRect(1280, 648)
-    // 3 | type | id=inputUsername | f.intrieri@unisa.it | 
-    await driver.findElement(By.id("inputUsername")).sendKeys("f.intrieri@unisa.it")
-    // 4 | click | css=.form-label-group:nth-child(2) > label |  | 
-    await driver.findElement(By.css(".form-label-group:nth-child(2) > label")).click()
-    // 5 | type | id=inputPassword | filip123 | 
-    await driver.findElement(By.id("inputPassword")).sendKeys("filip123")
-    // 6 | click | css=.btn |  | 
-    await driver.findElement(By.css(".btn")).click()
-    // 7 | runScript | window.scrollTo(0,0) |  | 
-    await driver.executeScript("window.scrollTo(0,0)")
-    // 8 | click | css=.swal-button |  | 
-    await driver.findElement(By.css(".swal-button")).click()
-    // 9 | click | linkText=Logout |  | 
-    await driver.findElement(By.linkText("Logout")).click()
-    // 10 | click | css=.swal-button |  | 
-    await driver.findElement(By.css(".swal-button")).click()
-  })
   it('Insert/DeleteHostOrganizationTest', async function() {
     // Test name: Insert/DeleteHostOrganizationTest
     // Step # | name | target | value | comment
@@ -286,6 +262,30 @@ describe('Default Suite', function() {
     // 6 | click | css=.btn |  | 
     await driver.findElement(By.css(".btn")).click()
     // 7 | click | css=.swal-button |  | 
+    await driver.findElement(By.css(".swal-button")).click()
+  })
+  it('LogoutAdminTest', async function() {
+    // Test name: LogoutAdminTest
+    // Step # | name | target | value | comment
+    // 1 | open | http://localhost:8080/ |  | 
+    await driver.get("http://localhost:8080/")
+    // 2 | setWindowSize | 1280x648 |  | 
+    await driver.manage().window().setRect(1280, 648)
+    // 3 | type | id=inputUsername | f.intrieri@unisa.it | 
+    await driver.findElement(By.id("inputUsername")).sendKeys("f.intrieri@unisa.it")
+    // 4 | click | css=.form-label-group:nth-child(2) > label |  | 
+    await driver.findElement(By.css(".form-label-group:nth-child(2) > label")).click()
+    // 5 | type | id=inputPassword | filip123 | 
+    await driver.findElement(By.id("inputPassword")).sendKeys("filip123")
+    // 6 | click | css=.btn |  | 
+    await driver.findElement(By.css(".btn")).click()
+    // 7 | runScript | window.scrollTo(0,0) |  | 
+    await driver.executeScript("window.scrollTo(0,0)")
+    // 8 | click | css=.swal-button |  | 
+    await driver.findElement(By.css(".swal-button")).click()
+    // 9 | click | linkText=Logout |  | 
+    await driver.findElement(By.linkText("Logout")).click()
+    // 10 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
   })
   it('ViewInfoExternalTutorTest', async function() {

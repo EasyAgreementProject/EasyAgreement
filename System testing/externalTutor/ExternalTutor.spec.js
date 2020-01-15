@@ -245,8 +245,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.id("B2")).click()
     // 65 | click | id=send |  | 
     await driver.findElement(By.id("send")).click()
-    // 66 | open | http://localhost:8080 |  | 
-    await driver.get("http://localhost:8080")
+    // 66 | open | http://localhost:8080/logout |  | 
+    await driver.get("http://localhost:8080/logout")
     // 67 | click | css=.form-label-group:nth-child(1) > label |  | 
     await driver.findElement(By.css(".form-label-group:nth-child(1) > label")).click()
     // 68 | type | id=inputUsername | l.nebiolo@unisa.it | 
@@ -279,8 +279,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.id("inputRadio1")).click()
     // 82 | click | id=send |  | 
     await driver.findElement(By.id("send")).click()
-    // 83 | open | http://localhost:8080/ |  | 
-    await driver.get("http://localhost:8080/")
+    // 83 | open | http://localhost:8080/logout |  | 
+    await driver.get("http://localhost:8080/logout")
     // 84 | type | id=inputUsername | s.cotto@gmail.com | 
     await driver.findElement(By.id("inputUsername")).sendKeys("s.cotto@gmail.com")
     // 85 | type | id=inputPassword | sara1234 | 
@@ -321,8 +321,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.css(".swal-button")).click()
     // 7 | setWindowSize | 1280x721 |  | 
     await driver.manage().window().setRect(1280, 721)
-    // 8 | click | id=nome |  | 
-    await driver.findElement(By.id("nome")).click()
+    // 8 | click | id=profile |  | 
+    await driver.findElement(By.id("profile")).click()
     // 9 | click | css=.btn-secondary:nth-child(2) |  | 
     await driver.findElement(By.css(".btn-secondary:nth-child(2)")).click()
     // 10 | click | id=inputOldPassword |  | 
@@ -353,8 +353,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.css(".btn")).click()
     // 23 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
-    // 24 | click | id=nome |  | 
-    await driver.findElement(By.id("nome")).click()
+    // 24 | click | id=profile |  | 
+    await driver.findElement(By.id("profile")).click()
     // 25 | click | css=.btn-secondary:nth-child(2) |  | 
     await driver.findElement(By.css(".btn-secondary:nth-child(2)")).click()
     // 26 | click | id=inputOldPassword |  | 
@@ -516,18 +516,18 @@ describe('Default Suite', function() {
     // Step # | name | target | value | comment
     // 1 | open | http://localhost:8080/ |  | 
     await driver.get("http://localhost:8080/")
-    // 2 | type | id=inputUsername | s.cotto@gmail.com | 
+    // 2 | setWindowSize | 1280x570 |  | 
+    await driver.manage().window().setRect(1280, 570)
+    // 3 | type | id=inputUsername | s.cotto@gmail.com | 
     await driver.findElement(By.id("inputUsername")).sendKeys("s.cotto@gmail.com")
-    // 3 | click | css=.form-label-group:nth-child(2) > label |  | 
+    // 4 | click | css=.form-label-group:nth-child(2) > label |  | 
     await driver.findElement(By.css(".form-label-group:nth-child(2) > label")).click()
-    // 4 | type | id=inputPassword | sara1234 | 
+    // 5 | type | id=inputPassword | sara1234 | 
     await driver.findElement(By.id("inputPassword")).sendKeys("sara1234")
-    // 5 | click | css=.btn |  | 
+    // 6 | click | css=.btn |  | 
     await driver.findElement(By.css(".btn")).click()
-    // 6 | click | css=.swal-button |  | 
+    // 7 | click | css=.swal-button |  | 
     await driver.findElement(By.css(".swal-button")).click()
-    // 7 | click | css=.navbar-toggler-icon > .icon-menu |  | 
-    await driver.findElement(By.css(".navbar-toggler-icon > .icon-menu")).click()
     // 8 | click | id=profile |  | 
     await driver.findElement(By.id("profile")).click()
     // 9 | runScript | window.scrollTo(0,0) |  | 
@@ -696,8 +696,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.id("B1")).click()
     // 67 | click | id=send |  | 
     await driver.findElement(By.id("send")).click()
-    // 68 | open | http://localhost:8080/ |  | 
-    await driver.get("http://localhost:8080/")
+    // 68 | open | http://localhost:8080/logout |  | 
+    await driver.get("http://localhost:8080/logout")
     // 69 | click | css=.form-label-group:nth-child(1) > label |  | 
     await driver.findElement(By.css(".form-label-group:nth-child(1) > label")).click()
     // 70 | type | id=inputUsername | s.risso@unisa.it | 
@@ -730,8 +730,8 @@ describe('Default Suite', function() {
     await driver.findElement(By.id("inputRadio1")).click()
     // 84 | click | id=send |  | 
     await driver.findElement(By.id("send")).click()
-    // 85 | open | http://localhost:8080/ |  | 
-    await driver.get("http://localhost:8080/")
+    // 85 | open | http://localhost:8080/logout |  | 
+    await driver.get("http://localhost:8080/logout")
     // 86 | click | css=.form-label-group:nth-child(1) > label |  | 
     await driver.findElement(By.css(".form-label-group:nth-child(1) > label")).click()
     // 87 | type | id=inputUsername | a.lombardo@libero.it | 

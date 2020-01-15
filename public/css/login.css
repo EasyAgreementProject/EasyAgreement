@@ -15,6 +15,7 @@
     background-image: url('../img/Unisa.jpg');
     min-width: 100%;
     min-height: 100vh;
+    background-repeat: round;
   }
 
   .row {
@@ -45,7 +46,6 @@
     background: scroll center url('../img/EasyAgreement_Logo.png');
     background-size: contain;
     background-repeat: no-repeat;
-    opacity: 0.8;
   }
 
   .card-img-left{
@@ -156,4 +156,15 @@
 
 .errClass:focus{
   border-color: red !important;
+}
+
+@media (max-width: 570px) {
+  .card{
+    margin: 0 !important;
+    width: 100%;
+  }
+
+  .row{
+    align-content: center;
+  }
 }

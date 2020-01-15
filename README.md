@@ -4,7 +4,7 @@
 
 
 # EasyAgreement
-This project is a meant as a platform for simplify the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of Learning Agreement document.
+The "EasyAgreement" project is meant as an online platform aimed at the semplification of the communication process between student, academic tutor and external tutor concerning the compilation and acceptance of a Learning Agreement document.
 
 ## Getting started
 
@@ -15,7 +15,7 @@ deployment for notes on how to deploy the project on a live system.
 ### Prerequisites
 First of all, you will need a machine running Ubuntu.
 
-What things you need to install the software and how to install them
+In order to execute a correct installation of the software you must:
 
 *	Download and install ‘MongoDB’ database software from here: https://bit.ly/2sOVMn8
 
