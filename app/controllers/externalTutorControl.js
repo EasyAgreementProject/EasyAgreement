@@ -1,6 +1,12 @@
 var hash = require('./hash.js')
 var ExternalTutorModel = require('../models/externaltutor.js')
 
+/**
+ * This method updates the external tutor's informations 
+ * @param {Object} req - The HTTP request
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean}  - It returns true if the update was successfull, else false
+ */
 exports.update = function (req, res) {
   return new Promise(function (resolve, reject) {
     var name = req.body.inputNameE
@@ -59,6 +65,12 @@ exports.update = function (req, res) {
   })
 }
 
+/**
+ * This method updates the external tutor's password
+ * @param {Object} req - The HTTP request
+ * @param {Object} res - The HTTP response
+ * @returns {Boolean}  - It returns true if the update was successfull, else false
+  */
 exports.updatePassword = function (req, res) {
   return new Promise(function (resolve, reject) {
     var oldPassword = req.body.inputOldPassword
@@ -114,6 +126,11 @@ exports.updatePassword = function (req, res) {
   })
 }
 
+/**
+ * This method retrieves the academic tutor informations by email 
+ * @param {String} email - external tutor's email to search 
+ * @returns {JSON} - It returns the JSON object containing the external tutor's informations
+ */
 exports.getByEmail = function (email) {
   return new Promise(function (resolve, reject) {
     var get = ExternalTutorModel.findByEmail(email)
