@@ -100,6 +100,12 @@ class externalTutor {
     this.Organization = organization
   }
 
+
+  /**
+   * This method inserts the externalTutor 
+   * @param {externalTutor} externaltutor 
+   * @returns {Promise} - return a promise
+   */
   static insertExternalTutor (externaltutor) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -242,6 +248,11 @@ class externalTutor {
     })
   }
 
+  /**
+   * This method finds an external tutor by email
+   * @param {String} email - external tutor's email
+   * @returns {Boolean} - it returns true if the search was successfull, else false
+   */
   static findByEmailA (email) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
@@ -273,7 +284,12 @@ class externalTutor {
       })
     })
   }
-
+  
+  /**
+   * This method deletes an external tutor by email
+   * @param {email} - External tutor's email
+   * @returns {Boolean} - It returns true if the delete was sucessfull, else false
+   */
   static deleteExTutor (email) {
     return new Promise(function (resolve, reject) {
       MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
