@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/registerControl.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/registerControl.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var hash = require('./hash.js')
+
+var StudentModel = require('../models/student.js')
+var AcademicTutorModel = require('../models/academicTutor.js')
+
+/**
+ * This method registers the user into system
+ * @param {Http} req - The HTTP request
+ * @param {Http} res - The HTTP response
+ */
+exports.signup = function (req, res) {
+  return new Promise(function (resolve, reject) {
+    if (req.body.radioAccount == 'studente') {
+      // Get parameter from form
+      var name = req.body.inputName
+      var surname = req.body.inputSurname
+      var email = req.body.inputEmail
+      var matricola = req.body.inputMatricola
+      var citta = req.body.inputCity
+      var indirizzo = req.body.inputAddress
+      var corso = req.body.inputCourse
+      var password = req.body.inputPassword
+      var passwordConfirm = req.body.inputConfirmPassword
+
+      // Form validation
+      var isRight = true
+
+      if ((name == null) || (name.length &lt;= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(name))) {
+        res.cookie('errStudentName', '1')
+        isRight = false
+      }
+
+      if ((surname == null) || (surname.length &lt;= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(surname))) {
+        res.cookie('errStudentSurname', '1')
+        isRight = false
+      }
+
+      if ((email == null) || (email.length &lt;= 21) || (!/^[a-z]\.[a-z]+[0-9]*@studenti.unisa.it/.test(email))) {
+        res.cookie('errStudentEmail', '1')
+        isRight = false
+      }
+
+      if ((matricola == null) || (matricola.length &lt;= 9) || (!/^[0-9]+$/.test(matricola))) {
+        res.cookie('errStudentMatricola', '1')
+        isRight = false
+      }
+
+      if ((citta == null) || (citta.length &lt;= 2) || (!/^[A-Za-z\s]+$/.test(citta))) {
+        res.cookie('errStudentCity', '1')
+        isRight = false
+      }
+
+      if ((indirizzo == null) || (indirizzo.length &lt;= 6) || (!/^[A-Za-z0-9,\s]+$/.test(indirizzo))) {
+        res.cookie('errStudentAddress', '1')
+        isRight = false
+      }
+
+      if ((corso == null) || (corso.length &lt;= 1) || (!/^[A-Za-z\s]+$/.test(corso))) {
+        res.cookie('errStudentCorso', '1')
+        isRight = false
+      }
+
+      if ((password == null) || (password.length &lt;= 7) || (!/^[A-Za-z0-9]+$/.test(password))) {
+        res.cookie('errPassword', '1')
+        isRight = false
+      }
+
+      if (passwordConfirm != password) {
+        res.cookie('errPasswordConfirm', '1')
+        isRight = false
+      }
+
+      if (!isRight) {
+        resolve(false)
+        return
+      }
+
+      // hashing e salt of password
+      var passwordHashed = hash.hashPassword(password)
+
+      // Create student object
+
+      var studente = new StudentModel()
+      studente.setCity(citta)
+      studente.setDegreeCourse(corso)
+      studente.setEmail(email)
+      studente.setName(name)
+      studente.setSurname(surname)
+      studente.setAddress(indirizzo)
+      studente.setPassword(passwordHashed)
+      studente.setStudentID(matricola)
+
+      // Check if already exist
+      var checkM = StudentModel.findByMatricola(matricola)
+
+      checkM.then(function (result) {
+        if (!result) {
+          res.cookie('errAlreadyReg', '1')
+          resolve(false)
+          return
+        }
+        if (result) {
+          var checkE = StudentModel.findExistByEmail(email)
+
+          checkE.then(function (result) {
+            if (!result) {
+              res.cookie('errAlreadyReg', '1')
+              resolve(false)
+              return
+            }
+            if (result) {
+              // Save student in database
+              StudentModel.insertStudent(studente)
+
+              // redirect
+              res.cookie('regEff', '1')
+              resolve(true)
+            }
+          })
+        }
+      })
+    } else if (req.body.radioAccount == 'tutorAccademico') {
+      // Get parameter from form
+      name = req.body.inputNameT
+      surname = req.body.inputSurnameT
+      email = req.body.inputEmailT
+      var department = req.body.inputDepartmentT
+      password = req.body.inputPassword
+      passwordConfirm = req.body.inputConfirmPassword
+
+      // Form validation
+      isRight = true
+      if ((name == null) || (name.length &lt;= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(name))) {
+        res.cookie('errTutorName', '1')
+        isRight = false
+      }
+
+      if ((surname == null) || (surname.length &lt;= 1) || (!/^[A-za-zà-ù]+( [A-za-zà-ù]+)* *$/.test(surname))) {
+        res.cookie('errTutorSurname', '1')
+        isRight = false
+      }
+
+      if ((email == null) || (email.length &lt;= 12) || (!/^[a-z]\.[a-z]+[0-9]*@unisa.it/.test(email))) {
+        res.cookie('errTutorEmail', '1')
+        isRight = false
+      }
+
+      if ((department == null) || (department.length &lt;= 1) || (!/^[A-Za-z0-9\s]+$/.test(department))) {
+        res.cookie('errTutorDepartment', '1')
+        isRight = false
+      }
+
+      if ((password == null) || (password.length &lt;= 7) || (!/^[A-Za-z0-9]+$/.test(password))) {
+        res.cookie('errPassword', '1')
+        isRight = false
+      }
+
+      if (passwordConfirm != password) {
+        res.cookie('errPasswordConfirm', '1')
+        isRight = false
+      }
+
+      if (!isRight) {
+        resolve(false)
+        return
+      }
+
+      // hashing e salt of password
+      passwordHashed = hash.hashPassword(password)
+
+      // Create academic tutor object
+      var tutorAccademico = new AcademicTutorModel()
+      tutorAccademico.setSurname(surname)
+      tutorAccademico.setName(name)
+      tutorAccademico.setDepartment(department)
+      tutorAccademico.setEmail(email)
+      tutorAccademico.setPassword(passwordHashed)
+
+      // check if exist
+      var check = AcademicTutorModel.findByEmail(email)
+      check.then(function (result) {
+        if (!result) {
+          res.cookie('errAlreadyReg', '1')
+          resolve(false)
+          return
+        }
+        if (result) {
+          // Save academic tutor in database
+          AcademicTutorModel.insertAcademicTutor(tutorAccademico)
+
+          // redirect
+          res.cookie('regEff', '1')
+          resolve(true)
+        }
+      })
+    }
+  })
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-LearningAgreement.html">LearningAgreement</a></li><li><a href="module-Request.html">Request</a></li></ul><h3>Classes</h3><ul><li><a href="AcademicTutor.html">AcademicTutor</a></li><li><a href="Administrator.html">Administrator</a></li><li><a href="externalTutor.html">externalTutor</a></li><li><a href="HostOrganization.html">HostOrganization</a></li><li><a href="Notification.html">Notification</a></li><li><a href="Student.html">Student</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkPassword">checkPassword</a></li><li><a href="global.html#disapproveAcademicTutor">disapproveAcademicTutor</a></li><li><a href="global.html#disapproveExternalTutor">disapproveExternalTutor</a></li><li><a href="global.html#generateRequest">generateRequest</a></li><li><a href="global.html#getAllCache">getAllCache</a></li><li><a href="global.html#getAllContacts">getAllContacts</a></li><li><a href="global.html#getAllMessages">getAllMessages</a></li><li><a href="global.html#getAllRequests">getAllRequests</a></li><li><a href="global.html#getAllVersions">getAllVersions</a></li><li><a href="global.html#getByEmail">getByEmail</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#getRequest">getRequest</a></li><li><a href="global.html#getRequestDetails">getRequestDetails</a></li><li><a href="global.html#getStatus">getStatus</a></li><li><a href="global.html#getVersion">getVersion</a></li><li><a href="global.html#hashPassword">hashPassword</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#refreshMessageCache">refreshMessageCache</a></li><li><a href="global.html#removeMessage">removeMessage</a></li><li><a href="global.html#saveLaAcademicTutor">saveLaAcademicTutor</a></li><li><a href="global.html#saveLaExternalTutor">saveLaExternalTutor</a></li><li><a href="global.html#saveLaStudent">saveLaStudent</a></li><li><a href="global.html#saveMessage">saveMessage</a></li><li><a href="global.html#searchUser">searchUser</a></li><li><a href="global.html#sendLaAcademicTutor">sendLaAcademicTutor</a></li><li><a href="global.html#sendLaExternalTutor">sendLaExternalTutor</a></li><li><a href="global.html#sendLaStudent">sendLaStudent</a></li><li><a href="global.html#signup">signup</a></li><li><a href="global.html#update">update</a></li><li><a href="global.html#updateExternalTutor">updateExternalTutor</a></li><li><a href="global.html#updateMessage">updateMessage</a></li><li><a href="global.html#updatePassword">updatePassword</a></li><li><a href="global.html#validateDataAcademicTutor">validateDataAcademicTutor</a></li><li><a href="global.html#validateDataExternalTutor">validateDataExternalTutor</a></li><li><a href="global.html#validateDataStudent">validateDataStudent</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Jan 15 2020 17:29:56 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
