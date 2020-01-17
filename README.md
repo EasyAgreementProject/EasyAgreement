@@ -44,6 +44,8 @@ A step by step series that tell you how to get a development env running
 
 3. Execute the following command: `git clone https://github.com/EasyAgreementProject/EasyAgreement.git`
 
+4. Execute the following command: `sudo apt install npm`
+
 
 #### MongoDB database creation: ####
 
